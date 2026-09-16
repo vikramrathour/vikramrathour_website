@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Judgment Room: Vikram Rathour</title>
+<meta name="description" content="Five real enterprise dilemmas across data foundation, decision intelligence, AI-led data engineering, trust & compliance, and adoption. Make the call yourself, then see what actually happened.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#D9DCE1; --paper2:#CDD1D7; --card:#F5F6F8;
+  --ink:#13182B; --t2:rgba(19,24,43,.62); --t3:rgba(19,24,43,.38); --line:rgba(19,24,43,.14); --line2:rgba(19,24,43,.22);
+  --blue:#1F6FD0; --blue-dk:#13477E; --blue-pale:rgba(31,111,208,.08); --blue-bdr:rgba(31,111,208,.22);
+  --orange:#F47820; --orange-dk:#D85A12; --orange2:#FF8F3C; --orange-pale:rgba(244,120,32,.1); --orange-bdr:rgba(244,120,32,.5);
+  --shadow-sm:0 2px 8px rgba(19,24,43,.06); --shadow-md:0 10px 32px rgba(19,24,43,.1); --shadow-lg:0 24px 60px rgba(19,24,43,.16);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;min-height:100vh;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;cursor:none}
+
+/* cursor */
+#cur{position:fixed;width:10px;height:10px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s}
+#cring{position:fixed;width:38px;height:38px;border:1.5px solid var(--orange-bdr);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease)}
+#cur.h{width:22px;height:22px;background:var(--blue)}
+#cring.h{width:64px;height:64px}
+@media(pointer:coarse){body{cursor:auto}#cur,#cring{display:none}}
+
+.wrap{max-width:980px;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) clamp(1.2rem,4vw,2rem) 6rem;position:relative;z-index:2}
+
+/* ambient bg texture matching main site */
+.bgtex{position:fixed;inset:0;z-index:0;background-image:radial-gradient(var(--line2) 1.4px,transparent 1.4px);background-size:38px 38px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 85%)}
+
+header{text-align:center;margin-bottom:clamp(2rem,5vh,3.2rem)}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);display:inline-flex;align-items:center;gap:12px;margin-bottom:1.3rem}
+.backbar{position:sticky;top:0;z-index:100;background:rgba(217,220,225,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:14px clamp(1.2rem,4vw,2rem);display:flex;align-items:center;gap:10px}
+.backbar a{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-decoration:none;color:var(--blue);display:inline-flex;align-items:center;gap:6px}
+.backbar a:hover{text-decoration:underline}
+.backbar svg{width:14px;height:14px;stroke:currentColor;stroke-width:2.2;fill:none}
+.backbar span{color:var(--ink);opacity:.55;font-family:'IBM Plex Mono',monospace;font-size:.72rem}
+.eyebrow::before,.eyebrow::after{content:'';width:26px;height:1.5px;background:var(--blue)}
+h1{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(2.1rem,5vw,3.7rem);line-height:1.08;letter-spacing:-.025em;margin-bottom:1.1rem}
+h1 em{font-style:italic;color:var(--orange)}
+.sub{font-size:clamp(.9rem,1.3vw,1.02rem);color:var(--t2);line-height:1.7;max-width:640px;margin:0 auto}
+
+/* practice-area legend */
+.legend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:1.6rem}
+.leg{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:20px;border:1.5px solid var(--line2);color:var(--t3);transition:all .3s}
+.leg.on{border-color:var(--orange);color:var(--orange-dk);background:var(--orange-pale)}
+.leg.done{border-color:var(--blue);color:var(--blue-dk);background:var(--blue-pale)}
+
+.pips{display:flex;justify-content:center;gap:9px;margin:1.8rem 0 0}
+.pip{width:30px;height:4px;border-radius:2px;background:var(--line2);transition:background .3s}
+.pip.done{background:var(--blue)}
+.pip.now{background:var(--orange)}
+
+/* scenario card w/ 3D tilt */
+.tilt-scene{perspective:1300px}
+.scenario{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:clamp(1.6rem,4vw,3rem);margin-top:clamp(1.8rem,4vh,2.8rem);box-shadow:var(--shadow-lg);display:none;transform-style:preserve-3d;position:relative;overflow:hidden}
+.scenario.active{display:block;animation:rise .6s var(--ease) both}
+.scenario::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--orange))}
+@keyframes rise{from{opacity:0;transform:translateY(18px) rotateX(0deg)}to{opacity:1;transform:none}}
+.tglare{position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.6),transparent 55%);transition:opacity .4s var(--ease);z-index:3}
+.scenario.tactive .tglare{opacity:1}
+
+.tag-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:1rem}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.pillar{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--orange);padding:4px 11px;border-radius:20px;font-weight:600}
+
+.setup{font-size:clamp(.95rem,1.35vw,1.08rem);line-height:1.8;color:var(--ink);margin-bottom:clamp(1.4rem,3vh,2rem)}
+.setup strong{font-weight:700}
+
+.prompt{font-family:'IBM Plex Sans',sans-serif;font-style:italic;font-size:clamp(1.05rem,1.6vw,1.3rem);color:var(--blue-dk);margin-bottom:1.3rem}
+
+.options{display:flex;flex-direction:column;gap:11px;margin-bottom:.5rem}
+.opt{display:flex;align-items:flex-start;gap:14px;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:1rem 1.2rem;cursor:pointer;transition:all .25s var(--ease);font-family:inherit;font-size:.9rem;color:var(--ink);line-height:1.55}
+.opt:hover{border-color:var(--blue);background:var(--blue-pale);transform:translateX(4px)}
+.opt .letter{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:.78rem;color:var(--blue);border:1.5px solid var(--blue);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.opt.picked{border-color:var(--orange);background:var(--orange-pale);transform:none}
+.opt.picked .letter{border-color:var(--orange);color:var(--orange-dk);background:#fff}
+.opt:disabled{cursor:default}
+.opt:disabled:not(.picked):hover{border-color:var(--line);background:#fff;transform:none}
+
+.reveal{margin-top:clamp(1.5rem,3vh,2.1rem);padding-top:clamp(1.3rem,3vh,1.9rem);border-top:1px dashed var(--line2);display:none}
+.reveal.show{display:block;animation:rise .5s var(--ease) both}
+.reveal-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:1.3rem}
+.reveal-cell{border-radius:12px;padding:1.1rem 1.2rem}
+.reveal-cell.usual{background:rgba(19,24,43,.04);border:1px solid var(--line)}
+.reveal-cell.mine{background:var(--orange-pale);border:1px solid var(--orange-bdr)}
+.reveal-cell .lbl{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:.5rem;display:block}
+.reveal-cell.mine .lbl{color:var(--orange-dk)}
+.reveal-cell p{font-size:.84rem;line-height:1.6;color:var(--ink)}
+.outcome{display:flex;align-items:flex-start;gap:12px;background:var(--blue-dk);color:#fff;border-radius:12px;padding:1.1rem 1.3rem}
+.outcome .n{font-family:'IBM Plex Sans',sans-serif;font-size:1.5rem;font-weight:300;color:var(--orange2);flex-shrink:0;line-height:1}
+.outcome p{font-size:.84rem;line-height:1.6;color:rgba(255,255,255,.86)}
+.next{margin-top:1.5rem;display:flex;justify-content:flex-end}
+.next button{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;background:var(--blue);color:#fff;border:none;padding:12px 26px;border-radius:8px;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px}
+.next button:hover{background:var(--blue-dk);transform:translateY(-2px)}
+
+.closer{text-align:center;margin-top:clamp(2.5rem,6vh,3.5rem);padding-top:clamp(2rem,5vh,3rem);border-top:1px solid var(--line);display:none}
+.closer.show{display:block;animation:rise .6s var(--ease) both}
+.closer h2{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(1.6rem,3.4vw,2.4rem);margin-bottom:1rem;letter-spacing:-.02em}
+.closer h2 em{font-style:italic;color:var(--orange)}
+.closer p{font-size:.92rem;color:var(--t2);line-height:1.75;max-width:600px;margin:0 auto 1.8rem}
+.links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.lk{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:12px 22px;border-radius:7px;border:1.5px solid var(--blue);color:var(--blue-dk);transition:all .3s var(--ease)}
+.lk:hover{background:var(--blue-pale);transform:translateY(-2px)}
+.lk.pri{background:var(--blue);color:#fff}
+.lk.pri:hover{background:var(--blue-dk)}
+
+a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important}}
+@media(max-width:640px){.reveal-row{grid-template-columns:1fr}.legend{gap:6px}.leg{font-size:.54rem;padding:5px 9px}}
+</style>
+</head>
+<body>
+<div class="backbar"><a href="index.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Vikram Rathour</a><span>/ The Judgment Room</span></div>
+<div id="cur"></div><div id="cring"></div>
+<div class="bgtex"></div>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">The Judgment Room</div>
+    <h1>Five real dilemmas.<br>Make the call <em>yourself.</em></h1>
+    <p class="sub">Across the practice: data foundation, decision intelligence, AI-led engineering, trust &amp; compliance, and adoption. Each one actually happened, sector-scrubbed. No trick options; both choices are things intelligent, well-meaning people did in the room.</p>
+    <div class="legend" id="legend"></div>
+    <div class="pips" id="pips"></div>
+  </header>
+
+  <div class="tilt-scene">
+
+  <!-- 1: DATA FOUNDATION FOR AI -->
+  <div class="scenario" id="sc0" data-idx="0" data-pillar="Data Foundation for AI">
+    <div class="tag-row"><span class="tag">Case 01 · Global Lakehouse Programme, Azure</span><span class="pillar">Data Foundation for AI</span></div>
+    <p class="setup">A multi-million-dollar Lakehouse build has stalled for six months. Every division defines "active customer" differently. That's twelve versions of the same metric. Engineering is fully staffed and idle, waiting for a decision from above.</p>
+    <p class="prompt">What's the highest-leverage next move?</p>
+    <div class="options" data-scenario="0">
+      <button class="opt" data-key="a"><span class="letter">A</span><span>Have the platform team pick the technically cleanest definition and enforce it as the standard. Someone has to own the decision, and engineering understands the data best.</span></button>
+      <button class="opt" data-key="b"><span class="letter">B</span><span>Pause the build. Run cross-division workshops to agree a shared glossary first, then design the foundation to encode that agreement, not a technical preference.</span></button>
+    </div>
+    <div class="reveal" data-scenario="0">
+      <div class="reveal-row">
+        <div class="reveal-cell usual"><span class="lbl">The intelligent answer</span><p>Let engineering decide and move. Fast, defensible, and exactly what stalled the programme for six months in the first place: a technically correct standard nobody outside the platform team had bought into.</p></div>
+        <div class="reveal-cell mine"><span class="lbl">What I actually did</span><p>The foundation wasn't a technology problem. It was an unresolved political one wearing a technical costume. We built the glossary and the ownership model first. The architecture that followed took two weeks, not six months.</p></div>
+      </div>
+      <div class="outcome"><span class="n">1</span><p>Single source of truth, agreed before it was built, which is the only way a data foundation for AI actually survives contact with the business.</p></div>
+      <div class="next"><button class="next-btn">Next dilemma <span>→</span></button></div>
+    </div>
+  </div>
+
+  <!-- 2: DECISION INTELLIGENCE -->
+  <div class="scenario" id="sc1" data-idx="1" data-pillar="Decision Intelligence">
+    <div class="tag-row"><span class="tag">Case 02 · Predictive Analytics, Regional Bank</span><span class="pillar">Decision Intelligence</span></div>
+    <p class="setup">A churn-prediction model is statistically excellent, with an AUC well above the industry benchmark. Branch managers never open the dashboard. Leadership is ready to write off the entire predictive analytics investment as "adoption failure."</p>
+    <p class="prompt">What's the highest-leverage next move?</p>
+    <div class="options" data-scenario="1">
+      <button class="opt" data-key="a"><span class="letter">A</span><span>Run a mandatory training programme so managers understand what the probability scores mean and how to act on them. The gap is knowledge, not the model.</span></button>
+      <button class="opt" data-key="b"><span class="letter">B</span><span>Throw away the score entirely and rebuild the output as a ranked list of named customers with one recommended action each. Answer the only question a manager actually has.</span></button>
+    </div>
+    <div class="reveal" data-scenario="1">
+      <div class="reveal-row">
+        <div class="reveal-cell usual"><span class="lbl">The intelligent answer</span><p>Train the managers. Reasonable enough, assuming the sophistication of the output justifies asking the audience to level up to meet it. It didn't fail because managers were undertrained; it failed because a probability score isn't a decision.</p></div>
+        <div class="reveal-cell mine"><span class="lbl">What I actually did</span><p>Decision intelligence isn't the model. It's the last three feet between the number and the action. We replaced "0.73 probability" with "Call these 12 customers this week; here's why each one." Same model, different question answered.</p></div>
+      </div>
+      <div class="outcome"><span class="n">→</span><p>Went from unopened to cited in every regional business review, because the output finally matched the decision it was meant to inform.</p></div>
+      <div class="next"><button class="next-btn">Next dilemma <span>→</span></button></div>
+    </div>
+  </div>
+
+  <!-- 3: AI-LED DATA ENGINEERING -->
+  <div class="scenario" id="sc2" data-idx="2" data-pillar="AI-Led Data Engineering">
+    <div class="tag-row"><span class="tag">Case 03 · 50TB Legacy Migration, Utility Provider</span><span class="pillar">AI-Led Data Engineering</span></div>
+    <p class="setup">11,748 tables and 1,550 ETL objects need migrating off a legacy platform. An AI code-generation tool can auto-translate roughly 80% of the transformation logic in days rather than months. The engineering lead is nervous about trusting AI-written pipelines at this scale.</p>
+    <p class="prompt">What's the highest-leverage next move?</p>
+    <div class="options" data-scenario="2">
+      <button class="opt" data-key="a"><span class="letter">A</span><span>Use AI generation everywhere it's confident, and manually rewrite the remaining 20% by hand. Trust the tool's own confidence score to decide the split.</span></button>
+      <button class="opt" data-key="b"><span class="letter">B</span><span>Use AI generation for all of it, but insert a mandatory human-reviewed checkpoint at every table that touches financial reconciliation or regulatory reporting, regardless of the tool's confidence.</span></button>
+    </div>
+    <div class="reveal" data-scenario="2">
+      <div class="reveal-row">
+        <div class="reveal-cell usual"><span class="lbl">The intelligent answer</span><p>Trust the confidence score. It sounds rigorous: let the tool tell you where it's shaky. But a model's confidence and a table's business criticality are two completely unrelated variables. High-confidence, high-stakes tables are exactly where a quiet error is most expensive.</p></div>
+        <div class="reveal-cell mine"><span class="lbl">What I actually did</span><p>AI-led engineering still needs a human judgment layer, just relocated. We didn't gate by the AI's confidence; we gated by business consequence. Every financially or regulatorily sensitive table got a human review, full stop.</p></div>
+      </div>
+      <div class="outcome"><span class="n">50TB</span><p>Migrated with zero reconciliation errors in the tables that mattered most, because the review effort was allocated by stakes, not by how sure the model felt about itself.</p></div>
+      <div class="next"><button class="next-btn">Next dilemma <span>→</span></button></div>
+    </div>
+  </div>
+
+  <!-- 4: TRUST & COMPLIANCE -->
+  <div class="scenario" id="sc3" data-idx="3" data-pillar="Trust &amp; Compliance">
+    <div class="tag-row"><span class="tag">Case 04 · Regulatory Programme, Major Bank</span><span class="pillar">Trust &amp; Compliance</span></div>
+    <p class="setup">A regulator is asking pointed questions about systemic risk exposure that twelve internal teams can't answer consistently. Each team's numbers disagree. A consultancy proposes a rapid compliance-reporting layer to generate one unified answer for the regulator within 90 days.</p>
+    <p class="prompt">What's the highest-leverage next move?</p>
+    <div class="options" data-scenario="3">
+      <button class="opt" data-key="a"><span class="letter">A</span><span>Build the reporting layer as proposed. 90 days satisfies the regulator's immediate question and buys time to fix the underlying data properly afterward.</span></button>
+      <button class="opt" data-key="b"><span class="letter">B</span><span>Decline the quick layer. Build a Unified Data Governance CoE that gives each of the twelve teams ownership of a shared model, even though it will take longer to show the regulator anything.</span></button>
+    </div>
+    <div class="reveal" data-scenario="3">
+      <div class="reveal-row">
+        <div class="reveal-cell usual"><span class="lbl">The intelligent answer</span><p>Ship the fast layer. Meets the deadline, looks responsive, and is the standard move under regulatory pressure. It also means the underlying disagreement resurfaces at the next audit, on a shorter fuse and with less trust in reserve.</p></div>
+        <div class="reveal-cell mine"><span class="lbl">What I actually did</span><p>Compliance built on top of disagreement is theatre, not trust. We were transparent with the regulator about the timeline and used it to build real, durable ownership: governance the twelve teams actually held, not a layer painted over the gap.</p></div>
+      </div>
+      <div class="outcome"><span class="n">✓</span><p>Full systemic-risk transparency, restored regulator confidence, and no repeat finding a year later, because the fix addressed the actual disagreement.</p></div>
+      <div class="next"><button class="next-btn">Next dilemma <span>→</span></button></div>
+    </div>
+  </div>
+
+  <!-- 5: ADOPTION -->
+  <div class="scenario" id="sc4" data-idx="4" data-pillar="Adoption &amp; Trust">
+    <div class="tag-row"><span class="tag">Case 05 · GenAI Copilot, Commercial Lending</span><span class="pillar">Adoption &amp; Trust</span></div>
+    <p class="setup">An AI-assisted KYC and credit-review tool is technically excellent. It cuts document review time by 70% in testing. In production, the credit analysts quietly avoid it. Adoption sits near zero after three months.</p>
+    <p class="prompt">What's the highest-leverage next move?</p>
+    <div class="options" data-scenario="4">
+      <button class="opt" data-key="a"><span class="letter">A</span><span>Make the tool mandatory for all new applications and tie usage metrics to performance reviews. Adoption problems usually need a firm push to overcome inertia.</span></button>
+      <button class="opt" data-key="b"><span class="letter">B</span><span>Ask three analysts why they avoid it, off the record. Redesign the experience so the AI surfaces evidence for the analyst to weigh, rather than presenting a decision for them to approve or override.</span></button>
+    </div>
+    <div class="reveal" data-scenario="4">
+      <div class="reveal-row">
+        <div class="reveal-cell usual"><span class="lbl">The intelligent answer</span><p>Mandate it. Direct, fast, and technically justified given the efficiency gain. It also confirmed the analysts' actual fear, that the tool was replacing their judgment, not assisting it, and adoption became compliance theatre, not real use.</p></div>
+        <div class="reveal-cell mine"><span class="lbl">What I actually did</span><p>The resistance wasn't about the technology's accuracy. It was about who got to make the final call. We rebuilt it as a copilot: the AI surfaces evidence, the analyst decides. Same underlying model, completely different relationship to it.</p></div>
+      </div>
+      <div class="outcome"><span class="n">↑↑</span><p>Adoption transformed and processing time still fell sharply, because the analysts' judgment stayed the last word, not an afterthought.</p></div>
+      <div class="next"><button class="next-btn">See what this adds up to <span>→</span></button></div>
+    </div>
+  </div>
+
+  </div><!-- /tilt-scene -->
+
+  <div class="closer" id="closer">
+    <h2>Same intelligence.<br><em>Different judgment.</em></h2>
+    <p>Across data foundations, decision intelligence, AI-led engineering, and compliance, the pattern repeats: the "obvious" answer wasn't wrong. It was intelligent, defensible, and what most capable people would choose under pressure. The outcome changed on a smaller, quieter decision each time: whose actual experience to sit with before acting. That's sensibility. Not a personality trait, a discipline, applied across the whole practice.</p>
+    <div class="links">
+      <a href="mailto:Rathour.vikram@gmail.com" class="lk pri">Bring me a real one</a>
+      <a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener" class="lk">LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* cursor */
+const cur=document.getElementById('cur'),cr=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function loop(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.opt').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('h');cr.classList.add('h')});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('h');cr.classList.remove('h')});
+});
+
+const PILLARS = ['Data Foundation for AI','Decision Intelligence','AI-Led Data Engineering','Trust & Compliance','Adoption & Trust'];
+const total = PILLARS.length;
+
+/* legend */
+const legendEl = document.getElementById('legend');
+PILLARS.forEach((p,i)=>{
+  const s=document.createElement('span'); s.className='leg'+(i===0?' on':''); s.textContent=p; s.dataset.i=i;
+  legendEl.appendChild(s);
+});
+const legs=[...legendEl.children];
+
+/* pips */
+const pipsEl = document.getElementById('pips');
+for(let i=0;i<total;i++){ const d=document.createElement('div'); d.className='pip'+(i===0?' now':''); pipsEl.appendChild(d); }
+const pips = [...pipsEl.children];
+
+document.getElementById('sc0').classList.add('active');
+
+function updateProgress(idx){
+  pips.forEach((p,i)=>{p.classList.remove('now','done'); if(i<idx) p.classList.add('done'); else if(i===idx) p.classList.add('now');});
+  legs.forEach((l,i)=>{l.classList.remove('on','done'); if(i<idx) l.classList.add('done'); else if(i===idx) l.classList.add('on');});
+}
+
+document.querySelectorAll('.options').forEach(group=>{
+  const idx = +group.dataset.scenario;
+  group.querySelectorAll('.opt').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      group.querySelectorAll('.opt').forEach(b=>{b.disabled=true; if(b!==btn) b.style.opacity=.55;});
+      btn.classList.add('picked');
+      const reveal = document.querySelector(`.reveal[data-scenario="${idx}"]`);
+      reveal.classList.add('show');
+      reveal.scrollIntoView({behavior:'smooth', block:'nearest'});
+    });
+  });
+});
+
+document.querySelectorAll('.next-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const current = btn.closest('.scenario');
+    const idx = +current.dataset.idx;
+    current.classList.remove('active');
+    if(idx+1 < total){
+      const nextEl = document.getElementById('sc'+(idx+1));
+      nextEl.classList.add('active');
+      updateProgress(idx+1);
+      nextEl.scrollIntoView({behavior:'smooth', block:'start'});
+    } else {
+      updateProgress(total);
+      const closer = document.getElementById('closer');
+      closer.classList.add('show');
+      closer.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
+});
+
+/* 3D tilt on active scenario card: restrained, editorial (matches "Work" section character) */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(window.matchMedia('(pointer: coarse)').matches) return;
+  const MAX = 4; // gentle: this is a reading/decision surface, not a showcase card
+  document.querySelectorAll('.scenario').forEach(card=>{
+    const g=document.createElement('div'); g.className='tglare'; card.appendChild(g);
+    let raf=null;
+    card.addEventListener('mousemove',e=>{
+      if(!card.classList.contains('active')) return;
+      const r=card.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+      const rx=(py-.5)*-2*MAX, ry=(px-.5)*2*MAX;
+      if(raf)cancelAnimationFrame(raf);
+      raf=requestAnimationFrame(()=>{
+        card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`;
+        g.style.setProperty('--gx',(px*100)+'%'); g.style.setProperty('--gy',(py*100)+'%');
+      });
+    });
+    card.addEventListener('mouseenter',()=>card.classList.add('tactive'));
+    card.addEventListener('mouseleave',()=>{card.classList.remove('tactive');card.style.transform='';});
+  });
+})();
+</script>
+</body>
+</html>

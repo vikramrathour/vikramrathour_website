@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vikram Rathour: The Wisdom Loop</title>
+<meta name="description" content="Data becomes information, knowledge, and wisdom, then returns as new data. An interactive visualization of the judgment loop behind every decision, by Vikram Rathour.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mist:#F7F9F7;
+  --card:#FFFFFF;
+  --ink:#25332E;
+  --t2:rgba(37,51,46,.62);
+  --t3:rgba(37,51,46,.4);
+  --t2solid:#4A5D57;
+  --line:rgba(37,51,46,.1);
+  --n1:#CCE3DE;
+  --n2:#A4C3B2;
+  --n3:#7FA491;
+  --n4:#354F52;
+  --n5:#52706B;
+  --n6:#6B9080;
+  --ring:rgba(107,144,128,.28);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--mist);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+.backlink{position:fixed;top:22px;left:22px;z-index:50;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;letter-spacing:.05em;text-decoration:none;color:var(--ink);display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);padding:9px 15px;border-radius:6px;transition:all .3s var(--ease);box-shadow:0 2px 8px rgba(37,51,46,.06)}
+.backlink:hover{border-color:var(--n6);background:var(--n1)}
+.backlink svg{width:13px;height:13px;stroke:currentColor;stroke-width:2;fill:none}
+
+.wrap{max-width:1000px;margin:0 auto;padding:clamp(5.5rem,10vh,7rem) clamp(1.2rem,4vw,2rem) 4rem;text-align:center}
+
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--n5);display:inline-flex;align-items:center;gap:12px;margin-bottom:1.4rem}
+.eyebrow::before,.eyebrow::after{content:'';width:26px;height:1.5px;background:var(--n5)}
+
+h1{font-size:clamp(2rem,4.6vw,3.3rem);font-weight:300;line-height:1.12;letter-spacing:-.025em;margin-bottom:1.1rem}
+h1 em{font-style:italic;color:var(--n4);font-weight:400}
+
+.sub{font-size:clamp(.9rem,1.25vw,1.02rem);color:var(--t2);line-height:1.75;max-width:620px;margin:0 auto clamp(1.6rem,3vh,2.2rem)}
+
+.legend{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin-bottom:clamp(1.8rem,3.8vh,2.8rem);font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.03em;color:var(--t2)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend .sw{width:13px;height:13px;border-radius:4px;display:inline-block}
+.legend .sw.store{background:var(--n2)}
+.legend .sw.compute{background:#fff;border:1.5px solid var(--n4)}
+
+/* THE LOOP */
+.loop-wrap{position:relative;width:100%;max-width:920px;margin:0 auto;aspect-ratio:1200/700}
+.loop-svg{width:100%;height:100%;overflow:visible}
+
+.ring{fill:none;stroke:var(--ring);stroke-width:1.5;stroke-dasharray:2 8;stroke-linecap:round}
+
+.node{transition:transform .4s var(--ease)}
+.node-circle{filter:drop-shadow(0 3px 10px rgba(37,51,46,.12))}
+.node-label{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;fill:var(--ink)}
+.node-desc{font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;fill:var(--t2solid)}
+
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.n0{animation:breathe 7s ease-in-out infinite}
+.n1{animation:breathe 7s ease-in-out infinite .5s}
+.n2{animation:breathe 7s ease-in-out infinite 1s}
+.n3{animation:breathe 7s ease-in-out infinite 1.5s}
+.n4{animation:breathe 7s ease-in-out infinite 2s}
+.n5{animation:breathe 7s ease-in-out infinite 2.5s}
+
+/* the comet: a small group rotated continuously around the ring center */
+.mover-orbit{transform-origin:350px 350px;animation:spin 36s linear infinite}
+.mover-orbit.t2{animation-delay:-1.4s}
+.mover-orbit.t3{animation-delay:-2.8s}
+.mover-orbit.t4{animation-delay:-4.2s}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.comet{fill:var(--n4)}
+
+.core-circle{fill:var(--card);stroke:var(--n5);stroke-width:1.5}
+.core-divider{stroke:var(--n5);stroke-width:1}
+.core-label{font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;letter-spacing:.02em}
+.core-sub{font-family:'IBM Plex Sans',sans-serif;font-size:11px;fill:var(--t2solid)}
+
+.carry{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;letter-spacing:.04em;fill:var(--n4);text-anchor:middle}
+.carry-bg{fill:#fff;stroke:var(--n2);stroke-width:1}
+.flow-label{transition:opacity .5s ease}
+
+.center-label{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;fill:var(--t2solid)}
+
+.gate{fill:var(--mist);stroke:var(--n4);stroke-width:2}
+.gate-tag{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;fill:var(--n4)}
+
+.closer{margin-top:clamp(2.5rem,5.5vh,3.8rem);max-width:520px;margin-left:auto;margin-right:auto}
+.closer p{font-size:.94rem;color:var(--t2);line-height:1.75;font-style:italic}
+
+.footer{margin-top:clamp(2.5rem,5.5vh,3.8rem);padding-top:clamp(1.4rem,3vh,2rem);border-top:1px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:10px}
+.footer a{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;color:var(--n4);text-decoration:none;background:var(--n1);padding:11px 22px;border-radius:7px;transition:all .3s var(--ease)}
+.footer a:hover{background:var(--n2)}
+.footer span{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--t3);letter-spacing:.04em}
+
+@media(prefers-reduced-motion:reduce){
+  .n0,.n1,.n2,.n3,.n4,.n5,.mover-orbit{animation:none!important}
+  .flow-label{transition:none!important}
+}
+@media(max-width:640px){
+  .node-label{font-size:12px}
+  .node-desc{display:none}
+}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="backlink"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Vikram Rathour</a>
+
+<div class="wrap">
+  <div class="eyebrow">An interactive idea</div>
+  <h1>Data becomes wisdom.<br>Wisdom returns as <em>data</em>.</h1>
+  <p class="sub">Six quiet stages turn raw signal into a decision, and every decision becomes the next signal. This is not a separate metaphor. It is the architecture I build, drawn as the cycle it actually runs.</p>
+
+  <div class="legend">
+    <span><span class="sw store"></span>Nodes are stores. What persists.</span>
+    <span><span class="sw compute"></span>Labels on the path are compute. What happens in between.</span>
+  </div>
+
+  <div class="loop-wrap">
+    <svg class="loop-svg" viewBox="-250 0 1200 700" role="img" aria-label="A six-stage loop showing data becoming information, knowledge, wisdom, inference, and decision, which then feeds back into new data">
+
+      <circle class="ring" cx="350" cy="350" r="260"/>
+
+      <!-- comet trail: four staggered dots orbiting the ring -->
+      <g class="mover-orbit"><circle class="comet" cx="350" cy="90" r="6" opacity="1"/></g>
+      <g class="mover-orbit t2"><circle class="comet" cx="350" cy="90" r="5" opacity=".55"/></g>
+      <g class="mover-orbit t3"><circle class="comet" cx="350" cy="90" r="4" opacity=".3"/></g>
+      <g class="mover-orbit t4"><circle class="comet" cx="350" cy="90" r="3" opacity=".15"/></g>
+
+      <circle class="core-circle" cx="350" cy="350" r="85"/>
+      <line class="core-divider" x1="265" y1="350" x2="435" y2="350"/>
+      <text class="core-label" x="350" y="328" text-anchor="middle" fill="var(--n5)">Frontier</text>
+      <text class="core-sub" x="350" y="344" text-anchor="middle">model</text>
+      <text class="core-label" x="350" y="372" text-anchor="middle" fill="var(--n4)">Vertical</text>
+      <text class="core-sub" x="350" y="388" text-anchor="middle">models</text>
+
+      <!-- GATE: everything entering Data, new or looped back, passes here -->
+      <circle class="gate" cx="261" cy="106" r="9"/>
+      <text class="gate-tag" x="261" y="128" text-anchor="middle">ENTRY GATE</text>
+
+      <!-- GATE: the routing decision, which model reasons on this -->
+      <circle class="gate" cx="183" cy="549" r="9"/>
+      <text class="gate-tag" x="183" y="571" text-anchor="middle">ROUTING GATE</text>
+
+      <!-- single flow label, moved and re-labelled by JS to show what each leg carries -->
+      <g class="flow-label" id="flowLabel">
+        <rect class="carry-bg" id="flowBg" x="416" y="78" width="167" height="24" rx="5"/>
+        <text class="carry" id="flowText" x="500" y="94">ETL, CDC &amp; streaming</text>
+      </g>
+
+      <!-- DATA (top) -->
+      <g class="node n0">
+        <circle class="node-circle" cx="350" cy="90" r="34" fill="var(--n1)"/>
+        <text class="node-label" x="350" y="45" text-anchor="middle">Data</text>
+        <text class="node-desc" x="350" y="62" text-anchor="middle">Acquisition. Raw signal, no meaning yet.</text>
+      </g>
+
+      <!-- INFORMATION (upper right) -->
+      <g class="node n1">
+        <circle class="node-circle" cx="575" cy="220" r="34" fill="var(--n2)"/>
+        <text class="node-label" x="628" y="205" text-anchor="start">Information</text>
+        <text class="node-desc" x="628" y="222" text-anchor="start">Record store. Data placed in context.</text>
+      </g>
+
+      <!-- KNOWLEDGE (lower right) -->
+      <g class="node n2">
+        <circle class="node-circle" cx="575" cy="480" r="34" fill="var(--n3)"/>
+        <text class="node-label" x="628" y="475" text-anchor="start">Knowledge</text>
+        <text class="node-desc" x="628" y="492" text-anchor="start">Reasoning store. Patterns held.</text>
+      </g>
+
+      <!-- WISDOM (bottom) -->
+      <g class="node n3">
+        <circle class="node-circle" cx="350" cy="610" r="38" fill="var(--n4)"/>
+        <text class="node-label" x="350" y="668" text-anchor="middle" fill="var(--n4)">Wisdom</text>
+        <text class="node-desc" x="350" y="685" text-anchor="middle">Trust store. Knowing what's safe to act on.</text>
+      </g>
+
+      <!-- INFERENCE (lower left) -->
+      <g class="node n4">
+        <circle class="node-circle" cx="125" cy="480" r="34" fill="var(--n5)"/>
+        <text class="node-label" x="72" y="475" text-anchor="end">Inference</text>
+        <text class="node-desc" x="72" y="492" text-anchor="end">Model compute. Reasoning toward a call.</text>
+      </g>
+
+      <!-- DECISION (upper left) -->
+      <g class="node n5">
+        <circle class="node-circle" cx="125" cy="220" r="34" fill="var(--n6)"/>
+        <text class="node-label" x="72" y="205" text-anchor="end">Decision</text>
+        <text class="node-desc" x="72" y="222" text-anchor="end">Consumption. The conclusion, acted on.</text>
+      </g>
+
+    </svg>
+  </div>
+
+  <div class="closer">
+    <p>Three stores hold what persists: Record Store, what happened. Reasoning Store, why it means what it means. Trust Store, why it can be defended. Nothing in between is a store. It is compute, ETL and lineage tracking, fairness checks and cataloguing, policy gates and reasoning, doing the work of turning one store's contents into the next store's inheritance. The model sits at the centre only because a decision, eventually, has to be made by something.</p>
+  </div>
+
+  <div class="footer">
+    <a href="index.html">Back to the full site</a>
+    <span>Vikram Rathour &nbsp;·&nbsp; Enterprise Data &amp; AI Leadership</span>
+  </div>
+</div>
+
+<script>
+// what each leg of the loop carries, in order: Data -> Info -> Knowledge -> Wisdom -> Inference -> Decision -> (back to Data)
+var segments = [
+  {cx: 500, cy: 90,  w: 167, text: 'ETL, CDC & streaming'},
+  {cx: 650, cy: 350, w: 209, text: 'Profiled & lineage-tracked'},
+  {cx: 500, cy: 610, w: 224, text: 'Fairness-checked, catalogued'},
+  {cx: 200, cy: 610, w: 181, text: 'Policy-gated reasoning'},
+  {cx: 50,  cy: 350, w: 145, text: 'Decision rendered'},
+  {cx: 200, cy: 90,  w: 138, text: 'Logged, fed back'}
+];
+
+var idx = 0;
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function paintSegment(i) {
+  var s = segments[i];
+  var bg = document.getElementById('flowBg');
+  var txt = document.getElementById('flowText');
+  bg.setAttribute('x', s.cx - s.w / 2);
+  bg.setAttribute('width', s.w);
+  bg.setAttribute('y', s.cy - 12);
+  txt.setAttribute('x', s.cx);
+  txt.setAttribute('y', s.cy + 4);
+  txt.textContent = s.text;
+}
+
+function advance() {
+  var group = document.getElementById('flowLabel');
+  group.style.opacity = 0;
+  setTimeout(function () {
+    idx = (idx + 1) % segments.length;
+    paintSegment(idx);
+    group.style.opacity = 1;
+  }, reduceMotion ? 0 : 450);
+}
+
+paintSegment(0);
+if (!reduceMotion) {
+  setInterval(advance, 6000); // 36s full loop / 6 segments
+}
+</script>
+</body>
+</html>
