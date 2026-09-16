@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frontier &amp; Open-Weights Model Architecture: Technical Analysis</title>
+<style>
+:root{
+  --green:#1DBF3E; --green-dk:#17A033; --green-lt:#E8F9ED; --green-pale:#F4FDF6;
+  --navy:#373545; --blue:#2E73EA; --blue-lt:#EAF1FD;
+  --teal:#00B4D8; --cyan:#00CFCF;
+  --ink:#1A1A1A; --body:#333333; --mid:#626262; --faint:#8A8A8A;
+  --line:#E2E2E2; --line-dk:#C1C1C1; --fill:#F7F8F9; --fill2:#F0F2F4;
+  --amber:#E8890C; --red:#D93636;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --sans:Arial,-apple-system,"Segoe UI",Helvetica,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#fff;color:var(--body);font-family:var(--sans);font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1280px;margin:0 auto;padding:0 28px}
+
+h1{font-size:clamp(32px,4.6vw,54px);line-height:1.04;font-weight:700;letter-spacing:-.025em;color:var(--ink)}
+h2{font-size:clamp(23px,2.8vw,32px);line-height:1.14;font-weight:700;letter-spacing:-.018em;color:var(--ink)}
+h3{font-size:16.5px;font-weight:700;color:var(--ink);letter-spacing:-.005em}
+h4{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+p{color:var(--body);max-width:76ch}
+strong{color:var(--ink);font-weight:700}
+code{font-family:var(--mono);font-size:.88em;background:var(--fill2);padding:1px 5px;border-radius:3px;color:var(--navy)}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+.eyebrow.g{color:var(--green-dk)}
+.lede{font-size:17.5px;line-height:1.6;color:var(--mid);max-width:70ch}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* triangle motif */
+.tri{width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:11px solid var(--green);display:inline-block;vertical-align:middle;margin-right:10px}
+
+/* header */
+header{border-bottom:1px solid var(--line);padding:0 0 52px;position:relative}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid var(--line);margin-bottom:56px}
+.logo{display:flex;align-items:center;gap:0}
+.logo .x{background:var(--green);color:#fff;font-weight:700;font-size:15px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:2px}
+.logo .rest{font-weight:700;font-size:15px;color:var(--ink);margin-left:3px;letter-spacing:-.01em}
+.meta-row{display:flex;flex-wrap:wrap;gap:40px;margin-top:42px;padding-top:26px;border-top:1px solid var(--line)}
+.meta-item{display:flex;flex-direction:column;gap:5px}
+.meta-item .v{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav a{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);
+  text-decoration:none;padding:15px 13px;white-space:nowrap;border-bottom:2px solid transparent}
+nav a:hover{color:var(--ink)}
+nav a.on{color:var(--green-dk);border-bottom-color:var(--green)}
+
+section{padding:76px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:56px 1fr;gap:18px;margin-bottom:40px;align-items:start}
+.sec-num{font-family:var(--mono);font-size:11px;color:var(--green-dk);padding-top:9px;letter-spacing:.1em;font-weight:700}
+.sec-head p{margin-top:13px}
+
+.panel{background:#fff;border:1px solid var(--line);border-radius:6px}
+.panel-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--fill)}
+.panel-body{padding:20px}
+
+/* explorer */
+.explorer{display:grid;grid-template-columns:minmax(260px,.85fr) 1.4fr;gap:0}
+@media(max-width:900px){.explorer{grid-template-columns:1fr}}
+.stack{padding:20px;border-right:1px solid var(--line);background:var(--fill)}
+@media(max-width:900px){.stack{border-right:none;border-bottom:1px solid var(--line)}}
+.lyr{width:100%;text-align:left;background:#fff;border:1px solid var(--line);color:var(--mid);
+  border-radius:4px;padding:10px 13px;margin-bottom:5px;cursor:pointer;font-family:var(--mono);font-size:11.5px;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;transition:.12s}
+.lyr:hover{border-color:var(--line-dk);color:var(--ink)}
+.lyr.on{background:var(--green-lt);border-color:var(--green);color:var(--green-dk);font-weight:700}
+.lyr .tag{font-size:9px;letter-spacing:.08em;color:var(--faint);font-weight:400}
+.lyr.on .tag{color:var(--green-dk);opacity:.8}
+.repeat-band{border-left:2px solid var(--green);padding-left:11px;margin:8px 0}
+.detail{padding:24px 22px;min-height:400px}
+.detail h3{margin-bottom:5px;font-size:18px}
+.detail .role{font-family:var(--mono);font-size:10.5px;color:var(--green-dk);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.detail p{font-size:14px;margin-bottom:13px;max-width:none}
+.formula{font-family:var(--mono);font-size:12px;background:var(--fill);border:1px solid var(--line);
+  border-left:2px solid var(--green);border-radius:0 4px 4px 0;padding:12px 14px;margin:13px 0;color:var(--navy);overflow-x:auto;white-space:pre}
+.ent{border-top:1px solid var(--line);margin-top:18px;padding-top:15px}
+.ent h4{margin-bottom:7px;color:var(--green-dk)}
+.ent p{font-size:13.5px;margin:0}
+
+/* controls */
+.ctrl{margin-bottom:17px}
+.ctrl label{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);
+  font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+.ctrl label .val{color:var(--green-dk);font-size:13px;letter-spacing:0;text-transform:none;font-weight:700}
+input[type=range]{width:100%;-webkit-appearance:none;height:3px;background:var(--line-dk);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;
+  background:var(--green);cursor:pointer;border:2px solid #fff;box-shadow:0 0 0 1px var(--green)}
+input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:var(--green);cursor:pointer;border:2px solid #fff}
+.seg{display:flex;gap:4px;flex-wrap:wrap}
+.seg button{flex:1;min-width:62px;background:#fff;border:1px solid var(--line-dk);color:var(--mid);
+  font-family:var(--mono);font-size:10.5px;padding:8px 6px;border-radius:4px;cursor:pointer;transition:.12s}
+.seg button:hover{color:var(--ink);border-color:var(--mid)}
+.seg button.on{background:var(--green-lt);border-color:var(--green);color:var(--green-dk);font-weight:700}
+
+/* calc */
+.calc{display:grid;grid-template-columns:290px 1fr;gap:0}
+@media(max-width:900px){.calc{grid-template-columns:1fr}}
+.calc-in{padding:20px;border-right:1px solid var(--line);background:var(--fill)}
+@media(max-width:900px){.calc-in{border-right:none;border-bottom:1px solid var(--line)}}
+.calc-out{padding:20px}
+.bars{display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.bar-row .bar-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.bar-row .nm{font-family:var(--mono);font-size:11.5px;color:var(--ink)}
+.bar-row .nm small{color:var(--faint);font-size:10px}
+.bar-row .amt{font-family:var(--mono);font-size:14px;font-weight:700}
+.track{height:24px;background:var(--fill2);border:1px solid var(--line);border-radius:3px;overflow:hidden;position:relative}
+.fill{height:100%;transition:width .32s cubic-bezier(.4,0,.2,1)}
+.fill.a{background:linear-gradient(90deg,#D93636,#E8724A)}
+.fill.b{background:linear-gradient(90deg,#E8890C,#F0B45C)}
+.fill.c{background:linear-gradient(90deg,#1DBF3E,#5FD97A)}
+.fill.d{background:linear-gradient(90deg,#2E73EA,#6D9CF2)}
+.gpu-line{position:absolute;top:0;bottom:0;width:2px;background:var(--navy);z-index:3}
+.gpu-line::after{content:attr(data-l);position:absolute;top:-17px;left:4px;font-family:var(--mono);font-size:9px;color:var(--navy);white-space:nowrap}
+.verdict{border-top:1px solid var(--line);padding-top:15px;font-size:13.5px;color:var(--mid)}
+.verdict b{color:var(--green-dk)}
+
+/* stats */
+.stats3{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.stat{background:#fff;padding:14px 14px}
+.stat .k{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--faint);margin-bottom:5px}
+.stat .v{font-family:var(--mono);font-size:21px;font-weight:700;color:var(--ink);line-height:1.15}
+.stat .v.g{color:var(--green-dk)} .stat .v.a{color:var(--amber)} .stat .v.r{color:var(--red)} .stat .v.b{color:var(--blue)}
+.stat .s{font-size:11px;color:var(--faint);margin-top:4px;line-height:1.4}
+
+/* moe grid */
+.moe-grid{display:flex;flex-wrap:wrap;gap:3px;margin:16px 0}
+.exp{width:10px;height:10px;border-radius:2px;background:var(--fill2);border:1px solid var(--line)}
+.exp.hot{background:var(--green);border-color:var(--green-dk)}
+.exp.shared{background:var(--blue);border-color:var(--blue)}
+
+/* tables */
+.tbl-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--faint);
+  text-align:left;padding:11px 12px;border-bottom:2px solid var(--line-dk);white-space:nowrap;cursor:pointer;user-select:none;background:var(--fill)}
+th:hover{color:var(--green-dk)}
+th.static{cursor:default} th.static:hover{color:var(--faint)}
+td{padding:11px 12px;border-bottom:1px solid var(--line);color:var(--body);white-space:nowrap;vertical-align:top}
+td.wrap-c{white-space:normal;min-width:220px}
+tr:hover td{background:var(--green-pale)}
+td.name{color:var(--ink);font-weight:700;white-space:normal}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+td.key{color:var(--ink);font-weight:700;font-family:var(--mono);white-space:normal;min-width:150px}
+.pill{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;padding:3px 7px;border-radius:3px;border:1px solid;font-weight:700}
+.pill.open{color:var(--green-dk);border-color:#9FE3B0;background:var(--green-lt)}
+.pill.closed{color:var(--blue);border-color:#B4CDF7;background:var(--blue-lt)}
+.pill.warn{color:var(--amber);border-color:#F3D19B;background:#FDF6EA}
+.pill.bad{color:var(--red);border-color:#F0B6B6;background:#FDEDED}
+
+/* callout */
+.callout{border:1px solid var(--line);border-left:3px solid var(--green);background:var(--green-pale);border-radius:0 5px 5px 0;padding:18px 20px;margin:24px 0}
+.callout h4{color:var(--green-dk);margin-bottom:7px}
+.callout p{font-size:13.5px;margin:0}
+.callout.warn{border-left-color:var(--amber);background:#FDF9F2}
+.callout.warn h4{color:var(--amber)}
+.callout.bad{border-left-color:var(--red);background:#FDF4F4}
+.callout.bad h4{color:var(--red)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+@media(max-width:900px){.grid2,.grid3{grid-template-columns:1fr}}
+.mb{margin-bottom:22px} .mt{margin-top:22px}
+
+.factors{list-style:none}
+.factors li{font-size:13px;color:var(--body);padding:7px 0 7px 18px;position:relative}
+.factors li::before{content:"";position:absolute;left:0;top:15px;width:7px;height:1px;background:var(--green)}
+
+.wl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.wl{background:#fff;padding:18px}
+.wl-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px}
+.wl h3{font-size:14px} .wl p{font-size:12.5px;margin-bottom:11px;color:var(--mid)}
+.wl .spec{font-family:var(--mono);font-size:10.5px;color:var(--mid);border-top:1px solid var(--line);padding-top:10px;line-height:1.8}
+.wl .spec b{color:var(--green-dk);font-weight:700}
+
+.router{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:900px){.router{grid-template-columns:1fr}}
+.router-q{padding:22px;border-right:1px solid var(--line);background:var(--fill)}
+@media(max-width:900px){.router-q{border-right:none;border-bottom:1px solid var(--line)}}
+.router-a{padding:22px}
+.q{margin-bottom:20px}
+.q .qt{font-size:13px;color:var(--ink);margin-bottom:8px;font-weight:700}
+.rec{border:1px solid var(--line-dk);border-radius:5px;padding:18px;background:var(--fill);margin-bottom:14px}
+.rec h3{font-size:20px;margin-bottom:7px}
+.rec p{font-size:13px;margin:0}
+.score-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:14px 0 7px;border:1px solid var(--line)}
+.s-open{background:var(--green);transition:width .32s} .s-closed{background:var(--blue);transition:width .32s}
+.score-key{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--faint)}
+
+footer{padding:52px 0 70px;background:var(--fill);border-top:1px solid var(--line)}
+footer .refs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;margin-top:22px}
+footer h4{margin-bottom:10px}
+footer a{color:var(--mid);text-decoration:none;font-size:11.5px;display:block;padding:3px 0;font-family:var(--mono)}
+footer a:hover{color:var(--green-dk)}
+.disclaimer{margin-top:34px;padding-top:20px;border-top:1px solid var(--line-dk);font-size:12.5px;color:var(--faint);max-width:84ch}
+.footbar{height:4px;background:linear-gradient(90deg,var(--green),var(--teal),var(--cyan));margin-top:40px}
+.copyright{padding-top:18px;font-size:11px;color:var(--faint);font-family:var(--mono)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="logo"><span class="x">x</span><span class="rest">oriant</span></div>
+      <span class="eyebrow">Technical Analysis · 27 August 2026</span>
+    </div>
+    <h1><span class="tri" style="border-left-width:16px;border-top-width:10px;border-bottom-width:10px"></span>Frontier and open-weights<br>model architecture</h1>
+    <p class="lede mt">A layer-by-layer look at how modern language models are built and trained, what degrades them, how they are tested, and how enterprise data systems and agents connect to them. Eleven interactive modules. Open and closed models compared on the same axis.</p>
+    <div class="meta-row">
+      <div class="meta-item"><span class="eyebrow">Prepared for</span><span class="v">Vikram Rathour, Data Solutions</span></div>
+      <div class="meta-item"><span class="eyebrow">Models</span><span class="v">18 open · 8 closed</span></div>
+      <div class="meta-item"><span class="eyebrow">Sources</span><span class="v">12 reports · 30+ papers</span></div>
+      <div class="meta-item"><span class="eyebrow">Sections</span><span class="v">10</span></div>
+    </div>
+  </div>
+</header>
+
+<nav><div class="wrap" id="nav">
+  <a href="#anatomy">01 Anatomy</a>
+  <a href="#attention">02 Attention</a>
+  <a href="#sparsity">03 Sparsity</a>
+  <a href="#training">04 Training</a>
+  <a href="#quant">05 Quantization</a>
+  <a href="#evals">06 Evaluation</a>
+  <a href="#matrix">07 Model Matrix</a>
+  <a href="#integration">08 Integration</a>
+  <a href="#agentic">09 Agentic Systems</a>
+  <a href="#decisions">10 Decisions</a>
+</div></nav>
+
+<!-- 01 ANATOMY -->
+<section id="anatomy">
+<div class="wrap">
+  <div class="sec-head"><div class="sec-num">01</div><div>
+    <h2>The stack has barely changed since 2019</h2>
+    <p>Every model here is a decoder-only autoregressive transformer. That includes Claude, GPT, Gemini, Grok, DeepSeek, Qwen, Llama and Gemma. Click any component for its mechanism, its formula, and where the design choices diverge.</p>
+    <p style="margin-top:12px"><strong>This section applies to closed models as much as open ones.</strong> The components below are common to all of them. What is not public for Claude, GPT, Gemini and Grok is the configuration: how many layers, how wide the residual stream is, how many heads, dense or sparse, and how many parameters. Wherever a specific number appears in this report it comes from a published technical report, which is why the named examples are open-weights models.</p>
+  </div></div>
+
+  <div class="panel mb">
+    <div class="panel-head"><div><span class="eyebrow g">Interactive</span><h3 style="margin-top:3px">Layer explorer</h3></div><span class="eyebrow">Click a component</span></div>
+    <div class="explorer"><div class="stack" id="stack"></div><div class="detail" id="detail"></div></div>
+  </div>
+
+  <div class="callout">
+    <h4>The finding that matters most</h4>
+    <p>Reading several years of technical reports back to back, the core block is unchanged: pre-norm, attention, gated feed-forward, residual. What changed is the efficiency work around it: the KV cache, the sparsity pattern, the numeric precision and the training recipe. <strong>The intelligence gains of the last two years came overwhelmingly from data quality and post-training, not architecture.</strong> Worth establishing before any business case rests on architecture selection being the decisive variable.</p>
+  </div>
+</div>
+</section>
+
+<!-- 02 ATTENTION -->
+<section id="attention">
+<div class="wrap">
+  <div class="sec-head"><div class="sec-num">02</div><div>
+    <h2>Attention: what the heads do, and what the cache costs</h2>
+    <p>Two things happen in the attention sublayer that matter in production. Specific heads perform identifiable, testable functions. And the key-value cache they populate is the largest serving cost at any realistic concurrency.</p>
+    <p style="margin-top:12px">The head taxonomy below is general. It was established on models researchers could open up, including GPT-2, Claude 3 Sonnet and Claude 3.5 Haiku through Anthropic's own interpretability work, and it holds across architectures. The efficiency ladder names open models in its last column because those are the ones that publish their attention configuration. All closed frontier models almost certainly sit somewhere on the same ladder, since full multi-head attention at 1M context would price far above what they charge.</p>
+  </div></div>
+
+  <div class="panel mb">
+    <div class="panel-head"><div><span class="eyebrow g">Interactive</span><h3 style="margin-top:3px">Attention head taxonomy</h3></div><span class="eyebrow">Click a head type</span></div>
+    <div class="explorer"><div class="stack" id="headStack"></div><div class="detail" id="headDetail"></div></div>
+  </div>
+
+  <div class="panel mb">
+    <div class="panel-head"><div><span class="eyebrow g">Interactive</span><h3 style="margin-top:3px">KV cache calculator</h3></div><span class="eyebrow">70B-class · 80 layers · d_head 128</span></div>
+    <div class="calc">
+      <div class="calc-in">
+        <div class="ctrl"><label>Context length <span class="val" id="ctxV">32K</span></label><input type="range" id="ctx" min="0" max="6" step="1" value="3"></div>
+        <div class="ctrl"><label>Concurrent requests <span class="val" id="batV">16</span></label><input type="range" id="bat" min="1" max="128" step="1" value="16"></div>
+        <div class="ctrl"><label>Query heads <span class="val" id="qhV">64</span></label><input type="range" id="qh" min="16" max="128" step="8" value="64"></div>
+        <div class="ctrl"><label style="margin-bottom:8px">Cache precision</label>
+          <div class="seg" id="precSeg"><button data-p="2" class="on">FP16</button><button data-p="1">FP8</button><button data-p="0.5">INT4</button></div></div>
+      </div>
+      <div class="calc-out"><div class="bars" id="bars"></div><div class="verdict" id="verdict"></div></div>
+    </div>
+  </div>
+
+  <div class="panel mb">
+    <div class="panel-head"><h3>The attention efficiency ladder</h3></div>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th class="static">Variant</th><th class="static">Mechanism</th><th class="static">Cache reduction</th><th class="static">Quality cost</th><th class="static">Used by</th></tr></thead>
+      <tbody>
+        <tr><td class="key">MHA</td><td class="wrap-c">Every query head has its own K and V head</td><td class="num">1×</td><td>Baseline</td><td class="wrap-c">GPT-2/3 era, now rare</td></tr>
+        <tr><td class="key">MQA</td><td class="wrap-c">All query heads share a single K/V head</td><td class="num">n_heads×</td><td>Measurable, plus instability</td><td class="wrap-c">Largely superseded</td></tr>
+        <tr><td class="key">GQA</td><td class="wrap-c">Query heads grouped; each group shares one K/V head</td><td class="num">4–8×</td><td>Negligible</td><td class="wrap-c">Qwen3, gpt-oss, Llama, Mistral, Gemma</td></tr>
+        <tr><td class="key">MLA</td><td class="wrap-c">K/V compressed to a low-rank latent, reconstructed on the fly. Needs decoupled RoPE because rotation is position-dependent and compression is not</td><td class="num">~10×</td><td>Reported none</td><td class="wrap-c">DeepSeek V3/V4, Kimi K2</td></tr>
+        <tr><td class="key">Sliding window</td><td class="wrap-c">Each token attends to the previous W tokens; receptive field grows as L×W across layers. Needs attention sinks or the model destabilises when the first token falls out of window</td><td class="num">seq/W×</td><td>Small, task-dependent</td><td class="wrap-c">gpt-oss (1:1 interleave, W=128), Gemma</td></tr>
+        <tr><td class="key">NoPE interleave</td><td class="wrap-c">Layers with no positional encoding at all, alternating with RoPE layers, plus inference-time attention temperature scaling</td><td class="num">n/a</td><td>Length generalisation gain</td><td class="wrap-c">Llama 4 (iRoPE, ~1 in 4 blocks)</td></tr>
+        <tr><td class="key">Linear / hybrid</td><td class="wrap-c">Fixed-size recurrent state that does not grow with sequence length, interleaved with a minority of full-attention layers</td><td class="num">O(1) in length</td><td>Still being established</td><td class="wrap-c">Qwen3-Next (Gated DeltaNet), Kimi K3 (KDA, 3:1)</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="panel mb">
+    <div class="panel-head"><div><span class="eyebrow g">Interactive</span><h3 style="margin-top:3px">Prefill vs decode</h3></div>
+      <div class="seg" id="phaseSeg" style="max-width:250px"><button data-p="prefill" class="on">Prefill</button><button data-p="decode">Decode</button></div></div>
+    <div class="panel-body"><div class="stats3 mb" id="phaseStats"></div><div class="verdict" id="phaseNote" style="border-top:none;padding-top:0"></div></div>
+  </div>
+
+  <div class="callout warn">
+    <h4>Advertised context is not usable context</h4>
+    <p>Llama 4 Scout advertises 10M tokens but was pre-trained and post-trained at 256K. Liu et al. documented the lost-in-the-middle effect: performance is highest when relevant information sits at the beginning or end and degrades significantly in the middle, <strong>even in models explicitly built for long context</strong>. Retrieval heads explain why. Long-context recall depends on a small, specific set of heads rather than being a general property of the model. Anthropic's own long-context retrieval score moving from 18.5% on Opus 4.5 to roughly 76% on 4.6 makes the point: the window did not change, the retrieval behaviour did. Test on your own documents with synthesis across separated passages, not needle-in-a-haystack.</p>
+  </div>
+</div>
+</section>
+
+<!-- 03 SPARSITY -->
+<section id="sparsity">
+<div class="wrap">
+  <div class="sec-head"><div class="sec-num">03</div><div>
+    <h2>Parameter count is a meaningless comparison metric</h2>
+    <p>Mixture-of-experts splits the feed-forward layer into many independent experts and routes each token to a handful. Total parameters set your memory bill. Active parameters set your compute bill and latency. Those numbers have now diverged by up to 32×.</p>
+    <p style="margin-top:12px"><strong>The frontier models are in the selector below, but with no numbers.</strong> Anthropic, OpenAI, Google and xAI do not publish parameter counts, expert counts or routing for their production models. Select one to see what can be inferred and what cannot.</p>
+  </div></div>
+
+  <div class="panel mb">
+    <div class="panel-head"><div><span class="eyebrow g">Interactive</span><h3 style="margin-top:3px">Sparsity visualiser</h3></div><div class="seg" id="moeSeg" style="max-width:none"></div></div>
+    <div class="panel-body">
+      <div class="stats3 mb" id="moeStats"></div>
+      <div><h4 style="margin-bottom:4px">Expert activation for one token</h4>
+        <p style="font-size:12.5px;margin-bottom:0;color:var(--faint)" id="moeCaption">Each square is one expert in one MoE layer. Filled squares compute. Blue is an always-on shared expert.</p>
+        <div class="moe-grid" id="moeGrid"></div></div>
+      <div class="verdict" id="moeNote"></div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel"><div class="panel-head"><h3>Routing design differs meaningfully</h3></div><div class="panel-body">
+      <p style="font-size:13.5px"><strong>Shared experts.</strong> DeepSeek and Kimi keep one expert always active on the theory that general capability should not be routed. Qwen3 dropped shared experts, unlike Qwen2.5-MoE, to force specialisation. When JetBrains scaled a Qwen3-style architecture down for Mellum2 they found a shared expert gave no measurable quality gain and consistently hurt inference performance from the always-on FFN compute. The answer is scale-dependent.</p>
+      <p style="font-size:13.5px;margin-top:11px"><strong>Load balancing.</strong> Routers collapse if left alone. A few experts get slightly better, attract more tokens, improve faster, and the rest stop learning. The classic fix is an auxiliary loss, but it competes with the language modelling objective. DeepSeek-V3 pioneered an auxiliary-loss-free strategy using a learnable per-expert bias adjusted dynamically to equalise load, with no gradient conflict. Qwen3 took the other path with a global-batch balancing loss.</p>
+    </div></div>
+    <div class="panel"><div class="panel-head"><h3>The catch for enterprises</h3></div><div class="panel-body">
+      <p style="font-size:13.5px">All experts must be resident in memory even though only a fraction compute. DeepSeek-V3 at BF16 needs well over a terabyte of weight memory. <strong>You pay the memory of a 671B model and get the compute cost of a 37B model.</strong></p>
+      <p style="font-size:13.5px;margin-top:11px">Excellent at high utilisation on a multi-node cluster. Poor for a single node at low request volume, which describes most enterprise deployments. This is the most common sizing error in on-prem LLM projects.</p>
+      <p style="font-size:13.5px;margin-top:11px">Note the counter-examples: Mistral Medium 3.5 is dense at 128B and currently the only frontier-credible non-MoE model, and Gemma 4 31B is dense and leads small-footprint deployments. For a fixed single-node budget, dense often wins.</p>
+    </div></div>
+  </div>
+</div>
+</section>
+
+<!-- 04 TRAINING -->
+<section id="training">
+<div class="wrap">
+  <div class="sec-head"><div class="sec-num">04</div><div>
+    <h2>The training pipeline, and where capability actually comes from</h2>
+    <p>A model is grown rather than built, and the recipe matters more than the architecture. Click any stage. The post-training stages are where the last two years of capability gains were manufactured.</p>
+  </div></div>
+
+  <div class="panel mb">
+    <div class="panel-head"><div><span class="eyebrow g">Interactive</span><h3 style="margin-top:3px">Training pipeline</h3></div><span class="eyebrow">Click a stage</span></div>
+    <div class="explorer"><div class="stack" id="trainStack"></div><div class="detail" id="trainDetail"></div></div>
+  </div>
+
+  <div class="panel mb">
+    <div class="panel-head"><h3>Preference optimisation methods compared</h3></div>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th class="static">Method</th><th class="static">Mechanism</th><th class="static">Cost</th><th class="static">When to use it</th></tr></thead>
+      <tbody>
+        <tr><td class="key">RLHF / PPO</td><td class="wrap-c">Human comparisons train a reward model; policy optimised against it with PPO, KL-constrained against the SFT model to prevent collapse</td><td>Highest. Reward model plus critic plus rollouts</td><td class="wrap-c">Frontier labs with dedicated RL infrastructure. Rarely correct for an enterprise</td></tr>
+        <tr><td class="key">DPO</td><td class="wrap-c">Closed-form loss directly on preference pairs. No separate reward model, no RL loop</td><td>Low. Looks like supervised training</td><td class="wrap-c"><strong>The default for enterprise preference alignment.</strong> Slightly lower ceiling, vastly simpler</td></tr>
+        <tr><td class="key">GRPO</td><td class="wrap-c">Sample multiple completions per prompt; the group mean reward is the baseline, replacing a learned value network entirely</td><td>Medium. No critic, so much lower memory</td><td class="wrap-c">The method behind the reasoning-model wave. Needs a reward signal</td></tr>
+        <tr><td class="key">RLVR</td><td class="wrap-c">Where correctness is checkable, the verifier <em>is</em> the reward. No reward model, no human labellers</td><td>Low per-sample, high engineering</td><td class="wrap-c"><strong>The one with real differentiation potential for a data practice.</strong> See callout below</td></tr>
+        <tr><td class="key">Rubric / self-critique</td><td class="wrap-c">Extends verifiable rewards to unverifiable tasks via a model-generated rubric score. Kimi K2 combines both in one framework</td><td>Medium</td><td class="wrap-c">Subjective quality dimensions where no verifier exists</td></tr>
+        <tr><td class="key">Distillation / MOPD</td><td class="wrap-c">Train specialised experts then merge. Kimi K3 trained nine task-specific RL models at different reasoning efforts and merged via Multi-Teacher On-Policy Distillation</td><td>High to produce, cheap to serve</td><td class="wrap-c">Compressing a large capable model into a servable one</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="callout">
+    <h4>RLVR is the capability worth building deliberately</h4>
+    <p>Where a task has a checkable answer, you do not need a reward model or human labellers. The verifier is the reward signal. This is why reasoning models improved so fast: it removes the human bottleneck so the loop runs at machine scale. <strong>For data engineering workloads, verification is often mechanically available.</strong> Does the generated SQL execute? Does it return the expected row count? Does the extracted field match the source system? Does the lineage graph resolve? Does the migrated report produce identical numbers to the original? If you can define correctness, you can improve a model on your own workloads without labelling anything. That is worth more than fine-tuning on a pile of documents.</p>
+  </div>
+
+  <div class="grid3">
+    <div class="panel"><div class="panel-head"><h3>Data curation</h3></div><div class="panel-body">
+      <p style="font-size:13px">The least visible stage, the most decisive one, and the last real trade secret in the field. Scale: Qwen3 used ~36T tokens across 119 languages; DeepSeek-V3 14.8T; Kimi K2 15.5T; Kimi K3 with a progressive context-length curriculum; Llama 4 ~30T.</p>
+      <p style="font-size:13px;margin-top:10px">Pipeline: bulk crawl, language ID, dedup at document and near-duplicate level, quality classification, toxicity and PII filtering, then deliberate up-weighting of code and mathematics far beyond natural web frequency because both give dense verifiable reasoning signal.</p>
+      <p style="font-size:13px;margin-top:10px"><strong>Your domain is underrepresented.</strong> Insurance policy language, clinical coding, trade settlement messaging, utility asset hierarchies are not in web crawl. That is the root of most "the model does not understand our business" complaints. It is a data problem, not an architecture problem.</p>
+    </div></div>
+    <div class="panel"><div class="panel-head"><h3>Optimizer and stability</h3></div><div class="panel-body">
+      <p style="font-size:13px">AdamW is standard. DeepSeek-V3 used β₁ 0.9, β₂ 0.95, weight decay 0.1. Two optimizer states per parameter, so 8 bytes per parameter at FP32 on top of weights and gradients.</p>
+      <p style="font-size:13px;margin-top:10px">The interesting exception is <strong>Muon</strong>, used by Kimi K2 for better token efficiency. At scale it hit a wall: attention logits rapidly exceeded 1000 mid-run, risking divergence. The fix was <strong>MuonClip</strong>, adding QK-Clip to rescale query and key projections. With it they pre-trained a trillion-parameter model on 15.5T tokens with zero loss spike.</p>
+      <p style="font-size:13px;margin-top:10px">A clean illustration that architecture, optimizer and normalisation are not separable concerns. QK-Norm solves the same problem structurally.</p>
+    </div></div>
+    <div class="panel"><div class="panel-head"><h3>Parallelism</h3></div><div class="panel-body">
+      <p style="font-size:13px">Five strategies compose. <strong>Data</strong> parallel splits the batch (gradient all-reduce per step). <strong>Tensor</strong> parallel splits individual matrices (all-reduce inside every layer, so very high traffic, keep it intra-node). <strong>Pipeline</strong> parallel splits layers (activations at stage boundaries, creates bubble idle time). <strong>Expert</strong> parallel distributes MoE experts (all-to-all token routing). <strong>Sequence/context</strong> parallel splits sequence length.</p>
+      <p style="font-size:13px;margin-top:10px">DeepSeek built <strong>DualPipe</strong> specifically to overlap computation with communication and hide the pipeline bubble, and hand-wrote cross-node all-to-all kernels because the off-the-shelf ones bottlenecked.</p>
+      <p style="font-size:13px;margin-top:10px">Their reported 2.788M H800 GPU hours (~$5–6M) is the marginal cost of the final run, not of the capability. It excludes failed runs, data pipeline construction, staff, and the ablations that found the recipe.</p>
+    </div></div>
+  </div>
+</div>
+</section>
+<!-- 05 QUANTIZATION -->
+<section id="quant">
+<div class="wrap">
+  <div class="sec-head"><div class="sec-num">05</div><div>
+    <h2>Quantization and quality loss prevention</h2>
+    <p>Quantization is how a model that needs 240GB fits on one 80GB card. It is also where quality is lost in ways that benchmarks often miss. This section covers what breaks, why, in what order, and how to get the loss back.</p>
+  </div></div>
+
+  <div class="panel mb">
+    <div class="panel-head"><div><span class="eyebrow g">Interactive</span><h3 style="margin-top:3px">Precision sizing and expected degradation</h3></div>
+      <div class="seg" id="qModelSeg" style="max-width:none"></div></div>
+    <div class="panel-body">
+      <div class="stats3 mb" id="qStats"></div>
+      <div class="bars" id="qBars"></div>
+      <div class="verdict" id="qNote"></div>
+    </div>
+  </div>
+
+  <div class="callout bad">
+    <h4>What actually breaks first: activation outliers</h4>
+    <p>Dettmers et al. established that activation outliers emerge suddenly around 6.7B parameters, affecting all transformer layers and roughly 75% of sequence dimensions. They are about <strong>0.1% of features</strong>, yet zeroing them collapses top-1 attention softmax mass by over 20% and degrades validation perplexity by <strong>600–1000%</strong>. Formally: dimensions with magnitude ≥6.0 in ≥25% of layers and ≥6% of sequence positions. Mechanically they stretch the quantization range so every other value compresses into a handful of buckets. This single phenomenon explains why weights quantize easily and activations do not, and why W4A16 is near-lossless while W4A4 remains hard.</p>
+  </div>
+
+  <div class="panel mb">
+    <div class="panel-head"><h3>Post-training quantization methods</h3></div>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th class="static">Method</th><th class="static">Mechanism</th><th class="static">Handles outliers by</th><th class="static">Practical note</th></tr></thead>
+      <tbody>
+        <tr><td class="key">LLM.int8()</td><td class="wrap-c">Mixed-precision decomposition: the 0.1% outlier dimensions stay in 16-bit, the other 99.9% multiply in 8-bit</td><td>Isolating them</td><td class="wrap-c">~1.96× memory reduction on BLOOM-176B with essentially no loss. The reference for why 8-bit is free</td></tr>
+        <tr><td class="key">SmoothQuant</td><td class="wrap-c">Migrates quantization difficulty from activations to weights via per-channel scaling before quantizing</td><td>Moving the problem</td><td class="wrap-c">Enables W8A8, which is what makes 8-bit activations viable at all</td></tr>
+        <tr><td class="key">GPTQ</td><td class="wrap-c">Layer-wise weight updates using approximate second-order (Hessian) information to minimise reconstruction error</td><td>Compensating for them</td><td class="wrap-c">Strong at 4-bit, extends to 3-bit. Sensitive to calibration data</td></tr>
+        <tr><td class="key">AWQ</td><td class="wrap-c">Identifies the ~1% salient weight channels by activation magnitude and protects them with per-channel scaling</td><td>Protecting what they touch</td><td class="wrap-c">Activation-aware, so calibration data quality matters directly</td></tr>
+        <tr><td class="key">MXFP4</td><td class="wrap-c">Two fp4 (e2m1) values per byte with a shared power-of-two scale per 32-element group. 4.25 bits per parameter</td><td>Group-wise scaling</td><td class="wrap-c">Used natively by gpt-oss and Kimi K3, applied <em>during</em> post-training rather than after, which is why it holds quality</td></tr>
+        <tr><td class="key">NF4 (QLoRA)</td><td class="wrap-c">Each value assigned to one of 16 quantile bins of a normal distribution; double quantization compresses the scales to 8 bits</td><td>Distribution-matched bins</td><td class="wrap-c">Built for fine-tuning on quantized frozen weights, not primarily for serving</td></tr>
+        <tr><td class="key">AQLM / 2-bit</td><td class="wrap-c">Additive quantization for extreme compression</td><td>Poorly, alone</td><td class="wrap-c">Accuracy degrades substantially below 3 bits. Needs a recovery mechanism to be usable</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="panel mb">
+    <div class="panel-head"><h3 style="color:var(--green-dk)">Loss prevention: getting the quality back</h3></div>
+    <div class="panel-body">
+      <p style="font-size:13.5px;margin-bottom:16px">Post-training quantization is training-free and cheap, and it leaves quality on the table. There are four established ways to recover it, in ascending cost.</p>
+      <div class="grid2">
+        <div>
+          <h4 style="margin-bottom:8px">1 · Calibration data quality</h4>
+          <p style="font-size:13px">The cheapest lever and the most neglected. GPTQ and AWQ both depend on a calibration set to estimate activation distributions. Generic calibration data on a domain-specific workload produces biased quantization parameters. <strong>Calibrate on your own representative traffic.</strong> Recent work on family-aware calibration regenerates calibration samples using a larger model from the same family. The samples carry chain-of-thought and match the expected activation distribution. This reported up to 28.5% less accuracy loss than baseline calibration data on Qwen3-8B.</p>
+          <h4 style="margin:16px 0 8px">2 · Quantization-aware training (QAT)</h4>
+          <p style="font-size:13px">Fine-tune the quantized model with the same loss function, quantizing weights and activations in the forward pass while gradients stay high-precision. PyTorch reported QAT recovering <strong>62% of the normalized accuracy degradation on hellaswag</strong> and 58% / 57% of word and byte perplexity degradation on wikitext, versus PTQ, for Llama 8da4w. Cost is a retraining run, which is why parameter-efficient variants exist.</p>
+        </div>
+        <div>
+          <h4 style="margin-bottom:8px">3 · Recover-LoRA and adapter-based repair</h4>
+          <p style="font-size:13px">Train a low-rank adapter on the quantized model, distilling from the full-precision original on synthetic data. This is the practical recovery mechanism for aggressive quantization. Recent work shows selective 2-bit quantization of gate and up projections delivering 7.5 to 23.3% throughput gains over uniform W4 across 4B to 20B models, with Recover-LoRA reclaiming the accuracy that would otherwise be lost. Far cheaper than full QAT.</p>
+          <h4 style="margin:16px 0 8px">4 · Quantization-aware distillation (QAD)</h4>
+          <p style="font-size:13px">For models whose capability came from RL post-training, plain QAT is awkward, because quantization-aware RL is barely explored. QAD distils from the full-precision model instead, which sidesteps the problem. This matters increasingly because reasoning capability is RL-derived, and it is exactly the capability most damaged by aggressive quantization.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <h4>Two failure modes nobody tests for</h4>
+    <p><strong>Safety degrades separately from capability.</strong> Research on quantized model safety found that quantization can degrade alignment even where utility benchmarks hold, and that calibration data with harmful content makes it worse. Quantization-aware safety patching exists specifically to re-align quantized models. If you quantize a model and only measure task accuracy, you have not measured what changed.</p>
+    <p style="margin-top:10px"><strong>Degradation is not uniform across tasks.</strong> A model that holds its benchmark scores at 4-bit can still fall apart on your specific structured extraction task, on long-chain arithmetic, or on precise code generation. Per-channel quantization vulnerability is even model-specific. The Llama3-70B series showed a distinct susceptibility traced to weight outliers in its early layers. Llama2, the 8B variants and the 405B did not share it. <strong>Test on your workload. Never on someone else's leaderboard.</strong></p>
+  </div>
+</div>
+</section>
+
+<!-- 06 EVALS -->
+<section id="evals">
+<div class="wrap">
+  <div class="sec-head"><div class="sec-num">06</div><div>
+    <h2>Evaluation: the artefact that makes everything else safe</h2>
+    <p>Public benchmarks are useful for rough ranking and close to useless for choosing a model for your own work. Without your own evaluation set you cannot tell whether any change you made helped. With a new release roughly every week, model swaps are now routine.</p>
+  </div></div>
+
+  <div class="grid3 mb">
+    <div class="panel"><div class="panel-head"><h3 style="color:var(--red)">Why public benchmarks fail you</h3></div><div class="panel-body">
+      <ul class="factors">
+        <li><strong>Contamination.</strong> Test sets leak into training corpora. A model may have memorised the answers rather than derived them, and there is no reliable way to audit this from outside</li>
+        <li><strong>Saturation.</strong> Top models now cluster within noise of each other. Claude Opus 5 at 63, Fable 5 at 62, GPT-5.6 Sol and Grok 4.6 at 61. That spread is too narrow to decide anything</li>
+        <li><strong>Construct mismatch.</strong> None of MMLU, GPQA, SWE-bench, AIME or LiveCodeBench measures whether a model can extract entities from your claims documents</li>
+        <li><strong>Self-reporting.</strong> Vendor-published charts are selectively framed. Kimi K3's headline numbers are self-reported; the independent score puts it tied with GLM-5.3, not clear of the field</li>
+        <li><strong>Metric discontinuity.</strong> Apparently emergent capabilities are partly real phase changes and partly artifacts of discontinuous scoring</li>
+      </ul>
+    </div></div>
+    <div class="panel"><div class="panel-head"><h3>The evaluation layers you actually need</h3></div><div class="panel-body">
+      <ul class="factors">
+        <li><strong>Component evals.</strong> Retrieval measured separately from generation. Most RAG failures are retrieval failures that look like generation failures</li>
+        <li><strong>Task evals.</strong> A few hundred real examples with agreed correct answers, scored automatically. About one week of work, and the highest-value asset your practice will build</li>
+        <li><strong>Regression evals.</strong> Run on every model swap, prompt change, and quantization change. This is what makes routine model migration safe</li>
+        <li><strong>Agent trajectory evals.</strong> Did it use the right tools in the right order? Getting the right answer by luck is not a working agent</li>
+        <li><strong>Safety and guardrail evals.</strong> Run separately from capability, especially after quantization</li>
+        <li><strong>Production evals.</strong> Sampled live traffic scored continuously, because distribution drifts</li>
+      </ul>
+    </div></div>
+    <div class="panel"><div class="panel-head"><h3>Scoring methods and their failure modes</h3></div><div class="panel-body">
+      <ul class="factors">
+        <li><strong>Exact match / assertion.</strong> Best when available. Free, deterministic and hard to argue with. Use it everywhere correctness is checkable. This is the same property that enables RLVR</li>
+        <li><strong>Execution-based.</strong> Does the SQL run and return the expected shape? Does the code pass tests? Strongest signal for engineering workloads</li>
+        <li><strong>Reference-based similarity.</strong> Weak. Correct answers phrased differently score badly</li>
+        <li><strong>LLM-as-judge.</strong> Scales well, but inherits biases: position bias, verbosity bias, and self-preference toward its own model family. <strong>Check it against human labels on a sample before you trust it</strong>, and check again whenever you change judge models</li>
+        <li><strong>Groundedness checks.</strong> Is every claim in the answer supported by a retrieved chunk? The single most useful production check for RAG</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="panel mb">
+    <div class="panel-head"><div><span class="eyebrow g">Interactive</span><h3 style="margin-top:3px">Evaluation coverage self-assessment</h3></div>
+      <span class="eyebrow">Toggle what you have today</span></div>
+    <div class="panel-body">
+      <div id="evalGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-bottom:20px"></div>
+      <div class="stats3 mb" id="evalStats"></div>
+      <div class="verdict" id="evalNote" style="border-top:none;padding-top:0"></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h4>The observability layer this rests on</h4>
+    <p>Evaluation without instrumentation is guesswork. Standardise on <strong>OpenTelemetry GenAI semantic conventions</strong> for spans and attributes. Track token accounting <em>including hidden reasoning tokens</em>. They bill as output and do not appear in the response body, so a cost model built on visible output length will be wrong by an order of magnitude on reasoning models. Decompose latency into <strong>TTFT</strong> (prefill) and <strong>TPOT / inter-token latency</strong> (decode), The two have different fixes. TTFT regressions point at oversized context. Inter-token latency regressions point at memory bandwidth and batch composition.</p>
+  </div>
+</div>
+</section>
+
+<!-- 07 MATRIX -->
+<section id="matrix">
+<div class="wrap">
+  <div class="sec-head"><div class="sec-num">07</div><div>
+    <h2>The model matrix</h2>
+    <p>Open and closed on one axis. Open-weights rows are verifiable from published technical reports; closed rows carry no architecture figures because none are published. Anything circulating that claims them is speculation. Click any column header to sort.</p>
+  </div></div>
+
+  <div class="panel mb">
+    <div class="panel-head">
+      <div class="seg" id="filtSeg" style="max-width:520px">
+        <button data-f="all" class="on">All</button><button data-f="open">Open weights</button>
+        <button data-f="closed">Closed</button><button data-f="single">Single-GPU</button><button data-f="dense">Dense</button>
+      </div><span class="eyebrow" id="rowCount"></span>
+    </div>
+    <div class="tbl-scroll"><table id="mtx">
+      <thead><tr>
+        <th data-k="name">Model</th><th data-k="type">Access</th><th data-k="total">Total</th><th data-k="active">Active</th>
+        <th data-k="sparsity">Sparsity</th><th data-k="attn">Attention</th><th data-k="ctx">Context</th>
+        <th data-k="pin">$ In</th><th data-k="pout">$ Out</th><th data-k="lic">Licence</th>
+      </tr></thead><tbody id="mtxBody"></tbody>
+    </table></div>
+  </div>
+  <p style="font-size:12px;color:var(--faint);margin-bottom:26px">Sparsity = total ÷ active; dense shows 1×. Prices are per million tokens as of late Aug 2026 and move roughly monthly. OpenAI repriced twice in one month. Open-weights prices are representative hosted rates, not your self-hosted cost. Verify the licence on the exact checkpoint: terms have changed within families, and Qwen variants above the 27B tier now carry commercial restrictions.</p>
+
+  <div class="panel mb">
+    <div class="panel-head"><div><span class="eyebrow g">Interactive</span><h3 style="margin-top:3px">Monthly cost model</h3></div><span class="eyebrow">Caching and batch are the two big levers</span></div>
+    <div class="calc">
+      <div class="calc-in">
+        <div class="ctrl"><label>Requests / month <span class="val" id="reqV">100K</span></label><input type="range" id="req" min="0" max="5" step="1" value="2"></div>
+        <div class="ctrl"><label>Input tokens / request <span class="val" id="inV">8,000</span></label><input type="range" id="inTok" min="500" max="60000" step="500" value="8000"></div>
+        <div class="ctrl"><label>Visible output tokens <span class="val" id="outV">600</span></label><input type="range" id="outTok" min="100" max="4000" step="100" value="600"></div>
+        <div class="ctrl"><label>Reasoning multiplier <span class="val" id="rsnV">3×</span></label><input type="range" id="rsn" min="1" max="30" step="1" value="3"></div>
+        <div class="ctrl"><label>Cacheable prefix <span class="val" id="cacheV">70%</span></label><input type="range" id="cache" min="0" max="95" step="5" value="70"></div>
+        <div class="ctrl"><label style="margin-bottom:8px">Batch API</label>
+          <div class="seg" id="batchSeg"><button data-b="1" class="on">Interactive</button><button data-b="0.5">Batch −50%</button></div></div>
+      </div>
+      <div class="calc-out"><div class="bars" id="costBars"></div><div class="verdict" id="costVerdict"></div></div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <h4>Three billing mechanics that break naive TCO models</h4>
+    <p><strong>Reasoning tokens bill as output on both platforms.</strong> You pay for the full internal chain though the API returns only a summary. Anthropic hides raw thinking behind opaque signatures to prevent distillation. A hard task can emit 5–50× the visible output. <strong>Claude 4.7+ changed tokenizer</strong> and produces roughly 30% more tokens for the same text, so nominal rate comparisons against older models understate cost. And <strong>OpenAI applies a 2× input / 1.5× output surcharge on the entire request</strong> once input exceeds 272K tokens. That applies to the whole request, not only the part above the limit.</p>
+  </div>
+
+  <div class="grid2 mb">
+    <div class="panel"><div class="panel-head"><h3>What is knowable about closed models</h3></div><div class="panel-body">
+      <p style="font-size:13px"><strong>Not public:</strong> parameter counts, layer counts, attention configuration, expert counts and routing, training data composition, tokenizer details, training compute.</p>
+      <p style="font-size:13px;margin-top:10px"><strong>Reasonable inference:</strong> all are decoder-only with pre-norm, RMSNorm or equivalent, gated FFN, rotary-derived position encoding. All flagships are almost certainly sparse MoE, because the pricing and latency profiles do not fit dense models at that capability level. All use grouped or latent attention; serving cost at long context makes full MHA implausible. All offer variable inference-time compute, implying reasoning-mode training.</p>
+      <p style="font-size:13px;margin-top:10px"><strong>The window into each:</strong> for Anthropic it is the interpretability work. They trained sparse autoencoders with up to 34 million features on the middle-layer residual stream of a stated production model. Attribution graphs then showed two-hop reasoning with a manipulable intermediate step, and forward planning in poetry. For OpenAI it is gpt-oss, which reveals the design conventions: attention sinks, sliding/full interleave, MXFP4, Harmony, o200k.</p>
+    </div></div>
+    <div class="panel"><div class="panel-head"><h3>Governance frameworks</h3></div><div class="panel-body">
+      <p style="font-size:13px"><strong>Anthropic RSP v3.0</strong> (Feb 2026) defines AI Safety Levels with Deployment and Security standards. It is outcome-focused rather than prescriptive, and adds Frontier Safety Roadmaps and recurring Risk Reports. ASL-3 active since May 2025 for CBRN.</p>
+      <p style="font-size:13px;margin-top:10px"><strong>OpenAI Preparedness v2</strong> (Apr 2025) tracks three categories: Biological/Chemical, Cybersecurity, and AI Self-improvement. Two thresholds, High and Critical. GPT-5.6 Sol assessed High, not Critical, for cyber.</p>
+      <p style="font-size:13px;margin-top:10px"><strong>Data residency.</strong> Anthropic <code>inference_geo: "us"</code> applies a 1.1× multiplier on Claude 4.6+. Bedrock and Vertex have independent regional endpoints at roughly +10%. ZDR available on both.</p>
+      <p style="font-size:13px;margin-top:10px"><strong>The precedent worth modelling.</strong> Claude Fable 5 was suspended on 12 June 2026 under a US export-control directive and restored on 1 July. First frontier model switched off and back on by regulatory action. A capability you depend on can vanish for reasons outside your vendor relationship, your SLA and your control.</p>
+    </div></div>
+  </div>
+</div>
+</section>
+
+<!-- 08 INTEGRATION -->
+<section id="integration">
+<div class="wrap">
+  <div class="sec-head"><div class="sec-num">08</div><div>
+    <h2>What happens behind the scenes</h2>
+    <p>Vendor-neutral reference architecture. From a document landing in a bucket to a token arriving in a response. Every stage, what it mechanically does, and where it fails.</p>
+  </div></div>
+
+  <div class="panel mb">
+    <div class="panel-head"><div><span class="eyebrow g">Interactive</span><h3 style="margin-top:3px">Document to answer</h3></div><span class="eyebrow">Click a stage</span></div>
+    <div class="explorer"><div class="stack" id="pipeStack"></div><div class="detail" id="pipeDetail"></div></div>
+  </div>
+
+  <div class="panel mb">
+    <div class="panel-head"><div><span class="eyebrow g">Interactive</span><h3 style="margin-top:3px">Context window assembly</h3></div><span class="eyebrow">What actually occupies the window</span></div>
+    <div class="calc">
+      <div class="calc-in">
+        <div class="ctrl"><label>System prompt <span class="val" id="sysV">1,200</span></label><input type="range" id="sys" min="200" max="8000" step="100" value="1200"></div>
+        <div class="ctrl"><label>Tool schemas <span class="val" id="toolV">3,000</span></label><input type="range" id="toolT" min="0" max="20000" step="500" value="3000"></div>
+        <div class="ctrl"><label>Skills / instructions <span class="val" id="skillV">2,000</span></label><input type="range" id="skillT" min="0" max="25000" step="500" value="2000"></div>
+        <div class="ctrl"><label>Retrieved chunks <span class="val" id="chunkV">8</span></label><input type="range" id="chunks" min="0" max="50" step="1" value="8"></div>
+        <div class="ctrl"><label>Conversation turns <span class="val" id="turnV">6</span></label><input type="range" id="turns" min="0" max="60" step="1" value="6"></div>
+        <div class="ctrl"><label style="margin-bottom:8px">Model window</label>
+          <div class="seg" id="winSeg"><button data-w="128000">128K</button><button data-w="200000" class="on">200K</button><button data-w="1000000">1M</button></div></div>
+      </div>
+      <div class="calc-out"><div id="ctxViz"></div><div class="verdict" id="ctxVerdict"></div></div>
+    </div>
+  </div>
+
+  <div class="panel mb">
+    <div class="panel-head"><h3>Retrieval quality: the documented numbers</h3></div>
+    <div class="panel-body">
+      <p style="font-size:13.5px;margin-bottom:15px">Contextual retrieval prepends a 50–100 token LLM-generated blurb situating each chunk in its document, before both embedding and BM25 indexing. Measured effect on top-20 retrieval failure rate:</p>
+      <div class="bars" id="ragBars"></div>
+      <p style="font-size:12.5px;color:var(--faint)">One-time contextualisation costs roughly $1.02 per million document tokens with prompt caching enabled. Hybrid search fuses dense embeddings with BM25 at roughly 0.8 / 0.2 weighting, then a cross-encoder reranker rescores the top-20 down to the 3–5 chunks actually injected. BM25 catches the exact matches that dense retrieval reliably misses: part numbers, policy codes, ISINs and dates. Those are the tokens enterprise queries turn on.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h3>The rest of the stack</h3></div>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th class="static">Layer</th><th class="static">What it does</th><th class="static">Failure mode it prevents</th></tr></thead>
+      <tbody>
+        <tr><td class="key">Constrained decoding</td><td class="wrap-c">A grammar compiled from the schema masks non-conforming tokens at sampling time. Implementations include JSON mode, strict schema, XGrammar, Outlines, Guidance and llama.cpp grammars. Output is valid by construction, not validated afterwards</td><td class="wrap-c">Malformed output breaking parsers. Note: structure guaranteed, semantics not</td></tr>
+        <tr><td class="key">Semantic layer</td><td class="wrap-c">Model queries governed metric and dimension definitions rather than raw schemas; emitted query is parsed, dry-run or EXPLAINed, then executed with row and cost guards</td><td class="wrap-c">Hallucinated joins and invented metric definitions. The most effective anti-hallucination control for analytics agents</td></tr>
+        <tr><td class="key">Input guardrails</td><td class="wrap-c">PII detection and redaction, prompt-injection and jailbreak classifiers, before the model sees the request</td><td class="wrap-c">Injection reaching the model; regulated data leaving the estate</td></tr>
+        <tr><td class="key">Output guardrails</td><td class="wrap-c">PII, toxicity, policy and groundedness or citation checks after generation</td><td class="wrap-c">Ungrounded assertions reaching a user. Never rely on model alignment alone</td></tr>
+        <tr><td class="key">Semantic cache</td><td class="wrap-c">Embed the query, serve a cached response for semantically similar prior queries</td><td class="wrap-c">Repeat cost on near-duplicate questions. Watch staleness and false hits</td></tr>
+        <tr><td class="key">Identity propagation</td><td class="wrap-c">OAuth token exchange so the agent acts with the user's scoped permissions; identity passed to the data layer so row-level security applies at query time</td><td class="wrap-c">The confused deputy problem. See section 09</td></tr>
+        <tr><td class="key">Gateway / router</td><td class="wrap-c">One abstraction across providers, centralised auth and key management, model routing, fallback chains, canary rollout</td><td class="wrap-c">Provider lock-in and single-provider availability risk</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+</section>
+
+<!-- 09 AGENTIC -->
+<section id="agentic">
+<div class="wrap">
+  <div class="sec-head"><div class="sec-num">09</div><div>
+    <h2>Agentic systems: memory, instruction, and communication</h2>
+    <p>Three things separate a working agent from a demo: how it remembers across sessions, how it is instructed, and how it talks to other agents and to your systems.</p>
+  </div></div>
+
+  <div class="panel mb">
+    <div class="panel-head"><div><span class="eyebrow g">Interactive</span><h3 style="margin-top:3px">Agent memory architecture</h3></div><span class="eyebrow">Click a memory type</span></div>
+    <div class="explorer"><div class="stack" id="memStack"></div><div class="detail" id="memDetail"></div></div>
+  </div>
+
+  <div class="callout bad">
+    <h4>The mistake almost every team makes</h4>
+    <p>Collapsing all memory types into a single retrieval problem. <strong>Working memory is a context-budget problem, not a retrieval problem.</strong> There is nothing external to retrieve from, so manage it by compression and prioritisation. Running semantic similarity search across episodic logs is the specific mistake. Episodic memory is indexed by time and cause, not by meaning. Treating "what did I try last Tuesday" as a nearest-neighbour question returns results that look right and are not. Different memory types require different retrieval logic. Most production systems implement two layers well and handle the transitions between layers with crude heuristics.</p>
+  </div>
+
+  <div class="panel mb">
+    <div class="panel-head"><h3>Prompts, skills, and where instruction actually lives</h3></div>
+    <div class="panel-body">
+      <p style="font-size:13.5px;margin-bottom:16px">Instruction reaches a model through four distinct channels with different persistence, cost and cache behaviour. Confusing them is why agents behave inconsistently across sessions.</p>
+      <div class="tbl-scroll"><table>
+        <thead><tr><th class="static">Channel</th><th class="static">Persistence</th><th class="static">Cache behaviour</th><th class="static">What belongs here</th></tr></thead>
+        <tbody>
+          <tr><td class="key">System prompt</td><td>Every request, whole session</td><td>Stable prefix. Cache at 0.1×</td><td class="wrap-c">Role, constraints, output conventions, refusal boundaries. Keep it stable; every edit invalidates the cache for everything after it</td></tr>
+          <tr><td class="key">Tool schemas</td><td>Every request while tools are available</td><td>Stable prefix, but changing mid-conversation historically invalidated the cache. Opus 5 now permits tool changes without invalidating it</td><td class="wrap-c">Capability surface. Note the overhead: 286–406 tokens of injected system prompt on Opus 5 just for having tools, plus ~4,500 for the computer-use toolset and ~6,600 for browser use</td></tr>
+          <tr><td class="key">Skills</td><td>Loaded conditionally, on relevance</td><td class="wrap-c">Loading one mid-session breaks the cache prefix unless skills sit in a stable block</td><td class="wrap-c"><strong>Procedural memory made explicit.</strong> Reusable task recipes, house style, review checklists, domain workflows. The right home for "how we do this here" that would otherwise be re-explained in every prompt</td></tr>
+          <tr><td class="key">Retrieved context</td><td>Per request</td><td>Never cacheable. Always fresh</td><td class="wrap-c">Facts. Not behaviour, not procedure. Retrieval solves knowledge; it does not solve how the agent works</td></tr>
+        </tbody>
+      </table></div>
+      <p style="font-size:13px;margin-top:16px"><strong>The architectural point.</strong> Procedural memory is undergoing a transition from explicit non-parametric templates toward implicit parametric policies. What lives in a skill file today may live in a fine-tuned executor model tomorrow. In practice today it manifests as skill libraries and workflow templates, and the deciding question is whether a behaviour needs to be <em>inspectable and editable by a human</em> (keep it a skill) or <em>fast and consistent at volume</em> (distil it into weights).</p>
+    </div>
+  </div>
+
+  <div class="panel mb">
+    <div class="panel-head"><div><span class="eyebrow g">Interactive</span><h3 style="margin-top:3px">The agent loop, step by step</h3></div>
+      <div class="seg" style="max-width:190px"><button id="stepBack">Back</button><button id="stepFwd" class="on">Next step</button></div></div>
+    <div class="panel-body"><div id="agentViz"></div></div>
+  </div>
+
+  <div class="panel mb">
+    <div class="panel-head"><h3>Agent communication protocols</h3></div>
+    <div class="panel-body">
+      <p style="font-size:13.5px;margin-bottom:16px">Four protocols address four different layers. They are complementary, not competing, and the sensible enterprise path is phased adoption rather than picking one.</p>
+      <div class="tbl-scroll"><table>
+        <thead><tr><th class="static">Protocol</th><th class="static">Layer</th><th class="static">Mechanism</th><th class="static">Enterprise position</th></tr></thead>
+        <tbody>
+          <tr><td class="key">MCP</td><td>Agent ↔ tool</td><td class="wrap-c">JSON-RPC 2.0. Hosts run clients connecting to servers exposing tools, resources and prompts, plus sampling. Two official transports: <code>stdio</code> for local subprocesses, <strong>Streamable HTTP</strong> for remote (POST+GET, optional SSE, <code>Mcp-Session-Id</code>, OAuth). The older HTTP+SSE transport is deprecated</td><td class="wrap-c"><strong>Stage 1, adopt now.</strong> Servers must validate the Origin header against DNS rebinding. Solves connectivity, not governance</td></tr>
+          <tr><td class="key">A2A</td><td>Agent ↔ agent</td><td class="wrap-c">Google, contributed to the Linux Foundation 2026. Agents discover each other via <strong>Agent Cards</strong>, which are JSON metadata files at a public URL describing capabilities, skills, endpoint and auth. Core objects: Agent Card, Task, Message, Artifact. Sync, streaming and async push. Delegation-centric: answers "which agent can handle this task?"</td><td class="wrap-c"><strong>Stage 3, for cross-team and cross-vendor work.</strong> Preserves opacity, so agents collaborate without exposing internal memory, logic or tools. v1.0.1 added an extension mechanism</td></tr>
+          <tr><td class="key">ACP</td><td>Agent ↔ agent, negotiated</td><td class="wrap-c">IBM Research, drawing on FIPA-ACL heritage. Formalises multi-agent communication with typed performatives (propose, accept, reject, counter) and multi-turn negotiation semantics. Merged under the A2A umbrella in 2025</td><td class="wrap-c">Stage 2. Useful where agents have to negotiate rather than simply hand off work</td></tr>
+          <tr><td class="key">ANP</td><td>Open agent markets</td><td class="wrap-c">Decentralised discovery, DID-based identity verification, peer-to-peer communication over JSON-LD graphs</td><td class="wrap-c">Stage 4. Not yet an enterprise concern; watch it</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn" style="margin-bottom:0">
+        <h4>None of these express governance</h4>
+        <p>Recent analysis of governance gaps found that MCP, A2A and ACP all lack the vocabulary to express policy constraints, data handling obligations or accountability. A2A's four official extensions do not close this: Secure Passport, Timestamp, Traceability and Agent Gateway. Gartner projects that <strong>60% of agentic analytics projects relying solely on MCP will fail by 2028 without semantic foundations</strong>, and that by 2030 half of enterprise agent deployment failures will trace to insufficient governance runtime enforcement rather than capability gaps. The protocol layer is necessary and nowhere near sufficient.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel"><div class="panel-head"><h3>Multi-agent topologies</h3></div><div class="panel-body">
+      <ul class="factors">
+        <li><strong>Single agent.</strong> One loop, one context. The correct default. Most multi-agent designs are built too early</li>
+        <li><strong>Orchestrator–worker.</strong> A lead agent spawns sub-agents with <em>isolated context windows</em> so each explores without polluting the others, returning condensed results. The main benefit is context isolation rather than parallelism</li>
+        <li><strong>Sequential handoff.</strong> Explicit state passed between specialised agents. Easier to audit, easier to test, slower</li>
+        <li><strong>Negotiated peer.</strong> Agents with different objectives reaching agreement. Needs ACP-style performatives. Rare, and hard to make repeatable</li>
+        <li><strong>Swarm.</strong> Many parallel agents on sub-components with central orchestration resolving conflicts. Kimi K2.5 reported ~4.5× faster execution on complex multi-step tasks versus sequential single-agent</li>
+      </ul>
+      <p style="font-size:13px;margin-top:14px"><strong>Durable execution matters more than topology.</strong> Long-running agents need checkpointing and resume. A four-hour run that dies at minute 200 with no saved state is worse than no agent at all.</p>
+    </div></div>
+    <div class="panel" style="border-color:var(--red)"><div class="panel-head" style="border-bottom-color:var(--red)"><h3 style="color:var(--red)">The confused deputy problem</h3></div><div class="panel-body">
+      <p style="font-size:13.5px">The hardest unsolved problem in enterprise agent architecture. A privileged agent is tricked into using its authority on the attacker's behalf, usually via prompt injection embedded in a document or an MCP tool result. <strong>The agent is not compromised. It is doing exactly what it was told to do, by the wrong party.</strong></p>
+      <p style="font-size:13.5px;margin-top:11px">Service accounts make this worse. An agent with broad credentials can read everything, so any successful injection reaches everything. A2A widens the exposure again, because a <em>remote agent's</em> output is now untrusted input to yours.</p>
+      <p style="font-size:13.5px;margin-top:11px"><strong>Layered defence.</strong> Delegated auth via OAuth token exchange so the agent carries the user's scoped permissions. Identity propagated to the data layer so row-level security applies at query time. Least-privilege scopes per tool. Human-in-the-loop for high-impact actions. And an explicit invariant: content arriving from retrieval, tools or other agents can never change the agent's permission set. Design for this before the first agent reaches production.</p>
+    </div></div>
+  </div>
+</div>
+</section>
+
+<!-- 10 DECISIONS -->
+<section id="decisions">
+<div class="wrap">
+  <div class="sec-head"><div class="sec-num">10</div><div>
+    <h2>Architecture decisions</h2>
+    <p>There is no single answer to open versus closed. There is an answer per workload, and a short list of patterns that hold up.</p>
+  </div></div>
+
+  <div class="panel mb">
+    <div class="router">
+      <div class="router-q" id="qs"></div>
+      <div class="router-a">
+        <div class="rec" id="rec"></div>
+        <div class="score-bar"><div class="s-open" id="sOpen" style="width:50%"></div><div class="s-closed" id="sClosed" style="width:50%"></div></div>
+        <div class="score-key"><span style="color:var(--green-dk)">Open weights</span><span style="color:var(--blue)">Closed API</span></div>
+        <ul class="factors" id="factors" style="border-top:1px solid var(--line);padding-top:14px;margin-top:16px"></ul>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="mb" style="margin-top:38px">Reference workload profiles</h3>
+  <div class="wl-grid mb">
+    <div class="wl"><div class="wl-h"><h3>High-volume extraction</h3><span class="pill open">Open</span></div>
+      <p>Structured fields from documents at millions of pages a month. Repetitive, verifiable, latency-tolerant.</p>
+      <div class="spec">Model · <b>Qwen3-8B or 14B, fine-tuned</b><br>Serving · <b>vLLM, continuous batching</b><br>Adapt · <b>LoRA + RLVR against source truth</b><br>Eval · <b>Exact match on field values</b></div></div>
+    <div class="wl"><div class="wl-h"><h3>Agentic engineering</h3><span class="pill closed">Closed</span></div>
+      <p>Multi-step tool use, code generation, long-horizon planning across systems. Low volume, high value per task.</p>
+      <div class="spec">Model · <b>Claude Opus 5 or Grok 4.6</b><br>Serving · <b>API</b><br>Adapt · <b>Skills + tool design</b><br>Eval · <b>Trajectory and outcome</b></div></div>
+    <div class="wl"><div class="wl-h"><h3>Regulated analysis</h3><span class="pill open">Open</span></div>
+      <p>Reasoning over data that cannot leave the estate. BFSI, healthcare, public sector, sovereignty-constrained.</p>
+      <div class="spec">Model · <b>gpt-oss-120b or Mistral Medium 3.5</b><br>Serving · <b>On-prem, single node</b><br>Adapt · <b>Retrieval + semantic layer</b><br>Eval · <b>Groundedness + safety post-quant</b></div></div>
+    <div class="wl"><div class="wl-h"><h3>Knowledge assistant</h3><span class="pill warn">Hybrid</span></div>
+      <p>Internal assistant over enterprise content. Bursty traffic, wide query variety, moderate stakes.</p>
+      <div class="spec">Model · <b>Small open router + closed tail</b><br>Serving · <b>Router in front of both</b><br>Adapt · <b>Retrieval quality dominates</b><br>Eval · <b>Retrieval separately from generation</b></div></div>
+    <div class="wl"><div class="wl-h"><h3>Migration &amp; codegen</h3><span class="pill warn">Hybrid</span></div>
+      <p>Translating between platforms. Verifiable output, project-shaped rather than continuous volume.</p>
+      <div class="spec">Model · <b>Closed for hard cases, open for bulk</b><br>Serving · <b>Batch, off-peak</b><br>Adapt · <b>RLVR, it compiles or it does not</b><br>Eval · <b>Execution-based, output parity</b></div></div>
+    <div class="wl"><div class="wl-h"><h3>Edge / embedded</h3><span class="pill open">Open</span></div>
+      <p>Constrained hardware, intermittent connectivity, or per-device deployment.</p>
+      <div class="spec">Model · <b>gpt-oss-20b MXFP4, Gemma 4, Qwen3-4B</b><br>Serving · <b>Local runtime</b><br>Adapt · <b>Distillation from a larger sibling</b><br>Eval · <b>Task accuracy at target precision</b></div></div>
+  </div>
+
+  <div class="grid2 mb">
+    <div class="panel"><div class="panel-head"><h3>The adaptation ladder</h3></div><div class="panel-body">
+      <p style="font-size:13px;margin-bottom:12px">Ascending cost. Finish each rung before climbing. Most teams jump straight to fine-tuning because it feels like real engineering, and most of those projects could have been solved at rung one or two.</p>
+      <ul class="factors">
+        <li><strong>1 · Prompting and context engineering.</strong> Solves more than teams expect</li>
+        <li><strong>2 · Skills.</strong> Procedural knowledge made explicit and reusable. Cheaper than fine-tuning, readable by people, and versioned in git</li>
+        <li><strong>3 · Retrieval augmentation.</strong> Solves knowledge, not behaviour. Chunking, hybrid search and reranking matter more than model choice</li>
+        <li><strong>4 · LoRA / QLoRA.</strong> Format, tone, structured output. Adapters swap per tenant at serve time. Not for injecting facts, because facts live in MLP key-value memories and adapters are poor at editing those</li>
+        <li><strong>5 · Full fine-tuning.</strong> Rarely justified; locks you to a base that will be superseded</li>
+        <li><strong>6 · Continued pretraining.</strong> Only for domains far outside the training data, with very large proprietary corpora</li>
+        <li><strong>7 · RLVR on verifiable tasks.</strong> The one with real differentiation potential</li>
+      </ul>
+    </div></div>
+    <div class="panel"><div class="panel-head"><h3>Impact ranking: what determines effectiveness</h3></div><div class="panel-body">
+      <div class="tbl-scroll"><table>
+        <thead><tr><th class="static">#</th><th class="static">Factor</th><th class="static">Typical failure</th></tr></thead>
+        <tbody>
+          <tr><td class="num" style="color:var(--green-dk);font-weight:700">1</td><td class="key">Right data at the right moment</td><td class="wrap-c">Blamed on the model; it is a retrieval problem</td></tr>
+          <tr><td class="num" style="color:var(--green-dk);font-weight:700">2</td><td class="key">Task decomposition</td><td class="wrap-c">One impressive leap instead of reliable steps</td></tr>
+          <tr><td class="num" style="color:var(--green-dk);font-weight:700">3</td><td class="key">Verification of outputs</td><td class="wrap-c">Generated artefacts trusted directly</td></tr>
+          <tr><td class="num" style="color:var(--green-dk);font-weight:700">4</td><td class="key">Evaluation on real workloads</td><td class="wrap-c">Public benchmarks used as a proxy</td></tr>
+          <tr><td class="num" style="color:var(--mid)">5</td><td class="key">Memory and instruction architecture</td><td class="wrap-c">All memory types collapsed into one retrieval problem</td></tr>
+          <tr><td class="num" style="color:var(--mid)">6</td><td class="key">Cost and latency fit</td><td class="wrap-c">Sized for weights, not KV cache</td></tr>
+          <tr><td class="num" style="color:var(--faint)">7</td><td class="key">Raw model capability</td><td class="wrap-c">Over-weighted in almost every proposal</td></tr>
+        </tbody>
+      </table></div>
+      <p style="font-size:13px;margin-top:14px">Architecture sets your cost structure and your deployment limits. It does not decide whether the system works.</p>
+    </div></div>
+  </div>
+
+  <div class="panel mb">
+    <div class="panel-head"><h3>Serving stack, since it is where the economics land</h3></div>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th class="static">Technique</th><th class="static">What it does</th><th class="static">Where it pays</th></tr></thead>
+      <tbody>
+        <tr><td class="key">Continuous batching</td><td class="wrap-c">Iteration-level scheduling; requests join and retire mid-flight rather than waiting for a batch boundary</td><td class="wrap-c">Universal. The default primitive in vLLM and SGLang</td></tr>
+        <tr><td class="key">PagedAttention</td><td class="wrap-c">Manages KV cache as virtual memory pages, eliminating fragmentation and enabling large flexible batches</td><td class="wrap-c">High-throughput multi-user serving</td></tr>
+        <tr><td class="key">RadixAttention</td><td class="wrap-c">Radix tree caches and shares KV state across requests with matching prefixes, LRU eviction</td><td class="wrap-c">Long shared system prompts; reported 30–50% savings on 2K+ prefixes</td></tr>
+        <tr><td class="key">Chunked prefill</td><td class="wrap-c">Mixes prefill chunks with decode tokens to relieve prefill/decode interference (Sarathi-Serve)</td><td class="wrap-c">Mixed short and long request workloads</td></tr>
+        <tr><td class="key">P/D disaggregation</td><td class="wrap-c">Separates prompt encoding from generation across node pools to co-optimise TTFT and TPOT independently</td><td class="wrap-c">Cluster scale, tight latency SLOs. Moonshot's Mooncake reports ~90% cache hit on coding workloads</td></tr>
+        <tr><td class="key">Speculative decoding</td><td class="wrap-c">Draft k tokens, verify in one parallel pass via rejection sampling, which is lossless. EAGLE-3 autoregresses at feature level with dynamic draft trees; DeepSeek's MTP head bakes it into the model</td><td class="wrap-c">2–3× throughput on the same hardware, no quality loss. The least used optimisation in enterprise deployments</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="callout">
+    <h4>The line worth using in client conversations</h4>
+    <p>The architectural gap between a frontier closed model and a strong open model is small and narrowing. The gap in data curation, RL infrastructure and post-training scale is large. But neither one decides whether an enterprise deployment succeeds. That is decided by data access, decomposition, verification, evaluation, and the memory and instruction architecture around the model. <strong>That is the work a data practice is already good at, and the market currently assumes the opposite.</strong></p>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="eyebrow g">Sources</span>
+    <div class="refs">
+      <div><h4>Model technical reports</h4>
+        <a href="https://arxiv.org/abs/2412.19437" target="_blank">DeepSeek-V3 · arXiv:2412.19437</a>
+        <a href="https://arxiv.org/abs/2505.09388" target="_blank">Qwen3 · arXiv:2505.09388</a>
+        <a href="https://arxiv.org/abs/2508.10925" target="_blank">gpt-oss card · arXiv:2508.10925</a>
+        <a href="https://arxiv.org/abs/2507.20534" target="_blank">Kimi K2 · arXiv:2507.20534</a>
+        <a href="https://northflank.com/blog/what-is-kimi-k3-self-hosting" target="_blank">Kimi K3 architecture</a>
+        <a href="https://ai.meta.com/blog/llama-4-multimodal-intelligence/" target="_blank">Llama 4 herd · Meta</a>
+        <a href="https://docs.mistral.ai/models/model-cards/mistral-medium-3-5-26-04" target="_blank">Mistral Medium 3.5 card</a>
+      </div>
+      <div><h4>Mechanics &amp; interpretability</h4>
+        <a href="https://arxiv.org/abs/2209.11895" target="_blank">Olsson et al · induction heads</a>
+        <a href="https://www.alphaxiv.org/abs/2605.29358" target="_blank">Scaling Monosemanticity</a>
+        <a href="https://magazine.sebastianraschka.com/p/from-gpt-2-to-gpt-oss-analyzing-the" target="_blank">Raschka · GPT-2 to gpt-oss</a>
+        <a href="https://www.weka.io/learn/ai-ml/prefill-and-decode/" target="_blank">Prefill vs decode economics</a>
+        <a href="https://vllm.ai/blog/2025-09-05-anatomy-of-vllm" target="_blank">Anatomy of vLLM</a>
+        <a href="https://arxiv.org/html/2411.02355v4" target="_blank">Accuracy–performance in quantization</a>
+      </div>
+      <div><h4>Quantization &amp; recovery</h4>
+        <a href="https://pytorch.org/blog/quantization-aware-training/" target="_blank">PyTorch · QAT recovery figures</a>
+        <a href="https://arxiv.org/html/2606.04238v1" target="_blank">Recover-LoRA · 2-bit recovery</a>
+        <a href="https://arxiv.org/pdf/2601.11200" target="_blank">FAQ · family-aware calibration</a>
+        <a href="https://arxiv.org/pdf/2601.20088" target="_blank">Quantization-aware distillation</a>
+        <a href="https://arxiv.org/pdf/2506.20251" target="_blank">Q-resafe · safety after quantization</a>
+        <a href="https://arxiv.org/pdf/2408.15301" target="_blank">Llama3-70B per-channel vulnerability</a>
+      </div>
+      <div><h4>Agents &amp; protocols</h4>
+        <a href="https://arxiv.org/abs/2309.02427" target="_blank">CoALA · cognitive architectures</a>
+        <a href="https://arxiv.org/html/2603.07670v1" target="_blank">Memory for autonomous LLM agents</a>
+        <a href="https://a2a-protocol.org/latest/specification/" target="_blank">A2A protocol specification</a>
+        <a href="https://modelcontextprotocol.io/specification/2025-03-26/basic/transports" target="_blank">MCP · transports</a>
+        <a href="https://arxiv.org/pdf/2606.31498" target="_blank">Governance gaps in agent protocols</a>
+        <a href="https://arxiv.org/pdf/2505.02279" target="_blank">Survey of interoperability protocols</a>
+      </div>
+      <div><h4>Platform &amp; landscape</h4>
+        <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank">Anthropic · pricing &amp; caching</a>
+        <a href="https://developers.openai.com/api/docs/models/gpt-5.6-sol" target="_blank">OpenAI · GPT-5.6 Sol</a>
+        <a href="https://www.anthropic.com/news/fable-mythos-access" target="_blank">Anthropic · Fable/Mythos access</a>
+        <a href="https://codersera.com/blog/open-source-llms-landscape-2026/" target="_blank">Open-weights landscape 2026</a>
+        <a href="https://atlan.com/know/types-of-ai-agent-memory/" target="_blank">Agent memory taxonomy</a>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <strong style="color:var(--mid)">Coverage note.</strong> Not an exhaustive literature review. Architecture figures for open-weights models trace to the primary technical reports and model cards linked above and are verifiable. Landscape and pricing figures come from vendor documentation and third-party aggregators current to the third week of August 2026, and should be re-verified before appearing in a client document. The release cadence is roughly one significant model per week, and OpenAI repriced twice in one month. Closed-model architecture figures are omitted throughout because none are published; where this report characterises closed models it does so from measurable behaviour or explicitly labelled inference. Quantization degradation figures are indicative and method-, model- and task-dependent; treat them as a starting hypothesis for your own measurement, not as a specification.
+    </div>
+    <div class="footbar"></div>
+    <div class="copyright">© 2026 Xoriant. All Rights Reserved.</div>
+  </div>
+</footer>
+<script>
+const $=id=>document.getElementById(id);
+function mkExplorer(stackEl,detEl,DATA,groups,initial){
+  let h='';
+  groups.forEach(g=>{
+    h+=`<div class="eyebrow" style="margin:${h?'14px':'0'} 0 9px">${g.label}</div>`;
+    if(g.band) h+=`<div class="repeat-band">`;
+    DATA.filter(x=>x.t===g.key).forEach(x=>{
+      h+=`<button class="lyr" data-id="${x.id}"><span>${x.n}</span><span class="tag">${x.role}</span></button>`;
+    });
+    if(g.band) h+=`</div>`;
+  });
+  stackEl.innerHTML=h;
+  function show(id){
+    const l=DATA.find(x=>x.id===id);
+    stackEl.querySelectorAll('.lyr').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
+    detEl.innerHTML=`<h3>${l.n}</h3><div class="role">${l.role}</div><p>${l.body}</p>`+
+      (l.f?`<div class="formula">${l.f}</div>`:'')+
+      `<div class="ent"><h4>${l.eh||'Why it matters in deployment'}</h4><p>${l.ent}</p></div>`;
+  }
+  stackEl.querySelectorAll('.lyr').forEach(b=>b.onclick=()=>show(b.dataset.id));
+  show(initial);
+}
+
+/* ===== 01 LAYERS ===== */
+const LAYERS=[
+ {id:'tok',n:'Tokenizer',t:'IN',role:'Text to integers',
+  body:'Byte-level BPE. Starts from raw UTF-8 bytes so any input is representable without an unknown-token fallback, then learns merge rules combining frequent byte pairs. Current vocabularies run 128K–200K entries. Qwen3 uses BBPE at 151,669 tokens across 119 languages; gpt-oss uses o200k_harmony at 201,088.',
+  ent:'<b>Fertility varies by language.</b> The same document costs 2–3× more tokens in Hindi or Japanese than English, changing per-document cost and effective context directly. Claude 4.7+ changed tokenizer and produces roughly 30% more tokens for the same text, so nominal rate comparisons across model generations understate cost. Run your own corpus through candidate tokenizers and count. It is one of the cheapest checks available and almost nobody does it. The tokenizer is fixed at pretraining. Domain vocabulary that splits badly will keep splitting badly on that model.'},
+ {id:'emb',n:'Embedding matrix',t:'IN',role:'Integers to vectors',
+  body:'Each token ID indexes into a matrix of shape [vocab_size, d_model]. gpt-oss uses a residual width of 2880 for both its 120B and 20B variants; larger dense models run 4096–8192. Most modern models untie input embedding from output unembedding.',
+  f:'200,000 vocab × 2,880 dims = 576M parameters\nbefore a single transformer layer exists',
+  ent:'In gpt-oss-120b, embed plus unembed accounts for 1.16B of 116.8B total parameters. That is small in proportion, but it sets a floor on model size. A 1B model with a 200K vocabulary spends a fifth of itself on lookup tables.'},
+ {id:'norm',n:'RMSNorm',t:'BLK',role:'Pre-normalisation',
+  body:'Every sublayer is preceded by normalisation. Two choices are now universal: pre-norm rather than post-norm, keeping the residual path clean and making 60–100 layer models trainable at all; and RMSNorm rather than LayerNorm, skipping mean subtraction and the learned shift.',
+  f:'RMSNorm(x) = x / sqrt(mean(x²) + ε) × g',
+  ent:'A third variant is now common: <b>QK-Norm</b>, applied to query and key vectors inside attention. Qwen3 removed the QKV bias used in Qwen2 and added QK-Norm specifically for training stability. It solves attention logit explosion. That is the same problem that forced Moonshot to build MuonClip when Kimi K2 training saw logits pass 1000 mid-run. Architecture, optimizer and normalisation are not separable concerns.'},
+ {id:'attn',n:'Self-attention',t:'BLK',role:'Tokens communicate',
+  body:'Each position projects to a Query (what it is looking for), a Key (what it offers) and a Value (what it contributes if attended to). Scores are the dot product of every query against every key, scaled and softmaxed. The causal mask M is an additive matrix of zeros and negative infinity preventing any position attending forward.',
+  f:'Attention(Q,K,V) = softmax(QKᵀ / √d_k + M) V',
+  ent:'This is where the KV cache lives, and the cache dominates serving cost. Section 02 has the calculator and the head taxonomy. Every attention variant of the last three years exists primarily to shrink this number.'},
+ {id:'rope',n:'RoPE',t:'BLK',role:'Position injection',
+  body:'Attention as described so far is permutation-invariant. It has no idea what order the tokens are in. RoPE rotates query and key vectors in 2D subspaces by an angle proportional to absolute position. Because the dot product of two rotated vectors depends only on their angle difference, attention scores become a function of relative position automatically.',
+  ent:'RoPE has a base frequency parameter, conventionally 10,000, controlling the wavelength spectrum. Extending context beyond training length means changing this base or interpolating the position indices. The common methods are YaRN, NTK-aware scaling and position interpolation. One detail shows how tightly coupled these components are. DeepSeek\u2019s MLA compresses keys, but rotation depends on position and compression does not. So a small subset of dimensions carries the positional information and skips compression. That is <em>decoupled RoPE</em>.'},
+ {id:'ffn',n:'Feed-forward (SwiGLU)',t:'BLK',role:'Where knowledge lives',
+  body:'After attention mixes information across positions, the FFN processes each position independently. The modern form is SwiGLU. It uses three matrices instead of the classic two, with an element-wise product acting as a learned gate. Intermediate dimension typically 2.5–4× d_model.',
+  f:'FFN(x) = (Swish(x·W_gate) ⊙ x·W_up) · W_down',
+  ent:'<b>This is the model.</b> In gpt-oss-120b: 114.71B parameters in MLP, 0.96B in attention, 1.16B in embed/unembed. Attention is a rounding error by parameter count, though not by compute or memory at inference. Geva et al. showed these layers act as <b>key-value memories</b>: the first matrix\u2019s rows are keys matching input patterns, the second\u2019s columns are values over vocabulary. ROME and MEMIT exploit this to locate and edit specific facts in mid-layer MLPs. It also explains why LoRA is poor at injecting facts. You are training low-rank adapters rather than editing the memories where facts live.'},
+ {id:'moe',n:'MoE router',t:'BLK',role:'Conditional computation',
+  body:'In sparse models the FFN is replaced by N independent expert FFNs plus a small router. For each token the router scores all experts and selects the top-k. Only those compute. DeepSeek-V3: 256 routed plus shared, top-8. gpt-oss-120b: 128 experts, top-4. Kimi K3: 896 experts, top-16.',
+  ent:'Total parameters set your memory bill. Active parameters set your compute bill and latency. Those numbers have diverged by up to 32×. When a vendor quotes model size, both numbers are required or the figure is meaningless. Section 03 visualises this.'},
+ {id:'res',n:'Residual stream',t:'BLK',role:'The shared workspace',
+  body:'Each token\u2019s vector travels vertically through the entire stack. Every layer reads from it, computes, and adds the result back. Nothing overwrites anything. The stream is a running total.',
+  f:'x = embed(tokens)\nfor layer in layers:\n    x = x + attention(norm(x))\n    x = x + feedforward(norm(x))',
+  ent:'Gradients flow cleanly top to bottom through the addition operations, which is what makes deep stacks trainable. Layers act as specialists writing into a shared workspace, which is the basis for interpretability work. The stream carries far more features than it has dimensions, via near-orthogonal directions: <b>superposition</b>. That is why individual neurons are polysemantic and why sparse autoencoders are needed to un-mix them. Anthropic trained SAEs with up to 34 million features on the middle-layer residual stream of a production Claude model.'},
+ {id:'unemb',n:'Unembedding + sampling',t:'OUT',role:'Vectors back to tokens',
+  body:'The final vector is normalised and projected through the unembedding matrix to produce one logit per vocabulary entry. Softmax converts to probabilities. Temperature divides logits before softmax; top-p restricts to the smallest set whose cumulative probability exceeds p; top-k restricts to the k most likely.',
+  ent:'<b>Not a minor detail for enterprise.</b> Temperature at or near 0 gives near-deterministic output, which is what you want for extraction, classification and structured generation. But even at temperature 0 you will not get bit-identical outputs across runs on GPU, because floating-point reduction order varies with batch composition. If your compliance story depends on reproducibility, document this rather than assuming it away. Constrained decoding sits here too: a compiled grammar masks any token that would break the schema, making structured output valid by construction.'}
+];
+mkExplorer($('stack'),$('detail'),LAYERS,[
+ {key:'IN',label:'Input'},{key:'BLK',label:'× N layers (36 in gpt-oss-120b, 61 in Kimi K2)',band:true},{key:'OUT',label:'Output'}
+],'ffn');
+
+/* ===== 02 HEADS ===== */
+const HEADS=[
+ {id:'prev',n:'Previous-token heads',t:'A',role:'Copy backward',
+  body:'Attend from position n to position n−1, copying information about the preceding token forward. Individually trivial. Their importance is entirely compositional: they are the first half of the induction circuit.',
+  eh:'Why it matters',
+  ent:'These form very early in training and are among the most reliably identifiable heads in any model. They are the substrate everything else builds on.'},
+ {id:'ind',n:'Induction heads',t:'A',role:'In-context learning',
+  body:'A two-layer circuit implementing [A][B]…[A]→[B]. A previous-token head writes token A\u2019s identity onto B\u2019s position; the induction head then prefix-matches the current A against that record and copies B. Higher-order variants compute n-gram conditionals beyond bigrams.',
+  f:'…the cat sat on the mat … the cat → sat',
+  eh:'Why it matters',
+  ent:'<b>The single most important mechanistic finding in the field.</b> Olsson et al. argue induction heads are the source of most in-context learning at any scale. They form in a sharp phase change early in training that lines up exactly with a jump in in-context learning ability. It is one of very few cases where a capability has been traced to a specific circuit appearing at a specific moment.'},
+ {id:'mover',n:'Name-mover heads',t:'B',role:'Move the right entity',
+  body:'Identified in the indirect-object-identification circuit. They locate the correct name among candidates in context and move it to the final position where the unembedding can read it out.',
+  eh:'Why it matters',
+  ent:'The IOI circuit is the most completely reverse-engineered behaviour in a real language model. It demonstrates that behaviour decomposes into identifiable, testable sub-circuits rather than being spread out beyond analysis. That is the premise the whole interpretability programme rests on.'},
+ {id:'supp',n:'Copy-suppression heads',t:'B',role:'Dampen over-confidence',
+  body:'Actively reduce the logit of a token the model is already inclined to copy. This is a corrective mechanism. The model contains circuits whose job is to argue against other circuits.',
+  eh:'Why it matters',
+  ent:'Relevant to calibration. Some of what looks like smooth model uncertainty is actually the output of an internal disagreement between a copying circuit and a suppression circuit, not a graded probability estimate. That distinction matters if you are thresholding on confidence.'},
+ {id:'retr',n:'Retrieval heads',t:'C',role:'Long-context recall',
+  body:'A sparse, intrinsic set of heads that drive needle-in-a-haystack retrieval from long context. Consistent across inputs and identifiable per model.',
+  eh:'Why it matters',
+  ent:'<b>Directly relevant to enterprise RAG.</b> Pruning retrieval heads collapses long-context recall and also breaks chain-of-thought that depends on retrieved facts. This is mechanistic evidence for why long-context performance is a narrow, fragile capability rather than a general property. It also explains why the lost-in-the-middle effect keeps recurring across model generations.'},
+ {id:'fn',n:'Function / task vectors',t:'C',role:'Compressed instructions',
+  body:'In-context learning can be summarised as a single vector extracted from the residual stream and injected into a different forward pass, reconfiguring downstream computation to perform the demonstrated task with no examples present.',
+  eh:'Why it matters',
+  ent:'Suggests few-shot prompting works by constructing a compact task representation, not by the model literally attending back to examples throughout generation. It also explains why example ordering and format matter more than example count past a handful. You are shaping a vector rather than supplying a lookup table.'}
+];
+mkExplorer($('headStack'),$('headDetail'),HEADS,[
+ {key:'A',label:'The induction circuit'},{key:'B',label:'Entity and copy control'},{key:'C',label:'Retrieval and task encoding'}
+],'ind');
+
+/* ===== 02 KV CALC ===== */
+const CTXS=[4096,8192,16384,32768,65536,131072,262144];
+const NL=80,DH=128; let prec=2;
+function fmt(gb){return gb>=1024?(gb/1024).toFixed(2)+' TB':gb>=1?gb.toFixed(1)+' GB':(gb*1024).toFixed(0)+' MB'}
+function calcKV(){
+  const ctx=CTXS[+$('ctx').value],bat=+$('bat').value,qh=+$('qh').value;
+  $('ctxV').textContent=ctx>=1024?(ctx/1024)+'K':ctx; $('batV').textContent=bat; $('qhV').textContent=qh;
+  const B=k=>2*NL*k*DH*ctx*bat*prec/1e9;
+  const mha=B(qh),gqa=B(Math.max(1,qh/8)),mla=mha/10;
+  const max=Math.max(mha,140);
+  const rows=[{c:'a',n:'MHA',s:qh+' KV heads',v:mha,col:'var(--red)'},
+    {c:'b',n:'GQA',s:(qh/8)+' KV heads · 8× reduction',v:gqa,col:'var(--amber)'},
+    {c:'c',n:'MLA',s:'latent compression · ~10× reduction',v:mla,col:'var(--green-dk)'}];
+  $('bars').innerHTML=rows.map(r=>`<div class="bar-row">
+    <div class="bar-top"><span class="nm">${r.n} <small>${r.s}</small></span><span class="amt" style="color:${r.col}">${fmt(r.v)}</span></div>
+    <div class="track"><div class="fill ${r.c}" style="width:${Math.min(100,r.v/max*100)}%"></div>
+    <div class="gpu-line" data-l="80GB H100" style="left:${Math.min(99,80/max*100)}%"></div></div></div>`).join('');
+  const fits=v=>v+140<=640?'fits an 8×80GB node':'exceeds an 8×80GB node';
+  $('verdict').innerHTML=`At <b>${ctx>=1024?(ctx/1024)+'K':ctx} context × ${bat} concurrent requests</b>, the KV cache alone reaches <b>${fmt(mha)}</b> under MHA, <b>${fmt(gqa)}</b> under GQA, <b>${fmt(mla)}</b> under MLA. Model weights for a 70B at FP16 add roughly 140 GB on top. GQA ${fits(gqa)}; MHA ${fits(mha)}.<br><br>The gap between the top bar and the bottom bar is the difference between serving a pilot and serving a business.`;
+}
+['ctx','bat','qh'].forEach(i=>$(i).addEventListener('input',calcKV));
+$('precSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
+  $('precSeg').querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');prec=+b.dataset.p;calcKV();});
+calcKV();
+
+/* ===== 02 PHASE ===== */
+const PHASE={prefill:{ai:'200–400+',util:'90–95%',bound:'Compute-bound',op:'Matrix–matrix',
+  note:'Prefill processes the entire prompt in parallel. Every token attends to every other token in one pass, so operations are large matrix–matrix multiplications with high arithmetic intensity, well above the H100 ridge point of about 295 FLOPs per byte. The GPU runs near peak. <b>This is what TTFT measures.</b> Prefill cost scales with prompt length, which is why bloated context hurts first-token latency far more than it hurts generation speed.'},
+ decode:{ai:'1–80',util:'20–40%',bound:'Memory-bandwidth-bound',op:'Matrix–vector',
+  note:'Decode generates one token at a time and must re-read the entire KV cache from HBM at every step. Operations are matrix by vector, so compute is tiny and memory traffic is large. Arithmetic intensity sits far below the ridge point (~153 FLOPs/byte on A100, ~295 on H100), so the GPU stalls waiting on memory at 20–40% utilisation. <b>This is what TPOT and inter-token latency measure.</b> Typical ITL is 11–21ms; you need 50+ tokens/sec per user for output to feel fluid.<br><br>This imbalance is the whole argument for <b>prefill/decode disaggregation</b>, which runs the two phases on separately tuned node pools. It is also why every attention variant since 2023 has targeted KV cache size.'}};
+let phase='prefill';
+function drawPhase(){const p=PHASE[phase];
+  $('phaseStats').innerHTML=`<div class="stat"><div class="k">Arithmetic intensity</div><div class="v ${phase==='prefill'?'g':'a'}">${p.ai}</div><div class="s">FLOPs per byte</div></div>
+  <div class="stat"><div class="k">GPU utilisation</div><div class="v">${p.util}</div><div class="s">${p.op} operations</div></div>
+  <div class="stat"><div class="k">Bottleneck</div><div class="v" style="font-size:15px;line-height:1.4">${p.bound}</div><div class="s">${phase==='prefill'?'above the ridge point':'below the ridge point'}</div></div>`;
+  $('phaseNote').innerHTML=p.note;}
+$('phaseSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{phase=b.dataset.p;
+  $('phaseSeg').querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');drawPhase();});
+drawPhase();
+
+/* ===== 03 MOE ===== */
+const MOE=[
+ {k:'ds',lab:'DeepSeek V3',n:'DeepSeek-V3',tot:671,act:37,exp:256,top:8,sh:1,
+  note:'The reference design for efficient large-scale MoE. Auxiliary-loss-free load balancing via a learnable per-expert bias, plus multi-head latent attention. 37B active gives the inference cost profile of a 30–40B dense model while drawing on 671B of stored knowledge. Trained on 14.8T tokens in FP8 for roughly 2.788M H800 GPU hours.'},
+ {k:'k3',lab:'Kimi K3',n:'Kimi K3',tot:2800,act:104,exp:896,top:16,sh:0,
+  note:'The current open-weights leader and a genuine architectural departure from K2. 896 experts, 16 active. It uses a new attention mechanism called Kimi Delta Attention, a hybrid linear design that interleaves linear and full attention at roughly 3:1 for up to 75% KV-cache reduction. It also adds Attention Residuals and a Stable LatentMoE framework reported at about 2.5 times the scaling efficiency of K2. Native MXFP4 weights with MXFP8 activations, 1M context, 401M-parameter MoonViT-V2 vision encoder in the same stack. Post-trained by merging nine specialised RL expert models via Multi-Teacher On-Policy Distillation. Caveat: thinking is always on, so the output-token bill is structurally inflated at $3/$15.'},
+ {k:'k2',lab:'Kimi K2',n:'Kimi K2',tot:1040,act:32,exp:384,top:8,sh:1,
+  note:'32.5× sparsity at release. 384 experts across 61 layers: one dense layer at the base, then 60 MoE layers. Required a new optimizer (MuonClip with QK-Clip) to stop attention logits exceeding 1000 and destabilising training. Pre-trained on 15.5T tokens with zero loss spike. Its agentic strength came from a synthesis pipeline spanning over 20,000 tools. Agentic competence is trained on purpose rather than emerging on its own.'},
+ {k:'q3',lab:'Qwen3',n:'Qwen3-235B-A22B',tot:235,act:22,exp:128,top:8,sh:0,
+  note:'Fine-grained expert segmentation with no shared expert. This was a deliberate change from Qwen2.5-MoE meant to force stronger specialisation, and it is, paired with a global-batch load balancing loss. Sits inside a family spanning 0.6B to 235B under one architecture and one tokenizer, which is the real enterprise advantage: prototype large, distil small, keep the same chat template and behavioural profile throughout.'},
+ {k:'oss',lab:'gpt-oss',n:'gpt-oss-120b',tot:117,act:5.1,exp:128,top:4,sh:0,
+  note:'36 layers, residual width 2880, 64 query heads with 8 KV groups, sliding window attention interleaved 1:1 with full attention at window 128, learned per-head attention sinks. The decisive feature is native MXFP4 quantisation applied during post-training rather than after. Since MoE weights are over 90% of parameters, the checkpoint lands at 60.8 GiB and fits one 80GB GPU. In BF16 it would need roughly 240GB.'},
+ {k:'l4',lab:'Llama 4',n:'Llama 4 Maverick',tot:400,act:17,exp:128,top:1,sh:1,
+  note:'Top-1 routing with a shared expert, and MoE layers alternating with dense layers rather than replacing all of them. It pairs this with iRoPE, which interleaves NoPE layers using a full causal mask rather than a sliding window. Text and vision are fused early into one backbone rather than joined by a bolt-on projector.'},
+ {k:'mm',lab:'Mistral (dense)',n:'Mistral Medium 3.5',tot:128,act:128,exp:0,top:0,sh:0,
+  note:'Dense, not sparse. Currently the only frontier-credible non-MoE model: 128B parameters, 256K context, vision encoder trained from scratch, configurable reasoning effort in one set of weights, 77.6% SWE-bench Verified. Self-hosts on as few as four GPUs. A useful reminder that for a fixed single-node budget, dense is often the right answer.'},
+ {k:'cl',lab:'Claude 5 family',tot:null,act:null,exp:null,top:0,sh:0,closed:true,
+  note:'<b>Not published.</b> Anthropic does not disclose parameter counts, layer counts, expert counts or routing for any production Claude model.<br><br><b>What can be inferred, and labelled as inference:</b> almost certainly sparse mixture-of-experts. Fable 5 and Opus 5 serve 1M context at $10/$50 and $5/$25 per million tokens with adaptive reasoning. A dense model at that capability would cost far more per token to serve, and the price gap between Haiku 4.5 at $1/$5 and Fable 5 at $10/$50 fits a family of models sharing infrastructure at different active-parameter counts. Grouped or latent attention is near-certain, since full multi-head attention at 1M context would not price this way.<br><br><b>What is actually known:</b> the interpretability work. Anthropic trained sparse autoencoders with up to 34 million features on the middle-layer residual stream of a stated production model, which tells us the residual stream is high-dimensional and carries features in superposition. Attribution graphs on Claude 3.5 Haiku showed two-hop reasoning with a manipulable intermediate step, and planning several tokens ahead. That is real evidence about internal structure. It is not a parameter count.'},
+ {k:'op',lab:'GPT-5.6 tiers',tot:null,act:null,exp:null,top:0,sh:0,closed:true,
+  note:'<b>Not published.</b> OpenAI does not disclose the architecture of GPT-5.6 Sol, Terra or Luna.<br><br><b>What can be inferred:</b> the three-tier structure at $5/$30, $2/$12 and $0.20/$1.20 with Luna at roughly nine times the speed points to one family at different sparsity or size. Luna at that price and speed is consistent with a small, heavily quantized sparse model.<br><br><b>The better evidence is gpt-oss.</b> OpenAI published a full open-weights architecture in the same period: 128 experts with top-4 routing and no shared expert, gated SwiGLU, grouped-query attention at 64 query heads to 8 key-value heads, sliding window attention interleaved 1:1 with full attention at window 128, learned per-head attention sinks, RoPE with YaRN extension, and native MXFP4 at 4.25 bits per parameter. Those are the conventions OpenAI\u2019s engineers reach for. It is reasonable to expect several of them in GPT-5.x. It is not proof, and the configuration will differ.'},
+ {k:'gg',lab:'Gemini / Grok',tot:null,act:null,exp:null,top:0,sh:0,closed:true,
+  note:'<b>Not published.</b> Neither Google nor xAI discloses production architecture for Gemini 3.6 or Grok 4.6.<br><br><b>What can be inferred:</b> both serve very long context cheaply. Gemini 3.6 Flash at $0.40/$1.60 for 1M context and Grok 4.6 at $2/$6 for 2M context are prices that require aggressive KV cache reduction and sparsity. Grok 4.6 completing long agentic jobs in roughly half the turns of Opus 5 is a post-training and tool-use property rather than an architectural one.<br><br><b>The indirect evidence:</b> Google publishes Gemma as an open family. Gemma 4 31B is dense, uses grouped-query attention and sliding window attention. That tells you what Google is willing to ship openly at small scale. It does not tell you what Gemini does at frontier scale, and the two are built by different teams to different constraints.'},
+ {k:'g4',lab:'Gemma 4',n:'Gemma 4 31B',tot:31,act:31,exp:0,top:0,sh:0,
+  note:'Dense, 31B, and the leader for small-footprint deployments, ranked third among open models at its size on Arena AI. Google\u2019s open family is the practical answer where a single mid-range GPU is the whole budget and you need capability rather than a toy. Note the licence is Gemma Terms, not Apache or MIT, so it warrants legal review that DeepSeek or Qwen would not.'}
+];
+let moeSel='k3';
+$('moeSeg').innerHTML=MOE.map(m=>`<button data-k="${m.k}" class="${m.k===moeSel?'on':''}"${m.closed?' style="border-style:dashed"':''}>${m.lab}</button>`).join('');
+function drawMoE(){const m=MOE.find(x=>x.k===moeSel);
+  const np='<span style="color:var(--faint);font-size:15px;font-family:var(--sans)">not published</span>';
+  if(m.closed){
+    $('moeStats').innerHTML=`<div class="stat"><div class="k">Total parameters</div><div class="v">${np}</div><div class="s">no vendor disclosure</div></div>
+    <div class="stat"><div class="k">Active per token</div><div class="v">${np}</div><div class="s">no vendor disclosure</div></div>
+    <div class="stat"><div class="k">Expert count</div><div class="v">${np}</div><div class="s">sparse is inferred from pricing, not stated</div></div>`;
+    let g='';for(let i=0;i<128;i++)g+=`<div class="exp" style="border-style:dashed"></div>`;
+    $('moeGrid').innerHTML=g;
+  } else {
+    const sp=m.exp?(m.tot/m.act):1;
+    $('moeStats').innerHTML=`<div class="stat"><div class="k">Total parameters</div><div class="v">${m.tot>=1000?(m.tot/1000).toFixed(1)+'T':m.tot+'B'}</div><div class="s">sets your memory bill</div></div>
+    <div class="stat"><div class="k">Active per token</div><div class="v g">${m.act}B</div><div class="s">sets your compute bill</div></div>
+    <div class="stat"><div class="k">Sparsity ratio</div><div class="v ${sp>10?'b':''}">${sp.toFixed(1)}×</div><div class="s">${m.exp?m.top+' of '+m.exp+' experts fire':'dense, all parameters fire'}</div></div>`;
+    let g='';
+    if(m.exp){for(let i=0;i<m.exp;i++)g+=`<div class="exp${i<m.top?' hot':''}"></div>`;for(let i=0;i<m.sh;i++)g+=`<div class="exp shared"></div>`;}
+    else{for(let i=0;i<64;i++)g+=`<div class="exp hot"></div>`;}
+    $('moeGrid').innerHTML=g;
+  }
+  $('moeNote').innerHTML=m.note;
+  $('moeCaption').innerHTML=m.closed
+    ? 'Dashed outlines mean the expert count is unknown. The grid is a placeholder, not a claim about structure.'
+    : 'Each square is one expert in one MoE layer. Filled squares compute. Blue is an always-on shared expert.';}
+$('moeSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{moeSel=b.dataset.k;
+  $('moeSeg').querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');drawMoE();});
+drawMoE();
+
+/* ===== 04 TRAINING ===== */
+const TRAIN=[
+ {id:'data',n:'Data curation',t:'PRE',role:'The real trade secret',
+  body:'Bulk crawl, language ID, dedup at document and near-duplicate level, quality classification via a small scoring model, toxicity and PII filtering, then deliberate up-weighting of code and mathematics far beyond natural web frequency. Most labs run a general phase then a high-quality annealing phase where learning rate decays and the mix shifts to curated data.',
+  ent:'Synthetic data is now a large fraction of the mix. Models generate training data for successors, filtered by verification. This is how reasoning capability compounds. A model that solves a problem sometimes generates many attempts, the correct ones are kept, and the next model learns from a set of data richer in correct reasoning. <b>Your domain is underrepresented</b> and that is a data problem, not an architecture problem.'},
+ {id:'pre',n:'Pretraining',t:'PRE',role:'Next-token prediction',
+  body:'Cross-entropy loss on next-token prediction. That is the whole objective. Every capability emerges from it at scale. AdamW with β₁ 0.9, β₂ 0.95, weight decay 0.1 is close to universal; Kimi used Muon with MuonClip for better token efficiency.',
+  f:'Training FLOPs ≈ 6 × N × D\n  N = active parameters, D = tokens',
+  ent:'Chinchilla established ~20 tokens per parameter as compute-optimal. <b>Every current model is trained well past that, on purpose.</b> Compute-optimal only minimises <em>training</em> cost. Inference cost is larger over a deployed lifetime, so labs overtrain smaller models to get better serving economics. That one fact explains most of the model sizes you see.'},
+ {id:'ctx',n:'Context extension',t:'PRE',role:'Stretch the window',
+  body:'Models pretrain at a modest context, commonly 4K–32K, then extend as a separate stage with its own data: long documents, books, repository-scale code. Techniques include position interpolation, NTK-aware scaling and YaRN. Kimi K3 used a progressive context-length curriculum plus synthetic long-context datasets built so that solving the task really does require reading across the full window.',
+  ent:'<b>Advertised context reflects what the architecture can address after interpolation, not what it was trained on.</b> Llama 4 Scout advertises 10M but was pre- and post-trained at 256K. Needle-in-a-haystack is a weak benchmark because finding a distinctive sentence is far easier than reasoning over dispersed facts. Build the test on your own documents requiring synthesis across separated passages.'},
+ {id:'sft',n:'Supervised fine-tuning',t:'POST',role:'Teach the format',
+  body:'The pretrained base is a text continuation engine, not an assistant. SFT is the same next-token objective on curated (prompt, response) pairs, with loss usually computed only on response tokens. Hundreds of thousands to low millions of examples; quality dominates quantity by a wide margin.',
+  ent:'This stage installs the <b>chat template</b>, the special-token structure that separates system, user and assistant turns. This is not cosmetic. gpt-oss requires the Harmony format, and prompts rendered without it produce degraded or meaningless output. <b>If you self-host and get poor results from a model that benchmarks well, template mismatch is the first thing to check.</b> It causes a large share of failed proofs of concept.'},
+ {id:'pref',n:'Preference optimisation',t:'POST',role:'Teach judgment',
+  body:'SFT teaches format; this teaches judgment. RLHF with PPO is the classical route. Human comparisons train a reward model, then PPO optimises the policy against it under a KL constraint. DPO removes the reward model and RL loop entirely via a closed-form loss on preference pairs. GRPO replaces the learned value network with the group mean reward across sampled completions.',
+  ent:'For enterprise work, <b>DPO is almost always the right choice</b>: it looks like supervised training, has no critic, and gets most of the ceiling. GRPO matters if you have a reward signal and want reasoning gains. PPO-based RLHF is a frontier-lab activity requiring infrastructure you do not want to build.'},
+ {id:'rlvr',n:'RLVR',t:'POST',role:'Verifier as reward',
+  body:'Reinforcement Learning with Verifiable Rewards. Where a task has a checkable answer, you need no reward model and no human labellers. Examples include mathematics, unit-testable code, formal proofs and structured extraction against ground truth. The verifier is the reward.',
+  ent:'<b>This is why reasoning models improved so quickly.</b> It removes the human bottleneck from the reward signal, so the training loop runs at machine speed. Kimi K2 extended it with a self-critique rubric mechanism for tasks lacking automatic verification. For data engineering, verification is often available mechanically. Does the SQL execute? Does it return the expected row count? Does the extracted field match source? Does the lineage resolve? If you can define correctness you can improve a model on your own workloads without labelling anything.'},
+ {id:'reason',n:'Reasoning modes',t:'POST',role:'Inference-time compute',
+  body:'Rather than answering immediately, the model generates an extended internal chain of thought and is trained via RL to make that chain productive. Qwen3 unified thinking and non-thinking modes in one model with dynamic switching and a configurable thinking budget. gpt-oss exposes discrete reasoning levels. Claude 5 models use adaptive thinking with an effort parameter.',
+  ent:'<b>Reasoning tokens are billed and numerous.</b> A hard task can emit 5–50× the visible output in hidden reasoning. Any TCO model built on visible output length will be wrong by an order of magnitude. Note also that chain-of-thought may not accurately reflect the real internal computation. Treat it as a developer interface rather than a forensic transcript, and never present it to an auditor as evidence of how a decision was reached.'},
+ {id:'quant',n:'Quantization-aware post-training',t:'POST',role:'Compress without losing',
+  body:'The newest stage. Instead of quantizing a finished model, quantization is applied during post-training so the model adapts to the lower precision. gpt-oss post-trained with MXFP4 on its MoE weights; Kimi K3 ships as a native MXFP4 checkpoint with MXFP8 activations.',
+  ent:'This is why those models hold quality at 4-bit where post-hoc quantization of an equivalent model would degrade. <b>Native quantization is a different thing from post-training quantization</b>, and it is why gpt-oss-120b fits on a single 80GB card without the usual warnings. Section 05 covers what to do when you only have PTQ available.'},
+ {id:'eval',n:'Evaluation',t:'POST',role:'Did any of it work',
+  body:'Published benchmarks such as MMLU, GPQA, SWE-bench, AIME and LiveCodeBench are useful for rough ranking and close to useless for enterprise selection. The reasons are contamination, saturation and construct mismatch.',
+  ent:'Build your own set. A few hundred examples from real workloads, agreed answers, scored automatically. That is about one week of work, and it is the highest-value asset your practice will build. It is also the only thing that makes model swaps safe, and with a release roughly every week those swaps are now routine. Section 06 covers the layers in detail.'}
+];
+mkExplorer($('trainStack'),$('trainDetail'),TRAIN,[
+ {key:'PRE',label:'Pretraining: months, millions of dollars'},{key:'POST',label:'Post-training: where capability is built'}
+],'rlvr');
+
+/* ===== 05 QUANTIZATION ===== */
+const QM=[
+ {k:'70b',lab:'70B dense',p:70},{k:'120b',lab:'gpt-oss 120B',p:117},
+ {k:'235b',lab:'Qwen3 235B',p:235},{k:'671b',lab:'DeepSeek 671B',p:671},{k:'k3',lab:'Kimi K3 2.8T',p:2800}
+];
+const PRECS=[
+ {n:'BF16',b:2,deg:'0%',c:'a',note:'baseline'},
+ {n:'FP8 / INT8',b:1,deg:'<0.5%',c:'b',note:'essentially free'},
+ {n:'INT4 / MXFP4',b:0.53,deg:'1–4%',c:'c',note:'acceptable with recovery'},
+ {n:'2-bit',b:0.27,deg:'10–30%',c:'d',note:'needs Recover-LoRA to be usable'}
+];
+let qSel='120b';
+$('qModelSeg').innerHTML=QM.map(m=>`<button data-k="${m.k}" class="${m.k===qSel?'on':''}">${m.lab}</button>`).join('');
+function drawQ(){
+  const m=QM.find(x=>x.k===qSel);
+  const sizes=PRECS.map(p=>({...p,gb:m.p*p.b*1.15}));
+  const max=Math.max(...sizes.map(s=>s.gb));
+  $('qStats').innerHTML=`<div class="stat"><div class="k">BF16 footprint</div><div class="v r">${(m.p*2*1.15).toFixed(0)} GB</div><div class="s">weights plus ~15% overhead</div></div>
+  <div class="stat"><div class="k">4-bit footprint</div><div class="v g">${(m.p*0.53*1.15).toFixed(0)} GB</div><div class="s">${(m.p*0.53*1.15)<80?'fits a single 80GB card':(m.p*0.53*1.15)<640?'fits an 8×80GB node':'multi-node even at 4-bit'}</div></div>
+  <div class="stat"><div class="k">Compression</div><div class="v b">3.8×</div><div class="s">BF16 to 4-bit, before KV cache</div></div>`;
+  $('qBars').innerHTML=sizes.map(s=>`<div class="bar-row">
+    <div class="bar-top"><span class="nm">${s.n} <small>expected degradation ${s.deg} · ${s.note}</small></span><span class="amt">${s.gb>=1024?(s.gb/1024).toFixed(2)+' TB':s.gb.toFixed(0)+' GB'}</span></div>
+    <div class="track"><div class="fill ${s.c}" style="width:${s.gb/max*100}%"></div>
+    <div class="gpu-line" data-l="80GB" style="left:${Math.min(99,80/max*100)}%"></div></div></div>`).join('');
+  $('qNote').innerHTML=`Degradation figures are indicative and <b>method-, model- and task-dependent</b>. Weights quantize far more easily than activations. W4A16 is close to lossless while W4A4 is still hard, and activation outliers are the reason. Native quantization applied <em>during</em> post-training (gpt-oss, Kimi K3) holds quality where post-hoc PTQ of an equivalent model would not.<br><br><b>KV cache is not included above</b> and at high concurrency it can exceed the weights. See section 02. Quantizing the cache separately to FP8 is usually free and often overlooked.`;
+}
+$('qModelSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{qSel=b.dataset.k;
+  $('qModelSeg').querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');drawQ();});
+drawQ();
+
+/* ===== 06 EVAL SELF-ASSESS ===== */
+const EVALS=[
+ {id:'e1',n:'Component evals (retrieval separate)',w:18},
+ {id:'e2',n:'Task eval set from real workloads',w:22},
+ {id:'e3',n:'Regression suite on every change',w:18},
+ {id:'e4',n:'Agent trajectory evaluation',w:12},
+ {id:'e5',n:'Safety evals post-quantization',w:10},
+ {id:'e6',n:'Groundedness / citation checks',w:10},
+ {id:'e7',n:'Calibrated LLM-as-judge',w:5},
+ {id:'e8',n:'Production sampling on live traffic',w:5}
+];
+const evalOn={};
+EVALS.forEach(e=>evalOn[e.id]=false);
+$('evalGrid').innerHTML=EVALS.map(e=>`<button class="lyr" data-id="${e.id}" style="margin:0"><span>${e.n}</span><span class="tag">+${e.w}</span></button>`).join('');
+function drawEval(){
+  const score=EVALS.reduce((s,e)=>s+(evalOn[e.id]?e.w:0),0);
+  const have=EVALS.filter(e=>evalOn[e.id]).length;
+  let verdict,cls;
+  if(score>=85){verdict='Model swaps are routine';cls='g'}
+  else if(score>=60){verdict='Safe for most changes';cls='g'}
+  else if(score>=35){verdict='Partial, blind to regressions';cls='a'}
+  else{verdict='Flying blind';cls='r'}
+  $('evalStats').innerHTML=`<div class="stat"><div class="k">Coverage score</div><div class="v ${cls}">${score}</div><div class="s">of 100</div></div>
+  <div class="stat"><div class="k">Layers in place</div><div class="v">${have} / 8</div><div class="s">toggle above</div></div>
+  <div class="stat"><div class="k">Verdict</div><div class="v ${cls}" style="font-size:15px;line-height:1.4">${verdict}</div><div class="s">for changing model, prompt or precision</div></div>`;
+  const missing=EVALS.filter(e=>!evalOn[e.id]).sort((a,b)=>b.w-a.w).slice(0,3);
+  $('evalNote').innerHTML=score>=85?'You can change models, prompts and precision with confidence and detect regressions before users do. This is the position that makes the weekly release cadence an opportunity rather than a threat.'
+    :`Highest-value gaps, in order: <b>${missing.map(m=>m.n).join('</b>, <b>')}</b>.<br><br>The task eval set carries the most weight on purpose. Without a few hundred real examples with agreed answers, every other layer measures something you cannot tie back to a business outcome. It is roughly a week of work.`;
+}
+$('evalGrid').querySelectorAll('.lyr').forEach(b=>b.onclick=()=>{
+  const id=b.dataset.id; evalOn[id]=!evalOn[id]; b.classList.toggle('on',evalOn[id]); drawEval();});
+drawEval();
+
+/* ===== 07 MATRIX ===== */
+const MODELS=[
+ {name:'DeepSeek-V3',type:'open',total:671,active:37,attn:'MLA',ctx:'128K',lic:'MIT',single:false,pin:0.27,pout:1.1},
+ {name:'DeepSeek V4-Flash',type:'open',total:284,active:null,attn:'MLA',ctx:'128K',lic:'MIT',single:false,pin:0.14,pout:0.28},
+ {name:'Qwen3-235B-A22B',type:'open',total:235,active:22,attn:'GQA + QK-Norm',ctx:'128K',lic:'Apache 2.0',single:false,pin:0.2,pout:0.6},
+ {name:'Qwen3-32B',type:'open',total:32,active:32,attn:'GQA + QK-Norm',ctx:'128K',lic:'Apache 2.0',single:true,pin:0.1,pout:0.3},
+ {name:'Qwen3-Next-80B',type:'open',total:80,active:3,attn:'Gated DeltaNet hybrid',ctx:'Long',lic:'Apache 2.0',single:true,pin:0.1,pout:0.4},
+ {name:'Qwen3.8-27B',type:'open',total:27,active:27,attn:'GQA',ctx:'256K',lic:'Apache 2.0',single:true,pin:0.08,pout:0.25},
+ {name:'Llama 4 Scout',type:'open',total:109,active:17,attn:'iRoPE',ctx:'10M adv.',lic:'Llama Community',single:true,pin:0.11,pout:0.34},
+ {name:'Llama 4 Maverick',type:'open',total:400,active:17,attn:'iRoPE',ctx:'1M',lic:'Llama Community',single:false,pin:0.19,pout:0.49},
+ {name:'gpt-oss-120b',type:'open',total:117,active:5.1,attn:'GQA + SWA + sinks',ctx:'128K',lic:'Apache 2.0',single:true,pin:0.1,pout:0.5},
+ {name:'gpt-oss-20b',type:'open',total:21,active:3.6,attn:'GQA + SWA + sinks',ctx:'128K',lic:'Apache 2.0',single:true,pin:0.05,pout:0.2},
+ {name:'Kimi K3',type:'open',total:2800,active:104,attn:'Kimi Delta Attention',ctx:'1M',lic:'Modified MIT',single:false,pin:3,pout:15},
+ {name:'Kimi K2',type:'open',total:1040,active:32,attn:'MLA-style',ctx:'128K+',lic:'Modified MIT',single:false,pin:0.6,pout:2.5},
+ {name:'Mistral Medium 3.5',type:'open',total:128,active:128,attn:'GQA (dense)',ctx:'256K',lic:'Modified MIT',single:true,pin:1.5,pout:7.5},
+ {name:'Mistral Small 4',type:'open',total:119,active:6,attn:'GQA',ctx:'256K',lic:'Apache 2.0',single:true,pin:0.2,pout:0.6},
+ {name:'Gemma 4 31B',type:'open',total:31,active:31,attn:'GQA (dense)',ctx:'128K',lic:'Gemma Terms',single:true,pin:0.1,pout:0.3},
+ {name:'GLM-5.2',type:'open',total:null,active:null,attn:'MoE',ctx:'200K',lic:'MIT-family',single:false,pin:0.6,pout:2.2},
+ {name:'Claude Fable 5',type:'closed',total:null,active:null,attn:'Not published',ctx:'1M',lic:'Proprietary',single:false,pin:10,pout:50},
+ {name:'Claude Mythos 5',type:'closed',total:null,active:null,attn:'Not published',ctx:'1M',lic:'Glasswing only',single:false,pin:10,pout:50},
+ {name:'Claude Opus 5',type:'closed',total:null,active:null,attn:'Not published',ctx:'1M',lic:'Proprietary',single:false,pin:5,pout:25},
+ {name:'Claude Sonnet 5',type:'closed',total:null,active:null,attn:'Not published',ctx:'1M',lic:'Proprietary',single:false,pin:2,pout:10},
+ {name:'Claude Haiku 4.5',type:'closed',total:null,active:null,attn:'Not published',ctx:'200K',lic:'Proprietary',single:false,pin:1,pout:5},
+ {name:'GPT-5.6 Sol',type:'closed',total:null,active:null,attn:'Not published',ctx:'1.05M',lic:'Proprietary',single:false,pin:5,pout:30},
+ {name:'GPT-5.6 Terra',type:'closed',total:null,active:null,attn:'Not published',ctx:'1.05M',lic:'Proprietary',single:false,pin:2,pout:12},
+ {name:'GPT-5.6 Luna',type:'closed',total:null,active:null,attn:'Not published',ctx:'1.05M',lic:'Proprietary',single:false,pin:0.2,pout:1.2},
+ {name:'Gemini 3.6 Flash',type:'closed',total:null,active:null,attn:'Not published',ctx:'1M',lic:'Proprietary',single:false,pin:0.4,pout:1.6},
+ {name:'Grok 4.6',type:'closed',total:null,active:null,attn:'Not published',ctx:'2M',lic:'Proprietary',single:false,pin:2,pout:6}
+];
+let filt='all',sortK='pin',sortDir=1;
+function renderMtx(){
+  let rows=MODELS.filter(m=>filt==='all'?true:filt==='single'?m.single:filt==='dense'?(m.total&&m.active&&m.total===m.active):m.type===filt);
+  rows.sort((a,b)=>{let x,y;
+    if(sortK==='sparsity'){x=a.total&&a.active?a.total/a.active:0;y=b.total&&b.active?b.total/b.active:0}
+    else{x=a[sortK]??-1;y=b[sortK]??-1}
+    if(typeof x==='number'&&typeof y==='number')return(x-y)*sortDir;
+    return String(x).localeCompare(String(y))*sortDir;});
+  $('mtxBody').innerHTML=rows.map(m=>{
+    const sp=m.total&&m.active?(m.total/m.active):null;
+    const lp=/MIT|Apache/.test(m.lic)?'open':m.lic==='Proprietary'?'closed':m.lic==='Glasswing only'?'bad':'warn';
+    const np='<span style="color:var(--faint);font-family:var(--sans);font-size:11px">not published</span>';
+    return `<tr><td class="name">${m.name}</td>
+    <td><span class="pill ${m.type}">${m.type==='open'?'Open':'Closed'}</span></td>
+    <td class="num">${m.total?(m.total>=1000?(m.total/1000).toFixed(1)+'T':m.total+'B'):np}</td>
+    <td class="num" style="color:${m.active?'var(--green-dk)':'inherit'};font-weight:${m.active?700:400}">${m.active?m.active+'B':np}</td>
+    <td class="num" style="color:${sp&&sp>10?'var(--blue)':'inherit'}">${sp?sp.toFixed(1)+'×':'n/a'}</td>
+    <td class="wrap-c">${m.attn}</td><td class="num">${m.ctx}</td>
+    <td class="num">$${m.pin}</td><td class="num" style="color:var(--amber)">$${m.pout}</td>
+    <td><span class="pill ${lp}">${m.lic}</span></td></tr>`}).join('');
+  $('rowCount').textContent=rows.length+' models';
+}
+$('filtSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{filt=b.dataset.f;
+  $('filtSeg').querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');renderMtx();});
+document.querySelectorAll('#mtx th[data-k]').forEach(th=>th.onclick=()=>{
+  const k=th.dataset.k; if(sortK===k)sortDir*=-1;else{sortK=k;sortDir=1} renderMtx();});
+renderMtx();
+
+/* ===== 07 COST ===== */
+const REQS=[1000,10000,100000,1000000,5000000,20000000];
+let batchMult=1;
+function money(v){return v>=1e6?'$'+(v/1e6).toFixed(2)+'M':v>=1000?'$'+(v/1000).toFixed(1)+'K':'$'+v.toFixed(0)}
+function calcCost(){
+  const req=REQS[+$('req').value],inT=+$('inTok').value,outT=+$('outTok').value,rsnM=+$('rsn').value,cp=+$('cache').value/100;
+  $('reqV').textContent=req>=1e6?(req/1e6)+'M':(req/1000)+'K';
+  $('inV').textContent=inT.toLocaleString(); $('outV').textContent=outT.toLocaleString();
+  $('rsnV').textContent=rsnM+'×'; $('cacheV').textContent=Math.round(cp*100)+'%';
+  const totalOut=outT*rsnM;
+  const pick=['Claude Opus 5','Claude Sonnet 5','GPT-5.6 Sol','GPT-5.6 Terra','GPT-5.6 Luna','Kimi K3','DeepSeek V4-Flash','gpt-oss-120b','Gemma 4 31B'];
+  const priced=MODELS.filter(m=>pick.includes(m.name)).map(m=>({
+    n:m.name,type:m.type,
+    v:((inT*cp*m.pin*0.1)+(inT*(1-cp)*m.pin)+(totalOut*m.pout))/1e6*req*batchMult
+  })).sort((a,b)=>a.v-b.v);
+  const max=Math.max(...priced.map(x=>x.v));
+  $('costBars').innerHTML=priced.map(r=>`<div class="bar-row">
+    <div class="bar-top"><span class="nm">${r.n}</span><span class="amt" style="color:${r.type==='open'?'var(--green-dk)':'var(--blue)'}">${money(r.v)}</span></div>
+    <div class="track"><div class="fill ${r.type==='open'?'c':'d'}" style="width:${Math.max(0.4,r.v/max*100)}%"></div></div></div>`).join('');
+  const op=MODELS.find(m=>m.name==='Claude Opus 5');
+  const noC=((inT*op.pin)+(totalOut*op.pout))/1e6*req*batchMult;
+  const wC=((inT*cp*op.pin*0.1)+(inT*(1-cp)*op.pin)+(totalOut*op.pout))/1e6*req*batchMult;
+  $('costVerdict').innerHTML=`Monthly range <b>${money(priced[0].v)}</b> (${priced[0].n}) to <b>${money(priced[priced.length-1].v)}</b> (${priced[priced.length-1].n}). That is a <b>${(priced[priced.length-1].v/priced[0].v).toFixed(0)}×</b> spread for identical work. That spread, not the benchmark gap, is the argument for routing.
+  <br><br>Reasoning at ${rsnM}× turns ${outT.toLocaleString()} visible output tokens into <b>${totalOut.toLocaleString()} billed</b>. On Opus 5, caching ${Math.round(cp*100)}% of the prefix saves <b>${money(noC-wC)}/month</b>.
+  <br><br>${batchMult<1?'Batch halves everything but commits you to a 24-hour window.':'Switch to Batch for non-interactive work and halve the whole column.'} Open-weights rows are representative hosted rates. Self-hosted cost is fixed infrastructure, and it only beats these rates above roughly 60% sustained utilisation.`;
+}
+['req','inTok','outTok','rsn','cache'].forEach(i=>$(i).addEventListener('input',calcCost));
+$('batchSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
+  $('batchSeg').querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');batchMult=+b.dataset.b;calcCost();});
+calcCost();
+
+/* ===== 08 PIPELINE ===== */
+const PIPE=[
+ {id:'parse',n:'Parse',t:'ING',role:'Bytes to structure',
+  body:'PDF, DOCX, scanned images, spreadsheets. Layout-aware extraction preserves reading order, headers and table structure; OCR handles scans; table structure recognition converts visual grids into addressable rows and columns.',
+  eh:'Where it makes or breaks the system',
+  ent:'<b>This stage sets the ceiling for everything after it.</b> A table flattened into plain text at parse time can never be queried correctly, however good the model is. Most weak enterprise RAG systems fail here rather than at generation, and the symptom only shows up much later.'},
+ {id:'chunk',n:'Chunk',t:'ING',role:'Split for retrieval',
+  body:'Fixed-size with overlap, recursive, semantic (splitting at embedding-similarity boundaries), late chunking (embed the whole document then pool per chunk to preserve global context), or contextual retrieval.',
+  eh:'Where it makes or breaks the system',
+  ent:'<b>Contextual retrieval is the highest-return technique here.</b> Prepend a 50–100 token LLM-generated blurb situating each chunk in its document, before both embedding and BM25 indexing. Measured: top-20 retrieval failure dropping from 5.7% to 3.7% with contextual embeddings alone. Cost about $1.02 per million document tokens with caching.'},
+ {id:'embed',n:'Embed &amp; index',t:'ING',role:'Vectors plus lexical',
+  body:'Dense embeddings into a vector store, and a parallel BM25 lexical index. Both built over the contextualised chunk text, not the raw chunk.',
+  eh:'Where it makes or breaks the system',
+  ent:'Build both. BM25 catches the exact matches dense retrieval reliably misses: part numbers, policy codes, ISINs and dates. Those are the tokens enterprise queries turn on. Embedding model choice matters less than most teams assume. Index design matters more.'},
+ {id:'retr',n:'Hybrid retrieve',t:'QRY',role:'Dense plus lexical fusion',
+  body:'Query both indexes and fuse. Roughly 0.8 dense to 0.2 lexical is a reasonable default; reciprocal rank fusion is the common alternative. Retrieve a wide candidate set, typically top-20.',
+  eh:'Where it makes or breaks the system',
+  ent:'Adding contextual BM25 to contextual embeddings took failure from 5.7% to 2.9%, roughly half. Neither retrieval method alone reaches that. Metadata filtering before scoring is free accuracy, and teams routinely skip it.'},
+ {id:'rerank',n:'Rerank',t:'QRY',role:'Cross-encoder rescoring',
+  body:'A cross-encoder scores each candidate against the query jointly rather than comparing pre-computed vectors. Far more accurate and far more expensive, which is why it runs on 20 candidates rather than the whole corpus.',
+  eh:'Where it makes or breaks the system',
+  ent:'<b>The full stack cut top-20 retrieval failure by 67%, from 5.7% to 1.9%: contextual embeddings plus contextual BM25 plus reranking.</b> Reranking is the step most often skipped and the one with the clearest measured payoff.'},
+ {id:'assemble',n:'Assemble context',t:'QRY',role:'Build the prompt',
+  body:'Concatenate in prefix order: system prompt, tool schemas, skills, retrieved chunks, conversation history, current turn. Only the 3–5 top reranked chunks are injected, not the candidate set.',
+  eh:'Where it makes or breaks the system',
+  ent:'<b>Order is a cost decision rather than a style decision.</b> The stable prefix must come first to be cacheable at 0.1×. Anything volatile placed early invalidates the cache for everything after it. Place the most important retrieved content at the edges of the block to fight lost-in-the-middle.'},
+ {id:'prefill2',n:'Prefill',t:'INF',role:'Process the prompt',
+  body:'The whole assembled context processes in parallel, populating the KV cache. Compute-bound, high GPU utilisation. Determines time-to-first-token.',
+  eh:'Where it makes or breaks the system',
+  ent:'Every retrieved chunk you inject occupies KV cache slots for the entire generation and adds to prefill time. Over-retrieval is directly and measurably expensive on both latency and cost. It also pushes relevant content toward the middle of the window, where retrieval heads perform worst.'},
+ {id:'decode2',n:'Decode &amp; tool call',t:'INF',role:'Generate',
+  body:'Tokens generated one at a time, re-reading the KV cache each step. If tools are available the model may emit a structured tool call instead of prose. Under strict mode a compiled grammar masks any token that would break the schema.',
+  eh:'Where it makes or breaks the system',
+  ent:'Memory-bandwidth-bound. This is where speculative decoding pays: draft several tokens, verify in one pass, 2–3× throughput with no quality loss because rejection sampling preserves the target distribution exactly.'},
+ {id:'exec',n:'Execute &amp; return',t:'INF',role:'Close the loop',
+  body:'The runtime parses the tool call, executes it, returns a result block. The model reasons over the result and either calls another tool or answers. Context grows every iteration.',
+  eh:'Where it makes or breaks the system',
+  ent:'<b>Tool results are untrusted input.</b> This is the primary prompt-injection surface in agent systems. Validate results, never let returned content change the agent\u2019s permission set, and enforce human-in-the-loop for high-impact actions. Identity should propagate here so row-level security applies at query time.'},
+ {id:'guard',n:'Guardrails &amp; trace',t:'INF',role:'Verify and record',
+  body:'Output filtering for PII, toxicity, policy and groundedness. Emit an OpenTelemetry trace with token accounting including hidden reasoning tokens, plus TTFT and TPOT decomposition.',
+  eh:'Where it makes or breaks the system',
+  ent:'Checking every claim against the retrieved chunks is the last defence against confident fabrication. It is the most useful production check for RAG. Track reasoning tokens explicitly. They are billed as output and do not appear in the response body.'}
+];
+mkExplorer($('pipeStack'),$('pipeDetail'),PIPE,[
+ {key:'ING',label:'Ingestion: once per document'},{key:'QRY',label:'Query time: per request'},{key:'INF',label:'Inference: the agent loop'}
+],'rerank');
+
+/* ===== 08 CONTEXT ===== */
+let win=200000;
+function drawCtx(){
+  const sys=+$('sys').value,tool=+$('toolT').value,skill=+$('skillT').value,ch=+$('chunks').value,tn=+$('turns').value;
+  $('sysV').textContent=sys.toLocaleString(); $('toolV').textContent=tool.toLocaleString();
+  $('skillV').textContent=skill.toLocaleString(); $('chunkV').textContent=ch; $('turnV').textContent=tn;
+  const chunkTok=ch*800,histTok=tn*1400,query=150;
+  const total=sys+tool+skill+chunkTok+histTok+query;
+  const segs=[{n:'System prompt',v:sys,c:'#2E73EA'},{n:'Tool schemas',v:tool,c:'#5B8FF0'},
+    {n:'Skills',v:skill,c:'#8FB4F5'},{n:'Retrieved chunks',v:chunkTok,c:'#1DBF3E'},
+    {n:'History',v:histTok,c:'#E8890C'},{n:'Query',v:query,c:'#373545'}].filter(s=>s.v>0);
+  const cacheable=sys+tool+skill;
+  $('ctxViz').innerHTML=`<div style="display:flex;height:34px;border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-bottom:8px">
+    ${segs.map(s=>`<div title="${s.n}" style="width:${s.v/total*100}%;background:${s.c}"></div>`).join('')}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:13px;margin-bottom:16px">
+    ${segs.map(s=>`<span style="font-family:var(--mono);font-size:10px;color:var(--mid)"><span style="display:inline-block;width:8px;height:8px;background:${s.c};border-radius:2px;margin-right:5px"></span>${s.n} ${s.v.toLocaleString()}</span>`).join('')}</div>
+    <div class="stats3 mb">
+    <div class="stat"><div class="k">Total context</div><div class="v ${total>win*0.6?'a':''}">${(total/1000).toFixed(1)}K</div><div class="s">${(total/win*100).toFixed(1)}% of window</div></div>
+    <div class="stat"><div class="k">Cacheable prefix</div><div class="v g">${(cacheable/1000).toFixed(1)}K</div><div class="s">${(cacheable/total*100).toFixed(0)}% of prompt, billable at 0.1×</div></div>
+    <div class="stat"><div class="k">Input saving</div><div class="v b">${(cacheable/total*90).toFixed(0)}%</div><div class="s">once the cache is warm</div></div></div>`;
+  let w='';
+  if(chunkTok>20000)w+='<br><br><b style="color:var(--red)">Over-retrieval.</b> '+ch+' chunks is well past the 3–5 that reranking should produce. Every extra chunk holds KV cache for the whole generation, lengthens prefill, and pushes relevant content into the middle of the window where retrieval heads perform worst.';
+  if(total>win*0.6)w+='<br><br><b style="color:var(--amber)">Approaching the effective limit.</b> Quality degrades well before the advertised window fills. Compact history or summarise hierarchically rather than trusting the headline number.';
+  if(skill>12000)w+='<br><br><b>Large skills block.</b> Worth splitting so only relevant skills load. Note that loading a skill mid-session breaks the cache prefix unless skills sit in their own stable block.';
+  $('ctxVerdict').innerHTML=`The first <b>${(cacheable/1000).toFixed(1)}K tokens</b> hold the system prompt, tool schemas and skills. Those are stable across requests and should form the cache prefix. Everything after the first volatile token pays full input rate.<br><br>Chunks estimated at 800 tokens each, conversation turns at 1,400.${w}`;
+}
+['sys','toolT','skillT','chunks','turns'].forEach(i=>$(i).addEventListener('input',drawCtx));
+$('winSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
+  $('winSeg').querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');win=+b.dataset.w;drawCtx();});
+drawCtx();
+
+/* ===== 08 RAG BARS ===== */
+const RAG=[{n:'Baseline',s:'embeddings + BM25, no contextualisation',v:5.7,c:'a'},
+ {n:'Contextual embeddings',s:'35% reduction',v:3.7,c:'b'},
+ {n:'+ Contextual BM25',s:'49% reduction',v:2.9,c:'d'},
+ {n:'+ Reranking',s:'67% reduction',v:1.9,c:'c'}];
+$('ragBars').innerHTML=RAG.map(r=>`<div class="bar-row">
+ <div class="bar-top"><span class="nm">${r.n} <small>${r.s}</small></span><span class="amt">${r.v}%</span></div>
+ <div class="track"><div class="fill ${r.c}" style="width:${r.v/5.7*100}%"></div></div></div>`).join('');
+
+/* ===== 09 MEMORY ===== */
+const MEM=[
+ {id:'work',n:'Working memory',t:'M',role:'The live context window',
+  body:'Whatever is in the current session: the conversation, loaded files, tool results from earlier in the run. When the session ends it is gone. Compaction pipelines exist entirely to manage this budget.',
+  eh:'The mistake to avoid',
+  ent:'<b>There is no retrieval step here, because there is nothing outside the session to retrieve from.</b> Treating working memory as a retrieval problem is the wrong model of the problem. Manage it as a context-budget problem through compression and prioritisation. Summarise in layers, evict by relevance and recency, and keep reasoning blocks out of your trimming logic. Truncating chain-of-thought degrades quality in ways that do not point back to the cause.'},
+ {id:'epi',n:'Episodic memory',t:'M',role:'What happened, and when',
+  body:'Session logs, decision records, past debugging traces, prior interactions with this user. Indexed by time and causality.',
+  eh:'The mistake to avoid',
+  ent:'<b>The most common mistake in production is running semantic similarity search across episodic logs.</b> "What did I try last Tuesday" is not a nearest-neighbour question. It is a question about time and cause. Retrieve episodic memory by time window, task identity and outcome, not by embedding distance. Critical for user-facing copilots, much less important for batch analytics agents.'},
+ {id:'sem',n:'Semantic memory',t:'M',role:'Facts and definitions',
+  body:'Factual knowledge, entity definitions, domain concepts. Pretraining covers general-world facts well. The real gap is enterprise-specific definitions.',
+  eh:'The mistake to avoid',
+  ent:'General semantic memory is already solved, and the model brings it with it. <b>Your gap is organisational.</b> What does "active customer" mean in your business? Which of four revenue definitions does the CFO use? How do entities resolve across systems? That is a governed-metadata problem, and it is why a semantic layer beats raw schema access by a wide margin.'},
+ {id:'proc',n:'Procedural memory',t:'M',role:'How to perform tasks',
+  body:'Reusable skills, execution strategies, automated routines. Currently manifests as skill libraries, workflow templates and fine-tuned executor models.',
+  eh:'The mistake to avoid',
+  ent:'This type is undergoing a transition from explicit non-parametric templates toward implicit parametric policies. What lives in a skill file today may live in fine-tuned weights tomorrow. <b>The question to ask is whether a behaviour needs to be readable and editable by a person</b> (keep it a skill, version it in git) <b>or fast and consistent at volume</b> (distil it into weights). Most enterprise procedural knowledge should stay readable.'},
+ {id:'sens',n:'Sensory memory',t:'M',role:'Raw multimodal input',
+  body:'Images, documents, audio streams. In most agent architectures this is not retrieved directly. It is summarised on ingestion, and the summary goes into semantic or episodic storage.',
+  eh:'The mistake to avoid',
+  ent:'The summarisation step is where information is lost for good, and it happens before anyone is watching. If your agents work with scanned documents or screenshots, the quality of that one summarisation pass sets a ceiling that nothing later can raise.'},
+ {id:'org',n:'Organisational context',t:'X',role:'The type the taxonomy omits',
+  body:'Certified business definitions, column-level lineage, cross-system entity identity, ownership and stewardship, data quality state. Surfaced to agents at inference time rather than baked into weights.',
+  eh:'Why this is the differentiator',
+  ent:'The standard four-type cognitive taxonomy comes from CoALA and cognitive science, and it omits the one thing enterprise agents actually need. <b>Gartner projects that 60% of agentic analytics projects relying solely on MCP will fail by 2028 without semantic foundations</b>, and that by 2030 half of enterprise agent deployment failures will trace to insufficient governance runtime enforcement rather than capability gaps. MCP solves connectivity. It does not solve governance. This layer is where a data practice has an actual advantage over a model vendor.'}
+];
+mkExplorer($('memStack'),$('memDetail'),MEM,[
+ {key:'M',label:'The cognitive taxonomy (CoALA)'},{key:'X',label:'The enterprise addition'}
+],'org');
+
+/* ===== 09 AGENT LOOP ===== */
+const STEPS=[
+ {t:'User request arrives',ctx:6500,d:'System prompt, tool schemas and skills are already in the cache prefix. The user turn is appended. Prefill runs over the full assembled context; the cached portion reads at 0.1× and needs no recomputation.',k:'Cache hit on the stable prefix. TTFT is driven by the uncached remainder, not the total.'},
+ {t:'Relevant skill loads',ctx:8100,d:'The orchestrator determines which procedural knowledge applies and loads the matching skill, such as a task recipe, a house style, or a domain checklist. This is procedural memory made explicit and inspectable.',k:'Conditional loading breaks the cache prefix unless skills sit in their own stable block. Decide this at design time, not when the bill arrives.'},
+ {t:'Model emits a tool call',ctx:8800,d:'Rather than prose, the model emits a structured call matching a tool schema. Under strict mode a compiled grammar masks any token that would break the schema, so the JSON is valid by construction rather than validated after the fact.',k:'Structural validity is guaranteed. Semantic correctness is not, so validate the argument values.'},
+ {t:'Runtime executes with delegated identity',ctx:8800,d:'The orchestrator parses the call and executes it, whether that is a database query, an API call or an MCP server invocation. This happens outside the model entirely. The user\u2019s scoped token propagates so row-level security applies at query time.',k:'The confused-deputy risk lives at this boundary. Use delegated auth, never a broad service account.'},
+ {t:'Result returns to context',ctx:11400,d:'The tool result appends as a result block. Context has grown by the full size of whatever the tool returned. A large query result can consume more window than the entire conversation before it.',k:'<b>Tool output is untrusted input.</b> Primary prompt-injection surface. Returned content must never alter the agent\u2019s permission set.'},
+ {t:'Interleaved reasoning',ctx:13200,d:'The model reasons over the result before deciding the next action. This happens between tool calls, within one turn, with a thinking budget spanning all blocks. Episodic memory of this run accumulates alongside.',k:'Reasoning tokens bill as output and are largely invisible. Instrument them explicitly or your cost model will be wrong by an order of magnitude.'},
+ {t:'Sub-agent delegation',ctx:14000,d:'For a bounded exploratory subtask, the orchestrator spawns a sub-agent with an isolated context window. It explores freely and returns only a condensed result. Across organisational boundaries this becomes an A2A call against a published Agent Card.',k:'The win is context isolation, not parallelism. A remote agent\u2019s output is untrusted input to yours, under the same rule as tool results.'},
+ {t:'Context pressure and compaction',ctx:42000,d:'After many iterations the window fills. Compaction summarises older turns; durable episodic memory persists what matters beyond the session. Simple truncation is the failure mode. Trimming or rewriting chain-of-thought degrades quality, and the symptom rarely points at the cause.',k:'Summarise, do not truncate. Write durable state to episodic memory before eviction, or the next session starts blind.'},
+ {t:'Answer with guardrails',ctx:43500,d:'Final output passes PII, policy and groundedness checks against the retrieved chunks. An OpenTelemetry trace records token accounting including reasoning, plus TTFT and TPOT decomposition. The trajectory itself is logged for evaluation.',k:'Evaluate the path the agent took, not only the answer. A correct result reached by luck is not a working agent.'}
+];
+let step=0;
+function drawAgent(){const s=STEPS[step],maxC=45000;
+  $('agentViz').innerHTML=`<div style="display:flex;gap:4px;margin-bottom:18px">
+    ${STEPS.map((_,i)=>`<div style="flex:1;height:3px;border-radius:2px;background:${i<=step?'var(--green)':'var(--line)'}"></div>`).join('')}</div>
+    <div style="display:grid;grid-template-columns:1fr 190px;gap:22px;align-items:start">
+    <div><div class="eyebrow g" style="margin-bottom:5px">Step ${step+1} of ${STEPS.length}</div>
+    <h3 style="font-size:19px;margin-bottom:9px">${s.t}</h3>
+    <p style="font-size:13.5px;margin-bottom:13px">${s.d}</p>
+    <div class="callout" style="margin:0;padding:13px 15px"><p style="font-size:13px">${s.k}</p></div></div>
+    <div><div class="stat" style="border:1px solid var(--line);border-radius:5px">
+    <div class="k">Context used</div><div class="v g">${(s.ctx/1000).toFixed(1)}K</div>
+    <div class="track" style="height:7px;margin-top:9px"><div class="fill c" style="width:${s.ctx/maxC*100}%"></div></div>
+    <div class="s" style="margin-top:7px">grows monotonically until compaction</div></div></div></div>`;}
+$('stepFwd').onclick=()=>{step=(step+1)%STEPS.length;drawAgent()};
+$('stepBack').onclick=()=>{step=(step-1+STEPS.length)%STEPS.length;drawAgent()};
+drawAgent();
+
+/* ===== 10 ROUTER ===== */
+const QS=[
+ {id:'vol',q:'What is the sustained request volume?',opts:[
+  {l:'Low / bursty',v:-3,w:'Idle GPUs are pure loss below roughly 25–30% sustained utilisation'},
+  {l:'Steady, moderate',v:0,w:'Around the crossover point. Model both options with real traffic data before deciding'},
+  {l:'High and continuous',v:4,w:'Above roughly 60% sustained utilisation the economics clearly favour self-hosting'}]},
+ {id:'res',q:'Can the data leave your estate?',opts:[
+  {l:'Yes, no constraint',v:0,w:'Residency is not binding, so decide on cost and capability alone'},
+  {l:'Region-restricted',v:2,w:'Check vendor regional endpoints first. Bedrock, Vertex and inference_geo can satisfy this at roughly a 10% premium'},
+  {l:'Must stay on-prem',v:6,w:'Self-hosted open weights is the only complete answer, and this usually decides it outright'}]},
+ {id:'task',q:'What does the task demand?',opts:[
+  {l:'Extraction / classification',v:3,w:'A small fine-tuned open model matches frontier quality here at a fraction of the cost'},
+  {l:'General generation / RAG',v:1,w:'Retrieval quality dominates model choice; open weights are entirely sufficient'},
+  {l:'Multi-step agentic reasoning',v:-4,w:'The agentic gap is the one place closed models still lead consistently'}]},
+ {id:'ver',q:'Is correctness mechanically verifiable?',opts:[
+  {l:'Yes, it compiles or matches source',v:3,w:'RLVR is available to you, and that is a differentiated capability closed APIs cannot offer'},
+  {l:'Partially',v:1,w:'Partial verification still enables rejection sampling, quality gates and execution-based evals'},
+  {l:'No, output is subjective',v:-1,w:'Without a verifier you rely on calibrated LLM-as-judge or human review either way'}]},
+ {id:'ops',q:'What is your ML operations capacity?',opts:[
+  {l:'No dedicated platform team',v:-4,w:'Self-hosting has a substantial and ongoing ops burden that is routinely underestimated'},
+  {l:'Some capability',v:0,w:'Viable with a managed inference layer rather than raw GPU operations'},
+  {l:'Mature platform team',v:3,w:'The ops burden is absorbable and the cost advantage is realisable'}]},
+ {id:'eval',q:'Do you have an evaluation set for this workload?',opts:[
+  {l:'No',v:-2,w:'Build this first. Without it you cannot safely change model, prompt or precision, and you cannot prove the change helped'},
+  {l:'Basic task evals',v:1,w:'Enough to make model swaps safe. Add regression runs on every change next'},
+  {l:'Full coverage incl. trajectory',v:3,w:'You can move between models freely, which makes the open-weights option far less risky'}]}
+];
+const ans={}; QS.forEach(q=>ans[q.id]=1);
+$('qs').innerHTML=QS.map(q=>`<div class="q"><div class="qt">${q.q}</div>
+ <div class="seg" data-q="${q.id}">${q.opts.map((o,i)=>`<button data-i="${i}" class="${i===1?'on':''}">${o.l}</button>`).join('')}</div></div>`).join('');
+document.querySelectorAll('#qs .seg').forEach(seg=>seg.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+  seg.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');ans[seg.dataset.q]=+b.dataset.i;route();}));
+function route(){
+  let score=0,facts=[];
+  QS.forEach(q=>{const o=q.opts[ans[q.id]];score+=o.v;facts.push(o.w)});
+  const pct=Math.max(6,Math.min(94,50+score*3.8));
+  $('sOpen').style.width=pct+'%'; $('sClosed').style.width=(100-pct)+'%';
+  let tag,h,p,col;
+  if(score>=8){tag='Strong signal';col='var(--green-dk)';h='Self-hosted open weights';
+    p='Economics, constraints and capacity all point the same way. Start with gpt-oss-120b, Mistral Medium 3.5 or Qwen3 at the size that fits your node. Serve on vLLM with continuous batching and speculative decoding, and put the saved licence spend into retrieval quality and evaluation.';}
+  else if(score>=3){tag='Leans open';col='var(--green-dk)';h='Open weights with an API fallback';
+    p='Self-host the primary path but keep a closed API behind an abstraction layer for the hard tail and burst capacity. The most common correct answer for enterprise data workloads, and it hedges the availability risk the June 2026 export-control suspension demonstrated.';}
+  else if(score>=-3){tag='Evenly balanced';col='var(--amber)';h='Hybrid: route by request';
+    p='Neither option dominates. Put a classifier in front of both: a small open model for the bulk, a frontier API for the tail that needs it. Cost reductions of 60–80% against frontier-for-everything are routine, and the routing layer is where your architecture value sits.';}
+  else if(score>=-9){tag='Leans closed';col='var(--blue)';h='Closed API, open weights for specific tasks';
+    p='Start on the API to reach value quickly. Carve out the high-volume verifiable sub-tasks and move only those to self-hosted models once volume justifies it. Do not self-host the whole workload on principle.';}
+  else{tag='Strong signal';col='var(--blue)';h='Closed API';
+    p='Either the volume does not justify the infrastructure, or the task needs capability that open weights do not yet deliver reliably, or you lack the capacity to run it well. Use the API and put engineering effort into retrieval, decomposition and evaluation instead.';}
+  $('rec').innerHTML=`<div class="eyebrow" style="color:${col};margin-bottom:6px">${tag}</div><h3>${h}</h3><p>${p}</p>`;
+  $('factors').innerHTML=facts.map(f=>`<li>${f}</li>`).join('');
+}
+route();
+
+/* ===== NAV ===== */
+const links=[...document.querySelectorAll('#nav a')];
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){
+  links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));}}),
+  {rootMargin:'-20% 0px -70% 0px'});
+document.querySelectorAll('section').forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
