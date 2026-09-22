@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storage Has an Owner. Meaning Has an Accident. | Vikram Rathour</title>
+<meta name="description" content="Every handoff between systems silently re-interprets a fact. Agents did not cause that. They made it urgent.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Vikram Rathour">
+<meta property="og:title" content="Storage Has an Owner. Meaning Has an Accident. | Vikram Rathour">
+<meta property="og:description" content="Every handoff between systems silently re-interprets a fact. Agents did not cause that. They made it urgent.">
+<meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/blog/storage-has-an-owner-meaning-has-an-accident.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Storage Has an Owner. Meaning Has an Accident. | Vikram Rathour">
+<meta name="twitter:description" content="Every handoff between systems silently re-interprets a fact. Agents did not cause that. They made it urgent.">
+<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/blog/storage-has-an-owner-meaning-has-an-accident.html">
+<style>
+:root{
+  --paper:#D9DCE1;--paper2:#E4E7EB;--card:#F5F6F8;
+  --ink:#13182B;--ink2:#2A3147;
+  --t2:rgba(19,24,43,.70);--t2b:rgba(19,24,43,.58);--t3:rgba(19,24,43,.45);--t4:rgba(19,24,43,.20);
+  --line:rgba(19,24,43,.10);--line2:rgba(19,24,43,.16);
+  --blue:#1F6FD0;--blue2:#3B86E8;--blue-dk:#13477E;--blue-pale:rgba(31,111,208,.07);--blue-bdr:rgba(31,111,208,.22);
+  --yel:#F47820;--yel2:#FF8F3C;--yel-dk:#8E3800;--yel-pale:rgba(244,120,32,.11);--yel-bdr:rgba(244,120,32,.45);
+  --shadow-sm:0 2px 8px rgba(19,24,43,.06);--shadow-md:0 8px 30px rgba(19,24,43,.10);--shadow-lg:0 24px 60px rgba(19,24,43,.16);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:#FFFFFF;color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:19px;line-height:1.72;-webkit-font-smoothing:antialiased;letter-spacing:-.005em;overflow-x:hidden}
+#pb{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--yel));z-index:1200;transition:width .12s linear}
+body > nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--line2)}
+.nrow{max-width:1680px;margin:0 auto;padding:14px clamp(24px,3.2vw,60px);display:flex;justify-content:space-between;align-items:center;gap:20px}
+.nlogo{font-size:1rem;font-weight:500;color:var(--ink);text-decoration:none;white-space:nowrap}
+.nlogo span{color:var(--blue)}
+.nback{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);text-decoration:none;border-bottom:1px solid var(--blue-bdr);padding-bottom:2px;white-space:nowrap}
+.nback:hover{color:var(--blue-dk);border-color:var(--blue)}
+.wrap{max-width:1680px;margin:0 auto;padding:0 clamp(24px,3.2vw,60px)}
+.wide{max-width:1680px;margin:0 auto;padding:0 clamp(24px,3.2vw,60px)}
+.kick{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:13px;margin-bottom:24px}
+.kick::before{content:'';width:34px;height:2px;background:var(--blue)}
+h1{font-size:clamp(2.1rem,4.4vw,3.2rem);line-height:1.08;font-weight:600;letter-spacing:-.033em;margin-bottom:22px}
+h1 em{font-style:normal;color:var(--blue)}
+h2{font-size:clamp(1.45rem,2.5vw,1.95rem);line-height:1.2;font-weight:600;letter-spacing:-.025em;margin:56px 0 18px;scroll-margin-top:104px}
+h3{font-size:clamp(1.08rem,1.7vw,1.28rem);line-height:1.3;font-weight:600;letter-spacing:-.018em;margin:40px 0 14px;scroll-margin-top:104px}
+p{margin-bottom:20px;color:var(--ink2)}
+strong{font-weight:600;color:var(--ink)}
+a{color:var(--blue-dk);text-decoration:none;border-bottom:1px solid var(--blue-bdr)}
+a:hover{border-color:var(--blue);background:var(--blue-pale)}
+ul,ol{margin:0 0 22px 0;padding-left:24px}
+li{margin-bottom:11px;color:var(--ink2)}
+li::marker{color:var(--blue)}
+li ul,li ol{margin-top:11px;margin-bottom:4px}
+blockquote{border-left:3px solid var(--yel);background:var(--yel-pale);padding:20px 26px;margin:32px 0;font-size:1.06rem;color:var(--ink)}
+blockquote p:last-child{margin-bottom:0}
+figure{margin:36px 0}
+figure img{width:100%;height:auto;display:block;border:1px solid var(--line2);background:var(--card)}
+figure.narrow img{max-width:900px;margin:0 auto}
+figcaption{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.04em;color:var(--t3);margin-top:10px}
+pre{background:#11162A;color:#D6DCEA;padding:24px 28px;overflow-x:auto;margin:32px 0;border-left:3px solid var(--blue);font-size:.76rem;line-height:1.62}
+pre code{font-family:'IBM Plex Mono',monospace;background:none;border:none;padding:0;color:inherit;white-space:pre}
+code{font-family:'IBM Plex Mono',monospace;font-size:.86em;background:var(--paper2);padding:1px 6px;border:1px solid var(--line);border-radius:3px}
+hr{border:none;border-top:1px solid var(--line2);margin:44px 0}
+table{width:100%;border-collapse:collapse;font-size:.93rem;margin:28px 0;background:var(--card);border:1px solid var(--line2)}
+th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.11em;text-transform:uppercase;color:#fff;background:var(--ink2);padding:12px 15px;font-weight:400}
+td{padding:13px 15px;border-top:1px solid var(--line);color:var(--ink2);vertical-align:top}
+.standfirst{font-size:1.14rem;line-height:1.62;color:var(--ink);font-weight:300;margin-bottom:26px}
+.disclaimer{font-size:.9rem;color:var(--t2b);font-style:italic;border-left:2px solid var(--t4);padding-left:16px;margin:30px 0}
+.r{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.r.s{opacity:1;transform:none}
+footer{background:var(--ink);color:rgba(255,255,255,.7);padding:56px 0 44px;margin-top:80px}
+footer .wide{display:flex;justify-content:space-between;gap:36px;flex-wrap:wrap;align-items:flex-start}
+footer h4{color:#fff;margin:0 0 12px;font-size:1.02rem}
+footer p{color:rgba(255,255,255,.6);font-size:.9rem;max-width:440px;margin:0}
+footer a{color:var(--yel2);border-bottom:1px solid rgba(244,120,32,.4)}
+footer a:hover{color:#fff;background:none}
+.flinks{display:flex;flex-direction:column;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+@media (max-width:1180px){
+  .wrap,.wide,.nrow{padding-left:32px;padding-right:32px}
+}
+@media (max-width:860px){
+  body{font-size:17px}
+  .wrap,.wide,.nrow{padding-left:22px;padding-right:22px}
+  pre{font-size:.68rem;padding:15px 16px}
+  h2{margin-top:40px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r{opacity:1;transform:none}html{scroll-behavior:auto}}
+
+header.posthead{padding:150px 0 0;border-bottom:1px solid var(--line2)}
+.pmeta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px}
+.pmeta .cat{color:#fff;background:var(--blue);padding:3px 10px}
+.pmeta .dt,.pmeta .rd{color:var(--t3)}
+h1{max-width:26ch}
+.byline{display:flex;align-items:center;gap:12px;padding:22px 0 30px;margin-top:26px;font-size:.92rem;color:var(--t2)}
+.byline .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(145deg,var(--blue2),var(--blue-dk));color:#fff;display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:600;flex-shrink:0}
+.byline b{color:var(--ink);font-weight:600}
+.artgrid{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(2.5rem,4.5vw,4.5rem);padding-top:46px;padding-bottom:20px;align-items:start}
+.rail{position:sticky;top:96px;max-height:calc(100vh - 130px);overflow-y:auto;scrollbar-width:thin;font-family:'IBM Plex Mono',monospace}
+.rail-h{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);padding-bottom:10px;border-bottom:1px solid var(--line2);margin-bottom:14px}
+.rail a{display:block;font-size:.72rem;line-height:1.45;color:var(--t2b);text-decoration:none;border:none;padding:7px 0 7px 12px;border-left:2px solid var(--line2);letter-spacing:.01em}
+.rail a:hover{color:var(--blue-dk);border-left-color:var(--blue);background:none}
+.rail a.on{color:var(--blue-dk);border-left-color:var(--blue)}
+.prose{min-width:0;max-width:none}
+.prose > blockquote{max-width:none}
+.prose p,.prose li{line-height:1.76}
+.postnav{border-top:1px solid var(--line2);margin-top:64px;padding-top:34px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+.pn-all{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);border-bottom:1px solid var(--blue-bdr)}
+.pn-orig{font-size:.84rem;color:var(--t3);border:none}
+.pn-orig:hover{background:none;color:var(--blue-dk)}
+@media (max-width:1100px){
+  .artgrid{grid-template-columns:1fr;gap:0;padding-top:34px}
+  .rail{display:none}
+  .prose{max-width:none}
+}
+@media (max-width:860px){header.posthead{padding:132px 0 0}}
+</style>
+</head>
+<body>
+<div id="pb"></div>
+<nav>
+  <div class="nrow">
+    <a href="../index.html" class="nlogo">Vikram <span>Rathour</span></a>
+    <a href="index.html" class="nback">&larr; All writing</a>
+  </div>
+</nav>
+
+<header class="posthead">
+  <div class="wrap">
+    <div class="pmeta r"><span class="cat">Governance</span><span class="dt">26 May 2026</span><span class="rd">12 min read</span></div>
+    <h1 class="r">Storage Has an Owner. Meaning Has an Accident.</h1>
+    <div class="byline r"><span class="av">VR</span><span><b>Vikram Rathour</b>, enterprise data and AI</span></div>
+  </div>
+</header>
+<article class="article">
+  <div class="wrap artgrid">
+    <aside class="rail" id="rail"><div class="rail-h">Contents</div><div id="toc"></div></aside>
+    <div class="prose">
+<p>Your bank knows where you live. So does the fraud team, and so does the desk that screens you against sanctions lists. It is the same address. None of them mean the same thing by it.</p>
+
+<p>To billing, your address is a settled fact: where the statement goes. To fraud, it is a guess that needs corroboration, and a change to it is a reason for suspicion rather than a record. To compliance, it is a "close enough" match against a watchlist, a judgment call they answer for. One string of text. Three systems quietly deciding what it means, and at least one of them about to act on it.</p>
+
+<p>Billing will tell you they own the address, because they store it. They own the bytes. Every system downstream re-owns the meaning, and nobody wrote that handoff down anywhere.</p>
+
+<p>That gap has a name, even if the industry never gave it one. Call it interpretation authority: the right to decide what a fact means for a given consumer, and to be accountable for that meaning. It is not the same as owning the data. We have spent forty years assigning storage ownership with precision and interpretation authority by accident.</p>
+
+<h2>We have been arguing about the wrong layer</h2>
+
+<p>Database to warehouse to lake to lakehouse, now knowledge repositories and vector stores. Every step answers one question: where does the data live and who governs the bytes. Centralize it, federate it, mesh it. The whole debate has been about topology.</p>
+
+<p>Topology was the easy problem. The hard one sat underneath it the entire time. When a fact moves from the system that made it to the system that uses it, who decides what it means, and what happens when the two disagree?</p>
+
+<p>The centralizers were not naive. In a bank you centralize because someone has to attest to the number, and BCBS 239 asks who is accountable, not where the data sits. Centralization was the right answer to accountability and the wrong answer to meaning, because it assumed that controlling the bytes meant controlling the interpretation. It doesn't. You can run one golden source and still have six irreconcilable definitions of "active customer" in production downstream of it, all approved, all computed off the same clean table. Centralized storage made the divergence harder to see, not smaller.</p>
+
+<p>And you cannot fix that by centralizing meaning instead. A node that is terminal in one workflow is an intermediate one in another. The general ledger is the system of record for finance and a noisy input for risk. The same fact is an endpoint and a waypoint at once, and each reading is correct in its own context. A central registry that freezes one meaning is just the warehouse instinct in a newer outfit, solving a distributed problem by re-centralizing it. Meaning is genuinely fluid. That is a property of knowledge, not a flaw in your architecture.</p>
+
+<h2>Why it bites: meaning feeds the decision</h2>
+
+<p>Interpretation does not sit on a shelf. It feeds a decision, and the decision produces the outcome someone gets judged on.</p>
+
+<p>It is tempting to think interpretation is just data plus enough context, that if you give a consumer the fact and the surrounding information, the right meaning falls out. If that were true, better context would solve everything and nobody would need to be accountable for anything.</p>
+
+<p>So hold data and context fixed and watch what happens. Two credit officers at the same bank, same desk, looking at the same loan file with the same information in front of them. One is told they answer for any loan that defaults. The other answers for any creditworthy applicant the bank turns away. Same file, same context, same moment. They will read the same borderline income figure differently, one cautious, one generous, not because they know different things, but because they are accountable for different outcomes. Nothing about the information changed. The meaning moved with the accountability.</p>
+
+<p>That is what authority is, and it is why more context cannot fix this. The same fact means different things to different consumers not because they see different things, but because they answer for different things. Meaning tracks accountability, not just information. Give two agents identical context and they will still conclude differently if they answer for different things, and if they answer for nothing, which is the default today, the interpretation is whatever the context happened to produce that call, owned by no one.</p>
+
+<p>Now the asymmetry that is the whole problem. We govern decision rights carefully: approval thresholds, four-eyes checks, sign-offs. We govern interpretation by accident. So you can have a perfectly audited decision, every approval in place, resting on a meaning nobody was ever accountable for. The audit trail looks clean. The outcome doesn't. We instrument the front of the chain and the back of the chain and leave the middle wide open.</p>
+
+<p>Watch it move. An applicant types an income of forty lakh into a loan form. To origination, that is a claim. Underwriting pulls it, runs a basic document check, and now treats it as verified income. Risk pulls the same number into the capital model and treats it as a stress-tested figure, because it came from a trusted upstream team. Three handoffs, three silent upgrades. An unverified claim is now sizing the bank's regulatory capital, and every system in between believed it inherited something more solid than it did. No one did anything wrong. The lineage shows the number flowed correctly. It does not show that its meaning was upgraded three times with nobody accountable for the upgrade.</p>
+
+<h2>Agents did not fix this. They made it urgent.</h2>
+
+<figure><img src="https://rathourvikram.wordpress.com/wp-content/uploads/2026/05/ai_agent_interpretation_crisis.png" alt="AI Agent Interpretation crisis" loading="lazy"></figure>
+
+<p>Someone will say agents change this, that better context is the answer. Context is the material a consumer interprets from. It never decides who owns what the consumer concludes. Pour more context into an agent's window and you give it more to read, not an owner for its reading.</p>
+
+<p>Agents make it worse two ways. The interpretation becomes unstable: a fraud rule was the same on Tuesday as Monday, but an agent's reading shifts every call as retrieval pulls different neighbors. And the interpreters multiply: one workflow spawns dozens of sub-agents, each re-reading the same fact for its own sub-task, each holding authority nobody granted. Worse, they interpret and act in the same breath, collapsing the gap a human chain left open for review.</p>
+
+<p>This is not speculation. At I/O in May 2026, Google launched persistent agents that run continuously in the background and take action on their own, and a managed-agent API where a single call provisions an environment for the agent to reason, plan and call tools through its harness. The mainstream stack is now shipping exactly the condition this argument describes: meaning re-owned faster than any audit trail survives, then acted on. An address silently re-owned by three systems forty years ago was a governance smell. The same fact re-owned forty times in one agentic run, and acted on, breaks an audit.</p>
+
+<h2>What you actually do about it</h2>
+
+<figure><img src="https://rathourvikram.wordpress.com/wp-content/uploads/2026/05/mastering_data_interpretation_authority.png" alt="Four moves to control interpretation authority: declare, attach, audit, detect, filtered by materiality" loading="lazy"></figure>
+
+<p>Not centralize meaning. Stop the re-interpretation from happening silently where it feeds a decision that matters. Control the handoffs, not the meanings. A handoff is the moment a consumer takes a producer's fact and applies its own meaning, and controlling it just means making that moment visible, owned, and recorded instead of silent. Four moves, hardest last. Almost nobody is past the second.</p>
+
+<p><strong>Declare the handoff.</strong> When underwriting takes the income figure, it declares: "I am reinterpreting this from applicant claim to verified-to-document-check-only. Owner: credit team." The boundary stops being plumbing and becomes a named, signed act. No new technology, just the discipline to treat reinterpretation as an event.</p>
+
+<p><strong>Attach the interpretation to the fact in motion.</strong> The claim travels with the number as an active assertion: this value, this authority, valid for these consumers, superseding that prior meaning. Not a data dictionary sitting beside the data that nobody reads, the real thing, checkable at the boundary, conforming to a pre-agreed contract.</p>
+
+<p><strong>Audit the reinterpretation.</strong> Each re-ownership is logged like a transaction: who, prior meaning, new meaning, on whose authority, when. The test is brutal. After the fact, can you reconstruct who decided this fact meant this, for whom, and whether they were allowed to? If not, you have documentation, not control. This is where BCBS 239's attestation question finally has somewhere to live.</p>
+
+<p><strong>Detect the divergence.</strong> When risk's model assumes fully verified income but the attached claim says document-check only, the system flags the contradiction before the capital number is finalized. This is where the harness around your agents stops being about whether they perform and starts being about whether they are allowed to. It is the hard frontier, because comparing interpretations means modeling meaning formally enough to compare it. Most organizations cannot do this yet. It is the horizon, not the claim.</p>
+
+<h2>The judgment that makes it real</h2>
+
+<p>Every control adds friction at the boundaries that currently move fast precisely because the handoff is implicit. Take it literally and you halt an agentic workflow, asking dozens of agents to declare authority over every fact they touch. That is absurd, and pretending otherwise is how governance pitches lose the room.</p>
+
+<p>So the real skill is materiality: instrument the transitions where a wrong interpretation feeds a consequential decision, and let the rest flow. A trade interpretation feeding a capital calculation gets the full treatment. A product recommendation does not. The generic governance pitch says track everything. The honest one says you can't, so the discipline is choosing where meaning may drift freely and where it must be attested before someone acts on it.</p>
+
+<h2>The market this implies</h2>
+
+<p>Interpretation authority is not net-new budget. It draws from three pools enterprises already fund separately and have never connected. The first is data governance, roughly a five billion dollar market in 2025 and credibly projected past twenty billion by the early 2030s at around twenty percent annual growth, where the fastest-growing slice is compliance management, exactly the regulated-decision spend where reinterpretation has teeth. The second is the context and retrieval tooling around enterprise AI. The third is the agent operations and harness layer that keeps non-deterministic systems shippable. Each funds a piece of the problem and misses the seam between them.</p>
+
+<p>The addressable number is the sum of the slices, not the sum of the markets, and the honest way to size it is to say so. If interpretation governance captures even a low-teens share of regulated-industry governance spend, plus a thin slice of agent-ops budget reallocated toward attributable meaning as agents enter decision workflows, the obtainable market over the next three years sits in the low single-digit billions and rides the same compliance-driven curve already pulling governance spend up. The wedge that makes it urgent rather than eventual is the agentic one. Every agent deployed into a consequential workflow is a new interpreter nobody is accountable for, and the organizations deploying fastest are the regulated ones with the most to lose when a meaning drifts. The market follows the liability.</p>
+
+<p>If this sounds abstract, run one test before you decide it doesn't apply to you. Pick a single number that feeds a regulated decision in your organization, a figure in a capital calculation, a risk score, a number in a report you attest to. Now try to name who is accountable for what it <em>means</em>, not who stores it, not who computed it, but who owns the interpretation at the point it gets used. If you can name that person in one sentence, you are further along than most. If you cannot, you have just found the gap, and you found it before a regulator or an agent did.</p>
+
+<p>We got very good at deciding where data lives, and fairly good at governing who acts. We never decided who owns what the data means in between. Storage got an owner. Decisions got an owner. Meaning got an accident. The agents running through your workflows tonight are not waiting for you to sort out the difference, and they are no longer just interpreting. They are acting on it.</p>
+
+    <div class="postnav">
+      <a href="index.html" class="pn-all">&larr; All writing</a>
+      <a href="https://rathourvikram.wordpress.com/2026/05/26/storage-has-an-owner-meaning-has-an-accident/" class="pn-orig" target="_blank" rel="noopener">Originally published on Technology Cravings</a>
+    </div>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="wide">
+    <div>
+      <h4>Vikram Rathour</h4>
+      <p>Twenty-six years in enterprise data and AI across banking, healthcare and manufacturing. These essays are where the thinking gets worked out before it becomes architecture.</p>
+    </div>
+    <div class="flinks">
+      <a href="../index.html">Main site</a>
+      <a href="index.html">All writing</a>
+      <a href="../blueprint.html">The Production Blueprint</a>
+      <a href="../judgment-room.html">The Judgment Room</a>
+      <a href="../wisdom-loop.html">Order from Noise</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var pb=document.getElementById('pb');
+  function prog(){var h=document.documentElement.scrollHeight-window.innerHeight;pb.style.width=(h>0?(window.scrollY/h)*100:0)+'%';}
+  window.addEventListener('scroll',prog,{passive:true});prog();
+  // build the contents rail from the article's own headings
+  var toc=document.getElementById('toc');
+  if(toc){
+    var hs=[].slice.call(document.querySelectorAll('.prose > h2'));
+    if(hs.length<3){ var rail=document.getElementById('rail'); if(rail) rail.style.display='none'; }
+    else{
+      hs.forEach(function(h,i){
+        if(!h.id) h.id='s'+i;
+        var a=document.createElement('a'); a.href='#'+h.id; a.textContent=h.textContent; toc.appendChild(a);
+      });
+      if('IntersectionObserver' in window){
+        var links=[].slice.call(toc.querySelectorAll('a'));
+        var so=new IntersectionObserver(function(es){
+          es.forEach(function(e){ if(e.isIntersecting){
+            links.forEach(function(l){ l.classList.toggle('on', l.getAttribute('href')==='#'+e.target.id); });
+          }});
+        },{rootMargin:'-100px 0px -72% 0px',threshold:0});
+        hs.forEach(function(h){ so.observe(h); });
+      }
+    }
+  }
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce&&'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('s');io.unobserve(e.target);}})},{threshold:.06,rootMargin:'0px 0px -5% 0px'});
+    document.querySelectorAll('.r').forEach(function(el){io.observe(el)});
+  } else { document.querySelectorAll('.r').forEach(function(el){el.classList.add('s')}); }
+})();
+</script>
+</body>
+</html>

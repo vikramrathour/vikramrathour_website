@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepSeek R1: Hype, Reality, and the Future of AI Deployment | Vikram Rathour</title>
+<meta name="description" content="Value delivery was never about compute size. What that means for enterprise AI strategy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Vikram Rathour">
+<meta property="og:title" content="DeepSeek R1: Hype, Reality, and the Future of AI Deployment | Vikram Rathour">
+<meta property="og:description" content="Value delivery was never about compute size. What that means for enterprise AI strategy.">
+<meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/blog/deepseek-r1-hype-reality-future-ai-deployment.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DeepSeek R1: Hype, Reality, and the Future of AI Deployment | Vikram Rathour">
+<meta name="twitter:description" content="Value delivery was never about compute size. What that means for enterprise AI strategy.">
+<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/blog/deepseek-r1-hype-reality-future-ai-deployment.html">
+<style>
+:root{
+  --paper:#D9DCE1;--paper2:#E4E7EB;--card:#F5F6F8;
+  --ink:#13182B;--ink2:#2A3147;
+  --t2:rgba(19,24,43,.70);--t2b:rgba(19,24,43,.58);--t3:rgba(19,24,43,.45);--t4:rgba(19,24,43,.20);
+  --line:rgba(19,24,43,.10);--line2:rgba(19,24,43,.16);
+  --blue:#1F6FD0;--blue2:#3B86E8;--blue-dk:#13477E;--blue-pale:rgba(31,111,208,.07);--blue-bdr:rgba(31,111,208,.22);
+  --yel:#F47820;--yel2:#FF8F3C;--yel-dk:#8E3800;--yel-pale:rgba(244,120,32,.11);--yel-bdr:rgba(244,120,32,.45);
+  --shadow-sm:0 2px 8px rgba(19,24,43,.06);--shadow-md:0 8px 30px rgba(19,24,43,.10);--shadow-lg:0 24px 60px rgba(19,24,43,.16);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:#FFFFFF;color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:19px;line-height:1.72;-webkit-font-smoothing:antialiased;letter-spacing:-.005em;overflow-x:hidden}
+#pb{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--yel));z-index:1200;transition:width .12s linear}
+body > nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--line2)}
+.nrow{max-width:1680px;margin:0 auto;padding:14px clamp(24px,3.2vw,60px);display:flex;justify-content:space-between;align-items:center;gap:20px}
+.nlogo{font-size:1rem;font-weight:500;color:var(--ink);text-decoration:none;white-space:nowrap}
+.nlogo span{color:var(--blue)}
+.nback{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);text-decoration:none;border-bottom:1px solid var(--blue-bdr);padding-bottom:2px;white-space:nowrap}
+.nback:hover{color:var(--blue-dk);border-color:var(--blue)}
+.wrap{max-width:1680px;margin:0 auto;padding:0 clamp(24px,3.2vw,60px)}
+.wide{max-width:1680px;margin:0 auto;padding:0 clamp(24px,3.2vw,60px)}
+.kick{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:13px;margin-bottom:24px}
+.kick::before{content:'';width:34px;height:2px;background:var(--blue)}
+h1{font-size:clamp(2.1rem,4.4vw,3.2rem);line-height:1.08;font-weight:600;letter-spacing:-.033em;margin-bottom:22px}
+h1 em{font-style:normal;color:var(--blue)}
+h2{font-size:clamp(1.45rem,2.5vw,1.95rem);line-height:1.2;font-weight:600;letter-spacing:-.025em;margin:56px 0 18px;scroll-margin-top:104px}
+h3{font-size:clamp(1.08rem,1.7vw,1.28rem);line-height:1.3;font-weight:600;letter-spacing:-.018em;margin:40px 0 14px;scroll-margin-top:104px}
+p{margin-bottom:20px;color:var(--ink2)}
+strong{font-weight:600;color:var(--ink)}
+a{color:var(--blue-dk);text-decoration:none;border-bottom:1px solid var(--blue-bdr)}
+a:hover{border-color:var(--blue);background:var(--blue-pale)}
+ul,ol{margin:0 0 22px 0;padding-left:24px}
+li{margin-bottom:11px;color:var(--ink2)}
+li::marker{color:var(--blue)}
+li ul,li ol{margin-top:11px;margin-bottom:4px}
+blockquote{border-left:3px solid var(--yel);background:var(--yel-pale);padding:20px 26px;margin:32px 0;font-size:1.06rem;color:var(--ink)}
+blockquote p:last-child{margin-bottom:0}
+figure{margin:36px 0}
+figure img{width:100%;height:auto;display:block;border:1px solid var(--line2);background:var(--card)}
+figure.narrow img{max-width:900px;margin:0 auto}
+figcaption{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.04em;color:var(--t3);margin-top:10px}
+pre{background:#11162A;color:#D6DCEA;padding:24px 28px;overflow-x:auto;margin:32px 0;border-left:3px solid var(--blue);font-size:.76rem;line-height:1.62}
+pre code{font-family:'IBM Plex Mono',monospace;background:none;border:none;padding:0;color:inherit;white-space:pre}
+code{font-family:'IBM Plex Mono',monospace;font-size:.86em;background:var(--paper2);padding:1px 6px;border:1px solid var(--line);border-radius:3px}
+hr{border:none;border-top:1px solid var(--line2);margin:44px 0}
+table{width:100%;border-collapse:collapse;font-size:.93rem;margin:28px 0;background:var(--card);border:1px solid var(--line2)}
+th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.11em;text-transform:uppercase;color:#fff;background:var(--ink2);padding:12px 15px;font-weight:400}
+td{padding:13px 15px;border-top:1px solid var(--line);color:var(--ink2);vertical-align:top}
+.standfirst{font-size:1.14rem;line-height:1.62;color:var(--ink);font-weight:300;margin-bottom:26px}
+.disclaimer{font-size:.9rem;color:var(--t2b);font-style:italic;border-left:2px solid var(--t4);padding-left:16px;margin:30px 0}
+.r{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.r.s{opacity:1;transform:none}
+footer{background:var(--ink);color:rgba(255,255,255,.7);padding:56px 0 44px;margin-top:80px}
+footer .wide{display:flex;justify-content:space-between;gap:36px;flex-wrap:wrap;align-items:flex-start}
+footer h4{color:#fff;margin:0 0 12px;font-size:1.02rem}
+footer p{color:rgba(255,255,255,.6);font-size:.9rem;max-width:440px;margin:0}
+footer a{color:var(--yel2);border-bottom:1px solid rgba(244,120,32,.4)}
+footer a:hover{color:#fff;background:none}
+.flinks{display:flex;flex-direction:column;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+@media (max-width:1180px){
+  .wrap,.wide,.nrow{padding-left:32px;padding-right:32px}
+}
+@media (max-width:860px){
+  body{font-size:17px}
+  .wrap,.wide,.nrow{padding-left:22px;padding-right:22px}
+  pre{font-size:.68rem;padding:15px 16px}
+  h2{margin-top:40px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r{opacity:1;transform:none}html{scroll-behavior:auto}}
+
+header.posthead{padding:150px 0 0;border-bottom:1px solid var(--line2)}
+.pmeta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px}
+.pmeta .cat{color:#fff;background:var(--blue);padding:3px 10px}
+.pmeta .dt,.pmeta .rd{color:var(--t3)}
+h1{max-width:26ch}
+.byline{display:flex;align-items:center;gap:12px;padding:22px 0 30px;margin-top:26px;font-size:.92rem;color:var(--t2)}
+.byline .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(145deg,var(--blue2),var(--blue-dk));color:#fff;display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:600;flex-shrink:0}
+.byline b{color:var(--ink);font-weight:600}
+.artgrid{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(2.5rem,4.5vw,4.5rem);padding-top:46px;padding-bottom:20px;align-items:start}
+.rail{position:sticky;top:96px;max-height:calc(100vh - 130px);overflow-y:auto;scrollbar-width:thin;font-family:'IBM Plex Mono',monospace}
+.rail-h{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);padding-bottom:10px;border-bottom:1px solid var(--line2);margin-bottom:14px}
+.rail a{display:block;font-size:.72rem;line-height:1.45;color:var(--t2b);text-decoration:none;border:none;padding:7px 0 7px 12px;border-left:2px solid var(--line2);letter-spacing:.01em}
+.rail a:hover{color:var(--blue-dk);border-left-color:var(--blue);background:none}
+.rail a.on{color:var(--blue-dk);border-left-color:var(--blue)}
+.prose{min-width:0;max-width:none}
+.prose > blockquote{max-width:none}
+.prose p,.prose li{line-height:1.76}
+.postnav{border-top:1px solid var(--line2);margin-top:64px;padding-top:34px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+.pn-all{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);border-bottom:1px solid var(--blue-bdr)}
+.pn-orig{font-size:.84rem;color:var(--t3);border:none}
+.pn-orig:hover{background:none;color:var(--blue-dk)}
+@media (max-width:1100px){
+  .artgrid{grid-template-columns:1fr;gap:0;padding-top:34px}
+  .rail{display:none}
+  .prose{max-width:none}
+}
+@media (max-width:860px){header.posthead{padding:132px 0 0}}
+</style>
+</head>
+<body>
+<div id="pb"></div>
+<nav>
+  <div class="nrow">
+    <a href="../index.html" class="nlogo">Vikram <span>Rathour</span></a>
+    <a href="index.html" class="nback">&larr; All writing</a>
+  </div>
+</nav>
+
+<header class="posthead">
+  <div class="wrap">
+    <div class="pmeta r"><span class="cat">AI Strategy</span><span class="dt">4 February 2025</span><span class="rd">12 min read</span></div>
+    <h1 class="r">DeepSeek R1: Hype, Reality, and the Future of AI Deployment</h1>
+    <div class="byline r"><span class="av">VR</span><span><b>Vikram Rathour</b>, enterprise data and AI</span></div>
+  </div>
+</header>
+<article class="article">
+  <div class="wrap artgrid">
+    <aside class="rail" id="rail"><div class="rail-h">Contents</div><div id="toc"></div></aside>
+    <div class="prose">
+<p>Over the past few weeks, DeepSeek R1 has taken the AI world by storm. Released as an open-source alternative to GPT-o-class models, it promises high performance at a fraction of the training cost. The model challenges the dominance of proprietary AI providers like OpenAI, Google, and Anthropic.</p>
+
+<h3>Financial and market impact</h3>
+
+<ul>
+<li>OpenAI's models cost over $100 per million tokens, whereas DeepSeek R1's cost less than $4 per million tokens.</li>
+<li>The model has been rapidly integrated into cloud platforms like Google Cloud, Azure, and AWS, signaling major industry interest.</li>
+<li>Discussions around vendor lock-in, AI infrastructure costs, and open-source viability have resurfaced across enterprises.</li>
+<li>AI meant massive energy consumption, soaring electricity demand and the rise of nuclear energy to power it all, but DeepSeek R1 came along and is flipping the script entirely by making AI lean, efficient and affordable.</li>
+<li>There are efforts underway to reproduce the results from DeepSeek R1 (Hugging Face).</li>
+</ul>
+
+<p>But does this truly change the AI landscape for businesses, developers, and SaaS providers? Or is it another case of open-source excitement that fails to translate into real-world impact? Let's dive deeper.</p>
+
+<h2>Has DeepSeek R1 really changed the game?</h2>
+
+<p>The excitement is understandable, but for large enterprises and developers building real-world applications, the question remains: does DeepSeek R1 meaningfully shift AI adoption? Here's why the impact might be overstated:</p>
+
+<ul>
+<li><em>A model alone doesn't build an AI ecosystem.</em> Enterprises need more than just a model; they need tooling, security, fine-tuning capabilities, and scalable infrastructure. Open-source models still require significant data and AI engineering investment to match the ease of API-based solutions from OpenAI or Google.</li>
+<li><em>Cost savings aren't always a deciding factor.</em> While training costs for DeepSeek R1 were significantly lower, running inference at scale still requires powerful GPU clusters. Enterprises often prioritize trust, security, and enterprise-grade support over cost alone, making proprietary models coupled with hyperscaler infrastructure and tooling a safer choice.</li>
+<li><em>Availability on cloud platforms doesn't equal adoption.</em> The fact that DeepSeek R1 is on Azure, AWS, and Google Cloud is expected, as these platforms offer compute for AI models. However, would the hyperscaler continue to invest and enhance the ecosystem in a way that matches their proprietary offerings? Just look at how the Postgres ecosystem has evolved. Enterprises already integrated with Microsoft and OpenAI, Google Gemini, or AWS Bedrock won't switch unless there's a roughly 10x improvement in cost, efficiency, or accuracy.</li>
+<li><em>Big tech still holds the upper hand.</em> Companies like OpenAI, Google, and Anthropic have massive R&amp;D budgets and deep enterprise integrations. The recent Stargate announcement is a testimony to this fact and it clearly shows where the money is headed. AI is like an arms race, and these incumbents can quickly respond by training better models with more compute. OpenAI beat me to it by announcing the OpenAI o3 mini.</li>
+<li><em>What about SaaS giants like ERP, CRM and BPM providers?</em> For large SaaS vendors like Salesforce, SAP, Oracle and ServiceNow, the case for adopting DeepSeek R1 is even weaker, as they have already invested billions in building their own models (Salesforce Einstein AI, SAP Joule, Oracle AI, ServiceNow AI) which are a competitive differentiator. Adopting an open-source model could dilute their proprietary edge. Deep integrations with cloud hyperscalers provide direct access to state-of-the-art AI, making the switch unnecessary. SaaS providers need enterprise-grade SLAs, reliability, and continuous model improvement, something open-source models often lack.</li>
+</ul>
+
+<p>For these reasons, most large cloud service providers, proprietary model owners and SaaS providers will likely continue using their own AI models rather than shifting or focusing too much on DeepSeek R1. We can argue that DeepSeek R1 should be looked at as incremental progress and not a disruption. DeepSeek R1 is a valuable addition to the AI landscape, but it doesn't fundamentally shift how large enterprises or SaaS vendors operate.</p>
+
+<h2>What has DeepSeek R1 unlocked?</h2>
+
+<ul>
+<li><em>Self-hosting and security advantages.</em> Enterprises hesitant to send sensitive data to external AI providers now have a viable self-hosted option. In regulated industries such as banking, healthcare, government and defense, DeepSeek R1 can be fine-tuned in-house, ensuring compliance with strict data policies. This can be specifically helpful for SMBs, startups and research organizations.</li>
+<li><em>Cost optimization at scale.</em> Companies spending millions annually on OpenAI's API calls could cut costs dramatically by hosting DeepSeek R1 on their own infrastructure. Over time, ownership of AI models could lead to lower total cost of ownership for AI-driven enterprises.</li>
+<li><em>Greater customization and faster AI iteration.</em> Unlike closed models, DeepSeek R1 allows fine-tuning on proprietary datasets, making AI solutions more relevant for specific industries. Enterprises no longer have to wait for OpenAI or Google to improve their models. They can iterate on their own timeline, assuming there is investment in certain capabilities and hardware infrastructure to support the same.</li>
+<li><em>SaaS providers exploring open-source AI.</em> Smaller and mid-tier SaaS providers without massive AI R&amp;D budgets might fine-tune DeepSeek R1 instead of developing models from scratch. Industry-specific SaaS solutions, such as legal AI for contract management or financial AI for risk assessment, could benefit from open-source customization. Privacy-conscious SaaS clients in healthcare, finance, and government sectors may demand AI models that can be self-hosted rather than cloud-based.</li>
+</ul>
+
+<h2>Can proprietary and open-source AI coexist in a hybrid model?</h2>
+
+<p>If possible, the future of AI will not be a battle between proprietary and open-source models, but rather a hybrid coexistence where enterprises strategically leverage both. Proprietary AI models offer enterprise-grade reliability, security, and compliance, making them essential for mission-critical applications. On the other hand, open-source AI models like DeepSeek R1 provide cost flexibility, customization, and data sovereignty, making them attractive for companies looking to fine-tune AI on their own infrastructure. However, successfully integrating both worlds requires addressing key legal, technical, and financial challenges. In my humble opinion, the technical and financial challenges are easier to anticipate and understand, therefore I will stick to providing my thoughts around legal challenges.</p>
+
+<h3>The deterrents</h3>
+
+<ol>
+<li><em>Increased legal and regulatory battles.</em> OpenAI's accusations against DeepSeek could set a precedent for lawsuits or policy changes restricting how open-source models can be trained, assuming they are proven to be true. If legal barriers are imposed, open-source AI development may slow down, making hybrid coexistence difficult.</li>
+<li><em>Restrictions on API access and model interoperability.</em> Proprietary AI providers could block or limit API access for companies suspected of training models using their outputs. This would fragment the AI ecosystem, making it harder for businesses to mix open and closed models within the same workflow. It could also lead to complexity in licensing and pricing models. Remember the nightmare with legacy software vendors and the audit mafia.</li>
+<li><em>Stricter data provenance and AI governance.</em> Enterprises adopting hybrid AI strategies will need clearer guidelines on data provenance to avoid liability, forcing them to hold onto piles of history artifacts maintained just for compliance audit and queries. AI governance frameworks may start auditing training data sources, making it harder for open-source models to claim full independence.</li>
+<li><em>A shift toward closed ecosystems.</em> If proprietary vendors aggressively protect their models, enterprises may hesitate to integrate open-source AI, fearing compliance risks. This could reverse the open-source AI momentum, leading companies back into fully closed AI ecosystems controlled by a few players.</li>
+</ol>
+
+<h3>Probable way forward</h3>
+
+<ol>
+<li><em>Proprietary output as an input for open-source AI (inference use case).</em> A valid hybrid AI strategy that doesn't violate proprietary model IP as long as it's not used to generate a dataset for future training. If an enterprise uses OpenAI's model output as a structured input for an open-source model in real-time inference, this is more like chaining AI models together, similar to how one might use an LLM with a traditional software pipeline. This is not training or fine-tuning, so it doesn't constitute copying or learning from proprietary models in the way OpenAI accuses DeepSeek of doing.</li>
+<li><em>Proprietary output used as RL training data (the real contention).</em> This is risky and could lead to legal challenges. If a company systematically collects a proprietary model's API responses and feeds them into reinforcement learning or supervised fine-tuning for an open-source model, it's a grey area. The proprietary model owner's argument is that its models' outputs are a direct result of billions of dollars of training, so using them to train a competitor without licensing is a form of IP theft. The debate hinges on whether model outputs are legally considered proprietary knowledge or just generalized transformations of public data.</li>
+<li><em>Prompt optimization.</em> Should be legally safer, but enterprises should ensure it doesn't turn into systematic training. Few-shot or chain-of-thought prompting using a proprietary model as a guide does not constitute training but may blur ethical lines, since the enhanced prompt is elevating the quality of output and simulating the inference behavior of a fine-tuned model. It is more like strategic AI usage rather than model copying.</li>
+</ol>
+
+<p>The best path forward is transparent AI governance, clear licensing, and responsible use of hybrid AI stacks.</p>
+
+<h2>Has there been an event like this before?</h2>
+
+<p>The obvious parallel that I can draw from memory is that DeepSeek R1 is to AI what Linux was to operating systems. We also have multiple examples of how ignoring open source can lead to a significant drop in market share due to enterprises and the technology community moving away from a proprietary product towards adopting open-source alternatives. Think Oracle versus PostgreSQL, or Java versus OpenJDK and Kotlin.</p>
+
+<ul>
+<li>In the early days of computing, Windows and macOS dominated enterprises, while Linux remained a tool for researchers, hobbyists, and specialized workloads.</li>
+<li>Over time, Linux became the backbone of enterprise infrastructure, running servers, cloud data centers, and embedded systems, even though Windows and macOS still dominate the end-user experience.</li>
+<li>Similarly, open-source AI won't replace proprietary models overnight, but it will become an integral part of enterprise AI stacks, powering custom deployments, research, and security-sensitive applications.</li>
+</ul>
+
+<h2>A different lens: enterprise, SMB and startup</h2>
+
+<p>A hybrid AI future is compelling, but it assumes open-source models will rapidly gain enterprise adoption alongside proprietary models. In reality, at least for large enterprises, the balance will likely tilt toward proprietary AI, with open-source playing a selective role rather than being an equal counterpart.</p>
+
+<ul>
+<li><em>For large enterprises</em>, proprietary AI will dominate, with open-source in select areas, because large enterprises prioritize reliability, scalability, and compliance. Proprietary AI fits best for SaaS-driven workflows, customer interactions, and mission-critical automation. Large enterprises may self-host open-source models for data-sensitive applications such as financial modeling, legal AI and healthcare diagnostics, where they need full control over data and fine-tuning.</li>
+<li><em>SMBs</em> will most likely be the hybrid AI adopters, because SMBs need cost-effective AI solutions but also benefit from the ease of plug-and-play proprietary AI services. Proprietary AI fits best for customer engagement, CRM, ERP, and workplace automation. SMBs may experiment with open-source AI for internal automation, customer personalization, and operational efficiency, especially if they have technical teams capable of deploying fine-tuned models.</li>
+<li><em>For startups</em>, open-source AI could act as a differentiator because they are the most resource-constrained and often look for ways to reduce AI costs and dependency on third-party APIs. Proprietary AI fits best when speed-to-market matters. Early-stage startups will rely on pre-trained models to build MVPs quickly. Startups with AI-first products may train or fine-tune open-source models like DeepSeek R1 to create custom experiences, reduce API costs, or differentiate from competitors.</li>
+</ul>
+
+<p>In summary, companies should embrace a pragmatic hybrid AI strategy, where proprietary AI provides reliability and scale, while open-source AI enhances control, customization, and regulatory compliance. The key isn't choosing one over the other, it's about knowing where each fits best.</p>
+
+<h2>Concluding remarks</h2>
+
+<p>I believe DeepSeek R1 doesn't break the AI status quo, but it nudges us toward a world where enterprises have greater control over AI deployment. Just like Linux reshaped computing, open-source AI will influence how AI is built, deployed, and controlled in the long run.</p>
+
+<p>On the contrary, the way I see it, DeepSeek R1 has created a loud enough bang to make the AI community come out of the spell they were under, millions of GPUs, gigawatts of energy, billions in investment, and make them relook at fundamentals and recognize the fact that value delivery is possible without those massive levers. It sounds similar to the journey I have had in the data engineering world, traversing through DBMS to RDBMS to data warehouse to data lake to data lakehouse to cloud data warehouse and so on. Fundamentals are the key.</p>
+
+<p>The real winners will be those who can seamlessly combine both worlds, leveraging the best of open innovation and enterprise-grade AI.</p>
+
+    <div class="postnav">
+      <a href="index.html" class="pn-all">&larr; All writing</a>
+      <a href="https://rathourvikram.wordpress.com/2025/02/04/deepseek-r1-hype-reality-and-the-future-of-ai-deployment/" class="pn-orig" target="_blank" rel="noopener">Originally published on Technology Cravings</a>
+    </div>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="wide">
+    <div>
+      <h4>Vikram Rathour</h4>
+      <p>Twenty-six years in enterprise data and AI across banking, healthcare and manufacturing. These essays are where the thinking gets worked out before it becomes architecture.</p>
+    </div>
+    <div class="flinks">
+      <a href="../index.html">Main site</a>
+      <a href="index.html">All writing</a>
+      <a href="../blueprint.html">The Production Blueprint</a>
+      <a href="../judgment-room.html">The Judgment Room</a>
+      <a href="../wisdom-loop.html">Order from Noise</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var pb=document.getElementById('pb');
+  function prog(){var h=document.documentElement.scrollHeight-window.innerHeight;pb.style.width=(h>0?(window.scrollY/h)*100:0)+'%';}
+  window.addEventListener('scroll',prog,{passive:true});prog();
+  // build the contents rail from the article's own headings
+  var toc=document.getElementById('toc');
+  if(toc){
+    var hs=[].slice.call(document.querySelectorAll('.prose > h2'));
+    if(hs.length<3){ var rail=document.getElementById('rail'); if(rail) rail.style.display='none'; }
+    else{
+      hs.forEach(function(h,i){
+        if(!h.id) h.id='s'+i;
+        var a=document.createElement('a'); a.href='#'+h.id; a.textContent=h.textContent; toc.appendChild(a);
+      });
+      if('IntersectionObserver' in window){
+        var links=[].slice.call(toc.querySelectorAll('a'));
+        var so=new IntersectionObserver(function(es){
+          es.forEach(function(e){ if(e.isIntersecting){
+            links.forEach(function(l){ l.classList.toggle('on', l.getAttribute('href')==='#'+e.target.id); });
+          }});
+        },{rootMargin:'-100px 0px -72% 0px',threshold:0});
+        hs.forEach(function(h){ so.observe(h); });
+      }
+    }
+  }
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce&&'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('s');io.unobserve(e.target);}})},{threshold:.06,rootMargin:'0px 0px -5% 0px'});
+    document.querySelectorAll('.r').forEach(function(el){io.observe(el)});
+  } else { document.querySelectorAll('.r').forEach(function(el){el.classList.add('s')}); }
+})();
+</script>
+</body>
+</html>
