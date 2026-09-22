@@ -6,18 +6,18 @@
 <title>Frontier &amp; Open-Weights Model Architecture: Technical Analysis</title>
 <style>
 :root{
-  --green:#1DBF3E; --green-dk:#17A033; --green-lt:#E8F9ED; --green-pale:#F4FDF6;
-  --navy:#373545; --blue:#2E73EA; --blue-lt:#EAF1FD;
-  --teal:#00B4D8; --cyan:#00CFCF;
-  --ink:#1A1A1A; --body:#333333; --mid:#626262; --faint:#8A8A8A;
-  --line:#E2E2E2; --line-dk:#C1C1C1; --fill:#F7F8F9; --fill2:#F0F2F4;
-  --amber:#E8890C; --red:#D93636;
-  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
-  --sans:Arial,-apple-system,"Segoe UI",Helvetica,sans-serif;
+  --green:#1F6FD0; --green-dk:#13477E; --green-lt:#DCE8F8; --green-pale:#EAF1FC;
+  --navy:#13182B; --blue:#1F6FD0; --blue-lt:#DCE8F8;
+  --teal:#3B86E8; --cyan:#13477E;
+  --ink:#13182B; --body:#2A3147; --mid:#565C71; --faint:#6B7182;
+  --line:#C2C6CE; --line-dk:#AEB3BD; --fill:#F5F6F8; --fill2:#E4E7EB;
+  --amber:#9A3D00; --red:#8C1D1D;
+  --mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --sans:'IBM Plex Sans',-apple-system,'Segoe UI',Helvetica,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:#fff;color:var(--body);font-family:var(--sans);font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
+body{background:#D9DCE1;color:var(--body);font-family:var(--sans);font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1280px;margin:0 auto;padding:0 28px}
 
 h1{font-size:clamp(32px,4.6vw,54px);line-height:1.04;font-weight:700;letter-spacing:-.025em;color:var(--ink)}
@@ -40,7 +40,7 @@ header{border-bottom:1px solid var(--line);padding:0 0 52px;position:relative}
 .topbar{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid var(--line);margin-bottom:56px}
 .logo{display:flex;align-items:center;gap:0}
 .logo .x{background:var(--green);color:#fff;font-weight:700;font-size:15px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:2px}
-.logo .rest{font-weight:700;font-size:15px;color:var(--ink);margin-left:3px;letter-spacing:-.01em}
+.logo .rest{font-weight:600;font-size:15px;color:var(--ink);letter-spacing:-.01em;margin-left:186px}
 .meta-row{display:flex;flex-wrap:wrap;gap:40px;margin-top:42px;padding-top:26px;border-top:1px solid var(--line)}
 .meta-item{display:flex;flex-direction:column;gap:5px}
 .meta-item .v{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
@@ -114,10 +114,10 @@ input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;bac
 .bar-row .amt{font-family:var(--mono);font-size:14px;font-weight:700}
 .track{height:24px;background:var(--fill2);border:1px solid var(--line);border-radius:3px;overflow:hidden;position:relative}
 .fill{height:100%;transition:width .32s cubic-bezier(.4,0,.2,1)}
-.fill.a{background:linear-gradient(90deg,#D93636,#E8724A)}
-.fill.b{background:linear-gradient(90deg,#E8890C,#F0B45C)}
-.fill.c{background:linear-gradient(90deg,#1DBF3E,#5FD97A)}
-.fill.d{background:linear-gradient(90deg,#2E73EA,#6D9CF2)}
+.fill.a{background:linear-gradient(90deg,#8C1D1D,#F47820)}
+.fill.b{background:linear-gradient(90deg,#9A3D00,#FF8F3C)}
+.fill.c{background:linear-gradient(90deg,#1F6FD0,#3B86E8)}
+.fill.d{background:linear-gradient(90deg,#1F6FD0,#1F6FD0)}
 .gpu-line{position:absolute;top:0;bottom:0;width:2px;background:var(--navy);z-index:3}
 .gpu-line::after{content:attr(data-l);position:absolute;top:-17px;left:4px;font-family:var(--mono);font-size:9px;color:var(--navy);white-space:nowrap}
 .verdict{border-top:1px solid var(--line);padding-top:15px;font-size:13.5px;color:var(--mid)}
@@ -151,9 +151,9 @@ td.name{color:var(--ink);font-weight:700;white-space:normal}
 td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 td.key{color:var(--ink);font-weight:700;font-family:var(--mono);white-space:normal;min-width:150px}
 .pill{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;padding:3px 7px;border-radius:3px;border:1px solid;font-weight:700}
-.pill.open{color:var(--green-dk);border-color:#9FE3B0;background:var(--green-lt)}
-.pill.closed{color:var(--blue);border-color:#B4CDF7;background:var(--blue-lt)}
-.pill.warn{color:var(--amber);border-color:#F3D19B;background:#FDF6EA}
+.pill.open{color:var(--green-dk);border-color:#9CBEEA;background:var(--green-lt)}
+.pill.closed{color:var(--blue);border-color:#C9DAF0;background:var(--blue-lt)}
+.pill.warn{color:var(--amber);border-color:#F6C9A4;background:#FDF6EA}
 .pill.bad{color:var(--red);border-color:#F0B6B6;background:#FDEDED}
 
 /* callout */
@@ -214,15 +214,18 @@ footer a:hover{color:var(--green-dk)}
 <meta name="twitter:title" content="Frontier and Open-Weights Model Architecture">
 <meta name="twitter:description" content="Eighteen open models and eight closed, compared on the same axis, with a monthly cost model. Written so you can challenge a vendor benchmark claim in a procurement meeting.">
 <link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/model-architecture.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-<a href="index.html" style="position:fixed;top:16px;left:16px;z-index:999;font-family:'IBM Plex Mono',monospace,system-ui;font-size:11px;font-weight:600;letter-spacing:.04em;text-decoration:none;color:#25332E;display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid rgba(37,51,46,.15);padding:8px 14px;border-radius:6px;box-shadow:0 2px 8px rgba(37,51,46,.1)">&#8592; Vikram Rathour</a>
+<a href="index.html" style="position:fixed;top:14px;left:14px;z-index:999;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:#13477E;display:inline-flex;align-items:center;gap:7px;background:#F5F6F8;border:1px solid rgba(31,111,208,.22);padding:9px 15px;box-shadow:0 2px 8px rgba(19,24,43,.08)">&#8592; Vikram Rathour</a>
 
 
 <header>
   <div class="wrap">
     <div class="topbar">
-      <div class="logo"><span class="x">x</span><span class="rest">oriant</span></div>
+      <div class="logo"><span class="rest">Vikram Rathour</span></div>
       <span class="eyebrow">Technical Analysis · 27 August 2026</span>
     </div>
     <h1><span class="tri" style="border-left-width:16px;border-top-width:10px;border-bottom-width:10px"></span>Frontier and open-weights<br>model architecture</h1>
@@ -1311,9 +1314,9 @@ function drawCtx(){
   $('skillV').textContent=skill.toLocaleString(); $('chunkV').textContent=ch; $('turnV').textContent=tn;
   const chunkTok=ch*800,histTok=tn*1400,query=150;
   const total=sys+tool+skill+chunkTok+histTok+query;
-  const segs=[{n:'System prompt',v:sys,c:'#2E73EA'},{n:'Tool schemas',v:tool,c:'#5B8FF0'},
-    {n:'Skills',v:skill,c:'#8FB4F5'},{n:'Retrieved chunks',v:chunkTok,c:'#1DBF3E'},
-    {n:'History',v:histTok,c:'#E8890C'},{n:'Query',v:query,c:'#373545'}].filter(s=>s.v>0);
+  const segs=[{n:'System prompt',v:sys,c:'#1F6FD0'},{n:'Tool schemas',v:tool,c:'#5B8FF0'},
+    {n:'Skills',v:skill,c:'#8FB4F5'},{n:'Retrieved chunks',v:chunkTok,c:'#1F6FD0'},
+    {n:'History',v:histTok,c:'#9A3D00'},{n:'Query',v:query,c:'#13182B'}].filter(s=>s.v>0);
   const cacheable=sys+tool+skill;
   $('ctxViz').innerHTML=`<div style="display:flex;height:34px;border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-bottom:8px">
     ${segs.map(s=>`<div title="${s.n}" style="width:${s.v/total*100}%;background:${s.c}"></div>`).join('')}</div>
