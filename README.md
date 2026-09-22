@@ -22,6 +22,8 @@ stylesheet for IBM Plex Sans and IBM Plex Mono.
 | `netlify.toml` | Netlify config. Kept so either host works. Harmless on Vercel. |
 | `robots.txt` | Search engine directives. **Read the note at the top of this file before going live.** |
 | `sitemap.xml` | Page list for search engines. Needs your domain filled in. |
+| `blog/index.html` | The Writing landing page. All seven essays, newest first, with the latest as a lead card. |
+| `blog/*.html` | Seven essays migrated from the WordPress blog as static pages, in the same design system as the rest of the site. |
 | `.gitignore` | Editor, OS and deployment noise. |
 
 ## Before you deploy: three placeholders to replace
@@ -97,7 +99,27 @@ loop and one who wants architecture lands on the model stack.
 All pages link back to `index.html` in the top-left corner.
 
 **Links are relative filenames.** Every content file must sit at the repository
-root. There are no subfolders, and adding one will break the deep links.
+root, with the single exception of the `blog/` folder, which must be kept as a
+folder called exactly `blog` at the root. The essays link back out with `../`,
+so renaming or nesting it will break them.
+
+## About the blog
+
+The seven essays under `blog/` were migrated from `rathourvikram.wordpress.com`.
+Two things to know:
+
+- **Images are still hosted on WordPress.com.** Each essay references images at
+  `rathourvikram.wordpress.com/wp-content/uploads/...`. That account has to keep
+  existing for those images to load, even on the free plan. Do not delete it. To
+  cut the dependency, download the sixteen images, put them in `blog/img/`, and
+  update the `src` attributes.
+- **Old links still point at WordPress.** Anything shared on LinkedIn previously
+  goes to the WordPress URLs. Each essay carries a link back to its original at
+  the bottom. If you want the old links to land here instead, set up redirects on
+  the WordPress side, which works on the free plan.
+- Adding a new essay means writing an HTML file by hand and pushing it. There is
+  no CMS. Copy an existing essay, replace the body, and add a card to
+  `blog/index.html` and to the Writing section of `index.html`.
 
 ## Maintenance notes
 
