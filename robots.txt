@@ -1,0 +1,10 @@
+# Allow search engines to index the whole site.
+# To keep the site private while you decide on positioning,
+# replace the two lines below with:
+#   User-agent: *
+#   Disallow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://REPLACE-WITH-YOUR-DOMAIN/sitemap.xml

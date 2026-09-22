@@ -1,97 +1,121 @@
-# Vikram Rathour — Personal Site
+# vikramrathour.com
 
-A four-page site built around one thesis: intelligence is abundant, sensibility
-is the scarce resource. Vikram architects the judgment layer that decides what
-data means, what a model's output should be trusted to do, and when to
-override it.
+Personal site for Vikram Rathour. Enterprise data and AI architecture.
 
-## What's in this folder
+Static HTML. No build step, no framework, no package manager. Every page is a
+single self-contained file. The only external request is the Google Fonts
+stylesheet for IBM Plex Sans and IBM Plex Mono.
 
-| File                  | What it is                                                                 |
-|------------------------|-----------------------------------------------------------------------------|
-| `index.html`          | The main site. Hero, thesis, approach, impact, work, leadership, builds, signature project, writing, contact. |
-| `judgment-room.html`  | An interactive piece. Five real, anonymized enterprise dilemmas across the practice areas. The visitor picks an answer, then sees what actually happened and why. |
-| `wisdom-loop.html`    | An interactive visualization of the underlying architecture, drawn as a six-stage cycle: Data, Information, Knowledge, Wisdom, Inference, Decision, looping back to Data. Shows the three real stores (Record, Reasoning, Trust) and the compute actions that move information between them. |
-| `architecture.svg`    | A standalone, printable technical diagram of the same architecture — concentric rings, judgment gates, governed feedback loop. Drop this into a slide deck or document as-is. |
+## Contents
 
-## How the pages connect
+| File | What it is |
+|------|------------|
+| `index.html` | The main site. Hero, thesis, approach, **engagements**, impact, work, point of view, builds, signature project, writing, contact. The only page meant to be shared as the primary link. |
+| `blueprint.html` | The consolidated report. Seven decisions between a pilot and a business result, phased pre-pilot, pilot-to-production and in-production. Every statistic carries a source and a date. Links out to the three papers as deep dives. |
+| `judgment-room.html` | Interactive. Five anonymised enterprise dilemmas. The visitor picks, then sees what actually happened. |
+| `wisdom-loop.html` | Interactive. The architecture as a six-stage cycle: Data, Information, Knowledge, Wisdom, Inference, Decision, looping back. |
+| `architecture.svg` | Standalone printable diagram of the same architecture. Drop into a deck as is. |
+| `enterprise-model-stack.html` | Technical paper. How a model is built and how a system stays loosely coupled to one that changes underneath it. |
+| `model-architecture.html` | Technical paper. Eighteen open models and eight closed, compared on the same axis, with a monthly cost model. |
+| `multi-agent-enterprise.html` | Technical paper. What happens when three tiers of the enterprise stack go agentic at once. |
+| `vercel.json` | Vercel config. Security headers, clean URLs. |
+| `netlify.toml` | Netlify config. Kept so either host works. Harmless on Vercel. |
+| `robots.txt` | Search engine directives. **Read the note at the top of this file before going live.** |
+| `sitemap.xml` | Page list for search engines. Needs your domain filled in. |
+| `.gitignore` | Editor, OS and deployment noise. |
 
-`index.html` is the entry point and the only page meant to be shared as the
-primary link. It has two internal invitations:
+## Before you deploy: three placeholders to replace
 
-- After the Work section's case studies, a "Go deeper" link into
-  `judgment-room.html` and `architecture.svg`.
-- After the Thesis section's four cards, a full-width panel inviting the
-  visitor into `wisdom-loop.html`, framed as "see the argument, not just
-  read it."
+Search the whole folder for `REPLACE-WITH-YOUR-DOMAIN` and substitute your real
+domain, without a trailing slash. It appears in:
 
-Both `judgment-room.html` and `wisdom-loop.html` carry a link back to
-`index.html` at the top, so the visitor is never stranded on a sub-page.
+1. `robots.txt`, one occurrence, in the sitemap line.
+2. `sitemap.xml`, seven occurrences.
+3. Every `.html` file, in the `og:url` and `canonical` tags.
 
-**These links are relative filenames.** All four files need to sit in the
-same folder (or the same repo root) for them to resolve. If you only ever
-deploy `index.html` on its own, the "go deeper" links will 404.
+On macOS or Linux, from inside the folder:
 
-## Design system
+```
+grep -rl "REPLACE-WITH-YOUR-DOMAIN" . | xargs sed -i '' 's|REPLACE-WITH-YOUR-DOMAIN|yourdomain.com|g'
+```
 
-- **Typography:** IBM Plex Sans (body/display) and IBM Plex Mono (labels,
-  code-like accents) throughout all four files. Chosen deliberately over
-  more decorative serif pairings to avoid the "generated" look common to
-  AI-assisted design tools.
-- **Palette:** silver-grey background with ODI-blue and orange accents on
-  the main site and Judgment Room; a separate calm Mist & Sage palette on
-  the Wisdom Loop, since that page is meant to feel contemplative rather
-  than corporate.
-- **Accessibility:** every text/background pairing has been checked against
-  WCAG contrast minimums. All animation respects
-  `prefers-reduced-motion`. Touch devices get the system cursor back
-  (the custom cursor is desktop-only).
-- **No external dependencies** beyond Google Fonts. No build step, no
-  package manager, no JavaScript framework. Every file is a single,
-  self-contained HTML (or SVG) document.
+Drop the `''` after `-i` on Linux. Leaving the placeholder in does not break the
+site, but link previews on LinkedIn will point nowhere.
 
-## Deploying to Netlify
+## Do you want this indexed yet?
 
-**Fastest path — Netlify Drop (no account needed to preview):**
+`robots.txt` currently allows all search engines. If you are still deciding how
+to present availability, open `robots.txt` and swap `Allow: /` for
+`Disallow: /`. That keeps the site reachable by anyone you send the link to
+while keeping it out of search results. Change it back when you are ready.
 
-1. Go to [app.netlify.com/drop](https://app.netlify.com/drop)
-2. Drag this entire folder (all four files, plus this README if you like —
-   it won't affect the site) onto the page
-3. Netlify gives you a live URL immediately
+## Putting it on GitHub
 
-**Proper path — connected to a Netlify account (recommended for a real
-launch):**
+```
+cd path/to/this/folder
+git init
+git add .
+git commit -m "Personal site"
+git branch -M main
+git remote add origin https://github.com/vikramrathour/YOUR-REPO-NAME.git
+git push -u origin main
+```
 
-1. Log in at [app.netlify.com](https://app.netlify.com)
-2. "Add new site" → "Deploy manually"
-3. Drag the folder in, same as above
-4. Once live, go to Site settings → Domain management to add a custom
-   domain if you have one (e.g. `vikramrathour.com`)
-5. Netlify auto-detects `index.html` as the root page — no configuration
-   needed for that part
+Create the empty repository on github.com first, without a README or a
+`.gitignore`, since this folder already has both.
 
-**If you'd rather deploy from a Git repo** (GitHub, GitLab), push these four
-files to a repo root, then in Netlify choose "Import an existing project"
-and point it at that repo. No build command is needed — leave the build
-command blank and set the publish directory to `/` (the repo root).
+If you prefer not to use the command line: create the repository on github.com,
+click **uploading an existing file**, and drag every file in. Include the
+hidden `.gitignore`; on macOS press Cmd, Shift and full stop in Finder to see it.
 
-## Updating content later
+## Deploying from GitHub to Vercel
 
-Every file is plain HTML/CSS/JS with inline `<style>` and `<script>` blocks,
-readable top to bottom. There's no compilation step — edit the file, save,
-re-upload (or `git push` if using the Git-connected route) and the change is
-live.
+1. Sign in at vercel.com with your GitHub account.
+2. **Add New**, then **Project**, then import the repository.
+3. Framework preset: **Other**. Leave the build command empty. Leave the output
+   directory empty. `vercel.json` handles the rest.
+4. Deploy. Every push to `main` now redeploys automatically.
 
-A few landmarks if you're editing by hand:
+To attach your domain: **Settings**, then **Domains**, add the bare domain and
+the `www` version, redirect `www` to the bare domain, and add the two DNS
+records Vercel shows you at your registrar.
 
-- Main site sections are `<section class="slide" id="s1">` through `id="s9"`,
-  in order: Hero, Thesis, Approach, Impact, Work, Leadership, Builds,
-  Signature, Writing, Contact.
-- Case studies in the Work section are grouped by tab (`tab-bfs`, `tab-ai`,
-  `tab-plat`) inside `#s5`.
-- The Judgment Room's five scenarios are `<div class="scenario" id="sc0">`
-  through `id="sc4"`.
-- The Wisdom Loop's six stages and their architecture-layer tags live in
-  the `<svg class="loop-svg">` block; the compute-action labels that travel
-  between them are defined in the `segments` array near the bottom of the
-  file, in a `<script>` tag.
+## How the pages link together
+
+`index.html` is the entry point, with four internal routes:
+
+- The Point of View section leads with `blueprint.html`, the three papers below
+  it as deep dives, tagged by buyer decision.
+- The Work section links into `judgment-room.html` and `architecture.svg`.
+- The Thesis section links into `wisdom-loop.html`.
+- Blueprint sits in the top navigation.
+
+`blueprint.html` links out to all five other pages from whichever section is
+relevant, so a reader who wants depth on data readiness lands on the wisdom
+loop and one who wants architecture lands on the model stack.
+
+All pages link back to `index.html` in the top-left corner.
+
+**Links are relative filenames.** Every content file must sit at the repository
+root. There are no subfolders, and adding one will break the deep links.
+
+## Maintenance notes
+
+- The evidence in `blueprint.html` is dated to September 2026. The regulatory
+  dates in section 04 will move; the EU AI Act Chapter III deadlines were
+  already deferred once, in July 2026. Every figure carries a source and a date
+  in the page, so replace the figure and the date together.
+- Accessibility: all text meets WCAG AA contrast. The site respects
+  `prefers-reduced-motion`, which disables reveal animations, tilt and smooth
+  scrolling. Interactive elements are keyboard reachable.
+- The Engagements section uses a horizontal swipe row on phones, because the
+  slides are a fixed one screen tall and three stacked cards would clip.
+- En dashes appear in numeric ranges inside the technical papers, such as
+  `4–8×` and `$5–6M`. That is correct typography for a range and is deliberate.
+  There are no em dashes anywhere in the site.
+
+## Rights
+
+No licence file is included, so default copyright applies and all rights are
+reserved. That is intentional. The technical papers are the author's work and
+are published for reading, not reuse.

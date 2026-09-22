@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Production Blueprint: Seven Decisions Between a Pilot and a Business Result</title>
+<meta name="description" content="Vikram Rathour. A seven-part working reference for enterprise AI: objectives and ownership, data readiness, architecture, security and compliance, organisational readiness, governance in production, and scale. Evidence-led, with the disagreements stated.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#D9DCE1;
+  --paper2:#E4E7EB;
+  --paper3:#CDD1D7;
+  --card:#F5F6F8;
+  --ink:#13182B;
+  --ink2:#2A3147;
+  --t2:rgba(19,24,43,.70);
+  --t2b:rgba(19,24,43,.58);
+  --t3:rgba(19,24,43,.45);
+  --t4:rgba(19,24,43,.20);
+  --line:rgba(19,24,43,.10);
+  --line2:rgba(19,24,43,.16);
+  --blue:#1F6FD0;
+  --blue2:#3B86E8;
+  --blue-dk:#13477E;
+  --blue-pale:rgba(31,111,208,.07);
+  --blue-bdr:rgba(31,111,208,.22);
+  --yel:#F47820;
+  --yel2:#FF8F3C;
+  --yel-dk:#8E3800;
+  --yel-pale:rgba(244,120,32,.11);
+  --yel-bdr:rgba(244,120,32,.45);
+  --shadow-sm:0 2px 8px rgba(19,24,43,.06);
+  --shadow-md:0 8px 30px rgba(19,24,43,.10);
+  --shadow-lg:0 24px 60px rgba(19,24,43,.16);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:104px;-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:17.5px;line-height:1.66;-webkit-font-smoothing:antialiased;letter-spacing:-.005em;overflow-x:hidden}
+
+#pb{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--yel));z-index:1200;transition:width .12s linear}
+
+/* ── nav ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(217,220,225,.9);backdrop-filter:blur(18px);border-bottom:1px solid var(--line2)}
+.nrow{max-width:1240px;margin:0 auto;padding:14px 40px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.nlogo{font-size:1rem;font-weight:500;color:var(--ink);text-decoration:none;white-space:nowrap}
+.nlogo span{color:var(--blue)}
+.nback{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);text-decoration:none;border-bottom:1px solid var(--blue-bdr);padding-bottom:2px;white-space:nowrap}
+.nback:hover{color:var(--blue-dk);border-color:var(--blue)}
+.npills{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:0 40px 10px;max-width:1240px;margin:0 auto}
+.npills::-webkit-scrollbar{display:none}
+.npills a{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--t2b);text-decoration:none;padding:6px 11px;border:1px solid transparent;border-radius:3px;white-space:nowrap;transition:all .2s}
+.npills a:hover{color:var(--blue);border-color:var(--blue-bdr);background:var(--blue-pale)}
+.npills a.on{color:#fff;background:var(--blue);border-color:var(--blue)}
+
+/* ── layout ── */
+.wrap{max-width:900px;margin:0 auto;padding:0 40px}
+.wide{max-width:1180px;margin:0 auto;padding:0 40px}
+
+/* ── hero ── */
+header.hero{padding:190px 0 96px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:radial-gradient(var(--line) 1.5px,transparent 1.5px);background-size:40px 40px;mask-image:radial-gradient(ellipse 70% 80% at 30% 40%,#000 20%,transparent 100%);pointer-events:none}
+.hero-inner{position:relative;z-index:2}
+.kick{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:13px;margin-bottom:28px}
+.kick::before{content:'';width:34px;height:2px;background:var(--blue)}
+h1{font-size:clamp(2.5rem,5.6vw,4rem);line-height:1.04;font-weight:600;letter-spacing:-.035em;margin-bottom:28px}
+h1 em{font-style:normal;color:var(--blue)}
+.lede{font-size:clamp(1.12rem,1.9vw,1.35rem);line-height:1.6;color:var(--ink2);max-width:760px;font-weight:300}
+.lede strong{font-weight:500;color:var(--ink)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:34px;margin-top:48px;padding-top:30px;border-top:1px solid var(--line2)}
+.hm{min-width:120px}
+.hm-k{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+.hm-v{font-size:1rem;font-weight:500}
+
+/* ── generic type ── */
+h2{font-size:clamp(1.75rem,3.2vw,2.5rem);line-height:1.13;font-weight:600;letter-spacing:-.03em;margin-bottom:20px}
+h3{font-size:clamp(1.16rem,1.9vw,1.42rem);line-height:1.3;font-weight:600;letter-spacing:-.02em;margin:48px 0 16px}
+h4{font-size:1.02rem;font-weight:600;letter-spacing:-.01em;margin:30px 0 11px}
+p{margin-bottom:19px;color:var(--ink2)}
+p.big{font-size:1.14rem;line-height:1.62;color:var(--ink);font-weight:300}
+strong{font-weight:600;color:var(--ink)}
+em.q{font-style:italic;color:var(--ink2)}
+a.ln{color:var(--blue-dk);text-decoration:none;border-bottom:1px solid var(--blue-bdr)}
+a.ln:hover{border-color:var(--blue);background:var(--blue-pale)}
+ul,ol{margin:0 0 20px 0;padding-left:22px}
+li{margin-bottom:10px;color:var(--ink2)}
+li::marker{color:var(--blue)}
+code{font-family:'IBM Plex Mono',monospace;font-size:.88em;background:var(--paper2);padding:1px 6px;border:1px solid var(--line);border-radius:3px}
+
+/* ── sections ── */
+section.chap{padding:78px 0 30px;border-top:1px solid var(--line2)}
+.chap-head{display:flex;gap:26px;align-items:flex-start;margin-bottom:34px}
+.chap-num{font-family:'IBM Plex Mono',monospace;font-size:2.7rem;font-weight:300;line-height:.9;color:var(--yel);flex-shrink:0;letter-spacing:-.04em}
+.chap-phase{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--blue);padding:4px 10px;margin-bottom:14px}
+.chap-phase.p2{background:var(--yel-dk)}
+.chap-phase.p3{background:var(--ink2)}
+.chap-q{font-size:1.06rem;font-weight:400;color:var(--blue-dk);border-left:3px solid var(--blue);padding-left:16px;margin:0 0 30px;line-height:1.5}
+
+/* ── stat strip ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:1px;background:var(--line2);border:1px solid var(--line2);margin:30px 0 34px}
+.st{background:var(--card);padding:22px 20px}
+.st-v{font-size:1.85rem;font-weight:600;letter-spacing:-.035em;color:var(--ink);line-height:1;margin-bottom:9px}
+.st-v.b{color:var(--blue)}
+.st-v.o{color:var(--yel-dk)}
+.st-l{font-size:.84rem;line-height:1.42;color:var(--t2);margin-bottom:8px}
+.st-s{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.06em;color:var(--t3);text-transform:uppercase}
+
+/* ── callouts ── */
+.box{background:var(--card);border:1px solid var(--line2);padding:26px 28px;margin:30px 0;box-shadow:var(--shadow-sm)}
+.box-t{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.box-t::before{content:'';width:20px;height:2px;background:var(--blue)}
+.box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0}
+
+.conflict{background:var(--yel-pale);border:1px solid var(--yel-bdr);border-left:4px solid var(--yel);padding:26px 28px;margin:34px 0}
+.conflict .box-t{color:var(--yel-dk)}
+.conflict .box-t::before{background:var(--yel)}
+.conflict .sides{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin:18px 0}
+.side-h{font-size:.92rem;font-weight:600;color:var(--ink);margin-bottom:9px;padding-bottom:7px;border-bottom:1px solid var(--yel-bdr)}
+.verdict{margin-top:18px;padding-top:16px;border-top:1px solid var(--yel-bdr);font-size:1.02rem;color:var(--ink)}
+.verdict b{color:var(--yel-dk)}
+
+.caution{border-left:3px solid var(--t4);padding:4px 0 4px 18px;margin:24px 0;font-size:.95rem;color:var(--t2);font-style:italic}
+
+/* ── tables ── */
+.tw{overflow-x:auto;margin:28px 0;border:1px solid var(--line2);background:var(--card)}
+table{width:100%;border-collapse:collapse;font-size:.93rem;min-width:600px}
+th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.11em;text-transform:uppercase;color:#fff;background:var(--ink2);padding:12px 15px;font-weight:400;vertical-align:bottom}
+td{padding:13px 15px;border-top:1px solid var(--line);color:var(--ink2);vertical-align:top;line-height:1.5}
+td:first-child{font-weight:500;color:var(--ink)}
+tr:nth-child(even) td{background:rgba(19,24,43,.018)}
+td b{color:var(--ink);font-weight:600}
+.tnum{font-family:'IBM Plex Mono',monospace;white-space:nowrap}
+
+/* ── decide / assign ── */
+.own{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line2);border:1px solid var(--line2);margin:34px 0}
+.own-c{background:var(--card);padding:24px 26px}
+.own-c.assign{background:#EDF1F7}
+.own-h{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:6px}
+.own-c .own-h{color:var(--blue)}
+.own-c.assign .own-h{color:var(--yel-dk)}
+.own-sub{font-size:.82rem;color:var(--t3);margin-bottom:16px}
+.own ul{margin:0;padding-left:19px}
+.own li{font-size:.94rem;margin-bottom:11px}
+
+/* ── deep dive ── */
+.dive{display:block;background:var(--ink);color:#fff;padding:26px 30px;margin:36px 0;text-decoration:none;position:relative;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.dive:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.dive::after{content:'';position:absolute;top:0;right:0;bottom:0;width:4px;background:var(--yel)}
+.dive-k{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:var(--yel2);margin-bottom:11px}
+.dive-h{font-size:1.2rem;font-weight:600;letter-spacing:-.02em;margin-bottom:9px;color:#fff}
+.dive-p{font-size:.95rem;color:rgba(255,255,255,.76);line-height:1.55;margin:0}
+.dive-go{display:inline-flex;align-items:center;gap:8px;margin-top:15px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;border-bottom:1px solid var(--yel)}
+.dive-go svg{width:14px;height:14px;stroke:var(--yel);stroke-width:2;fill:none}
+
+/* ── gate checklist ── */
+.gate{counter-reset:g;margin:30px 0}
+.gate-i{display:flex;gap:18px;padding:17px 0;border-top:1px solid var(--line)}
+.gate-i:last-child{border-bottom:1px solid var(--line)}
+.gate-n{counter-increment:g;font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--yel-dk);flex-shrink:0;width:26px;padding-top:3px}
+.gate-n::before{content:counter(g,decimal-leading-zero)}
+.gate-b{flex:1}
+.gate-h{font-weight:600;font-size:1rem;margin-bottom:5px}
+.gate-p{font-size:.93rem;color:var(--t2);margin:0}
+
+/* ── pivot map ── */
+.pmap{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:32px 0}
+.pm{background:var(--card);border:1px solid var(--line2);border-top:3px solid var(--blue);padding:22px 20px}
+.pm:nth-child(2){border-top-color:var(--yel)}
+.pm:nth-child(3){border-top-color:var(--ink2)}
+.pm-n{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;color:var(--t3);text-transform:uppercase;margin-bottom:9px}
+.pm-h{font-size:1.04rem;font-weight:600;margin-bottom:9px;letter-spacing:-.015em}
+.pm-p{font-size:.9rem;color:var(--t2);margin:0 0 12px}
+.pm-s{font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--blue-dk);letter-spacing:.04em}
+
+/* ── sources ── */
+.srcs{columns:2;column-gap:40px;font-size:.86rem;line-height:1.55}
+.srcs p{break-inside:avoid;margin-bottom:12px;color:var(--t2)}
+.srcs a{color:var(--blue-dk);text-decoration:none;border-bottom:1px solid var(--blue-bdr)}
+.srcs a:hover{background:var(--blue-pale)}
+
+footer{background:var(--ink);color:rgba(255,255,255,.7);padding:64px 0 48px;margin-top:80px}
+footer .wide{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:flex-start}
+footer h4{color:#fff;margin:0 0 14px;font-size:1.05rem}
+footer p{color:rgba(255,255,255,.6);font-size:.92rem;max-width:460px}
+footer a{color:var(--yel2);text-decoration:none;border-bottom:1px solid rgba(244,120,32,.4)}
+footer a:hover{color:#fff}
+.flinks{display:flex;flex-direction:column;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+
+.r{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.r.s{opacity:1;transform:none}
+
+@media (max-width:860px){
+  body{font-size:16.5px}
+  .wrap,.wide,.nrow,.npills{padding-left:22px;padding-right:22px}
+  header.hero{padding:170px 0 64px}
+  .chap-head{gap:16px}
+  .chap-num{font-size:2rem}
+  .conflict .sides{grid-template-columns:1fr;gap:18px}
+  .own{grid-template-columns:1fr}
+  .pmap{grid-template-columns:1fr}
+  .srcs{columns:1}
+  .nrow{padding-top:11px;padding-bottom:11px}
+  html{scroll-padding-top:126px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .r{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Vikram Rathour">
+<meta property="og:title" content="The Production Blueprint: Seven Decisions Between a Pilot and a Business Result">
+<meta property="og:description" content="Seven decisions between a pilot and a business result, with the evidence behind each one as of September 2026, including where that evidence contradicts itself.">
+<meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/blueprint.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Production Blueprint: Seven Decisions Between a Pilot and a Business Result">
+<meta name="twitter:description" content="Seven decisions between a pilot and a business result, with the evidence behind each one as of September 2026, including where that evidence contradicts itself.">
+<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/blueprint.html">
+</head>
+<body>
+<div id="pb"></div>
+
+<nav>
+  <div class="nrow">
+    <a href="index.html" class="nlogo">Vikram <span>Rathour</span></a>
+    <a href="index.html" class="nback">&larr; Back to main</a>
+  </div>
+  <div class="npills" id="pills">
+    <a href="#frame">The frame</a>
+    <a href="#c1">01 Objectives</a>
+    <a href="#c2">02 Data</a>
+    <a href="#c3">03 Architecture</a>
+    <a href="#c4">04 Security</a>
+    <a href="#c5">05 People</a>
+    <a href="#c6">06 Governance</a>
+    <a href="#c7">07 Scale</a>
+    <a href="#sources">Sources</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap hero-inner">
+    <div class="kick">A working reference, not a white paper</div>
+    <h1>Seven decisions<br>between a pilot and a <em>business result</em>.</h1>
+    <p class="lede">Most enterprise AI programmes do not fail on the model. They fail on seven decisions that are made badly, made late, or never assigned to anyone. This is what the evidence says about each one as of September 2026, <strong>including where the evidence contradicts itself</strong>, and who in your organisation has to own the answer.</p>
+    <div class="hero-meta">
+      <div class="hm"><div class="hm-k">Author</div><div class="hm-v">Vikram Rathour</div></div>
+      <div class="hm"><div class="hm-k">Revised</div><div class="hm-v">September 2026</div></div>
+      <div class="hm"><div class="hm-k">Read time</div><div class="hm-v">About 40 minutes</div></div>
+      <div class="hm"><div class="hm-k">Deep dives</div><div class="hm-v">Three technical papers</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════ THE FRAME ══════════════ -->
+<section class="chap" id="frame">
+<div class="wrap">
+  <h2 class="r">How to read this</h2>
+  <p class="big r">Seven considerations, in the order they actually bite. Four of them have to be settled before a pilot starts, because getting them wrong is what makes the pilot unrepeatable. One governs the crossing itself. Two only begin once the system is carrying real traffic.</p>
+
+  <div class="tw r">
+  <table>
+    <thead><tr><th style="width:15%">Phase</th><th style="width:30%">Consideration</th><th>The question it actually answers</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="4">Before the pilot</td><td>01 Objectives, ROI and ownership</td><td>What are we measuring, and whose name is against the number?</td></tr>
+      <tr><td>02 Data readiness and integration</td><td>Is the data good enough for this one use case, and how would we know?</td></tr>
+      <tr><td>03 Infrastructure and architecture</td><td>What is the simplest shape that could work, and when does it stop working?</td></tr>
+      <tr><td>04 Security, compliance and trust</td><td>What breaks, who is liable, and what evidence would we need?</td></tr>
+      <tr><td>Pilot to production</td><td>05 Organisational readiness</td><td>Who does the work differently on Monday, and who reviews the output?</td></tr>
+      <tr><td rowspan="2">In production</td><td>06 Governance and risk management</td><td>How much human attention does each decision deserve?</td></tr>
+      <tr><td>07 Scale and evolution</td><td>How does this survive the model changing underneath it?</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 class="r">The three pivots these seven decisions serve</h3>
+  <div class="pmap r">
+    <div class="pm">
+      <div class="pm-n">Pivot 01</div>
+      <div class="pm-h">Pilot to production</div>
+      <p class="pm-p">A pilot proves the model can do it once. Production proves the organisation can do it every day, at cost, with someone accountable.</p>
+      <div class="pm-s">Considerations 01, 02, 05</div>
+    </div>
+    <div class="pm">
+      <div class="pm-n">Pivot 02</div>
+      <div class="pm-h">Initial to industrialised</div>
+      <p class="pm-p">The second use case should be cheaper than the first. If it is not, you built a project, not a platform.</p>
+      <div class="pm-s">Considerations 02, 03, 07</div>
+    </div>
+    <div class="pm">
+      <div class="pm-n">Pivot 03</div>
+      <div class="pm-h">Managed to resilient</div>
+      <p class="pm-p">Managed means someone is watching. Resilient means the system degrades safely when nobody is.</p>
+      <div class="pm-s">Considerations 04, 06, 07</div>
+    </div>
+  </div>
+
+  <div class="box r">
+    <div class="box-t">Before you quote any number in this document</div>
+    <p>The published evidence on enterprise AI is unusually contaminated, and knowing how tells you which numbers to trust. Four things explain nearly every apparent contradiction in this field:</p>
+    <ul>
+      <li><strong>The denominator.</strong> "95 percent of pilots fail" and "25 percent of pilots succeed" are the same dataset counted against different populations.</li>
+      <li><strong>The time window.</strong> A study demanding sustained P&amp;L impact within six months and one measuring value realisation at thirteen months will disagree violently while both being correct.</li>
+      <li><strong>What counts as a return.</strong> "Do you see positive ROI" and "have you established ROI" are different questions asked of the same seniority of executive, and they return 98 percent and 7 percent respectively.</li>
+      <li><strong>Who paid.</strong> Nearly every optimistic headline in this field was commissioned by a party selling the thing it measures. So was at least one of the pessimistic ones.</li>
+    </ul>
+    <p>Where I cite a number, I name the source and the date. Where sources disagree, I state both cases before taking a position. Where I could not verify something, I say so rather than rounding it into a claim.</p>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════ 01 ══════════════ -->
+<section class="chap" id="c1">
+<div class="wrap">
+  <div class="chap-head r">
+    <div class="chap-num">01</div>
+    <div>
+      <div class="chap-phase">Before the pilot</div>
+      <h2>Objectives, ROI and ownership</h2>
+    </div>
+  </div>
+  <p class="chap-q r">If nobody can name the person accountable for what this costs and what it returns, the programme has already chosen its outcome.</p>
+
+  <p class="big r">This is the decision most organisations skip, and it is the one with the cleanest evidence behind it. Scaling has moved. Margin has not.</p>
+
+  <div class="stats r">
+    <div class="st"><div class="st-v">37%</div><div class="st-l">report AI contributed positively to EBIT, statistically unchanged from 39 percent a year earlier</div><div class="st-s">McKinsey, Aug 2026, n=1,719</div></div>
+    <div class="st"><div class="st-v b">6%</div><div class="st-l">qualify as high performers: at least 5 percent of EBIT attributed to AI</div><div class="st-s">McKinsey, Aug 2026</div></div>
+    <div class="st"><div class="st-v o">7%</div><div class="st-l">of C-suite leaders report having established ROI at all</div><div class="st-s">KPMG, Jun 2026, n=2,145</div></div>
+    <div class="st"><div class="st-v">42%</div><div class="st-l">have only partial visibility into what AI is costing them</div><div class="st-s">KPMG, Jun 2026</div></div>
+  </div>
+
+  <p class="r">Adoption rose roughly six points year on year while EBIT attribution stayed flat. That gap is the entire problem. More organisations are running AI in more functions and the same proportion can point to a margin outcome. Scale is not converting.</p>
+
+  <h3 class="r">Cost visibility is the variable that moves ROI</h3>
+  <p class="r">The strongest single finding in the 2026 evidence base is not about models or use cases. It is about accounting. Organisations with strong visibility into AI spend are <strong>five times more likely</strong> to have established ROI, 15 percent against 3 percent (KPMG, June 2026). The mechanism is not mysterious: you cannot establish a return on a cost you cannot see.</p>
+
+  <p class="r">Token cost has become a board-level line item faster than most finance functions adapted. In EY's May 2026 wave of 534 senior leaders, <strong>82 percent</strong> were concerned about token consumption and cost, and <strong>98 percent of those using token-consuming tools said cost had made them reconsider their approach</strong>: 37 percent reassessing functional priorities, 35 percent reconsidering use cases, 32 percent reconsidering who gets access. Only 64 percent actively monitor token usage against a budget. The FinOps Foundation's 2026 survey found that <strong>98 percent of FinOps practitioners now manage AI spend, up from 63 percent in 2025 and 31 percent in 2024</strong>, the fastest scope expansion in the survey's history.</p>
+
+  <h3 class="r">Ownership: the numbers on naming one person</h3>
+  <p class="r">KPMG's June 2026 study is the closest thing to a controlled test of single-owner accountability. Where the CEO is the named owner of AI outcomes, against where accountability sits diffusely across the C-suite:</p>
+
+  <div class="tw r">
+  <table>
+    <thead><tr><th>Outcome measure</th><th class="tnum">CEO is named owner</th><th class="tnum">Accountability is diffuse</th><th class="tnum">Spread</th></tr></thead>
+    <tbody>
+      <tr><td>Confidence in AI strategy</td><td class="tnum">60%</td><td class="tnum">22%</td><td class="tnum"><b>2.7x</b></td></tr>
+      <tr><td>Realising meaningful business value</td><td class="tnum">57%</td><td class="tnum">21%</td><td class="tnum"><b>2.7x</b></td></tr>
+      <tr><td>Established ROI</td><td class="tnum">14%</td><td class="tnum">4%</td><td class="tnum"><b>3.5x</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="caution r">This is cross-sectional and self-reported. Reverse causality is not excluded: organisations already succeeding may simply be more willing to name the CEO as owner. No published study directly tests single-owner against federated as designed alternatives. Treat the direction as well supported and the magnitude as indicative.</div>
+
+  <p class="r">Two structural findings sit alongside it. Accenture's September 2026 work found <strong>42 percent of organisations have no single owner of AI cost and outcomes</strong>, relying on shared IT and finance accountability. BCG's 2025 survey of 1,250 executives found the highest performers are not centralised or federated but both: 43 percent have joint business and IT ownership, they are three times more likely to have a chief AI officer, and C-suite engagement runs near 100 percent against 8 percent for laggards.</p>
+
+  <h3 class="r">Denominate in outcomes, not tokens</h3>
+  <p class="r">This is the most actionable disagreement in the whole evidence base, and almost every enterprise dashboard is currently on the wrong side of it.</p>
+
+  <p class="r">Uber published the clearest working model in August 2026. They decompose AI cost multiplicatively, giving each term a named optimisation owner:</p>
+
+  <div class="box r">
+    <div class="box-t">Uber's cost decomposition</div>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:.95rem;color:var(--ink);line-height:1.8">Users &times; Sessions per user &times; Turns per session &times; Requests per turn &times; Tokens per request &times; Price per token</p>
+    <p>Their production metrics are denominated in outcomes, not tokens: <strong>cost per merged pull request, cost per review, cost per alert, cost per cleanup</strong>. Result over February to August 2026: cost per thousand model requests down 34 percent from peak, cost per session down 52 percent from its June peak, while weekly active employees grew 7x and weekly agent requests grew 9.4x, with total spend broadly flat.</p>
+  </div>
+
+  <p class="r">DoiT's August 2026 research gives the arithmetic for why token denomination misprices reliability:</p>
+  <ul class="r">
+    <li><code>Cost per solved task = expected cost per attempt &divide; success probability</code></li>
+    <li><code>Risk-adjusted CPT = CPT + (leak rate &times; cleanup cost)</code></li>
+  </ul>
+  <p class="r">On their measured workloads the ranking between two frontier models <strong>flips depending on whether failure cleanup is priced</strong>, and again depending on whether the workload is coding or tool use. Run-to-run variance on identical agentic tasks reached 30x. Tokenizer differences alone shift token counts by around 30 percent for the same text. Any chargeback model denominated in tokens will systematically reward the model that fails cheaply over the model that succeeds.</p>
+
+  <h3 class="r">The levers that actually move the number</h3>
+  <p class="r">Before renegotiating anything, three engineering levers have published, verifiable economics:</p>
+  <div class="tw r">
+  <table>
+    <thead><tr><th>Lever</th><th>Published economics</th><th>Break-even</th></tr></thead>
+    <tbody>
+      <tr><td>Prompt caching</td><td>Cache read at <b>0.1x</b> base input price. Five-minute cache write 1.25x, one-hour write 2x.</td><td>Five-minute cache pays back after <b>one hit</b>; one-hour after <b>two</b></td></tr>
+      <tr><td>Batch processing</td><td><b>50 percent</b> discount on both input and output tokens for non-realtime work</td><td>Immediate, where latency permits</td></tr>
+      <tr><td>Context compression</td><td>Shopify: system prompt 6,000 tokens down to 1,500 gist tokens, end-to-end latency down 38 percent, <b>GPU allocation down 14 percent</b></td><td>Compression cost paid once at training time</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="r">Cache time-to-live is a real decision with a published rationale. Uber runs a one-hour TTL for interactive developer sessions because engineers pause for more than five minutes while thinking, and a five-minute TTL for subagents because they run single tasks. The break-even is governed by the expected idle gap, not by prompt size.</p>
+
+  <div class="conflict r">
+    <div class="box-t">Where the evidence disagrees</div>
+    <p><strong>Is 95 percent of enterprise AI failing, or is 80 percent of it working?</strong></p>
+    <div class="sides">
+      <div>
+        <div class="side-h">The pessimistic case</div>
+        <p style="font-size:.95rem">MIT NANDA (2025): 95 percent of organisations getting zero return on 30 to 40 billion dollars. S&amp;P Global (March 2025): 42 percent scrapped most AI initiatives, up from 17 percent a year earlier; 46 percent of proofs of concept abandoned. McKinsey: EBIT attribution flat across two waves, 6 percent high performers. KPMG: 7 percent with established ROI. Gartner (June 2025): over 40 percent of agentic AI projects cancelled by end 2027, on "escalating costs, unclear business value or inadequate risk controls."</p>
+      </div>
+      <div>
+        <div class="side-h">The optimistic case</div>
+        <p style="font-size:.95rem">Bain (November 2025, n=197): 80 percent of generative AI use cases met or exceeded expectations, 78 percent of those with measurable revenue or cost movement. IDC and Microsoft (2024): 3.70 dollars returned per dollar spent, top performers 10.30. Omdia and Snowflake (2025, n=2,050): 92 percent of early adopters report positive return. EY (May 2026): 98 percent report positive ROI.</p>
+      </div>
+    </div>
+    <p style="font-size:.95rem"><strong>What actually explains the gap.</strong> MIT's 95 percent counts all surveyed organisations including the roughly 80 percent that never ran a custom pilot; on its own data, around <strong>25 percent of custom pilots succeeded</strong>, which is inside Bain's 20 to 40 percent range by function. MIT required sustained P&amp;L impact within six months; IDC measured value realisation at thirteen. Omdia is explicit that only 40 percent of its respondents actually quantified the return behind the 92 percent. EY's own data undercuts its 98 percent: 82 percent are worried about token cost and only 3 percent hit their planned budget allocation. IDC was commissioned by Microsoft, Omdia by Snowflake, and MIT NANDA's authors recommended their own project as the remedy.</p>
+    <div class="verdict"><b>Working position.</b> Roughly 35 to 40 percent of enterprises report some EBIT contribution. Five to eight percent report material contribution. Twenty to forty percent of pilots by function reach production. Under ten percent have a quantified, auditable return. Every number outside that band has an identifiable methodological or commercial reason for being outside it.</div>
+  </div>
+
+  <div class="own r">
+    <div class="own-c">
+      <div class="own-h">Work out together</div>
+      <div class="own-sub">Cross-functional, before the pilot starts</div>
+      <ul>
+        <li>The single business metric this use case moves, and its current baseline</li>
+        <li>The quality threshold below which the output is worthless, expressed as a number</li>
+        <li>The outcome denominator for cost: per resolved ticket, per merged change, per document, per decision</li>
+        <li>What a failure costs to clean up, priced, so risk-adjusted cost per task can be computed</li>
+        <li>Whether this is genuinely agentic work or a workflow being sold as one</li>
+      </ul>
+    </div>
+    <div class="own-c assign">
+      <div class="own-h">Assign to one person</div>
+      <div class="own-sub">Named, with the budget and the number</div>
+      <ul>
+        <li>Total AI spend, including inference, evaluation, human review and data engineering</li>
+        <li>The showback or chargeback model, and the decision on when it becomes chargeback</li>
+        <li>The stop decision: what evidence would cause this to be cancelled, agreed in advance</li>
+        <li>Approval gate for new use cases, with cost review embedded</li>
+        <li>The quarterly statement to the board of what was spent and what changed</li>
+      </ul>
+    </div>
+  </div>
+
+  <a class="dive r" href="model-architecture.html" target="_blank" rel="noopener">
+    <div class="dive-k">Deep dive</div>
+    <div class="dive-h">The Enterprise Model Architecture</div>
+    <p class="dive-p">Open and closed model selection, the monthly cost model, and the evaluation self-assessment. This is where the unit economics above get turned into a defensible model choice rather than a preference.</p>
+    <span class="dive-go">Read the paper <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+</div>
+</section>
+
+<!-- ══════════════ 02 ══════════════ -->
+<section class="chap" id="c2">
+<div class="wrap">
+  <div class="chap-head r">
+    <div class="chap-num">02</div>
+    <div>
+      <div class="chap-phase">Before the pilot</div>
+      <h2>Data readiness and integration</h2>
+    </div>
+  </div>
+  <p class="chap-q r">Data readiness is a gate on one use case, not a programme that precedes all of them. Treating it as a programme is its own failure mode.</p>
+
+  <p class="big r">This is the consideration most often quoted and least often understood. The famous statistic is real. The reading most people take from it is wrong.</p>
+
+  <h3 class="r">What Gartner actually said</h3>
+  <p class="r">The exact wording: <em class="q">"Through 2026, organizations will abandon 60% of AI projects unsupported by AI-ready data"</em> (Gartner, February 2025). Note the scope. It is not 60 percent of AI projects. It is 60 percent of AI projects <strong>unsupported by AI-ready data</strong>. Secondary coverage drops that clause almost universally.</p>
+
+  <p class="r">Gartner's definition of AI-ready is also not what most people assume: <em class="q">"Data must be representative of the use case, of every pattern, errors, outliers and unexpected emergence that is needed to train or run an AI model for a specific use."</em> Gartner is explicit that high data quality is not the same as AI-ready, and that representative data <em class="q">"may include poor-quality data, too."</em> Melody Chien of Gartner puts the scoping plainly: <em class="q">"AI-ready data means that data is ready to support certain AI cases."</em> The same data can be ready for one use case and not another.</p>
+
+  <div class="stats r">
+    <div class="st"><div class="st-v o">7%</div><div class="st-l">qualify as data reinventors with the capabilities to scale AI</div><div class="st-s">Accenture, May 2026, n=2,000</div></div>
+    <div class="st"><div class="st-v">64%</div><div class="st-l">have moved beyond pilots into production across multiple functions anyway</div><div class="st-s">Accenture, May 2026</div></div>
+    <div class="st"><div class="st-v">72%</div><div class="st-l">lack trusted data of the right quality with standardised governance</div><div class="st-s">Accenture, May 2026</div></div>
+    <div class="st"><div class="st-v b">80%+</div><div class="st-l">delay, limit or alter AI initiatives at least occasionally because of data risk</div><div class="st-s">Accenture, May 2026</div></div>
+  </div>
+
+  <p class="r">Three independent studies converge on the same narrow band: 7 percent of enterprises say their data is completely ready for AI (Cloudera and Harvard Business Review Analytic Services, March 2026), 6 percent say fully ready to support AI at scale (Dun &amp; Bradstreet, July 2026, n=10,000 businesses across 32 countries), 7 percent qualify as Accenture's data reinventors. The reinventor group carries a <strong>4.5 percentage point EBIT margin advantage</strong> over peers.</p>
+
+  <div class="box r">
+    <div class="box-t">The self-assessment problem</div>
+    <p>The Precisely and Drexel LeBow study (n=505 data and analytics leaders, published January 2026) found <strong>88 percent believe their data is AI-ready while 43 percent simultaneously cite data readiness as a barrier</strong>, in the same survey. The same pattern repeats on infrastructure (87 percent claim it, 42 percent cite it as a challenge) and skills (86 percent claim sufficiency, 41 percent identify a gap).</p>
+    <p>This is why the 7 percent figures and the 88 percent figures are both true. The dispersion is mostly an artifact of what "ready" was allowed to mean. Anyone quoting "only 7 percent" owes you the definition.</p>
+  </div>
+
+  <h3 class="r">The strongest causal evidence in this entire document</h3>
+  <p class="r">Most data readiness claims are correlational. This one is not. Across three independent production settings, the accuracy lift from semantic and metadata grounding is <strong>larger than the lift from upgrading the model</strong>.</p>
+
+  <div class="tw r">
+  <table>
+    <thead><tr><th>Setting</th><th>Without grounding</th><th>With semantic layer or knowledge graph</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Snowflake Cortex Analyst, 150 real BI questions</td><td class="tnum">51%</td><td class="tnum"><b>90%+</b></td><td>Snowflake, Aug 2024</td></tr>
+      <tr><td>LinkedIn SQL Bot, overall correctness</td><td class="tnum">9%</td><td class="tnum"><b>53%</b></td><td>LinkedIn engineering</td></tr>
+      <tr><td>dbt Labs benchmark, modelled data, Claude Sonnet 4.6</td><td class="tnum">90.0%</td><td class="tnum"><b>98.2%</b></td><td>dbt Labs, Apr 2026</td></tr>
+      <tr><td>dbt Labs benchmark, modelled data, GPT-5.3 Codex</td><td class="tnum">84.1%</td><td class="tnum"><b>100.0%</b></td><td>dbt Labs, Apr 2026</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p class="r">LinkedIn's own conclusion is worth stating exactly: the jump from 9 percent to 53 percent came <em class="q">"almost entirely from the knowledge graph. Not from better prompting. Not from smarter agents."</em> Their graph combines catalog metadata, query logs for popularity and join patterns, domain knowledge collected through the UI, and certified example queries, refreshed weekly. Table recall moved 45 to 78 percent, column recall 24 to 56 percent, and invalid table or column references fell from 23 percent to 1 percent.</p>
+
+  <p class="r">The benchmark ladder shows why this matters more on your schema than on anyone's demo:</p>
+  <div class="tw r">
+  <table>
+    <thead><tr><th>Benchmark</th><th>What it tests</th><th class="tnum">Best reported accuracy</th></tr></thead>
+    <tbody>
+      <tr><td>Spider 1.0</td><td>Textbook schemas, around 4 tables per database</td><td class="tnum">91.2%</td></tr>
+      <tr><td>BIRD</td><td>Larger, dirtier academic schemas</td><td class="tnum">73.0%</td></tr>
+      <tr><td>Spider 2.0</td><td>Real enterprise workflows, 1,000+ columns, 100+ line SQL, multiple dialects</td><td class="tnum">GPT-4o: <b>10.1%</b></td></tr>
+      <tr><td>BEAVER</td><td>Two genuinely private warehouses the models cannot have seen, 99 and 366 tables</td><td class="tnum"><b>0.0%</b> end to end</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="r">BEAVER is the fact that no amount of model scale accommodates. <em class="q">"None of the off-the-shelf LLMs can answer any question correctly."</em> Given gold tables and column mappings, GPT-4o rose from 2.1 percent to 4.2 percent. The models cannot have memorised what they have never seen, and your warehouse is something they have never seen.</p>
+
+  <div class="caution r">One comparison to avoid making. The Spider 2.0 public leaderboard now shows scores in the nineties on the Snow subset. Those are heavily scaffolded agent systems on a curated subset, not raw model accuracy on the full set. Putting 96.7 percent and 10.1 percent on the same axis would be misleading.</div>
+
+  <h3 class="r">Unstructured data is where the gap is widest</h3>
+  <ul class="r">
+    <li>Around <strong>20 percent of unstructured data is AI-ready</strong> on average, and only 7 percent of organisations have more than half of theirs prepared (Snowflake, March 2026).</li>
+    <li><strong>70 percent</strong> of data and AI leaders report that less than half their unstructured data is discoverable and usable for AI (BARC, June 2026, n=225).</li>
+    <li>Chunking benchmarks show the ceiling moves with document structure rather than pipeline sophistication. Recursive splitting at 512 tokens reached 69 percent end-to-end accuracy; semantic chunking reached 54 percent because its fragments averaged 43 tokens, retrieving cleanly but giving the model too little to answer with.</li>
+  </ul>
+  <div class="box r">
+    <div class="box-t">The metric vendors quote, and the metric that matters</div>
+    <p>Chroma Research reports <strong>91.9 percent token-level retrieval recall</strong> for semantic chunking on general text. FloTorch reports <strong>54 percent end-to-end accuracy</strong> for the same strategy. Both are true and they are not the same measurement. High retrieval recall does not imply correct answers. Insist on end-to-end numbers in every vendor conversation.</p>
+  </div>
+
+  <h3 class="r">Two governance facts that change how you index</h3>
+  <p class="r"><strong>Embeddings are personal data.</strong> Research on embedding inversion reconstructs 92 percent of 32-token text inputs exactly from their vectors. Independent replication recovered 40 percent of personally identifiable information exactly from sentence-length text. Redaction before embedding drove recovery to zero. A vector index inherits the classification of its source text and must carry the same access control and residency constraints.</p>
+
+  <p class="r"><strong>Deleting from a vector store usually does not delete.</strong> The June 2026 "Ghost Vectors" research found that vector databases typically implement deletion as a metadata soft delete, leaving the embedding physically on disk. Measured recovery from soft-deleted vectors: 25.5 percent of person names and 46.4 percent of geographic locations from Wikipedia biographical data, 49.9 percent patient surname recovery from synthetic clinical data, <strong>99.17 percent identity recovery from facial embeddings</strong>. A deletion request satisfied at the API layer is very likely not satisfied at the storage layer. If you have committed to an erasure right, you need cryptographic overwrite or media destruction, not a delete call.</p>
+
+  <p class="r">Permissions are the third one, and it is the one that has already embarrassed people publicly. Retrieval assistants honour existing permissions exactly. They do not create a leak; they make a latent one legible at conversational speed. Remediate sharing before indexing, not by filtering after retrieval.</p>
+
+  <div class="conflict r">
+    <div class="box-t">Where the evidence disagrees</div>
+    <p><strong>Is data readiness the real blocker, or is it consultant product that delays everything?</strong></p>
+    <div class="sides">
+      <div>
+        <div class="side-h">Readiness is binding</div>
+        <p style="font-size:.95rem">BEAVER's 0 percent on private warehouses. The semantic-layer lift exceeding the model-upgrade lift across three independent settings. Accenture's 72 percent lacking trusted data and 80 percent altering initiatives because of data risk. McKinsey (April 2026): eight in ten companies cite data limitations as a roadblock to scaling agents, and fewer than 10 percent have scaled them.</p>
+      </div>
+      <div>
+        <div class="side-h">Readiness is overstated</div>
+        <p style="font-size:.95rem">dbt Labs' own benchmark shows raw text-to-SQL on an unmodelled schema rising from 32.7 percent in 2023 to 64.5 percent in 2026 with <strong>no data work at all</strong>. Models are absorbing some of the burden, measurably. McKinsey's own August 2026 survey does not name data as the top barrier, attributing constraint to organisational absorption capacity instead. And the argument from practice: perfect data does not exist anywhere, including inside the most data-sophisticated companies in the world.</p>
+      </div>
+    </div>
+    <p style="font-size:.95rem"><strong>Honest assessment of the counter-case: weak on evidence, right on framing.</strong> Most of it is anecdote or vendor content. The one rigorously measured piece, the dbt doubling, comes from a study whose own conclusion is pro-semantic-layer, and in the same table the semantic layer still wins by eight to sixteen points and reaches near 100 percent where raw generation reaches 84 to 90. But the counter-case is correct about one thing that the readiness camp consistently gets wrong.</p>
+    <div class="verdict"><b>Working position.</b> Readiness is per use case, which is Gartner's own definition. "Get the data ready" as an enterprise-wide programme before any use case ships is a failure mode both camps should reject. Gate each use case on the eight tests below, ship it, and let the gate failures tell you which parts of the foundation to fund. That sequence gives you a funded roadmap instead of a two-year prerequisite.</div>
+  </div>
+
+  <h3 class="r">The gate: eight tests before a use case is allowed to start</h3>
+  <div class="gate r">
+    <div class="gate-i"><div class="gate-n"></div><div class="gate-b"><div class="gate-h">A named user, task, output and numeric quality threshold</div><p class="gate-p">Not "improve customer service." A person, a task they do, the artefact produced, and the accuracy below which it is worthless.</p></div></div>
+    <div class="gate-i"><div class="gate-n"></div><div class="gate-b"><div class="gate-h">Data representative of the use case, including its errors and outliers</div><p class="gate-p">Gartner's definition, not a cleanliness score. Representative beats clean.</p></div></div>
+    <div class="gate-i"><div class="gate-n"></div><div class="gate-b"><div class="gate-h">Metrics defined in a machine-readable semantic layer</div><p class="gate-p">If the definition of active customer lives in a dashboard or an analyst's head, the agent will invent its own.</p></div></div>
+    <div class="gate-i"><div class="gate-n"></div><div class="gate-b"><div class="gate-h">Certified example queries and join-path metadata for the relevant tables</div><p class="gate-p">This is where LinkedIn's 9 to 53 percent came from. It is cheap and it is the highest-yield work available.</p></div></div>
+    <div class="gate-i"><div class="gate-n"></div><div class="gate-b"><div class="gate-h">Source permissions remediated before indexing</div><p class="gate-p">Not filtered after retrieval. Broad grants get fixed or the content does not get indexed.</p></div></div>
+    <div class="gate-i"><div class="gate-n"></div><div class="gate-b"><div class="gate-h">Vector indexes carry the source classification and residency, with a real deletion path</div><p class="gate-p">Overwrite, not soft delete. Confirm with your vector store vendor in writing.</p></div></div>
+    <div class="gate-i"><div class="gate-n"></div><div class="gate-b"><div class="gate-h">An oversight tier assigned</div><p class="gate-p">Automated, sampled, reviewed or advisory. See consideration 06.</p></div></div>
+    <div class="gate-i"><div class="gate-n"></div><div class="gate-b"><div class="gate-h">A named cost owner</div><p class="gate-p">42 percent of organisations do not have one. That is the cheapest gap on this list to close.</p></div></div>
+  </div>
+
+  <div class="own r">
+    <div class="own-c">
+      <div class="own-h">Work out together</div>
+      <div class="own-sub">Data, domain and engineering, per use case</div>
+      <ul>
+        <li>Which entities and metrics this use case depends on, and whether they have one agreed definition</li>
+        <li>Freshness requirement, stated as a number, not as "near real time"</li>
+        <li>Which unstructured sources are in scope and whether their structure supports extraction</li>
+        <li>The end-to-end accuracy target, distinct from retrieval recall</li>
+      </ul>
+    </div>
+    <div class="own-c assign">
+      <div class="own-h">Assign to one person</div>
+      <div class="own-sub">Usually the data leader, named</div>
+      <ul>
+        <li>Ownership of the semantic layer as a product, with a roadmap and a backlog</li>
+        <li>Authority to fail a use case at the gate, and to be overruled only in writing</li>
+        <li>Permission remediation before any content is indexed</li>
+        <li>The erasure path for embeddings, tested, not assumed</li>
+      </ul>
+    </div>
+  </div>
+
+  <a class="dive r" href="wisdom-loop.html">
+    <div class="dive-k">Deep dive</div>
+    <div class="dive-h">Order from Noise: the data to decision loop</div>
+    <p class="dive-p">Data becomes information becomes knowledge becomes wisdom becomes inference becomes decision, and the decision feeds back. The interactive version shows what moves between each stage and where the judgment gates sit.</p>
+    <span class="dive-go">Open the loop <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+</div>
+</section>
+
+<!-- ══════════════ 03 ══════════════ -->
+<section class="chap" id="c3">
+<div class="wrap">
+  <div class="chap-head r">
+    <div class="chap-num">03</div>
+    <div>
+      <div class="chap-phase">Before the pilot</div>
+      <h2>Infrastructure and architecture</h2>
+    </div>
+  </div>
+  <p class="chap-q r">Start with the simplest shape that could work. Complexity should be something the system earned, not something it started with.</p>
+
+  <p class="big r">The published engineering position from the people building these systems is consistently anti-complexity. That is worth stating loudly, because the market incentive runs the other way.</p>
+
+  <p class="r">Anthropic's own guidance: <em class="q">"When building applications with LLMs, we recommend finding the simplest solution possible, and only increasing complexity when needed"</em> and <em class="q">"For many applications, optimizing single LLM calls with retrieval and in-context examples is usually enough."</em> The distinction that matters is not agent versus no agent. It is workflow versus agent:</p>
+
+  <div class="tw r">
+  <table>
+    <thead><tr><th style="width:22%">Shape</th><th>Definition</th><th>Use when</th></tr></thead>
+    <tbody>
+      <tr><td>Workflow</td><td>LLMs and tools orchestrated through predefined code paths: prompt chaining, routing, parallelisation, orchestrator-workers, evaluator-optimiser</td><td>The steps are predictable. This covers most enterprise work, and it is cheaper, testable and debuggable.</td></tr>
+      <tr><td>Agent</td><td>The model dynamically directs its own process and tool use, controlling how it accomplishes the task</td><td>Open-ended problems where you cannot predict the number of steps or hardcode the path, and the task value justifies the cost.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p class="r">Gartner's agent-washing finding belongs here rather than in a governance section, because it is an architecture problem: <em class="q">"Many use cases positioned as agentic today don't require agentic implementations."</em> Menlo Ventures found only <strong>16 percent of enterprise deployments qualify as true agents</strong>; the rest are fixed-sequence or routing-based workflows. That is not a criticism. It is the correct architecture being mislabelled by its vendors.</p>
+
+  <h3 class="r">Context engineering is now the discipline that decides quality</h3>
+  <p class="r">Large context windows did not remove the constraint. They moved it. Models have an attention budget, and <em class="q">"every new token introduced depletes this budget by some amount,"</em> because transformer attention creates n-squared pairwise relationships across n tokens.</p>
+
+  <p class="r">Chroma's context rot research, across 18 models, found performance degrades significantly as input length grows <strong>even on simple tasks</strong>. Low semantic similarity between question and target degrades faster than high similarity. Distractors compound non-uniformly. All models performed significantly better on focused prompts than on full ones.</p>
+
+  <div class="box r">
+    <div class="box-t">The operational answer, four techniques</div>
+    <ul>
+      <li><strong>Compaction.</strong> Summarise a conversation approaching the limit and reinitialise with the summary. Uber runs automatic compaction at 400,000 tokens <strong>even on one-million-token models</strong>, which tells you the limit that binds is attention, not capacity.</li>
+      <li><strong>Memory outside the window.</strong> Agents write notes to durable storage and pull them back on demand, giving persistent memory with minimal context overhead.</li>
+      <li><strong>Sub-agent isolation.</strong> Specialised sub-agents work in clean context windows and return a distilled summary, typically 1,000 to 2,000 tokens, rather than their whole trajectory.</li>
+      <li><strong>Just-in-time retrieval.</strong> Hold lightweight identifiers such as file paths and stored queries, and load content at runtime. Hybrid beats either extreme: seed context up front for speed, allow exploration for the rest.</li>
+    </ul>
+  </div>
+
+  <p class="r">The single largest waste in most enterprise agent deployments is tool definitions. Loading a full set of connector tool definitions up front against progressive disclosure through code execution: <strong>150,000 tokens down to 2,000, a 98.7 percent reduction</strong>. Uber independently measured the same thing on their MCP estate, cutting 50,000 to 70,000 tokens per request to near zero, with batched tool calls in code reducing token usage 55 to 100 percent.</p>
+
+  <h3 class="r">Reliability arithmetic, and why pass@1 is a marketing metric</h3>
+  <p class="r">The tau-bench work introduced pass^k to measure whether an agent succeeds <em>repeatedly</em>. The finding: state-of-the-art function-calling agents succeed on under 50 percent of tasks on a single attempt, and <strong>pass^8 falls below 25 percent in the retail domain</strong>. For production, pass^k is the honest metric. Single-attempt accuracy tells you what the demo will look like.</p>
+
+  <p class="r">The compounding is simple arithmetic and it is worth doing out loud with any vendor. At 98 percent per-step success, a 50-step task succeeds about 36 percent of the time. At 99 percent, about 61 percent. This is why the production response to unreliability is not a better model. It is <strong>checkpointing and verification that reset the error budget</strong>: commits per increment, durable execution that resumes at the failed step rather than restarting, circuit breakers on step count and cost.</p>
+
+  <p class="r">On capability trajectory, use the primary source and its confidence intervals rather than the headline. METR's revised time-horizon work (January 2026) puts the doubling time of task length that frontier agents complete at 50 percent reliability at <strong>196.5 days across the full period, 130.8 days since 2023, and 88.6 days since 2024</strong>. Their reported 50 percent horizons carry wide intervals: Claude Opus 4.5 at 320 minutes with a 50 percent interval of 170 to 729. That is a 4.3x spread. Plan against the bottom of the interval.</p>
+
+  <h3 class="r">The platform decision</h3>
+  <div class="stats r">
+    <div class="st"><div class="st-v">76 / 24</div><div class="st-l">purchased against internally built, up from 53 / 47 a year earlier</div><div class="st-s">Menlo Ventures, Dec 2025</div></div>
+    <div class="st"><div class="st-v b">81%</div><div class="st-l">use three or more model families in testing or production, up from 68 percent</div><div class="st-s">a16z, Jan 2026, n=100 G2000</div></div>
+    <div class="st"><div class="st-v">89%</div><div class="st-l">have observability of some form; 94 percent among those with agents in production</div><div class="st-s">LangChain, n=1,340</div></div>
+    <div class="st"><div class="st-v o">37%</div><div class="st-l">run online evaluation. Tracing is solved. Online quality measurement is not.</div><div class="st-s">LangChain, n=1,340</div></div>
+  </div>
+
+  <p class="r">Buy the application, centralise the access. That is what the market has converged on and what the published platform teams actually own. Uber runs an AI Gateway and a separate MCP Gateway fronting more than 1,000 MCP servers behind unified authentication and policy. Netflix built in-house serving on vLLM behind an OpenAI-compatible interface specifically to get deep customisation of constrained decoding and output validation inside their existing production environment.</p>
+
+  <p class="r">The argument for the gateway is not elegance. It is that the cost equation, the model-churn migration, the authentication and policy boundary, and the evaluation gate are all cross-cutting concerns. Uber holding total spend broadly flat through 9.4x request growth is an argument for the gateway, not for any individual optimisation.</p>
+
+  <div class="conflict r">
+    <div class="box-t">Where the evidence disagrees</div>
+    <p><strong>Should you build multi-agent systems at all?</strong> Two well-argued positions, published one day apart in June 2025, and the reconciliation that arrived ten months later.</p>
+    <div class="sides">
+      <div>
+        <div class="side-h">Against</div>
+        <p style="font-size:.95rem">Cognition: <em>"Don't build multi-agents."</em> Decision-making becomes too dispersed and context cannot be shared thoroughly enough between agents. Actions carry implicit decisions, and conflicting decisions carry bad results. Recommendation: single-threaded linear agents with context compression for long tasks.</p>
+      </div>
+      <div>
+        <div class="side-h">For</div>
+        <p style="font-size:.95rem">Anthropic: a multi-agent research system outperformed the single-agent equivalent by <strong>90.2 percent</strong> on their research evaluation. But the same post scopes it tightly: good for breadth-first parallelisable search, bad for anything needing shared context, heavy interdependencies, real-time coordination, or <strong>most coding tasks</strong>. And it costs roughly 15x the tokens of chat.</p>
+      </div>
+    </div>
+    <p style="font-size:.95rem"><strong>The reconciling variable is whether subagents write.</strong> Cognition's own April 2026 follow-up states it: <em>"writes stay single-threaded and the additional agents contribute intelligence rather than actions."</em> Their working exceptions are a review agent with no prior context catching around two bugs per pull request, 58 percent of them severe; a weaker primary calling a stronger model on hard cases; and hierarchical delegation, which needed more context engineering than expected.</p>
+    <div class="verdict"><b>Working position.</b> Read-only subagents returning distilled summaries: multi-agent wins. Subagents writing to shared artefacts with no external arbiter: single-threaded wins. Subagents writing with deterministic locking and a near-perfect test oracle: multi-agent can work, and has, but that is a condition, not an exception. Below a task value that justifies 15x tokens: use a workflow. Note also that "multi-agent" in survey literature usually means "more than one prompt," while in this debate it means "more than one locus of autonomous decision-making." Do not let the word do the work.</div>
+  </div>
+
+  <div class="own r">
+    <div class="own-c">
+      <div class="own-h">Work out together</div>
+      <div class="own-sub">Architecture, security and the business owner</div>
+      <ul>
+        <li>Whether this is genuinely open-ended or a workflow with an agentic label</li>
+        <li>The pass^k target, not the pass@1 target</li>
+        <li>Where checkpoints sit, so a failure resumes rather than restarts</li>
+        <li>The latency budget, and whether any path can be batched</li>
+      </ul>
+    </div>
+    <div class="own-c assign">
+      <div class="own-h">Assign to one person</div>
+      <div class="own-sub">The platform owner</div>
+      <ul>
+        <li>The gateway: one place model access, authentication and policy are enforced</li>
+        <li>Which models are approved, and the routing and fallback policy between them</li>
+        <li>The tool and MCP registry, with provenance requirements</li>
+        <li>The online evaluation capability, which 63 percent of the market still does not have</li>
+      </ul>
+    </div>
+  </div>
+
+  <a class="dive r" href="enterprise-model-stack.html" target="_blank" rel="noopener">
+    <div class="dive-k">Deep dive</div>
+    <div class="dive-h">The Enterprise Model Stack</div>
+    <p class="dive-p">Attention and the KV cache, mixture-of-experts routing, the training pipeline, quantisation, the evaluation layers, agentic memory and protocols. The long answer to why the architecture choices above have the consequences they do.</p>
+    <span class="dive-go">Read the paper <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+</div>
+</section>
+
+<!-- ══════════════ 04 ══════════════ -->
+<section class="chap" id="c4">
+<div class="wrap">
+  <div class="chap-head r">
+    <div class="chap-num">04</div>
+    <div>
+      <div class="chap-phase">Before the pilot</div>
+      <h2>Security, compliance and trust</h2>
+    </div>
+  </div>
+  <p class="chap-q r">Contain at the environment layer first, then steer behaviour at the model layer. Probabilistic defences cannot provide complete protection, and the incident record says so.</p>
+
+  <p class="big r">This section has real incidents with dates and identifiers, because generic prompt-injection warnings have stopped moving anyone.</p>
+
+  <div class="tw r">
+  <table>
+    <thead><tr><th>Incident</th><th>Product</th><th class="tnum">Identifier</th><th class="tnum">Severity</th><th>What it did</th></tr></thead>
+    <tbody>
+      <tr><td>EchoLeak</td><td>Microsoft 365 Copilot</td><td class="tnum">CVE-2025-32711</td><td class="tnum">9.3</td><td>Zero-click indirect prompt injection, data exfiltration from a productivity assistant. Patched June 2025.</td></tr>
+      <tr><td>ForcedLeak</td><td>Salesforce Agentforce</td><td class="tnum">not assigned</td><td class="tnum">9.4</td><td>Disclosed September 2025. Patched via trusted URL allowlists.</td></tr>
+      <tr><td>ShareLeak</td><td>Microsoft Copilot Studio</td><td class="tnum">CVE-2026-21520</td><td class="tnum">7.5</td><td>Customer data exfiltrated to an attacker-controlled address. Found November 2025, patched January 2026.</td></tr>
+      <tr><td>PipeLeak</td><td>Salesforce Agentforce</td><td class="tnum">none</td><td class="tnum">n/a</td><td>CRM exfiltration with <b>no volume cap</b>. <b>Bypasses the ForcedLeak allowlist patch by moving to the email channel.</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p class="r">The last row is the one to take to your security architect. A URL allowlist was deployed as the control against prompt injection, and it was defeated by changing egress channel. That is the empirical case for controlling egress at the environment layer rather than filtering content at the model layer.</p>
+
+  <p class="r">Anthropic's published containment principle says the same thing as a design rule: <em class="q">"Design for containment at the environment layer first, then steer behavior at the model layer,"</em> on the explicit basis that probabilistic model defences cannot provide complete protection. The mechanisms are ephemeral containers, OS-level sandboxes, full VM isolation with read-only and read-write-no-delete mount modes, and egress allowlists enforced by proxy interception.</p>
+
+  <div class="box r">
+    <div class="box-t">The number that kills the velocity objection</div>
+    <p>Introducing OS-level sandboxing produced an <strong>84 percent reduction in human permission prompts</strong>. Better containment removed human-in-the-loop friction rather than adding it. Containment and speed were complements, not a trade-off. If your security conversation is framed as safety against velocity, that framing is wrong and this is the counter-example.</p>
+  </div>
+
+  <h3 class="r">The supply chain nobody inventories</h3>
+  <p class="r">In September 2025 a malicious MCP server was published to npm. The backdoor was present in versions 1.0.16 through 1.0.18 and silently added a blind-copy recipient to every outgoing email, harvesting full contents, attachments and headers. The publisher owned 31 other packages at the time of disclosure.</p>
+  <p class="r">MCP servers and agent plugins are a software supply chain with tool-level trust, no provenance requirement, and in most enterprises no inventory. MITRE ATLAS v2026.08 now carries 16 tactics, 114 techniques and 83 sub-techniques, having added <strong>16 agent-specific techniques in a single month</strong>, including autonomous reconnaissance and autonomous attack-path adaptation, plus new mitigations for agent authority and scope drift. Agent authority creep is now a named threat category, not a governance worry.</p>
+
+  <h3 class="r">Regulatory position as of September 2026</h3>
+  <div class="box r">
+    <div class="box-t">If your compliance plan says August 2026, it is out of date</div>
+    <p>The EU AI Omnibus was published in the Official Journal on <strong>24 July 2026 as Regulation (EU) 2026/1744 and entered into force on 27 July 2026</strong>. Stand-alone Annex III high-risk obligations moved from 2 August 2026 to <strong>2 December 2027</strong>. Embedded high-risk under Annex I moved from 2 August 2027 to <strong>2 August 2028</strong>.</p>
+    <p><strong>What did not move.</strong> Article 50 transparency obligations still applied from 2 August 2026. The deferral covers Chapter III only. Anyone who deferred their whole programme still has live transparency exposure today, and anyone who built a 2026 conformity programme now has sixteen months of slack to use properly.</p>
+  </div>
+
+  <p class="r">Article 14 is the human oversight clause and its wording is worth having exactly: high-risk systems must be designed <em class="q">"in such a way, including with appropriate human-machine interface tools, that they can be effectively overseen by natural persons during the period in which they are in use."</em> Three details most summaries omit:</p>
+  <ul class="r">
+    <li><strong>Article 14(3) makes oversight proportionate</strong> to the system's risks, autonomy level and use context. This is the legal basis for tiering rather than uniform review.</li>
+    <li><strong>Article 14(4) names automation bias explicitly.</strong> The overseer must be able to recognise it. That converts "the human approved it" from a defence into a potential compliance failure.</li>
+    <li><strong>Article 14(5) is the only numeric oversight mandate in the Act</strong>: for remote biometric identification, separate verification by <strong>at least two competent natural persons</strong>. That is the strongest legal precedent for four-eyes review as a control rather than a nicety.</li>
+  </ul>
+
+  <p class="r">Article 12 requires automatic event logging over the lifetime of the system, with a six-month minimum retention. It specifies no format, no required fields and <strong>no tamper-proofing requirement</strong>. Logs that can be edited without detection have no evidentiary value. The regulation creates a logging duty without creating an integrity duty, so append-only or cryptographically chained logging is your decision to make, not the regulator's.</p>
+
+  <h3 class="r">Two things that shifted the liability picture</h3>
+  <p class="r"><strong>Model risk management has a hole in it.</strong> On 17 April 2026 the US banking agencies issued revised model risk management guidance superseding the 2011 originals. The revised guidance <strong>explicitly excludes generative and agentic AI from its scope</strong> on the grounds that these technologies are novel and rapidly evolving. Annual validation mandates were dropped, vendor contingency plan requirements eliminated, and a materiality concept introduced. The regulators looked at LLMs, concluded the 2011 validation paradigm does not fit, and removed them from scope rather than adapting it. The classic validation triad assumes a stable artefact you can re-run; a hosted model is non-deterministic, silently re-versioned and opaque as to training data. That leaves a governance vacuum exactly where the novel risk sits, and filling it is now the institution's problem rather than the supervisor's.</p>
+
+  <p class="r"><strong>The insurance backstop is being withdrawn.</strong> In January 2026 a generative AI exclusion was introduced for commercial general liability policies, excluding coverage for bodily injury, property damage and personal or advertising injury arising out of generative AI. Broad AI exclusions are appearing in directors and officers, employment practices and fiduciary policies with language expansive enough to capture ordinary business activities involving AI. This is the strongest non-regulatory argument for governance available: if AI failure has moved from an insured loss to an uninsured balance-sheet loss, governance is no longer a compliance cost. It is the substitute for a risk transfer mechanism that has been taken away.</p>
+
+  <p class="r">And on whether the vendor is responsible rather than you: in <em>Moffatt v. Air Canada</em> (February 2024) the tribunal rejected the argument that the chatbot was a separate entity accountable for its own actions. <em class="q">"While a chatbot has an interactive component, it is still just a part of Air Canada's website."</em> And: <em class="q">"It should be obvious to Air Canada that it is responsible for all the information on its website."</em> No novel AI liability theory was required. Existing misrepresentation law reached the outcome.</p>
+
+  <div class="own r">
+    <div class="own-c">
+      <div class="own-h">Work out together</div>
+      <div class="own-sub">Security, legal, data and the business owner</div>
+      <ul>
+        <li>The egress boundary: what can this system reach, and what can it send outward</li>
+        <li>Which regulatory regime applies and which of its clauses are live today, not in 2027</li>
+        <li>The blast radius of the worst plausible single failure</li>
+        <li>Whether current insurance responds to this class of loss, in writing from the broker</li>
+      </ul>
+    </div>
+    <div class="own-c assign">
+      <div class="own-h">Assign to one person</div>
+      <div class="own-sub">Usually the CISO, jointly with the AI owner</div>
+      <ul>
+        <li>The tool and MCP inventory, with provenance and a removal path</li>
+        <li>Environment-layer containment as the primary control, with model-layer filtering secondary</li>
+        <li>Tamper-evident logging, because the regulation does not require it and an auditor will</li>
+        <li>The agent identity and authorisation model, including spend and action limits</li>
+      </ul>
+    </div>
+  </div>
+
+  <a class="dive r" href="multi-agent-enterprise.html" target="_blank" rel="noopener">
+    <div class="dive-k">Deep dive</div>
+    <div class="dive-h">Multi-Agent Systems in the Enterprise</div>
+    <p class="dive-p">Why coordination does not improve as models get more capable, how agents collude without a shared channel, and why credulity is the property that makes a helpful agent exploitable. The failure modes behind the incident table above.</p>
+    <span class="dive-go">Read the paper <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+</div>
+</section>
+
+<!-- ══════════════ 05 ══════════════ -->
+<section class="chap" id="c5">
+<div class="wrap">
+  <div class="chap-head r">
+    <div class="chap-num">05</div>
+    <div>
+      <div class="chap-phase p2">Pilot to production</div>
+      <h2>Organisational readiness</h2>
+    </div>
+  </div>
+  <p class="chap-q r">The bottleneck does not disappear when a task is automated. It moves one level up, to whoever reviews the output and carries the accountability.</p>
+
+  <p class="big r">This is where most published advice is weakest, because the people who publish on it sell change programmes. So here is the evidence, including the case against the advice.</p>
+
+  <div class="caution r">On the widely quoted 10-20-70 rule, that 70 percent of effort should go to people and process: the wording is confirmed on BCG's own site, but no publication gives an originating study, dataset or derivation. Treat it as a useful heuristic and a rhetorical anchor. Do not present it as a measured finding, because it is not one.</div>
+
+  <h3 class="r">What is actually measured</h3>
+  <p class="r">The closest quantified analogue comes from Microsoft's 2026 Work Trend Index (n=20,000 knowledge workers, 10 countries): organisational factors such as culture, manager support and talent practices drive <strong>67 percent</strong> of reported AI impact, against 32 percent for individual mindset and behaviour. Managers who model AI use produce a 17-point lift in perceived value; managers who set quality standards produce a 22-point increase in critical thinking. Note the vendor interest: this is a conclusion Microsoft benefits from.</p>
+
+  <p class="r">McKinsey's 2026 survey is cleaner on the mechanism: <strong>73 percent of high performers are redesigning workflows against 25 percent of everyone else</strong>, and high performers are 3.3x more likely to expect business transformation within three years. Deloitte's parallel finding is that only 30 percent are redesigning key processes and 37 percent use AI with minimal process change at all.</p>
+
+  <h3 class="r">The productivity evidence is genuinely contradictory, and the resolution is precise</h3>
+  <div class="tw r">
+  <table>
+    <thead><tr><th>Study</th><th>Finding</th><th>Population</th></tr></thead>
+    <tbody>
+      <tr><td>METR randomised trial, July 2025</td><td>Developers took <b>19 percent longer</b> with AI. They expected 24 percent faster, and afterwards still believed they had been 20 percent faster.</td><td>16 experienced open-source developers, mature codebases they had worked on for years</td></tr>
+      <tr><td>GitHub with Accenture</td><td>Pull requests up 8.69 percent, merge rate up 15 percent, successful builds up 84 percent, 81.4 percent same-day install</td><td>Enterprise developers. Sample size never disclosed.</td></tr>
+      <tr><td>Atlassian internal, June 2026</td><td>Adopting repositories merged <b>19 percent more</b> pull requests per month; 2 to 3 hours saved per developer per week</td><td>6,093 of 6,200+ developers</td></tr>
+      <tr><td>Dell'Acqua et al., peer reviewed</td><td>Inside the capability frontier: 12.2 percent more tasks, 25.1 percent faster, 40 percent higher quality. <b>Outside it: 19 percentage points less likely to be correct.</b></td><td>758 consultants, pre-registered</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p class="r">The jagged frontier finding resolves the contradiction. Gains concentrate in less experienced people on tasks inside the model's competence. Penalties concentrate in experts working outside it, through over-reliance on plausible but wrong output. The levelling effect is consistent: below-average performers gained 43 percent against 17 percent for above-average, and the largest coding gains went to the least experienced. <strong>Targeting enablement at your high performers inverts the evidence.</strong></p>
+
+  <div class="caution r">Anyone still citing "19 percent slower" as a settled fact is citing a superseded result. METR redesigned the experiment in February 2026 because participants were withholding tasks they would not attempt without AI. The revised figures are minus 18 percent among original participants with a confidence interval of minus 38 to plus 9, and minus 4 percent among new recruits with an interval of minus 15 to plus 9. Both intervals cross zero, and METR states the true speedup is likely higher than the figures suggest.</div>
+
+  <p class="r">The finding that survives all of this is DORA's, and it is the one to design around: AI adoption now shows a <strong>positive relationship with delivery throughput and a continuing negative relationship with delivery stability</strong>. More output, more failures. Thirty percent of respondents report little or no trust in AI-generated code. AI is an amplifier of whatever the team already is.</p>
+
+  <h3 class="r">The bottleneck moves up, and it is unfunded</h3>
+  <p class="r">Harvard Business Review research (June 2026, 18 interviews across two consulting firms) found a consistent pattern: senior leaders used AI strategically for wider scope and smaller teams, junior staff achieved dramatic productivity gains, and <strong>middle managers absorbed three new unfunded duties</strong>: validating AI-generated output, identifying errors, and coaching AI competence, with unchanged or increased delivery pressure and no formal support.</p>
+  <p class="r">Put that next to DORA's stability finding and the conclusion is uncomfortable. More throughput with worse stability means the review, test and rollback functions need <em>more</em> capacity, not less, precisely when headcount logic says cut them. The sample is small and consulting-specific, but it is the only direct evidence on this question and it points the same way as the delivery metrics.</p>
+
+  <h3 class="r">Adoption is not what the licence count says</h3>
+  <div class="stats r">
+    <div class="st"><div class="st-v">36%</div><div class="st-l">of SaaS licences go unused on average, across 40 million licences and 75 billion dollars of spend</div><div class="st-s">Zylo, Jan 2026</div></div>
+    <div class="st"><div class="st-v o">68%</div><div class="st-l">of executives say half or fewer of their employees interact with agents daily, though 79 percent say agents are adopted somewhere</div><div class="st-s">PwC, 2025, n=308</div></div>
+    <div class="st"><div class="st-v">57%</div><div class="st-l">of employees hide their AI use and present the output as their own work</div><div class="st-s">KPMG and Melbourne, n=48,000+</div></div>
+    <div class="st"><div class="st-v b">66%</div><div class="st-l">rely on AI output without verifying accuracy. 56 percent have made mistakes because of it.</div><div class="st-s">KPMG and Melbourne, n=48,000+</div></div>
+  </div>
+
+  <p class="r">Roughly half of employees report using AI contrary to company policy, including uploading sensitive data to public tools. Zylo's spend telemetry corroborates this behaviourally rather than by self-report: expense-based SaaS spend, meaning employees buying it themselves, rose 267 percent year on year, with a consumer AI assistant the single most-expensed application across the estate. Only 40 percent report any workplace guidance on generative AI use.</p>
+
+  <h3 class="r">The case everyone cites, stated accurately</h3>
+  <p class="r">Klarna is quoted constantly and usually wrongly. The sequence: February 2024, an assistant handling work equivalent to 700 agents across 2.3 million conversations a month in 35+ languages. December 2024, hiring frozen, headcount down 22 percent through attrition. May 2025, the CEO announces recruitment of human agents again: <em class="q">"I just think it's so critical that you are clear to your customer that there will always be a human if you want,"</em> and he characterised the chatbot output as lower quality than human staff despite being cheaper.</p>
+  <p class="r">What actually changed is narrower than the headlines. Klarna did not rehire 700 people; it restarted hiring for a remote, flexible pool. The AI still handles work equivalent to roughly 850 agents. Headcount is down around 50 percent since 2022 and revenue per employee rose from 300,000 to 1.3 million dollars. <strong>The cost case held. The last-mile service quality and customer-choice case did not.</strong> Both readings are defensible; say which one you mean.</p>
+
+  <div class="conflict r">
+    <div class="box-t">Where the evidence disagrees</div>
+    <p><strong>Is change management essential, or is it consultant product for a problem good tools solve by themselves?</strong></p>
+    <div class="sides">
+      <div>
+        <div class="side-h">It is largely product</div>
+        <p style="font-size:.95rem">Shadow adoption is enormous and entirely unmanaged: around 90 percent personal AI use for work, 66 percent regular use, a consumer assistant topping expense reports across 40 million licences. None of that was produced by a change programme. 81.4 percent of developers installed a coding assistant the same day they got access. Shopify's result came from removing procurement and legal friction and building an internal proxy, not from communications. MIT's own diagnosis of failure is integration and contextual adaptation, explicitly not a talent or skills gap.</p>
+      </div>
+      <div>
+        <div class="side-h">It is essential</div>
+        <p style="font-size:.95rem">Individual adoption is not organisational value capture: 90 percent personal use coexisted with most businesses seeing no return. Organisational factors explain 67 percent of impact variance against 32 percent individual. DORA's seven team archetypes from the same tools are a direct rebuttal of tool determinism. 73 percent of high performers redesign workflows against 25 percent of the rest. And managers break before tools do.</p>
+      </div>
+    </div>
+    <div class="verdict"><b>Working position.</b> The counter-case is strong on individual adoption and weak on organisational value. Good tools do spread without programmes. What does not happen by itself is workflow redesign, review capacity, accountability reassignment, stability protection and measurement. So the honest reframing is not 70 percent people and process. It is <b>close to zero percent communications, a great deal of process and platform, and a specific, currently underfunded amount of managerial review capacity.</b> Fund the review layer first; it is the only part of this that is both measured and ignored.</div>
+  </div>
+
+  <div class="own r">
+    <div class="own-c">
+      <div class="own-h">Work out together</div>
+      <div class="own-sub">The business owner, HR and the delivery lead</div>
+      <ul>
+        <li>Which specific tasks in which specific roles change, named, not "the function will be transformed"</li>
+        <li>Who reviews the output, how long that takes, and whether that time exists in their week today</li>
+        <li>What happens to freed time, answered before rollout rather than after</li>
+        <li>Where the stability cost lands, given throughput rises and change failure rate rises with it</li>
+      </ul>
+    </div>
+    <div class="own-c assign">
+      <div class="own-h">Assign to one person</div>
+      <div class="own-sub">The accountable business leader, not IT</div>
+      <ul>
+        <li>Funded review capacity, as headcount or protected time, before go-live</li>
+        <li>The sanctioned-tool path, because the alternative is already happening and is invisible</li>
+        <li>Enablement targeted at the lower half of the skill distribution, where the measured gain is</li>
+        <li>Training in when not to trust the output, which prompt training demonstrably does not fix</li>
+      </ul>
+    </div>
+  </div>
+
+  <a class="dive r" href="judgment-room.html">
+    <div class="dive-k">Deep dive</div>
+    <div class="dive-h">The Judgment Room</div>
+    <p class="dive-p">Five real decisions where the intelligent answer and the sensible answer diverge. Data foundation, decision intelligence, AI-led engineering, trust and compliance, adoption. Pick your option before you see what happened.</p>
+    <span class="dive-go">Walk through it <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+</div>
+</section>
+
+<!-- ══════════════ 06 ══════════════ -->
+<section class="chap" id="c6">
+<div class="wrap">
+  <div class="chap-head r">
+    <div class="chap-num">06</div>
+    <div>
+      <div class="chap-phase p3">In production</div>
+      <h2>Governance and risk management</h2>
+    </div>
+  </div>
+  <p class="chap-q r">The failure being corrected across 2026 is not oversight. It is uniform oversight, which spends the review budget on low-consequence work and produces rubber-stamping where it matters.</p>
+
+  <p class="big r">Tier on three variables: how far the consequence reaches, whether it can be reversed, and whether the action was authenticated.</p>
+
+  <p class="r">That triple comes from the Cloud Security Alliance's agentic profile work (April 2026). It is the most usable tier-assignment rule published, and it is compatible with the only proportionality language in the EU AI Act, Article 14(3), which ties oversight intensity to risk, autonomy level and use context.</p>
+
+  <div class="tw r">
+  <table>
+    <thead><tr><th style="width:14%">Tier</th><th style="width:26%">What it means</th><th style="width:30%">Assign when</th><th>Review cadence and evidence</th></tr></thead>
+    <tbody>
+      <tr><td><b>Automated</b></td><td>The system acts. No human sees the individual output.</td><td>Consequence is contained, the action is cheaply reversible, and the trigger is authenticated.</td><td>Quarterly audit of a sampled population. Logs retained and tamper-evident. Drift alarms on the input distribution.</td></tr>
+      <tr><td><b>Sampled</b></td><td>The system acts. A random subset is reviewed after the fact.</td><td>Consequence is moderate, reversal is possible but costs something, volume makes full review impossible.</td><td>Weekly review of a random subset sized for the error rate you need to detect, not for what reviewers have time for.</td></tr>
+      <tr><td><b>Reviewed</b></td><td>A human approves every output before it takes effect.</td><td>Consequence reaches a customer, a regulator or the balance sheet, and reversal is expensive or public.</td><td>Every item. Reviewer must be able to see the inputs, the retrieved evidence and the tool calls, or the review is theatre.</td></tr>
+      <tr><td><b>Advisory</b></td><td>The system analyses. A human decides and owns the decision.</td><td>Reversal is impossible, or accountability is personal and non-delegable under regulation.</td><td>Every item, with the human's reasoning recorded separately from the system's. Two-person verification where the law requires it.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="caution r">Stated honestly: I could not find this four-tier taxonomy published by a standards body, and I am not going to attribute it to one. The scaffolding under it is real: Article 14(3) proportionality, Article 14(5)'s two-competent-persons rule for biometric identification, the CSA's consequence-scope, reversibility and authentication triple, and BCG's intake-triage model where roughly 18 of 20 use cases auto-approve so that reviewers understand the remaining two deserve real attention. The synthesis is mine.</div>
+
+  <h3 class="r">Evaluation is the control, and most evaluation is misreported</h3>
+  <p class="r">If you have delegated quality measurement to a model judging another model, this is the most important research published in 2026 on the subject. A systematic evaluation of 21 judge models across 9 providers (June 2026) found:</p>
+  <ul class="r">
+    <li><strong>Raw agreement overstates discriminative ability by 33.8 to 41.2 percentage points</strong>, cohort mean 38.6. If you are reporting your judge's raw agreement with human labels as your quality evidence, you are overstating it by roughly 39 points. Report chance-corrected agreement.</li>
+    <li><strong>Position bias ranges from 0.002 to 0.192</strong> across judges, roughly a hundredfold spread, and two production-deployed models exceeded 0.10.</li>
+    <li><strong>The consistency-bias paradox.</strong> Models achieved test-retest reliability above 0.95 while simultaneously showing position bias above 0.10. The authors call it reproducibility without validity. <strong>A judge that is stable is not thereby a judge that is right.</strong></li>
+    <li>Verbosity bias, long assumed at 20 to 40 percent variance, measured under 0.011 across all 21 models under a single pairwise rubric. If your evaluation policy controls for it, that control may be solving a problem that does not exist.</li>
+    <li>Models shifted up to 15 ranking positions across benchmarks. Your benchmark choice is a bigger lever than your model choice.</li>
+  </ul>
+
+  <p class="r">There is a second measurement problem underneath: reference instability. Airbnb's evaluation engineering work found around <strong>75 percent of generated references differ across labelling runs on identical inputs</strong>, while the true signal they were trying to detect was 1 to 3 percent. Most observed variance is noise. If your evaluation sample is sized for convenience, you are measuring your own jitter.</p>
+
+  <p class="r">And golden sets decay as control artefacts even when the model has not changed. Evaluation datasets need versioning and expiry the same way models do. There is currently <strong>no NIST, ISO or regulatory-published evaluation methodology for production LLM systems</strong>. NIST's generative AI profile tells you what to measure conceptually across its twelve risk categories; it does not tell you how to gate a deployment. That gap is yours to fill and to document.</p>
+
+  <h3 class="r">Audit evidence: what you will be asked for</h3>
+  <p class="r">Article 14(4) requires the overseer to correctly interpret the output. Colorado's replacement law requires a plain-language explanation of a decision and the role of the automated system within 30 days of an adverse outcome. Both presume the decision can be explained afterwards. For a non-deterministic model on a vendor endpoint that may have been silently re-versioned, <strong>you cannot re-run the decision</strong>.</p>
+  <p class="r">The only defensible substitute is capturing, at decision time: the full input context, the retrieved documents, every tool call and its result, the exact model identifier, and the sampling parameters. That is a design decision made before the incident, not after. ISO/IEC 42001 is what auditors are increasingly asking for as evidence of a governed management system, and it is certifiable, which matters when the question is whether you can show a third party rather than assert it.</p>
+
+  <p class="r">On agents specifically, the standards work is real and immature. Decentralised identifiers and workload identity credentials issued through an agent name service, agents registered in existing identity infrastructure, a delegation register tracking authority lineage, and pre-authorised automatic suspension for high-severity incidents. Several IETF drafts exist on agent authentication and trust negotiation; all are individual submissions with no consensus status, so do not cite them as standards. <strong>Agent spend limits are a genuine white space</strong>: no published framework treats them as a first-class control, and they are trivially easy to implement and easy to forget.</p>
+
+  <div class="stats r">
+    <div class="st"><div class="st-v o">21%</div><div class="st-l">have mature agent governance models</div><div class="st-s">Deloitte, n=3,235</div></div>
+    <div class="st"><div class="st-v">~75%</div><div class="st-l">plan agentic deployment within two years</div><div class="st-s">Deloitte, n=3,235</div></div>
+    <div class="st"><div class="st-v b">85%</div><div class="st-l">plan to customise agents rather than use them as shipped</div><div class="st-s">Deloitte, n=3,235</div></div>
+    <div class="st"><div class="st-v">49%</div><div class="st-l">of security decision-makers name agentic AI as a concern</div><div class="st-s">Forrester, 2026</div></div>
+  </div>
+
+  <div class="conflict r">
+    <div class="box-t">Where the evidence disagrees</div>
+    <p><strong>Does governance accelerate delivery or kill it?</strong></p>
+    <div class="sides">
+      <div>
+        <div class="side-h">It accelerates</div>
+        <p style="font-size:.95rem">Databricks telemetry across more than 20,000 organisations including over 60 percent of the Fortune 500: companies actively using AI governance tooling put <strong>12 times more</strong> AI projects into production, and evaluation and monitoring practices correlate with roughly 6 times higher production rates. Organisations with formalised AI risk and compliance policies show ROI at 2.2 times the rate of those without. And the 84 percent reduction in permission prompts after sandboxing is a mechanistic example of containment removing friction.</p>
+      </div>
+      <div>
+        <div class="side-h">It kills velocity</div>
+        <p style="font-size:.95rem">Four regulators moved in the deregulatory direction within fifteen months. The EU deferred Chapter III by sixteen months citing innovation and competitiveness. Colorado repealed its own duty-of-care and impact-assessment regime before it took effect. The US banking agencies dropped annual validation and excluded generative AI from scope. BCG's own diagnosis: existing risk programmes were designed for the world three or four years ago and fall apart at scale.</p>
+      </div>
+    </div>
+    <p style="font-size:.95rem"><strong>Name the confound before using the 12x.</strong> Databricks, Dataiku and the survey houses producing these multiples all sell into the governance market, and the figures are correlational with an obvious confound: organisations mature enough to deploy governance tooling are mature enough to ship. Nobody has published a controlled study. Cite the 12x with that attached, or it will be dismissed by the first person in the room who knows.</p>
+    <div class="verdict"><b>Working position.</b> The evidence does not support less governance. Every 2026 retreat is a <b>tiering</b> move, not a deregulation move. The EU deferred conformity assessment but kept transparency. Colorado dropped blanket impact assessments but kept human review of adverse outcomes specifically. The banking agencies dropped annual validation for all models and introduced materiality as the scoping test. BCG's 18-of-20 auto-approve and the CSA's three-variable triple are the same idea expressed as process and as taxonomy. Tier on consequence, reversibility and authentication. Spend the human review budget where reversal is impossible. Put the engineering effort into environment-layer containment, because that is where both the incident evidence and the vendor evidence point.</div>
+  </div>
+
+  <div class="own r">
+    <div class="own-c">
+      <div class="own-h">Work out together</div>
+      <div class="own-sub">Risk, legal, security and the business owner</div>
+      <ul>
+        <li>The tier for each use case, decided by consequence scope, reversibility and authentication</li>
+        <li>The evaluation set, who owns it, and when it expires</li>
+        <li>What evidence a regulator or auditor would ask for, sourced before the incident</li>
+        <li>The escalation path and who can stop the system, by name and out of hours</li>
+      </ul>
+    </div>
+    <div class="own-c assign">
+      <div class="own-h">Assign to one person</div>
+      <div class="own-sub">The accountable executive named in the risk register</div>
+      <ul>
+        <li>Tier assignment authority, and the record of every exception granted</li>
+        <li>The reviewer capacity budget, tier by tier, funded</li>
+        <li>Judge-model bias measurement on every judge upgrade, reported in chance-corrected terms</li>
+        <li>Agent identity, delegated authority and spend caps, which nothing else in the market will do for you</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════ 07 ══════════════ -->
+<section class="chap" id="c7">
+<div class="wrap">
+  <div class="chap-head r">
+    <div class="chap-num">07</div>
+    <div>
+      <div class="chap-phase p3">In production</div>
+      <h2>Scale and evolution</h2>
+    </div>
+  </div>
+  <p class="chap-q r">The model underneath you will change every few weeks. Build the capability to absorb that, not a project that assumes it will not.</p>
+
+  <p class="big r">This is the pivot from managed to resilient, and it is the one that separates a platform from a collection of successful pilots.</p>
+
+  <h3 class="r">Model churn is an operating condition, not an incident</h3>
+  <p class="r">Uber states the reality plainly: models are continuously re-evaluated because the frontier shifts every few weeks. Every managed agent carries its own real-work benchmark precisely so re-evaluation is mechanical rather than a judgment call each time. The practices that hold up:</p>
+  <ul class="r">
+    <li><strong>Pin explicit dated model identifiers</strong>, never floating aliases. This is near-universal practice and almost never written down.</li>
+    <li><strong>Shadow the new model against production traffic and gate on a threshold.</strong> Ramp runs its policy agent in shadow on real transactions and activates only when shadow accuracy clears a defined bar, with curated golden datasets reviewed internally rather than derived from user approvals, which reflect convenience rather than correctness.</li>
+    <li><strong>Rainbow, not blue-green.</strong> An agent mid-trajectory cannot be swapped, because its state lives in an in-flight context window. This is a genuinely distinctive infrastructure requirement of agentic systems.</li>
+    <li><strong>Hold the model constant when measuring cost work,</strong> or the two variables confound. Uber's 34 percent reduction is credible precisely because they said the model was held constant.</li>
+  </ul>
+
+  <div class="box r">
+    <div class="box-t">The migration-day cost event nobody budgets for</div>
+    <p>A model version change invalidates the entire prompt cache prefix. Every request that was reading cache at 0.1x becomes a cache write at 1.25x or 2x, simultaneously, across all traffic. Uber's session-analysis dashboard flags cache expiration inefficiency as one of sixteen tracked anti-patterns, which tells you it is a real operational cost. I could not find a published post-mortem quantifying the spike, so treat the magnitude as unquantified and the direction as certain. Model your migration day, do not discover it.</p>
+  </div>
+
+  <h3 class="r">What industrialisation actually looks like in the numbers</h3>
+  <div class="tw r">
+  <table>
+    <thead><tr><th>Organisation</th><th>What changed</th><th>Measured result</th></tr></thead>
+    <tbody>
+      <tr><td>Uber</td><td>Gateway, shared spend tiers, code-mode tool calls, subagents defaulted to cheaper models, 400K auto-compaction</td><td>Cost per 1,000 requests <b>down 34 percent</b>, cost per session <b>down 52 percent</b>, through 9.4x request growth with spend broadly flat</td></tr>
+      <tr><td>Robinhood</td><td>Hierarchical tuning: prompt optimisation, then trajectory tuning, then a small fine-tuned model</td><td>P90 latency <b>55 seconds to under 1 second</b>, with an 8B fine-tune matching frontier quality for that use case</td></tr>
+      <tr><td>Care Access</td><td>Separated static records (cached) from dynamic questions</td><td><b>86 percent cost reduction</b> and 3x speedup</td></tr>
+      <tr><td>Shopify</td><td>Prompt compression to learned gist tokens</td><td>Latency down 38 percent, <b>GPU allocation down 14 percent</b>, compression cost paid once at training time</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p class="r">Every one of these is a platform capability, not a project outcome. That is the point of the second pivot. If your second use case did not cost less than your first, nothing was industrialised.</p>
+
+  <h3 class="r">Central or federated</h3>
+  <p class="r">There is no controlled comparison of centre-of-excellence against federated against hub-and-spoke for AI. Anyone claiming one performs better with evidence is overstating. What is citable:</p>
+  <ul class="r">
+    <li>McKinsey's own internal rollout produced <strong>17,000 employee-created agents alongside 150 centrally developed ones</strong>, a ratio of roughly 113 to 1 in favour of distributed creation. Self-reported by a firm selling the advice, but the magnitude is hard to explain away.</li>
+    <li>Organisations involving <strong>7 to 21 percent of employees</strong> in transformation initiatives double their chances of positive returns. That is the most actionable operating-model number available.</li>
+    <li>DORA found a direct correlation between internal platform quality and the ability to unlock AI value, with 90 percent of organisations having adopted at least one internal platform. The hub's job appears to be platform and guardrails, not use-case selection.</li>
+    <li>MIT's successful cohort <em class="q">"operated like BPO clients, not SaaS shoppers, demanding customization, using bottom-up adoption, and focusing on operational metrics."</em></li>
+  </ul>
+  <div class="verdict r" style="border-top:none;padding-top:0"><b>Reconcilable reading.</b> Central platform and guardrails, federated use-case creation. That is hub-and-spoke by another name, with the important difference that the hub owns the infrastructure and the gates, not the ideas.</div>
+
+  <h3 class="r">The capability gap in the market, and where to build</h3>
+  <p class="r">The clearest signal from the LangChain production survey is the spread between 89 percent with observability and <strong>37.3 percent with online evaluation</strong>. Tracing is a solved problem with a competitive tool market. Measuring whether the thing is still right, in production, on live traffic, is not. That gap is the highest-value platform investment available right now, and it is what converts consideration 06's governance model from a document into a control.</p>
+
+  <div class="own r">
+    <div class="own-c">
+      <div class="own-h">Work out together</div>
+      <div class="own-sub">Platform, finance and the use-case owners</div>
+      <ul>
+        <li>Which capabilities are shared and therefore central, and which stay with the use case</li>
+        <li>The migration protocol when a model is deprecated, agreed before it is announced</li>
+        <li>The deprecation policy for your own agents, so the estate does not accumulate</li>
+        <li>What proportion of employees will be involved in building, against the 7 to 21 percent finding</li>
+      </ul>
+    </div>
+    <div class="own-c assign">
+      <div class="own-h">Assign to one person</div>
+      <div class="own-sub">The platform owner, with a standing budget</div>
+      <ul>
+        <li>The online evaluation capability, which 63 percent of the market does not have</li>
+        <li>Shadow deployment and the threshold gate, as a service every use case consumes</li>
+        <li>The cost decomposition and the outcome denominators, reported monthly</li>
+        <li>Ongoing capability funding rather than project funding, which is the whole pivot</li>
+      </ul>
+    </div>
+  </div>
+
+  <a class="dive r" href="enterprise-model-stack.html" target="_blank" rel="noopener">
+    <div class="dive-k">Deep dive</div>
+    <div class="dive-h">The Enterprise Model Stack, part three</div>
+    <p class="dive-p">Agentic memory, protocols, and the argument that the word to watch is coupling. What you are actually deciding when you choose how tightly the application binds to the model underneath it.</p>
+    <span class="dive-go">Read the paper <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+</div>
+</section>
+
+<!-- ══════════════ CLOSE ══════════════ -->
+<section class="chap" id="close">
+<div class="wrap">
+  <h2 class="r">If you only do four things</h2>
+  <p class="big r">Ordered by the ratio of evidence behind them to effort required.</p>
+  <div class="gate r">
+    <div class="gate-i"><div class="gate-n"></div><div class="gate-b"><div class="gate-h">Name one person accountable for AI cost and outcome</div><p class="gate-p">Forty-two percent of organisations have nobody. Where a single executive owns it, established ROI runs 3.5 times higher. This costs a meeting.</p></div></div>
+    <div class="gate-i"><div class="gate-n"></div><div class="gate-b"><div class="gate-h">Change the cost denominator from tokens to outcomes</div><p class="gate-p">Cost per resolved case, per merged change, per document. A token-denominated chargeback systematically rewards the model that fails cheaply.</p></div></div>
+    <div class="gate-i"><div class="gate-n"></div><div class="gate-b"><div class="gate-h">Build the semantic layer for one use case, not for the enterprise</div><p class="gate-p">The measured lift from semantic grounding exceeds the lift from upgrading the model, in three independent settings. Certified example queries and join metadata are the cheapest part and carried most of the gain at LinkedIn.</p></div></div>
+    <div class="gate-i"><div class="gate-n"></div><div class="gate-b"><div class="gate-h">Tier your oversight and fund the reviewers</div><p class="gate-p">Uniform oversight produces rubber-stamping, which Article 14(4) treats as a compliance failure in itself. Tier on consequence, reversibility and authentication, then actually pay for the review capacity at the top two tiers.</p></div></div>
+  </div>
+
+  <div class="box r">
+    <div class="box-t">What this document deliberately does not do</div>
+    <p>It does not give you a maturity score. Scores create the boil-the-ocean failure mode that Gartner's own definition of AI-ready data argues against, and they let everyone agree on a number without anyone owning a decision. Every section here ends in two columns instead: what a group works out, and what one named person owns. If you cannot fill the right-hand column, the left-hand column will not save you.</p>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════ SOURCES ══════════════ -->
+<section class="chap" id="sources">
+<div class="wide">
+  <h2 class="r">Sources</h2>
+  <p class="r" style="max-width:760px">Primary where possible. Where a finding routes through a secondary aggregation or where I could not reach the original, it is flagged in the text rather than laundered into a clean citation.</p>
+  <div class="srcs r">
+    <p><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey, The State of AI in 2026: On the road to ROI</a>, Aug 2026, n=1,719</p>
+    <p><a href="https://kpmg.com/xx/en/media/press-releases/2026/06/growing-adoption-signals-progress-as-cost-visibility-and-accountability-drive-ai-value.html" target="_blank" rel="noopener">KPMG Global AI Pulse</a>, Jun 2026, n=2,145</p>
+    <p><a href="https://www.ey.com/en_us/insights/emerging-technologies/pulse-ai-survey" target="_blank" rel="noopener">EY US AI Pulse Survey Wave 5</a>, May 2026, n=534</p>
+    <p><a href="https://www.bain.com/insights/executive-survey-ai-moves-from-pilots-to-production/" target="_blank" rel="noopener">Bain, Executive Survey: AI Moves from Pilots to Production</a>, Nov 2025</p>
+    <p><a href="https://data.finops.org/" target="_blank" rel="noopener">FinOps Foundation, State of FinOps 2026</a>, n=1,192</p>
+    <p><a href="https://www.finops.org/wg/finops-for-ai-overview/" target="_blank" rel="noopener">FinOps Foundation, FinOps for AI working group guidance</a>, Feb 2026</p>
+    <p><a href="https://www.uber.com/us/en/blog/efficient-software-factory/" target="_blank" rel="noopener">Uber Engineering, Running a Software Factory Efficiently at Uber Scale</a>, Aug 2026</p>
+    <p><a href="https://www.doit.com/research/economics-of-claude-openai-and-grok" target="_blank" rel="noopener">DoiT, Cost Per Task, Not Cost Per Token</a>, Aug 2026</p>
+    <p><a href="https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027" target="_blank" rel="noopener">Gartner, Over 40% of Agentic AI Projects Will Be Canceled by End of 2027</a>, Jun 2025</p>
+    <p><a href="https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk" target="_blank" rel="noopener">Gartner, Lack of AI-Ready Data Puts AI Projects at Risk</a>, Feb 2025</p>
+    <p><a href="https://www.accenture.com/en/insights/ai-data/ai-ready-data" target="_blank" rel="noopener">Accenture, AI-Ready Data and the data reinventors</a>, May 2026, n=2,000</p>
+    <p><a href="https://claude.com/blog/deploying-ai-from-pilot-to-production" target="_blank" rel="noopener">Anthropic and Accenture, Deploying AI from pilot to production</a>, 2026</p>
+    <p><a href="https://www.lebow.drexel.edu/sites/default/files/2026-01/lebow-precisely-state-data-integrity-ai-readiness-2026.pdf" target="_blank" rel="noopener">Precisely and Drexel LeBow, State of Data Integrity and AI Readiness 2026</a>, n=505</p>
+    <p><a href="https://www.cloudera.com/about/news-and-blogs/press-releases/2026-03-05-only-7-percent-of-enterprises-say-their-data-is-completely-ready-for-ai-according-to-new-report-from-cloudera-and-harvard-business-review-analytic-services-reveals.html" target="_blank" rel="noopener">Cloudera and Harvard Business Review Analytic Services</a>, Mar 2026</p>
+    <p><a href="https://docs.getdbt.com/blog/semantic-layer-vs-text-to-sql-2026" target="_blank" rel="noopener">dbt Labs, Semantic Layer vs Text-to-SQL benchmark</a>, Apr 2026</p>
+    <p><a href="https://www.snowflake.com/en/blog/engineering/cortex-analyst-text-to-sql-accuracy-bi/" target="_blank" rel="noopener">Snowflake, Cortex Analyst text-to-SQL accuracy</a>, Aug 2024</p>
+    <p><a href="https://arxiv.org/abs/2411.07763" target="_blank" rel="noopener">Spider 2.0 (Lei et al.), ICLR 2025</a></p>
+    <p><a href="https://arxiv.org/html/2409.02038v2" target="_blank" rel="noopener">BEAVER: An Enterprise Benchmark for Text-to-SQL</a>, 2024</p>
+    <p><a href="https://www.getdot.ai/blog/linkedin-sql-bot-data-agent" target="_blank" rel="noopener">LinkedIn SQL Bot, knowledge graph accuracy analysis</a></p>
+    <p><a href="https://arxiv.org/html/2606.18497v1" target="_blank" rel="noopener">Ghost Vectors: Soft-Deleted Embeddings Remain Reconstructible</a>, Jun 2026</p>
+    <p><a href="https://arxiv.org/abs/2310.06816" target="_blank" rel="noopener">Morris et al., Text Embeddings Reveal (Almost) As Much As Text</a></p>
+    <p><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Anthropic, Building Effective Agents</a>, Dec 2024</p>
+    <p><a href="https://www.anthropic.com/engineering/multi-agent-research-system" target="_blank" rel="noopener">Anthropic, How we built our multi-agent research system</a>, Jun 2025</p>
+    <p><a href="https://cognition.com/blog/dont-build-multi-agents" target="_blank" rel="noopener">Cognition, Don't Build Multi-Agents</a>, Jun 2025</p>
+    <p><a href="https://cognition.com/blog/multi-agents-working" target="_blank" rel="noopener">Cognition, Multi-Agents: What's Actually Working</a>, Apr 2026</p>
+    <p><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Anthropic, Effective context engineering for AI agents</a>, Sep 2025</p>
+    <p><a href="https://www.trychroma.com/research/context-rot" target="_blank" rel="noopener">Chroma Research, Context Rot</a>, Jul 2025</p>
+    <p><a href="https://www.anthropic.com/engineering/code-execution-with-mcp" target="_blank" rel="noopener">Anthropic, Code execution with MCP</a>, Nov 2025</p>
+    <p><a href="https://arxiv.org/abs/2406.12045" target="_blank" rel="noopener">tau-bench and the pass^k metric</a>, 2024</p>
+    <p><a href="https://metr.org/blog/2026-1-29-time-horizon-1-1/" target="_blank" rel="noopener">METR, Time Horizon 1.1</a>, Jan 2026</p>
+    <p><a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" target="_blank" rel="noopener">METR, Measuring the Impact of Early-2025 AI on Experienced Developers</a>, Jul 2025</p>
+    <p><a href="https://metr.org/blog/2026-02-24-uplift-update/" target="_blank" rel="noopener">METR, We are Changing our Developer Productivity Experiment Design</a>, Feb 2026</p>
+    <p><a href="https://menlovc.com/perspective/2025-the-state-of-generative-ai-in-the-enterprise/" target="_blank" rel="noopener">Menlo Ventures, State of Generative AI in the Enterprise</a>, Dec 2025</p>
+    <p><a href="https://www.langchain.com/state-of-agent-engineering" target="_blank" rel="noopener">LangChain, State of Agent Engineering 2026</a>, n=1,340</p>
+    <p><a href="https://netflixtechblog.com/in-house-llm-serving-at-netflix-a5a8e799ea2c" target="_blank" rel="noopener">Netflix, In-House LLM Serving</a>, Jul 2026</p>
+    <p><a href="https://shopify.engineering/gisting" target="_blank" rel="noopener">Shopify Engineering, Gisting</a>, Aug 2026</p>
+    <p><a href="https://venturebeat.com/security/microsoft-salesforce-copilot-agentforce-prompt-injection-cve-agent-remediation-playbook" target="_blank" rel="noopener">EchoLeak, ForcedLeak, ShareLeak and PipeLeak incident analysis</a>, 2026</p>
+    <p><a href="https://snyk.io/blog/malicious-mcp-server-on-npm-postmark-mcp-harvests-emails/" target="_blank" rel="noopener">Snyk, Malicious MCP server on npm</a>, Sep 2025</p>
+    <p><a href="https://github.com/mitre-atlas/atlas-data/releases" target="_blank" rel="noopener">MITRE ATLAS v2026.08</a>, Sep 2026</p>
+    <p><a href="https://www.anthropic.com/engineering/how-we-contain-claude" target="_blank" rel="noopener">Anthropic, How we contain Claude</a>, May 2026</p>
+    <p><a href="https://artificialintelligenceact.eu/article/14/" target="_blank" rel="noopener">EU AI Act, Article 14, Human oversight</a></p>
+    <p><a href="https://www.whitecase.com/insight-alert/eu-ai-omnibus-enters-force-amending-ai-act" target="_blank" rel="noopener">Regulation (EU) 2026/1744, the AI Omnibus</a>, Jul 2026</p>
+    <p><a href="https://www.sullcrom.com/insights/memo/2026/April/OCC-Fed-FDIC-Issue-Revised-Guidance-Model-Risk-Management" target="_blank" rel="noopener">OCC, Federal Reserve and FDIC, revised model risk management guidance</a>, Apr 2026</p>
+    <p><a href="https://arxiv.org/html/2606.19544v1" target="_blank" rel="noopener">Reliability without Validity: LLM-as-a-Judge across agreement, consistency and bias</a>, Jun 2026</p>
+    <p><a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf" target="_blank" rel="noopener">NIST AI 600-1, Generative AI Profile</a>, Jul 2024</p>
+    <p><a href="https://labs.cloudsecurityalliance.org/agentic/agentic-nist-ai-rmf-profile-v1/" target="_blank" rel="noopener">Cloud Security Alliance, Agentic Profile v1 (draft)</a>, Apr 2026</p>
+    <p><a href="https://www.mccarthy.ca/en/insights/blogs/techlex/moffatt-v-air-canada-misrepresentation-ai-chatbot" target="_blank" rel="noopener">Moffatt v. Air Canada, 2024 BCCRT 149</a></p>
+    <p><a href="https://www.fenwick.com/insights/publications/end-silent-ai-emerging-ai-exclusions-coverage-fragmentation-and-practical-implications" target="_blank" rel="noopener">Fenwick, The end of silent AI: emerging AI exclusions in insurance</a>, 2026</p>
+    <p><a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report" target="_blank" rel="noopener">DORA, 2025 State of AI-assisted Software Development</a>, Sep 2025</p>
+    <p><a href="https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization" target="_blank" rel="noopener">Microsoft Work Trend Index 2026</a>, n=20,000</p>
+    <p><a href="https://pubsonline.informs.org/doi/10.1287/orsc.2025.21838" target="_blank" rel="noopener">Dell'Acqua et al., Navigating the Jagged Technological Frontier</a>, Organization Science 2025</p>
+    <p><a href="https://assets.kpmg.com/content/dam/kpmgsites/xx/pdf/2025/05/trust-attitudes-and-use-of-ai-global-report.pdf" target="_blank" rel="noopener">KPMG and University of Melbourne, Trust, Attitudes and Use of AI</a>, n=48,000+, 47 countries</p>
+    <p><a href="https://hbr.org/2026/06/ai-adoption-is-overloading-your-middle-managers" target="_blank" rel="noopener">Harvard Business Review, AI Adoption Is Overloading Your Middle Managers</a>, Jun 2026</p>
+    <p><a href="https://zylo.com/news/2026-saas-management-index" target="_blank" rel="noopener">Zylo, 2026 SaaS Management Index</a>, 40M licences</p>
+    <p><a href="https://time.com/partner-content/charter/7378651/what-klarna-learned-from-its-ambitious-ai-rollout/" target="_blank" rel="noopener">TIME and Charter, What Klarna learned from its AI rollout</a></p>
+    <p><a href="https://www.deloitte.com/us/en/about/press-room/state-of-ai-report-2026.html" target="_blank" rel="noopener">Deloitte, State of AI in the Enterprise 2026</a>, n=3,235</p>
+    <p><a href="https://www.bcg.com/publications/2026/how-to-speed-up-ai-risk-management" target="_blank" rel="noopener">BCG, How to speed up AI risk management</a>, Sep 2026</p>
+    <p><a href="https://medium.com/airbnb-engineering/from-weeks-to-a-day-how-we-made-llm-evaluation-fast-enough-to-iterate-on-14e2d35198b4" target="_blank" rel="noopener">Airbnb, Making LLM evaluation fast enough to iterate on</a>, Jul 2026</p>
+    <p><a href="https://a16z.com/leaders-gainers-and-unexpected-winners-in-the-enterprise-ai-arms-race/" target="_blank" rel="noopener">a16z, Enterprise AI arms race</a>, Jan 2026, n=100 Global 2000</p>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="wide">
+    <div>
+      <h4>Vikram Rathour</h4>
+      <p>Twenty-five years in enterprise data and AI across banking, healthcare and manufacturing. Available as a fractional or interim data and AI lead. If one of these seven is where you are stuck, that is a useful first conversation.</p>
+    </div>
+    <div class="flinks">
+      <a href="index.html">Main site</a>
+      <a href="judgment-room.html">The Judgment Room</a>
+      <a href="wisdom-loop.html">Order from Noise</a>
+      <a href="multi-agent-enterprise.html">Multi-agent systems</a>
+      <a href="enterprise-model-stack.html">The model stack</a>
+      <a href="model-architecture.html">Model architecture</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // progress bar
+  var pb = document.getElementById('pb');
+  function prog(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    pb.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', prog, {passive:true});
+  prog();
+
+  // reveal
+  if (!reduce && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('s'); io.unobserve(e.target); } });
+    }, {threshold:0.08, rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.r').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.r').forEach(function(el){ el.classList.add('s'); });
+  }
+
+  // nav pill sync
+  var pills = Array.prototype.slice.call(document.querySelectorAll('#pills a'));
+  var secs = pills.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  if ('IntersectionObserver' in window && secs.length){
+    var so = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting){
+          var id = '#' + e.target.id;
+          pills.forEach(function(p){ p.classList.toggle('on', p.getAttribute('href') === id); });
+          var active = document.querySelector('#pills a.on');
+          if (active && active.scrollIntoView) {
+            active.scrollIntoView({block:'nearest', inline:'center', behavior: reduce ? 'auto' : 'smooth'});
+          }
+        }
+      });
+    }, {rootMargin:'-110px 0px -65% 0px', threshold:0});
+    secs.forEach(function(s){ so.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>

@@ -135,6 +135,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content
 .s2-big .yh{background:linear-gradient(transparent 62%,var(--yel-pale) 62%)}
 .s2-lead{font-size:clamp(.95rem,1.4vw,1.12rem);color:var(--t2);line-height:1.7;max-width:700px;margin:0 auto clamp(2rem,4vh,3rem)}
 .s2-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.pivots{display:grid;grid-template-columns:1fr 26px 1fr 26px 1fr;align-items:stretch;gap:0;margin-top:clamp(.5rem,1.5vh,1rem)}
+.pivot{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(1.2rem,2.4vh,1.8rem) clamp(1rem,1.8vw,1.5rem);text-align:left;box-shadow:var(--shadow-md);display:flex;flex-direction:column;gap:9px;position:relative;border-top:3px solid var(--blue);transition:all .3s var(--ease)}
+.pivot:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.pivot-num{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--t3)}
+.pivot-move{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:clamp(.72rem,1vw,.82rem);font-weight:500}
+.pivot-from{color:var(--t3);text-decoration:line-through;text-decoration-thickness:1px}
+.pivot-to{color:var(--blue);font-weight:700}
+.pivot-h{font-size:clamp(.88rem,1.2vw,1rem);font-weight:700;color:var(--ink);line-height:1.3}
+.pivot-p{font-size:clamp(.74rem,1vw,.84rem);color:var(--t2);line-height:1.6;flex:1}
+.pivot-tell{font-size:clamp(.7rem,.92vw,.78rem);color:var(--t2);line-height:1.5;padding-top:8px;border-top:1px dashed var(--line);font-style:italic}
+.pivot-arrow{display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:1.2rem;font-weight:700}
+@media(max-width:1000px){
+  .pivots{grid-template-columns:1fr;gap:12px}
+  .pivot-arrow{transform:rotate(90deg);padding:2px 0}
+}
 .s2-cell{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(1.4rem,2.6vh,2rem) clamp(1.1rem,2vw,1.6rem);text-align:left;box-shadow:var(--shadow-md);position:relative}
 .s2-cell .medallion{margin-bottom:16px}
 .s2-cell h4{font-size:clamp(.86rem,1.15vw,.98rem);font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.3}
@@ -168,6 +183,33 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content
 .mc .lab{font-size:clamp(.82rem,1.1vw,.92rem);font-weight:600;color:#fff;margin-top:10px;margin-bottom:5px}
 .mc .sub{font-size:clamp(.72rem,.96vw,.8rem);color:rgba(255,255,255,.62);line-height:1.5}
 
+/* ═══════ S3B ENGAGEMENTS ═══════ */
+#s3b{background:var(--paper2);justify-content:center;align-items:center}
+.s3b-wrap{width:100%;max-width:1180px;padding:clamp(1.5rem,3.5vw,4rem)}
+.s3b-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:clamp(1.4rem,3.4vh,2.4rem);flex-wrap:wrap;gap:1rem}
+.s3bh{font-weight:300;font-size:clamp(1.8rem,3.2vw,2.8rem);line-height:1.12;letter-spacing:-.025em}
+.s3bh em{font-style:italic;color:var(--blue)}
+.s3b-note{font-size:clamp(.82rem,1.05vw,.94rem);color:var(--t2);max-width:330px;line-height:1.55}
+.egrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.eng{background:var(--card);border:1px solid var(--line2);border-top:3px solid var(--blue);padding:clamp(1.1rem,2.4vh,1.6rem) clamp(1rem,1.7vw,1.4rem);display:flex;flex-direction:column;box-shadow:var(--shadow-sm)}
+.eng:nth-child(2){border-top-color:var(--yel)}
+.eng:nth-child(3){border-top-color:var(--ink2)}
+.eng-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:11px}
+.eng-n{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.16em;color:var(--t3)}
+.eng-wks{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.06em;color:#fff;background:var(--blue);padding:3px 8px;white-space:nowrap}
+.eng:nth-child(2) .eng-wks{background:var(--yel-dk)}
+.eng:nth-child(3) .eng-wks{background:var(--ink2)}
+.eng-h{font-size:clamp(1rem,1.35vw,1.16rem);font-weight:600;letter-spacing:-.02em;line-height:1.25;margin-bottom:9px}
+.eng-for{font-size:clamp(.74rem,.95vw,.82rem);color:var(--blue-dk);line-height:1.5;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.eng-for b{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);display:block;margin-bottom:4px;font-weight:400}
+.eng-p{font-size:clamp(.76rem,.98vw,.85rem);color:var(--t2);line-height:1.56;margin-bottom:12px;flex:1}
+.eng-out{font-size:clamp(.74rem,.95vw,.82rem);color:var(--ink);line-height:1.5;background:var(--blue-pale);border-left:2px solid var(--blue);padding:9px 11px}
+.eng:nth-child(2) .eng-out{background:var(--yel-pale);border-left-color:var(--yel)}
+.eng:nth-child(3) .eng-out{background:rgba(19,24,43,.05);border-left-color:var(--ink2)}
+.eng-out b{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);display:block;margin-bottom:4px;font-weight:400}
+.bound{margin-top:clamp(.9rem,2.2vh,1.5rem);display:flex;align-items:flex-start;gap:12px;font-size:clamp(.76rem,.98vw,.86rem);color:var(--t2);line-height:1.55;border-top:1px solid var(--line2);padding-top:clamp(.8rem,1.8vh,1.2rem)}
+.bound-k{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--yel-dk);white-space:nowrap;padding-top:3px}
+
 /* ═══════ S5 WORK ═══════ */
 #s5{background:var(--paper);justify-content:center}
 .s5-wrap{width:100%;height:100%;display:flex;flex-direction:column;padding:clamp(1.4rem,3.4vw,4rem);padding-top:clamp(2rem,4.5vh,5rem)}
@@ -185,6 +227,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content
 .cc:hover{border-color:var(--blue-bdr)}
 .cc:hover::before{transform:scaleY(1)}
 .cc-sec{font-family:'IBM Plex Mono',monospace;font-size:clamp(.54rem,.76vw,.6rem);letter-spacing:.1em;text-transform:uppercase;color:var(--blue);font-weight:500}
+.cc-pivot{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:clamp(.5rem,.68vw,.56rem);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--yel-pale);border:1px solid var(--yel-bdr);border-radius:20px;padding:2px 9px;margin-left:6px;vertical-align:middle}
 .cc-hi{font-size:clamp(.68rem,.92vw,.78rem);color:var(--t3);font-style:italic;border-bottom:1px dashed var(--line2);padding-bottom:.55rem}
 .cc-prob{font-size:clamp(.78rem,1.08vw,.9rem);font-weight:600;color:var(--ink);line-height:1.4}
 .cc-sol{font-size:clamp(.7rem,.94vw,.82rem);color:var(--t2);line-height:1.6;flex:1}
@@ -206,6 +249,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content
 .s6-role strong{color:var(--ink);font-weight:600}
 .s6r{display:flex;flex-direction:column;justify-content:center;padding:clamp(2.2rem,5vw,5rem);gap:14px}
 .pf{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(1.1rem,2.4vh,1.6rem) clamp(1.2rem,2vw,1.7rem);display:flex;align-items:baseline;gap:18px;box-shadow:var(--shadow-sm);border-top:3px solid var(--yel)}
+.pov{display:flex;flex-direction:column;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(1rem,2.2vh,1.4rem) clamp(1.2rem,2vw,1.6rem);box-shadow:var(--shadow-sm);border-left:3px solid var(--blue);text-decoration:none;transition:all .3s var(--ease)}
+.pov:hover{border-left-color:var(--yel);transform:translateX(4px);box-shadow:var(--shadow-md)}
+.pov-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.pov-tag{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+.pov-count{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--t3)}
+.pov-title{font-size:clamp(.84rem,1.1vw,.94rem);font-weight:700;color:var(--ink);line-height:1.3}
+.pov-findings{display:flex;flex-direction:column;gap:6px;margin:2px 0}
+.pov-find{font-size:clamp(.68rem,.9vw,.76rem);color:var(--t2);line-height:1.5;padding-left:13px;position:relative}
+.pov-find::before{content:'';position:absolute;left:0;top:.5em;width:5px;height:5px;border-radius:50%;background:var(--blue)}
+.pov-arrow{font-family:'IBM Plex Mono',monospace;font-size:.64rem;color:var(--blue);margin-top:2px;display:inline-flex;align-items:center;gap:5px}
+.pov:hover .pov-arrow{color:var(--yel)}
 .pf:nth-child(even){border-top-color:var(--blue)}
 .pf .n{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(1.7rem,3vw,2.4rem);color:var(--blue);line-height:1;flex-shrink:0;width:clamp(80px,12vw,124px)}
 .pf .d{font-size:clamp(.76rem,1.02vw,.86rem);color:var(--t2);line-height:1.55}
@@ -330,11 +384,29 @@ a:focus-visible,button:focus-visible,.dot:focus-visible{outline:2px solid var(--
   .cgrid,.builds,.feat{grid-template-columns:1fr}
   .s6b-head{flex-direction:column;align-items:flex-start}.s6b-sub{text-align:left}
   .dots{display:none}
+  /* engagements: horizontal swipe row, so all three stay reachable in a fixed-height slide */
+  .s3b-wrap{padding-left:0;padding-right:0;padding-top:52px}
+  .s3b-head,.bound{padding-left:26px;padding-right:26px}
+  .egrid{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 26px 6px}
+  .egrid::-webkit-scrollbar{display:none}
+  .eng{flex:0 0 78vw;max-width:340px;scroll-snap-align:center}
+  .eng-p{flex:none}
+  .s3b-note{max-width:none}
+  .bound{flex-direction:column;gap:6px}
 }
 @media(max-width:640px){
   .s2-grid{grid-template-columns:1fr}
 }
 </style>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vikram Rathour">
+<meta property="og:title" content="Vikram Rathour: Enterprise Data and AI">
+<meta property="og:description" content="Twenty-six years architecting data and AI platforms for banking, healthcare and manufacturing. Three engagements, scoped and time-boxed, for the pivots most AI programmes stall at.">
+<meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vikram Rathour: Enterprise Data and AI">
+<meta name="twitter:description" content="Twenty-six years architecting data and AI platforms for banking, healthcare and manufacturing. Three engagements, scoped and time-boxed, for the pivots most AI programmes stall at.">
+<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/">
 </head>
 <body>
 
@@ -344,9 +416,11 @@ a:focus-visible,button:focus-visible,.dot:focus-visible{outline:2px solid var(--
   <a href="#s1" class="nlogo">Vikram <span>Rathour</span></a>
   <ul class="nlinks">
     <li><a href="#s3">Approach</a></li>
+    <li><a href="#s3b">Engagements</a></li>
     <li><a href="#s4">Impact</a></li>
     <li><a href="#s5">Work</a></li>
-    <li><a href="#s6">Leadership</a></li>
+    <li><a href="#s6">Point of View</a></li>
+    <li><a href="blueprint.html">Blueprint</a></li>
     <li><a href="#s6b">Builds</a></li>
     <li><a href="#s8">Writing</a></li>
   </ul>
@@ -357,13 +431,14 @@ a:focus-visible,button:focus-visible,.dot:focus-visible{outline:2px solid var(--
   <div class="dot" data-i="0" data-l="Home" role="button" tabindex="0" aria-label="Go to Home"></div>
   <div class="dot" data-i="1" data-l="Thesis" role="button" tabindex="0" aria-label="Go to Thesis"></div>
   <div class="dot" data-i="2" data-l="Approach" role="button" tabindex="0" aria-label="Go to Approach"></div>
-  <div class="dot" data-i="3" data-l="Impact" role="button" tabindex="0" aria-label="Go to Impact"></div>
-  <div class="dot" data-i="4" data-l="Work" role="button" tabindex="0" aria-label="Go to Work"></div>
-  <div class="dot" data-i="5" data-l="Leadership" role="button" tabindex="0" aria-label="Go to Leadership"></div>
-  <div class="dot" data-i="6" data-l="Builds" role="button" tabindex="0" aria-label="Go to Builds"></div>
-  <div class="dot" data-i="7" data-l="Signature" role="button" tabindex="0" aria-label="Go to Signature"></div>
-  <div class="dot" data-i="8" data-l="Writing" role="button" tabindex="0" aria-label="Go to Writing"></div>
-  <div class="dot" data-i="9" data-l="Contact" role="button" tabindex="0" aria-label="Go to Contact"></div>
+  <div class="dot" data-i="3" data-l="Engagements" role="button" tabindex="0" aria-label="Go to Engagements"></div>
+  <div class="dot" data-i="4" data-l="Impact" role="button" tabindex="0" aria-label="Go to Impact"></div>
+  <div class="dot" data-i="5" data-l="Work" role="button" tabindex="0" aria-label="Go to Work"></div>
+  <div class="dot" data-i="6" data-l="Point of View" role="button" tabindex="0" aria-label="Go to Point of View"></div>
+  <div class="dot" data-i="7" data-l="Builds" role="button" tabindex="0" aria-label="Go to Builds"></div>
+  <div class="dot" data-i="8" data-l="Signature" role="button" tabindex="0" aria-label="Go to Signature"></div>
+  <div class="dot" data-i="9" data-l="Writing" role="button" tabindex="0" aria-label="Go to Writing"></div>
+  <div class="dot" data-i="10" data-l="Contact" role="button" tabindex="0" aria-label="Go to Contact"></div>
 </div>
 
 <!-- ═══ S1 HERO ═══ -->
@@ -376,21 +451,21 @@ a:focus-visible,button:focus-visible,.dot:focus-visible{outline:2px solid var(--
   </div>
   <div class="h-wrap" id="s1-content">
     <div>
-      <div class="h-status"><span class="pip"></span>Enterprise Data &amp; AI Leadership · Pune, India</div>
+      <div class="h-status"><span class="pip"></span>Fractional Data &amp; AI Leadership · Available now</div>
       <h1 class="h-name">
         <span class="l"><span class="w a1">Vikram</span></span>
         <span class="l"><span class="w a2"><em>Rathour</em></span></span>
       </h1>
-      <p class="h-role">Twenty-five years architecting enterprise data and AI platforms in banking, healthcare and manufacturing. In an era where intelligence is abundant, I bring the scarce thing: <strong>sensibility</strong>, the judgment that decides what is worth building, what an answer really means, and when a brilliant system is brilliantly wrong.</p>
+      <p class="h-role">I take enterprise AI programmes through the three pivots most of them stall at: <strong>pilot to production, initial to industrialised, managed to resilient</strong>. Twenty-five years in banking, healthcare and manufacturing. Available as a fractional or interim data and AI lead.</p>
       <div class="h-ctas">
-        <a href="#s5" class="btn btn-pri">View the work <svg class="ico-sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a href="#s9" class="btn btn-sec">Get in touch</a>
+        <a href="#s5" class="btn btn-pri">See what I've fixed <svg class="ico-sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#s9" class="btn btn-sec">Start a conversation</a>
       </div>
     </div>
     <div class="h-panel tilt-scene">
-      <div class="h-stat tilt"><span class="n">25+</span><span class="lab">Years in enterprise data &amp; AI</span></div>
-      <div class="h-stat tilt"><span class="n">20+</span><span class="lab">Architects led globally</span></div>
+      <div class="h-stat tilt"><span class="n">25 yrs</span><span class="lab">Banking, healthcare, manufacturing</span></div>
       <div class="h-stat tilt"><span class="n">$2B+</span><span class="lab">Platforms shaped &amp; delivered</span></div>
+      <div class="h-stat tilt"><span class="n">0</span><span class="lab">Failed flagship platforms</span></div>
     </div>
   </div>
   <div class="h-scroll" onclick="document.getElementById('s2').scrollIntoView()">
@@ -401,30 +476,39 @@ a:focus-visible,button:focus-visible,.dot:focus-visible{outline:2px solid var(--
 <!-- ═══ S2 THESIS ═══ -->
 <section class="slide" id="s2" aria-label="Thesis">
   <div class="s2-wrap">
-    <div class="eyebrow s2-eyebrow">The problem worth solving</div>
-    <h2 class="s2-big r d1">Intelligence is now abundant.<br><span class="yh"><em>Sensibility</em> is the scarce resource.</span></h2>
-    <p class="s2-lead r d2">Every model is intelligent. Every vendor promises trust. Neither differentiates anyone anymore. In the agentic era a system can execute a thousand intelligent steps toward a senseless goal, confidently, at scale, before anyone notices. The scarce capability is judgment: knowing what is worth doing, what an output actually means in context, and when a brilliant machine is brilliantly wrong. I add that layer of sensibility to intelligence, and make it legible to the business.</p>
-    <div class="s2-grid tilt-scene">
-      <div class="s2-cell tilt r d2">
-        <div class="medallion"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg></div>
-        <h4>Intelligent is not sensible</h4>
-        <p>An agent optimising the wrong objective is not a bug. It is intelligence without judgment. Sensibility is choosing the right objective before the machine pursues it perfectly.</p>
+    <div class="eyebrow s2-eyebrow">What I'm brought in to do</div>
+    <h2 class="s2-big r d1">Three pivots.<br>Most programmes are stuck at <span class="yh"><em>one of them</em></span>.</h2>
+    <p class="s2-lead r d2">AI programmes rarely fail on technology. They stall at a transition nobody owns. These are the three I'm called in for. They run roughly in order, though most organisations are working on two at once, and the second is where the majority are sitting right now.</p>
+    <div class="pivots r d3">
+
+      <div class="pivot">
+        <div class="pivot-num">PIVOT 01</div>
+        <div class="pivot-move"><span class="pivot-from">Pilot</span> <span>→</span> <span class="pivot-to">Production</span></div>
+        <div class="pivot-h">Make it real, in front of customers</div>
+        <div class="pivot-p">The demo worked. Production requires answering what happens when the model is wrong in front of a customer, who approves that, and what the fallback is. Those are decisions, not engineering tasks, which is why they get deferred.</div>
+        <div class="pivot-tell">The tell: an eighteen-month-old pilot everyone still calls promising.</div>
       </div>
-      <div class="s2-cell tilt r d3">
-        <div class="medallion"><svg class="ico" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <h4>Context is the missing input</h4>
-        <p>Models do not know what they do not know. Sensibility lives in the gap between a technically correct answer and a contextually right decision.</p>
+
+      <div class="pivot-arrow">→</div>
+
+      <div class="pivot">
+        <div class="pivot-num">PIVOT 02</div>
+        <div class="pivot-move"><span class="pivot-from">Initial</span> <span>→</span> <span class="pivot-to">Industrialised</span></div>
+        <div class="pivot-h">Make the second one cheaper than the first</div>
+        <div class="pivot-p">One use case in production is an achievement. Twenty is a capability. That needs shared foundations, governed data, and a delivery pattern others can follow, rather than a hero team rebuilding from scratch each time.</div>
+        <div class="pivot-tell">The tell: every new use case costs what the first one did.</div>
       </div>
-      <div class="s2-cell tilt r d4">
-        <div class="medallion"><svg class="ico" viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 16l4-6 3 3 5-7"/></svg></div>
-        <h4>Judgment compounds</h4>
-        <p>Add sensibility at the design layer and every downstream decision inherits it. The return is an organisation making consistently better calls at machine speed.</p>
+
+      <div class="pivot-arrow">→</div>
+
+      <div class="pivot">
+        <div class="pivot-num">PIVOT 03</div>
+        <div class="pivot-move"><span class="pivot-from">Managed</span> <span>→</span> <span class="pivot-to">Resilient</span></div>
+        <div class="pivot-h">Make it survive without me, and without you</div>
+        <div class="pivot-p">Three shifts at once: it holds up when models drift or vendors change underneath it, it can be defended to a regulator with evidence rather than assurances, and your own team runs it confidently after I leave.</div>
+        <div class="pivot-tell">The tell: nobody can explain last Tuesday's decision.</div>
       </div>
-      <div class="s2-cell tilt r d5">
-        <div class="medallion"><svg class="ico" viewBox="0 0 24 24"><circle cx="10" cy="10" r="7"/><path d="M21 21l-5.5-5.5"/></svg></div>
-        <h4>Evaluations are not tests</h4>
-        <p>A test checks whether the output matches a fixed answer. An evaluation asks whether the decision made sense in context. Score an agent like a test, and the only thing that mattered goes unmeasured.</p>
-      </div>
+
     </div>
     <div class="s2-watch r d6">
       <div class="s2-watch-text">
@@ -464,22 +548,66 @@ a:focus-visible,button:focus-visible,.dot:focus-visible{outline:2px solid var(--
   </div>
 </section>
 
+<!-- ═══ S3B ENGAGEMENTS ═══ -->
+<section class="slide" id="s3b" aria-label="Engagements">
+  <div class="s3b-wrap">
+    <div class="s3b-head">
+      <div>
+        <div class="eyebrow r">How to work with me</div>
+        <h2 class="s3bh r d1">Three things you can<br><em>actually buy</em>.</h2>
+      </div>
+      <p class="s3b-note r d2">Each one is scoped, time-boxed and ends in something your team keeps. None of them is an open-ended transformation programme.</p>
+    </div>
+    <div class="egrid tilt-scene">
+
+      <div class="eng tilt r d1">
+        <div class="eng-top"><span class="eng-n">01</span><span class="eng-wks">4 to 8 weeks</span></div>
+        <div class="eng-h">AI data readiness and semantic core</div>
+        <div class="eng-for"><b>For</b>A CDO or CIO with several AI pilots giving inconsistent answers to the same question.</div>
+        <p class="eng-p">I define the business meaning layer for the 30 to 50 numbers your business actually runs on: definition, source, owner, known traps. Aligned to industry standards where they apply, such as BIAN or FHIR. Then I prove it with a before-and-after accuracy test on your real questions, not a benchmark.</p>
+        <div class="eng-out"><b>You keep</b>A governed semantic model, a scored readiness map, and a 90-day remediation backlog.</div>
+      </div>
+
+      <div class="eng tilt r d2">
+        <div class="eng-top"><span class="eng-n">02</span><span class="eng-wks">3 to 6 weeks</span></div>
+        <div class="eng-h">Agent production readiness and reliability</div>
+        <div class="eng-for"><b>For</b>A CTO or AI platform owner whose agent works in the demo and fails in production.</div>
+        <p class="eng-p">I build a domain test set with your own experts, run each case repeatedly, and report how often the agent is right and how it fails. Then I review the design around it: fixed workflow or agent, retrieval permissions, document preparation, decision record retention, running cost.</p>
+        <div class="eng-out"><b>You keep</b>A reliability number the board can act on, and a design your team can build.</div>
+      </div>
+
+      <div class="eng tilt r d3">
+        <div class="eng-top"><span class="eng-n">03</span><span class="eng-wks">4 to 8 weeks</span></div>
+        <div class="eng-h">Data-to-decision architecture and operating model</div>
+        <div class="eng-for"><b>For</b>An architecture board with fragmented lakehouse, BI, AI and automation investments.</div>
+        <p class="eng-p">I set the target architecture from source systems through the semantic layer to analytics, agents and action, define the operating model for agentic AI, and structure the work as the three pivots: pilot to production, initial to industrialised, managed to resilient.</p>
+        <div class="eng-out"><b>You keep</b>A reference architecture, the standards that hold it together, and a handover plan so your team runs it without me.</div>
+      </div>
+
+    </div>
+    <div class="bound r d4">
+      <span class="bound-k">What I decline</span>
+      <span>I do not sell security testing of agent tools or MCP servers. When that is what you need, I say so and bring in a named specialist rather than stretching my own scope to cover it.</span>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ S4 IMPACT ═══ -->
 <section class="slide" id="s4" aria-label="Impact">
   <div class="s4-wrap">
     <div class="s4-head">
       <div>
         <div class="eyebrow r">Outcomes that matter at the top</div>
-        <h2 class="s4h r d1">Measured the way a <em>technology leader</em><br>is actually accountable.</h2>
+        <h2 class="s4h r d1">What changed in the business,<br>after I <em>left the room</em>.</h2>
       </div>
       <p class="s4-note r d2">Not lines of code or tables migrated. Decisions improved, capability built, and platforms that outlived the project that created them.</p>
     </div>
     <div class="mgrid tilt-scene">
-      <div class="mc tilt r"><div class="n">70%+</div><div class="lab">Architects certified</div><div class="sub">Capability built, not bought. A community of practice I designed and ran from scratch</div></div>
-      <div class="mc tilt r d1"><div class="n">47%+</div><div class="lab">Engineers cloud-certified</div><div class="sub">A data &amp; analytics organisation upskilled through a structured culture</div></div>
-      <div class="mc tilt r d2"><div class="n">2&times;</div><div class="lab">Business-unit growth enabled</div><div class="sub">Value-stream modelling turned into a roadmap a unit doubled against in one year</div></div>
-      <div class="mc tilt r d3"><div class="n">10%</div><div class="lab">YoY growth, public sector</div><div class="sub">A national programme where redesigning the human workflow drove the result</div></div>
-      <div class="mc tilt r d4"><div class="n">Zero</div><div class="lab">Downtime, 50TB migration</div><div class="sub">Risk avoided through phased delivery and full team visibility</div></div>
+      <div class="mc tilt r"><div class="n">2&times;</div><div class="lab">Business-unit growth</div><div class="sub">A stalled unit doubled in one fiscal year once the roadmap was rebuilt around value streams rather than systems</div></div>
+      <div class="mc tilt r d1"><div class="n">10%</div><div class="lab">YoY revenue growth, national programme</div><div class="sub">Public-sector platform where redesigning the human workflow, not the model, unlocked the result</div></div>
+      <div class="mc tilt r d2"><div class="n">Zero</div><div class="lab">Downtime across a 50TB migration</div><div class="sub">Phased delivery on a programme where an outage would have been a regulatory event</div></div>
+      <div class="mc tilt r d3"><div class="n">6&rarr;8 wks</div><div class="lab">Cut to self-serve</div><div class="sub">Twelve domains were waiting two months per data request. Federated ownership removed the queue entirely</div></div>
+      <div class="mc tilt r d4"><div class="n">40%&rarr;0</div><div class="lab">Manual overrides eliminated</div><div class="sub">A fraud platform operators were bypassing four times in ten. Rebuilt around their actual decision, not the model's confidence</div></div>
       <div class="mc tilt r d5"><div class="n">25 yrs</div><div class="lab">No failed flagship platform</div><div class="sub">Across banking, healthcare and manufacturing. Sustained judgment, not one lucky bet</div></div>
     </div>
   </div>
@@ -491,7 +619,7 @@ a:focus-visible,button:focus-visible,.dot:focus-visible{outline:2px solid var(--
     <div class="s5-head">
       <div>
         <div class="eyebrow r">Selected engagements</div>
-        <h2 class="s5h r d1">The work, and what was <em>really</em> broken.</h2>
+        <h2 class="s5h r d1">Nine times through <em>these pivots</em>.</h2>
       </div>
       <div class="tabs r d2">
         <button class="tb on" data-tab="bfs">Banking</button>
@@ -501,19 +629,19 @@ a:focus-visible,button:focus-visible,.dot:focus-visible{outline:2px solid var(--
     </div>
     <div class="ccon">
       <div class="cgrid tilt-scene" id="tab-bfs">
-        <div class="cc tilt"><span class="cc-sec">Regulatory · Major Bank</span><div class="cc-hi">The data was fine. The accountability wasn't.</div><div class="cc-prob">Regulators asked questions the data couldn't answer. The cause: twelve teams, twelve versions of the truth, no shared ownership.</div><div class="cc-sol">Federated governance on Data Vault 2.0, led by a governance CoE that gave every team ownership rather than obligation. Trust first, platform second.</div><div class="cc-out"><span class="n">&check;</span><span class="t">Systemic risk transparency restored; teams aligned</span></div></div>
-        <div class="cc tilt"><span class="cc-sec">National Tax Authority</span><div class="cc-hi">A capable platform nobody would use.</div><div class="cc-prob">Investigators ignored automated fraud scores. Nobody had explained the logic, so the spend sat idle as expensive shelfware.</div><div class="cc-sol">Redesigned the investigator workflow alongside the model. Co-designed the interface and built transparency into every score with the people using it.</div><div class="cc-out"><span class="n">10%</span><span class="t">YoY tax base growth · 50% faster resolution</span></div></div>
-        <div class="cc tilt"><span class="cc-sec">Real-Time Payments</span><div class="cc-hi">The ops team was overriding the system.</div><div class="cc-prob">A Kafka fraud platform performed well technically, but operations overrode it routinely because the alerts made no sense to them.</div><div class="cc-sol">Rebuilt the alert logic with the fraud team: thresholds, explanations, exception flows co-designed, then re-engineered the platform around those decisions.</div><div class="cc-out"><span class="n">&darr;</span><span class="t">Override rate collapsed; capture rate up</span></div></div>
+        <div class="cc tilt"><span class="cc-sec">Regulatory · Major Bank</span><span class="cc-pivot">Pivot 03 · Resilient</span><div class="cc-hi">The data was fine. The accountability wasn't.</div><div class="cc-prob">Regulators asked questions the data couldn't answer. The cause: twelve teams, twelve versions of the truth, no shared ownership.</div><div class="cc-sol">Federated governance on Data Vault 2.0, led by a governance CoE that gave every team ownership rather than obligation. Trust first, platform second.</div><div class="cc-out"><span class="n">&check;</span><span class="t">Systemic risk transparency restored; teams aligned</span></div></div>
+        <div class="cc tilt"><span class="cc-sec">National Tax Authority</span><span class="cc-pivot">Pivot 01 · Production</span><div class="cc-hi">A capable platform nobody would use.</div><div class="cc-prob">Investigators ignored automated fraud scores. Nobody had explained the logic, so the spend sat idle as expensive shelfware.</div><div class="cc-sol">Redesigned the investigator workflow alongside the model. Co-designed the interface and built transparency into every score with the people using it.</div><div class="cc-out"><span class="n">10%</span><span class="t">YoY tax base growth · 50% faster resolution</span></div></div>
+        <div class="cc tilt"><span class="cc-sec">Real-Time Payments</span><span class="cc-pivot">Pivot 03 · Resilient</span><div class="cc-hi">The ops team was overriding the system.</div><div class="cc-prob">A Kafka fraud platform performed well technically, but operations overrode it routinely because the alerts made no sense to them.</div><div class="cc-sol">Rebuilt the alert logic with the fraud team: thresholds, explanations, exception flows co-designed, then re-engineered the platform around those decisions.</div><div class="cc-out"><span class="n">&darr;</span><span class="t">Override rate collapsed; capture rate up</span></div></div>
       </div>
       <div class="cgrid tilt-scene" id="tab-ai" style="display:none">
-        <div class="cc tilt"><span class="cc-sec">GenAI &amp; RAG · Lending</span><div class="cc-hi">Analysts felt replaced, so they opted out.</div><div class="cc-prob">An AI-assisted KYC system was rejected by the lending team. Adoption near zero: the AI decided, the analysts watched.</div><div class="cc-sol">Reframed it as a copilot. Rebuilt the experience so analysts stayed the decision-makers with AI surfacing evidence. Workshops ran before code did.</div><div class="cc-out"><span class="n">&uarr;</span><span class="t">Adoption transformed; processing time down</span></div></div>
-        <div class="cc tilt"><span class="cc-sec">Predictive Analytics</span><div class="cc-hi">A good model, ignored.</div><div class="cc-prob">A sound churn model output probability scores. Managers ignored it: a number between 0 and 1 told them nothing actionable.</div><div class="cc-sol">Replaced scores with plain-language narratives and ranked actions. Rebuilt around the only question that mattered: what do I do next?</div><div class="cc-out"><span class="n">&rarr;</span><span class="t">From ignored to cited in every review</span></div></div>
-        <div class="cc tilt"><span class="cc-sec">ORIAN.Data Platform</span><div class="cc-hi">Brilliant outputs, no judgment behind them.</div><div class="cc-prob">AI investments kept producing confident answers nobody could stand behind. Teams couldn't explain decisions, executives couldn't verify them.</div><div class="cc-sol">Architected ORIAN.Data so judgment is structural: a Semantic Core that gives outputs context and a Trust pillar that makes them explainable.</div><div class="cc-out"><span class="n">&starf;</span><span class="t">Deployed across regulated-industry clients</span></div></div>
+        <div class="cc tilt"><span class="cc-sec">GenAI &amp; RAG · Lending</span><span class="cc-pivot">Pivot 01 · Production</span><div class="cc-hi">Analysts felt replaced, so they opted out.</div><div class="cc-prob">An AI-assisted KYC system was rejected by the lending team. Adoption near zero: the AI decided, the analysts watched.</div><div class="cc-sol">Reframed it as a copilot. Rebuilt the experience so analysts stayed the decision-makers with AI surfacing evidence. Workshops ran before code did.</div><div class="cc-out"><span class="n">&uarr;</span><span class="t">Adoption transformed; processing time down</span></div></div>
+        <div class="cc tilt"><span class="cc-sec">Predictive Analytics</span><span class="cc-pivot">Pivot 01 · Production</span><div class="cc-hi">A good model, ignored.</div><div class="cc-prob">A sound churn model output probability scores. Managers ignored it: a number between 0 and 1 told them nothing actionable.</div><div class="cc-sol">Replaced scores with plain-language narratives and ranked actions. Rebuilt around the only question that mattered: what do I do next?</div><div class="cc-out"><span class="n">&rarr;</span><span class="t">From ignored to cited in every review</span></div></div>
+        <div class="cc tilt"><span class="cc-sec">ORIAN.Data Platform</span><span class="cc-pivot">Pivot 02 · Industrialised</span><div class="cc-hi">Brilliant outputs, no judgment behind them.</div><div class="cc-prob">AI investments kept producing confident answers nobody could stand behind. Teams couldn't explain decisions, executives couldn't verify them.</div><div class="cc-sol">Architected ORIAN.Data so judgment is structural: a Semantic Core that gives outputs context and a Trust pillar that makes them explainable.</div><div class="cc-out"><span class="n">&starf;</span><span class="t">Deployed across regulated-industry clients</span></div></div>
       </div>
       <div class="cgrid tilt-scene" id="tab-plat" style="display:none">
-        <div class="cc tilt"><span class="cc-sec">Global Lakehouse · Azure</span><div class="cc-hi">The argument was political, not technical.</div><div class="cc-prob">A multi-million Lakehouse stalled at six months. Every division defined the same metric differently. Technology was waiting on alignment.</div><div class="cc-sol">Ran business-alignment workshops before architecture. Built a shared glossary every division signed off, then designed the platform around that language.</div><div class="cc-out"><span class="n">1</span><span class="t">One source of truth, agreed before built</span></div></div>
-        <div class="cc tilt"><span class="cc-sec">Data Mesh · Enterprise Bank</span><div class="cc-hi">The central team was a bottleneck, not a service.</div><div class="cc-prob">Thirty people served twelve domains. Requests took six to eight weeks. Domains felt powerless; the team felt unappreciated.</div><div class="cc-sol">Led the cultural shift first: domain leads designed their own data products in workshops. The central team became enablers; the mesh followed the culture.</div><div class="cc-out"><span class="n">&uarr;</span><span class="t">Domain autonomy; faster insight; valued team</span></div></div>
-        <div class="cc tilt"><span class="cc-sec">50TB Migration · Utility</span><div class="cc-hi">The team feared being blamed.</div><div class="cc-prob">11,748 tables, 49.65 TB, 1,550 ETL objects. The plan was solid; the engineers were anxious because they couldn't see the whole picture.</div><div class="cc-sol">Built full sprint-by-sprint, risk-by-risk visibility. Every engineer could see what moved, when, and what rollback looked like. Transparency replaced fear.</div><div class="cc-out"><span class="n">50TB</span><span class="t">Phased delivery, on plan, confident team</span></div></div>
+        <div class="cc tilt"><span class="cc-sec">Global Lakehouse · Azure</span><span class="cc-pivot">Pivot 02 · Industrialised</span><div class="cc-hi">The argument was political, not technical.</div><div class="cc-prob">A multi-million Lakehouse stalled at six months. Every division defined the same metric differently. Technology was waiting on alignment.</div><div class="cc-sol">Ran business-alignment workshops before architecture. Built a shared glossary every division signed off, then designed the platform around that language.</div><div class="cc-out"><span class="n">1</span><span class="t">One source of truth, agreed before built</span></div></div>
+        <div class="cc tilt"><span class="cc-sec">Data Mesh · Enterprise Bank</span><span class="cc-pivot">Pivot 02 · Industrialised</span><div class="cc-hi">The central team was a bottleneck, not a service.</div><div class="cc-prob">Thirty people served twelve domains. Requests took six to eight weeks. Domains felt powerless; the team felt unappreciated.</div><div class="cc-sol">Led the cultural shift first: domain leads designed their own data products in workshops. The central team became enablers; the mesh followed the culture.</div><div class="cc-out"><span class="n">&uarr;</span><span class="t">Domain autonomy; faster insight; valued team</span></div></div>
+        <div class="cc tilt"><span class="cc-sec">50TB Migration · Utility</span><span class="cc-pivot">Pivot 03 · Resilient</span><div class="cc-hi">The team feared being blamed.</div><div class="cc-prob">11,748 tables, 49.65 TB, 1,550 ETL objects. The plan was solid; the engineers were anxious because they couldn't see the whole picture.</div><div class="cc-sol">Built full sprint-by-sprint, risk-by-risk visibility. Every engineer could see what moved, when, and what rollback looked like. Transparency replaced fear.</div><div class="cc-out"><span class="n">50TB</span><span class="t">Phased delivery, on plan, confident team</span></div></div>
       </div>
     </div>
     <div class="deeper r d3">
@@ -525,22 +653,49 @@ a:focus-visible,button:focus-visible,.dot:focus-visible{outline:2px solid var(--
 </section>
 
 <!-- ═══ S6 LEADERSHIP ═══ -->
-<section class="slide" id="s6" aria-label="Leadership">
+<section class="slide" id="s6" aria-label="Point of view">
   <div class="s6l">
-    <div class="eyebrow r">Leadership &amp; influence</div>
-    <h2 class="s6h r d1">I measure leadership by what<br>the people around me <em>become</em>.</h2>
-    <p class="s6-body r d2">A leader is not the person with the best ideas in the room. It is the person whose teams ship, grow, and outlast any single project. The proof is not in talks given. It is in capability left behind.</p>
+    <div class="eyebrow r">Point of view</div>
+    <h2 class="s6h r d1">I do the homework<br>before I give you <em>advice</em>.</h2>
+    <p class="s6-body r d2">A fractional lead is only worth having if their judgment is independent of the vendor in the room. Mine is grounded in primary research I publish openly, so you can check the reasoning rather than take the recommendation on trust.</p>
+    <a href="blueprint.html" class="s6-main r d2" style="display:block;background:var(--ink);color:#fff;text-decoration:none;padding:20px 22px;margin:0 0 22px;border-right:4px solid var(--yel);box-shadow:var(--shadow-md)">
+      <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--yel2);margin-bottom:8px">Start here</span>
+      <span style="display:block;font-size:1.12rem;font-weight:600;letter-spacing:-.02em;margin-bottom:7px">The Production Blueprint</span>
+      <span style="display:block;font-size:.88rem;line-height:1.5;color:rgba(255,255,255,.75)">Seven decisions between a pilot and a business result, with the evidence behind each one and the places it contradicts itself. The three papers below are the deep dives.</span>
+      <span style="display:inline-block;margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--yel)">Read the blueprint &rarr;</span>
+    </a>
     <div class="s6-roles r d3">
-      <div class="s6-role"><div class="medallion"><svg class="ico" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1 2 3 6 3s6-2 6-3v-5"/></svg></div><span><strong>Mentor</strong>, IIT Madras Pravartak, national open-source data strategy</span></div>
+      <div class="s6-role"><div class="medallion"><svg class="ico" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg></div><span><strong>Mentor</strong>, IIT Madras Pravartak, national open-source data strategy</span></div>
       <div class="s6-role"><div class="medallion"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a6 6 0 016-6h4a6 6 0 016 6v2"/></svg></div><span><strong>Founder</strong>, enterprise Architect Community of Practice</span></div>
       <div class="s6-role"><div class="medallion"><svg class="ico" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z"/></svg></div><span><strong>Two-time hackathon winner</strong>, ING, data intelligence &amp; lineage</span></div>
       <div class="s6-role"><div class="medallion"><svg class="ico" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div><span><strong>PG, AI for Leaders</strong>, UT Austin · Apache Kafka certified</span></div>
     </div>
   </div>
   <div class="s6r tilt-scene">
-    <div class="pf tilt r"><span class="n">70%+</span><span class="d">Architects certified through a community of practice I designed and ran: capability built inside the organisation, not contracted out</span></div>
-    <div class="pf tilt r d1"><span class="n">47%+</span><span class="d">Data &amp; analytics engineers cloud-certified through a structured upskilling culture</span></div>
-    <div class="pf tilt r d2"><span class="n">20+</span><span class="d">Solution architects led across global engagements. The human layer applies to teams, not just systems</span></div>
+    <a href="multi-agent-enterprise.html" class="pov tilt r" target="_blank" rel="noopener">
+      <div class="pov-top"><span class="pov-tag">If you are deploying agents</span></div>
+      <div class="pov-title">The Multi-Agent Enterprise</div>
+      <div class="pov-findings">
+        <div class="pov-find">Published research shows agents negotiating against each other settle into collusion, even with every direct channel between them removed. If your agents transact, this is a governance question before it is a technical one.</div>
+      </div>
+      <div class="pov-arrow">Read the paper →</div>
+    </a>
+    <a href="model-architecture.html" class="pov tilt r d1" target="_blank" rel="noopener">
+      <div class="pov-top"><span class="pov-tag">If you are choosing models</span></div>
+      <div class="pov-title">Frontier &amp; Open-Weights Architecture</div>
+      <div class="pov-findings">
+        <div class="pov-find">Eighteen open and eight closed models compared on the same axis. Written so you can challenge a vendor's benchmark claim in a procurement meeting rather than accept it.</div>
+      </div>
+      <div class="pov-arrow">Read the paper →</div>
+    </a>
+    <a href="enterprise-model-stack.html" class="pov tilt r d2" target="_blank" rel="noopener">
+      <div class="pov-top"><span class="pov-tag">If you are building the platform</span></div>
+      <div class="pov-title">The Enterprise Model Stack</div>
+      <div class="pov-findings">
+        <div class="pov-find">How to build a system that survives the model underneath it being replaced every few months. The architecture question most AI business cases quietly skip.</div>
+      </div>
+      <div class="pov-arrow">Read the paper →</div>
+    </a>
   </div>
 </section>
 
@@ -638,8 +793,8 @@ a:focus-visible,button:focus-visible,.dot:focus-visible{outline:2px solid var(--
   <div class="s9-dots"></div>
   <div class="s9-wrap">
     <div class="eyebrow s9-eyebrow r">Let's talk</div>
-    <h2 class="s9h r d1">Where intelligence<br>needs <em>judgment</em>.</h2>
-    <p class="s9-lead r d2">Enterprise data and AI strategy. Architecture that decides well, not just computes fast. Advisory and leadership for organisations putting agentic systems into places that matter.</p>
+    <h2 class="s9h r d1">Which pivot are you <em>stuck at</em>?</h2>
+    <p class="s9-lead r d2">I take on two or three fractional engagements at a time, typically two to three days a week, for six to twelve months. Enough to own the decisions and see them through, without the cost of a permanent hire. Most start with a 45-minute call where I tell you honestly whether you need me, or whether it's a problem your team can close themselves.</p>
     <div class="s9-row r d3">
       <a href="mailto:Rathour.vikram@gmail.com" class="cbtn pri"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 6l8 6 8-6"/></svg> Email</a>
       <a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener" class="cbtn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v6h-4v-6a2 2 0 00-4 0v6h-4v-10h4v2"/><circle cx="4" cy="4" r="2"/><path d="M2 9h4v11H2z"/></svg> LinkedIn</a>
@@ -694,6 +849,7 @@ document.querySelectorAll('.tb').forEach(b=>{
       case 's7':  return {max:4,  lift:7,  glare:false};  // Signature: gentle, human
       case 's8':  return {max:5,  lift:9,  glare:false};  // Writing: editorial, paper-like
       case 's3':  return {max:6,  lift:10, glare:false};  // Approach: deliberate
+      case 's3b': return {max:5,  lift:9,  glare:false};  // Engagements: businesslike, no showmanship
       default:    return {max:6,  lift:9,  glare:true};   // hero stats etc.
     }
   }
