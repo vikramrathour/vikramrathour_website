@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Human in the Loop Has to Know What Right Looks Like | Vikram Rathour</title>
+<meta name="description" content="Human in the loop without domain expertise is not a safety net. It is a spectator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Vikram Rathour">
+<meta property="og:title" content="The Human in the Loop Has to Know What Right Looks Like | Vikram Rathour">
+<meta property="og:description" content="Human in the loop without domain expertise is not a safety net. It is a spectator.">
+<meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/blog/human-in-the-loop-has-to-know-what-right-looks-like.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Human in the Loop Has to Know What Right Looks Like | Vikram Rathour">
+<meta name="twitter:description" content="Human in the loop without domain expertise is not a safety net. It is a spectator.">
+<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/blog/human-in-the-loop-has-to-know-what-right-looks-like.html">
+<style>
+:root{
+  --paper:#D9DCE1;--paper2:#E4E7EB;--card:#F5F6F8;
+  --ink:#13182B;--ink2:#2A3147;
+  --t2:rgba(19,24,43,.70);--t2b:rgba(19,24,43,.58);--t3:rgba(19,24,43,.45);--t4:rgba(19,24,43,.20);
+  --line:rgba(19,24,43,.10);--line2:rgba(19,24,43,.16);
+  --blue:#1F6FD0;--blue2:#3B86E8;--blue-dk:#13477E;--blue-pale:rgba(31,111,208,.07);--blue-bdr:rgba(31,111,208,.22);
+  --yel:#F47820;--yel2:#FF8F3C;--yel-dk:#8E3800;--yel-pale:rgba(244,120,32,.11);--yel-bdr:rgba(244,120,32,.45);
+  --shadow-sm:0 2px 8px rgba(19,24,43,.06);--shadow-md:0 8px 30px rgba(19,24,43,.10);--shadow-lg:0 24px 60px rgba(19,24,43,.16);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:#FFFFFF;color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:19px;line-height:1.72;-webkit-font-smoothing:antialiased;letter-spacing:-.005em;overflow-x:hidden}
+#pb{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--yel));z-index:1200;transition:width .12s linear}
+body > nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--line2)}
+.nrow{max-width:1680px;margin:0 auto;padding:14px clamp(24px,3.2vw,60px);display:flex;justify-content:space-between;align-items:center;gap:20px}
+.nlogo{font-size:1rem;font-weight:500;color:var(--ink);text-decoration:none;white-space:nowrap}
+.nlogo span{color:var(--blue)}
+.nback{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);text-decoration:none;border-bottom:1px solid var(--blue-bdr);padding-bottom:2px;white-space:nowrap}
+.nback:hover{color:var(--blue-dk);border-color:var(--blue)}
+.wrap{max-width:1680px;margin:0 auto;padding:0 clamp(24px,3.2vw,60px)}
+.wide{max-width:1680px;margin:0 auto;padding:0 clamp(24px,3.2vw,60px)}
+.kick{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:13px;margin-bottom:24px}
+.kick::before{content:'';width:34px;height:2px;background:var(--blue)}
+h1{font-size:clamp(2.1rem,4.4vw,3.2rem);line-height:1.08;font-weight:600;letter-spacing:-.033em;margin-bottom:22px}
+h1 em{font-style:normal;color:var(--blue)}
+h2{font-size:clamp(1.45rem,2.5vw,1.95rem);line-height:1.2;font-weight:600;letter-spacing:-.025em;margin:56px 0 18px;scroll-margin-top:104px}
+h3{font-size:clamp(1.08rem,1.7vw,1.28rem);line-height:1.3;font-weight:600;letter-spacing:-.018em;margin:40px 0 14px;scroll-margin-top:104px}
+p{margin-bottom:20px;color:var(--ink2)}
+strong{font-weight:600;color:var(--ink)}
+a{color:var(--blue-dk);text-decoration:none;border-bottom:1px solid var(--blue-bdr)}
+a:hover{border-color:var(--blue);background:var(--blue-pale)}
+ul,ol{margin:0 0 22px 0;padding-left:24px}
+li{margin-bottom:11px;color:var(--ink2)}
+li::marker{color:var(--blue)}
+li ul,li ol{margin-top:11px;margin-bottom:4px}
+blockquote{border-left:3px solid var(--yel);background:var(--yel-pale);padding:20px 26px;margin:32px 0;font-size:1.06rem;color:var(--ink)}
+blockquote p:last-child{margin-bottom:0}
+figure{margin:36px 0}
+figure img{width:100%;height:auto;display:block;border:1px solid var(--line2);background:var(--card)}
+figure.narrow img{max-width:900px;margin:0 auto}
+figcaption{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.04em;color:var(--t3);margin-top:10px}
+pre{background:#11162A;color:#D6DCEA;padding:24px 28px;overflow-x:auto;margin:32px 0;border-left:3px solid var(--blue);font-size:.76rem;line-height:1.62}
+pre code{font-family:'IBM Plex Mono',monospace;background:none;border:none;padding:0;color:inherit;white-space:pre}
+code{font-family:'IBM Plex Mono',monospace;font-size:.86em;background:var(--paper2);padding:1px 6px;border:1px solid var(--line);border-radius:3px}
+hr{border:none;border-top:1px solid var(--line2);margin:44px 0}
+table{width:100%;border-collapse:collapse;font-size:.93rem;margin:28px 0;background:var(--card);border:1px solid var(--line2)}
+th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.11em;text-transform:uppercase;color:#fff;background:var(--ink2);padding:12px 15px;font-weight:400}
+td{padding:13px 15px;border-top:1px solid var(--line);color:var(--ink2);vertical-align:top}
+.standfirst{font-size:1.14rem;line-height:1.62;color:var(--ink);font-weight:300;margin-bottom:26px}
+.disclaimer{font-size:.9rem;color:var(--t2b);font-style:italic;border-left:2px solid var(--t4);padding-left:16px;margin:30px 0}
+.r{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.r.s{opacity:1;transform:none}
+footer{background:var(--ink);color:rgba(255,255,255,.7);padding:56px 0 44px;margin-top:80px}
+footer .wide{display:flex;justify-content:space-between;gap:36px;flex-wrap:wrap;align-items:flex-start}
+footer h4{color:#fff;margin:0 0 12px;font-size:1.02rem}
+footer p{color:rgba(255,255,255,.6);font-size:.9rem;max-width:440px;margin:0}
+footer a{color:var(--yel2);border-bottom:1px solid rgba(244,120,32,.4)}
+footer a:hover{color:#fff;background:none}
+.flinks{display:flex;flex-direction:column;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+@media (max-width:1180px){
+  .wrap,.wide,.nrow{padding-left:32px;padding-right:32px}
+}
+@media (max-width:860px){
+  body{font-size:17px}
+  .wrap,.wide,.nrow{padding-left:22px;padding-right:22px}
+  pre{font-size:.68rem;padding:15px 16px}
+  h2{margin-top:40px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r{opacity:1;transform:none}html{scroll-behavior:auto}}
+
+header.posthead{padding:150px 0 0;border-bottom:1px solid var(--line2)}
+.pmeta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px}
+.pmeta .cat{color:#fff;background:var(--blue);padding:3px 10px}
+.pmeta .dt,.pmeta .rd{color:var(--t3)}
+h1{max-width:26ch}
+.byline{display:flex;align-items:center;gap:12px;padding:22px 0 30px;margin-top:26px;font-size:.92rem;color:var(--t2)}
+.byline .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(145deg,var(--blue2),var(--blue-dk));color:#fff;display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:600;flex-shrink:0}
+.byline b{color:var(--ink);font-weight:600}
+.artgrid{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(2.5rem,4.5vw,4.5rem);padding-top:46px;padding-bottom:20px;align-items:start}
+.rail{position:sticky;top:96px;max-height:calc(100vh - 130px);overflow-y:auto;scrollbar-width:thin;font-family:'IBM Plex Mono',monospace}
+.rail-h{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);padding-bottom:10px;border-bottom:1px solid var(--line2);margin-bottom:14px}
+.rail a{display:block;font-size:.72rem;line-height:1.45;color:var(--t2b);text-decoration:none;border:none;padding:7px 0 7px 12px;border-left:2px solid var(--line2);letter-spacing:.01em}
+.rail a:hover{color:var(--blue-dk);border-left-color:var(--blue);background:none}
+.rail a.on{color:var(--blue-dk);border-left-color:var(--blue)}
+.prose{min-width:0;max-width:none}
+.prose > blockquote{max-width:none}
+.prose p,.prose li{line-height:1.76}
+.postnav{border-top:1px solid var(--line2);margin-top:64px;padding-top:34px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+.pn-all{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);border-bottom:1px solid var(--blue-bdr)}
+.pn-orig{font-size:.84rem;color:var(--t3);border:none}
+.pn-orig:hover{background:none;color:var(--blue-dk)}
+@media (max-width:1100px){
+  .artgrid{grid-template-columns:1fr;gap:0;padding-top:34px}
+  .rail{display:none}
+  .prose{max-width:none}
+}
+@media (max-width:860px){header.posthead{padding:132px 0 0}}
+</style>
+</head>
+<body>
+<div id="pb"></div>
+<nav>
+  <div class="nrow">
+    <a href="../index.html" class="nlogo">Vikram <span>Rathour</span></a>
+    <a href="index.html" class="nback">&larr; All writing</a>
+  </div>
+</nav>
+
+<header class="posthead">
+  <div class="wrap">
+    <div class="pmeta r"><span class="cat">Agentic AI</span><span class="dt">17 March 2026</span><span class="rd">11 min read</span></div>
+    <h1 class="r">The Human in the Loop Has to Know What Right Looks Like</h1>
+    <div class="byline r"><span class="av">VR</span><span><b>Vikram Rathour</b>, enterprise data and AI</span></div>
+  </div>
+</header>
+<article class="article">
+  <div class="wrap artgrid">
+    <aside class="rail" id="rail"><div class="rail-h">Contents</div><div id="toc"></div></aside>
+    <div class="prose">
+<p class="standfirst">Why HITL, judge models, and ontologies don't work without domain expertise, and what actually does.</p>
+
+<figure><img src="https://rathourvikram.wordpress.com/wp-content/uploads/2026/03/01_two_posts_that_belong_together.png" alt="Two Posts That Belong Together, two documents converging on a single truth" loading="lazy"></figure>
+
+<h2>Two Posts That Belong Together</h2>
+
+<p>Two posts crossed my feed this week that I keep coming back to. Separately, each makes a sharp point about the state of agentic AI. Together, they expose something the industry doesn't want to talk about.</p>
+
+<p>Dr. Milan Milanović (<a href="https://x.com/techworldwithmilan" target="_blank" rel="noopener">@techworldwithmilan</a>) drew a line between vibe coding and agentic engineering. Someone builds a project management tool with Claude Code over a weekend. Ships it. Tweets "just replaced Jira." The app works, on localhost, one user, happy path. Then two people edit the same record and the data silently corrupts. They don't know what an optimistic lock is. They never needed to before.</p>
+
+<p>Milan's punchline is worth pausing on: agentic engineering means you review everything the agent builds, because <strong>it will make mistakes that only look wrong if you know what correct looks like</strong>. The hard part of software was never writing the first 200 lines. It never was.</p>
+
+<p>Ashutosh Maheshwari (<a href="https://x.com/asmah2107" target="_blank" rel="noopener">@asmah2107</a>) took the next step and named the 80% that never makes the demo. His argument is structural: the teams winning with agentic AI aren't the ones with the best prompts or the smartest models. They're the ones who recognized early that they were building a <strong><em>platform</em></strong>, and staffed for it.</p>
+
+<p>The platform underneath every production agent has at least five load-bearing layers: data normalization across eleven different formats before a single LLM call can be made; state management for agents that forget everything when the context window resets; retry logic that knows a booking timeout needs different handling than a payment timeout; cost governance that catches a $0.12 demo task ballooning to $4.80 in production; and observability that can trace a bad decision back through every reasoning step, every tool call, every input that influenced the output.</p>
+
+<blockquote><p>The agent is the interface. The platform is the product.</p></blockquote>
+
+<p>Both posts converge on the same uncomfortable truth: the hard part was never the agent. It was everything around the agent. And more importantly, the people who know what "right" looks like at each layer.</p>
+
+<figure><img src="https://rathourvikram.wordpress.com/wp-content/uploads/2026/03/02_the_safety_blanket_that_isnt.png" alt="The Safety Blanket That Isn't, human in the loop is not equal to a checkbox" loading="lazy"></figure>
+
+<h2>The Safety Blanket That Isn't</h2>
+
+<p>Every agentic AI pitch I sit through has the same reassuring refrain. The compliance people relax when they hear it. The CTO nods. The slide gets approved.</p>
+
+<blockquote><p>"Don't worry, we have human in the loop."</p></blockquote>
+
+<p>HITL has become the enterprise equivalent of washing your hands and calling it surgery.</p>
+
+<p>Slap "human in the loop" on your agentic workflow and suddenly everyone in the room feels responsible. It sounds safe. It sounds governed. It checks a box that somebody, somewhere, wrote into a policy document.</p>
+
+<p>But here's what nobody asks: <em>which</em> human? Doing <em>what</em>, exactly? And do they know what "right" looks like before they're expected to spot what's wrong?</p>
+
+<p>Because HITL without domain expertise is not a safety net. It's a spectator. Someone watching an agent generate a data pipeline, nodding along, and approving it because the code ran without errors. But the code running is not the same as the code being correct. Milan's optimistic lock example is perfect here. The app worked. It was still broken.</p>
+
+<p>Ashutosh's booking agent example is even more vivid. A travel agency's agent called a booking API. The API timed out. The agent, not designed for that state, treated the absence of a rejection as implicit success and moved to the next step, emailing the customer a confirmation for a flight that was never booked. The agency discovered this after several customers showed up at airports expecting seats that didn't exist.</p>
+
+<p>A junior analyst reviewing an agent's credit risk model doesn't become a risk expert because they're "in the loop." A product manager approving an agent-generated API contract doesn't suddenly understand distributed transactions because there's a review step on the Jira board. The loop doesn't confer the knowledge. It just provides the illusion of oversight.</p>
+
+<figure><img src="https://rathourvikram.wordpress.com/wp-content/uploads/2026/03/03_judging_the_judge.png" alt="Judging the Judge, turtles all the way down, each AI judging the next" loading="lazy"></figure>
+
+<h2>Judging the Judge</h2>
+
+<p>If I have to sit through one more presentation where someone says "and of course, we use judge models to evaluate the agent's output" like they just solved alignment over lunch, I might actually lose it.</p>
+
+<p>Think about what's being claimed here. You built an AI you don't fully trust. So you built another AI to watch the first AI. And now you trust <em>that</em> one? At what point do we stop and ask who's judging the judge?</p>
+
+<p><strong>It's turtles all the way down, except the turtles are all hallucinating.</strong></p>
+
+<p>Judge models have their place. I'm not dismissing the pattern. For well-bounded evaluation tasks, format compliance, schema validation, factual consistency against a known source, a second model can be a useful automated check. But the moment the evaluation requires domain judgment, the judge model inherits exactly the same limitation as the primary agent: it doesn't know what it doesn't know. And it will score confidently wrong outputs as correct, because confidence is what these models do. It's their one reliable feature.</p>
+
+<figure><img src="https://rathourvikram.wordpress.com/wp-content/uploads/2026/03/04_the_ontology_isnt_the_expertise.png" alt="The Ontology Isn't the Expertise, the map is not the territory" loading="lazy"></figure>
+
+<h2>The Ontology Isn't the Expertise</h2>
+
+<p>The latest cure-all making the rounds is ontologies. Encode the domain knowledge into a graph. Let the agent reason over structured relationships instead of vibing its way through unstructured prompts. Problem solved, right?</p>
+
+<p>Full disclosure, I'm on this path myself. We're building semantic layers and domain ontologies into our data platform. The architectural instinct is sound. Ontologies give agents something structured to reason against instead of free-associating from training data. They reduce hallucination surface area. They create guardrails that are more principled than prompt engineering alone. That part isn't wrong.</p>
+
+<p>But somewhere between the architecture diagram and the production deployment, people started believing the ontology <em>is</em> the expertise. As if you can interview a domain expert for two afternoons, pour their knowledge into an RDF graph, and now the agent "understands" credit risk or pharmaceutical regulation or energy grid operations.</p>
+
+<p>That's not how any of this works.</p>
+
+<p>The ontology is a map. It is not the territory. And the territory has landmines that only show up after you've walked it for a decade. Who decides which entity relationships actually matter? Who catches the edge case the ontology doesn't model because nobody thought to ask about it during those two afternoons? Who notices that the agent is technically traversing the graph correctly but arriving at a conclusion that would get you fined by a regulator?</p>
+
+<p>A human. A specific human. One who's been doing this long enough to know where the bodies are buried.</p>
+
+<figure><img src="https://rathourvikram.wordpress.com/wp-content/uploads/2026/03/05_platforms_solve_plumbing_not_judgment.png" alt="Cloud platforms solve plumbing, not judgment, the domain-specific gap" loading="lazy"></figure>
+
+<h2>But Don't the Cloud Platforms Solve This?</h2>
+
+<p>There's an obvious pushback to Ashutosh's five-layer platform argument, and it's fair: isn't this what Vertex AI, Azure AI Foundry, and AWS Bedrock already provide? Orchestration, model routing, cost tracking, retry infrastructure, tracing, these are increasingly managed services. Why build the platform yourself?</p>
+
+<p>And they're partially right. The cloud platforms are commoditizing the plumbing. A team building on Vertex AI Agent Builder doesn't need to hand-roll checkpointing. Azure gives you observability tooling out of the box. Bedrock handles model routing. That's real, and it's genuinely useful.</p>
+
+<p>But here's the gap nobody talks about.</p>
+
+<p>The platform gives you a chunking framework. It doesn't know that a clinical note needs different chunking than a financial filing because regulatory context spans paragraphs in one and sentences in the other. It gives you retry logic. It doesn't know that a booking timeout needs different handling than a payment timeout because one is idempotent and the other will charge someone twice. It tracks your costs. It doesn't know that your RFP agent should route to a cheaper model for boilerplate sections but needs the frontier model for the competitive differentiation section, because that distinction is a business judgment, not a token count.</p>
+
+<p>The cloud platforms solve the <em>generic</em> infrastructure problem. They do not solve the <em>domain-specific configuration</em> problem. And that's precisely where the expertise gap lives. The more the infrastructure becomes managed, the more the differentiator shifts to the humans who know how to configure it correctly for their specific use case.</p>
+
+<p>The platform layer gets easier. The expertise layer gets <em>more</em> important, not less.</p>
+
+<figure><img src="https://rathourvikram.wordpress.com/wp-content/uploads/2026/03/06_a_different_ratio.png" alt="A Different Ratio, one expert overseeing fifty pipelines" loading="lazy"></figure>
+
+<h2>So What Actually Works?</h2>
+
+<p>If I've spent this entire article critiquing the industry's shortcuts, it's fair to ask: what's the constructive answer? Because if every agentic stage still needs the same number of domain experts reviewing everything, we haven't automated anything. We've just added a software layer between the expert and the work they were already doing. That's not a 10x gain. That's a 0.8x gain with better dashboards.</p>
+
+<p>The answer isn't "same team plus agents", that's just cost on cost, and as Ashutosh shows, the infrastructure platform alone can balloon a weekend project into a quarter-long build. And it isn't "agents minus team", that's Milan's localhost disaster playing out at enterprise scale.</p>
+
+<p>The answer is a <strong>different ratio</strong>.</p>
+
+<p>Agentic AI doesn't eliminate the need for expertise. It changes how far each expert can reach. One credit risk specialist who previously reviewed five pipelines manually can now oversee fifty, because the agent handles routine execution and the semantic layer filters noise down to the decisions that actually require judgment. The expert focuses on edge cases, exception patterns, and the "this is technically correct but will get us fined" pattern recognition that comes from years of scar tissue in a specific domain.</p>
+
+<p>The analogy isn't "replace the pilot with autopilot." It's "autopilot lets one pilot fly routes that used to need three." The pilot still needs to know how to fly. But you need fewer of them, and each one covers more ground.</p>
+
+<p>This means the real organizational shift looks something like this: fewer deep domain experts, each supervising a wider surface area of agentic workflows. The agents handle volume and routine correctness. The cloud platform handles infrastructure. The ontologies and semantic layers reduce the frequency of expert intervention by giving agents better guardrails, not perfect guardrails, but good enough to filter the noise. And the experts handle the judgment calls that no managed service, no judge model, and no knowledge graph can replicate.</p>
+
+<p>The ontology isn't the expertise. It's what lets one expert do the work of five. The cloud platform isn't the product. It's what lets you stop building plumbing and start solving domain problems. And the expert isn't overhead. They're the reason any of it works.</p>
+
+<figure><img src="https://rathourvikram.wordpress.com/wp-content/uploads/2026/03/07_an_operating_model_not_a_checkbox.png" alt="An Operating Model Not a Checkbox, layered architecture with Domain Expert at the top" loading="lazy"></figure>
+
+<h2>An Operating Model, Not a Checkbox</h2>
+
+<p>Milan said the hard part of software was never writing the first 200 lines. He's right. Ashutosh showed us that the agent is just the interface, the platform is the engine. The cloud vendors are commoditizing that platform. And the hard part of all of it, the thing that doesn't commoditize, is the human who knows what right looks like.</p>
+
+<p>Not at the approval gate. Not just when the dashboard turns red. At every layer. At every class of decision. The human who's been burned enough times to smell a problem before it surfaces. The human who reads between the lines of a clean-looking output and says "this is wrong, and here's why."</p>
+
+<p>That's not a role you automate. That's not a checkbox on a governance slide. That's not an ontology, a judge model, or a managed service.</p>
+
+<p>That's 25 years of scar tissue in banking or healthcare or manufacturing, knowing exactly which corner the system will cut when nobody's watching.</p>
+
+<blockquote><p>The human has to know what right looks like. At every stage. That's not a checkbox. That's an operating model.</p></blockquote>
+
+<hr>
+
+<h3>Credits and references</h3>
+
+<p>This article builds on and credits two posts that sparked the thinking:</p>
+
+<ul>
+<li><strong>Dr. Milan Milanović</strong>, on the distinction between vibe coding and agentic engineering, and why the hard part was never the first 200 lines. <a href="https://x.com/milan_milanovic/status/2032781068701508044" target="_blank" rel="noopener">Original post</a></li>
+<li><strong>Ashutosh Maheshwari</strong>, on the 80% of agentic AI work that isn't AI, and why winning teams build platforms, not just agents. <a href="https://ashutoshmaheshwari.substack.com/p/why-80-of-agentic-ai-work-isnt-ai" target="_blank" rel="noopener">Article on Agentic AI</a></li>
+</ul>
+
+<p>The views and synthesis are my own.</p>
+
+<p class="disclaimer">Disclaimer: This blog post has been co-created using Anthropic's Claude. The ideas, arguments, and synthesis are the result of iterative refinement across multiple drafts.</p>
+
+    <div class="postnav">
+      <a href="index.html" class="pn-all">&larr; All writing</a>
+      <a href="https://rathourvikram.wordpress.com/2026/03/17/the-human-in-the-loop-has-to-know-what-right-looks-like/" class="pn-orig" target="_blank" rel="noopener">Originally published on Technology Cravings</a>
+    </div>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="wide">
+    <div>
+      <h4>Vikram Rathour</h4>
+      <p>Twenty-six years in enterprise data and AI across banking, healthcare and manufacturing. These essays are where the thinking gets worked out before it becomes architecture.</p>
+    </div>
+    <div class="flinks">
+      <a href="../index.html">Main site</a>
+      <a href="index.html">All writing</a>
+      <a href="../blueprint.html">The Production Blueprint</a>
+      <a href="../judgment-room.html">The Judgment Room</a>
+      <a href="../wisdom-loop.html">Order from Noise</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var pb=document.getElementById('pb');
+  function prog(){var h=document.documentElement.scrollHeight-window.innerHeight;pb.style.width=(h>0?(window.scrollY/h)*100:0)+'%';}
+  window.addEventListener('scroll',prog,{passive:true});prog();
+  // build the contents rail from the article's own headings
+  var toc=document.getElementById('toc');
+  if(toc){
+    var hs=[].slice.call(document.querySelectorAll('.prose > h2'));
+    if(hs.length<3){ var rail=document.getElementById('rail'); if(rail) rail.style.display='none'; }
+    else{
+      hs.forEach(function(h,i){
+        if(!h.id) h.id='s'+i;
+        var a=document.createElement('a'); a.href='#'+h.id; a.textContent=h.textContent; toc.appendChild(a);
+      });
+      if('IntersectionObserver' in window){
+        var links=[].slice.call(toc.querySelectorAll('a'));
+        var so=new IntersectionObserver(function(es){
+          es.forEach(function(e){ if(e.isIntersecting){
+            links.forEach(function(l){ l.classList.toggle('on', l.getAttribute('href')==='#'+e.target.id); });
+          }});
+        },{rootMargin:'-100px 0px -72% 0px',threshold:0});
+        hs.forEach(function(h){ so.observe(h); });
+      }
+    }
+  }
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce&&'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('s');io.unobserve(e.target);}})},{threshold:.06,rootMargin:'0px 0px -5% 0px'});
+    document.querySelectorAll('.r').forEach(function(el){io.observe(el)});
+  } else { document.querySelectorAll('.r').forEach(function(el){el.classList.add('s')}); }
+})();
+</script>
+</body>
+</html>

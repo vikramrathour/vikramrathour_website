@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing | Vikram Rathour</title>
+<meta name="description" content="Essays on enterprise data, agentic AI, and the judgment layer that makes intelligent systems trustworthy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Vikram Rathour">
+<meta property="og:title" content="Writing | Vikram Rathour">
+<meta property="og:description" content="Essays on enterprise data, agentic AI, and the judgment layer that makes intelligent systems trustworthy.">
+<meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/blog/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Writing | Vikram Rathour">
+<meta name="twitter:description" content="Essays on enterprise data, agentic AI, and the judgment layer that makes intelligent systems trustworthy.">
+<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/blog/">
+<style>
+:root{
+  --paper:#D9DCE1;--paper2:#E4E7EB;--card:#F5F6F8;
+  --ink:#13182B;--ink2:#2A3147;
+  --t2:rgba(19,24,43,.70);--t2b:rgba(19,24,43,.58);--t3:rgba(19,24,43,.45);--t4:rgba(19,24,43,.20);
+  --line:rgba(19,24,43,.10);--line2:rgba(19,24,43,.16);
+  --blue:#1F6FD0;--blue2:#3B86E8;--blue-dk:#13477E;--blue-pale:rgba(31,111,208,.07);--blue-bdr:rgba(31,111,208,.22);
+  --yel:#F47820;--yel2:#FF8F3C;--yel-dk:#8E3800;--yel-pale:rgba(244,120,32,.11);--yel-bdr:rgba(244,120,32,.45);
+  --shadow-sm:0 2px 8px rgba(19,24,43,.06);--shadow-md:0 8px 30px rgba(19,24,43,.10);--shadow-lg:0 24px 60px rgba(19,24,43,.16);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:#FFFFFF;color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:19px;line-height:1.72;-webkit-font-smoothing:antialiased;letter-spacing:-.005em;overflow-x:hidden}
+#pb{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--yel));z-index:1200;transition:width .12s linear}
+body > nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--line2)}
+.nrow{max-width:1680px;margin:0 auto;padding:14px clamp(24px,3.2vw,60px);display:flex;justify-content:space-between;align-items:center;gap:20px}
+.nlogo{font-size:1rem;font-weight:500;color:var(--ink);text-decoration:none;white-space:nowrap}
+.nlogo span{color:var(--blue)}
+.nback{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);text-decoration:none;border-bottom:1px solid var(--blue-bdr);padding-bottom:2px;white-space:nowrap}
+.nback:hover{color:var(--blue-dk);border-color:var(--blue)}
+.wrap{max-width:1680px;margin:0 auto;padding:0 clamp(24px,3.2vw,60px)}
+.wide{max-width:1680px;margin:0 auto;padding:0 clamp(24px,3.2vw,60px)}
+.kick{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:13px;margin-bottom:24px}
+.kick::before{content:'';width:34px;height:2px;background:var(--blue)}
+h1{font-size:clamp(2.1rem,4.4vw,3.2rem);line-height:1.08;font-weight:600;letter-spacing:-.033em;margin-bottom:22px}
+h1 em{font-style:normal;color:var(--blue)}
+h2{font-size:clamp(1.45rem,2.5vw,1.95rem);line-height:1.2;font-weight:600;letter-spacing:-.025em;margin:56px 0 18px;scroll-margin-top:104px}
+h3{font-size:clamp(1.08rem,1.7vw,1.28rem);line-height:1.3;font-weight:600;letter-spacing:-.018em;margin:40px 0 14px;scroll-margin-top:104px}
+p{margin-bottom:20px;color:var(--ink2)}
+strong{font-weight:600;color:var(--ink)}
+a{color:var(--blue-dk);text-decoration:none;border-bottom:1px solid var(--blue-bdr)}
+a:hover{border-color:var(--blue);background:var(--blue-pale)}
+ul,ol{margin:0 0 22px 0;padding-left:24px}
+li{margin-bottom:11px;color:var(--ink2)}
+li::marker{color:var(--blue)}
+li ul,li ol{margin-top:11px;margin-bottom:4px}
+blockquote{border-left:3px solid var(--yel);background:var(--yel-pale);padding:20px 26px;margin:32px 0;font-size:1.06rem;color:var(--ink)}
+blockquote p:last-child{margin-bottom:0}
+figure{margin:36px 0}
+figure img{width:100%;height:auto;display:block;border:1px solid var(--line2);background:var(--card)}
+figure.narrow img{max-width:900px;margin:0 auto}
+figcaption{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.04em;color:var(--t3);margin-top:10px}
+pre{background:#11162A;color:#D6DCEA;padding:24px 28px;overflow-x:auto;margin:32px 0;border-left:3px solid var(--blue);font-size:.76rem;line-height:1.62}
+pre code{font-family:'IBM Plex Mono',monospace;background:none;border:none;padding:0;color:inherit;white-space:pre}
+code{font-family:'IBM Plex Mono',monospace;font-size:.86em;background:var(--paper2);padding:1px 6px;border:1px solid var(--line);border-radius:3px}
+hr{border:none;border-top:1px solid var(--line2);margin:44px 0}
+table{width:100%;border-collapse:collapse;font-size:.93rem;margin:28px 0;background:var(--card);border:1px solid var(--line2)}
+th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.11em;text-transform:uppercase;color:#fff;background:var(--ink2);padding:12px 15px;font-weight:400}
+td{padding:13px 15px;border-top:1px solid var(--line);color:var(--ink2);vertical-align:top}
+.standfirst{font-size:1.14rem;line-height:1.62;color:var(--ink);font-weight:300;margin-bottom:26px}
+.disclaimer{font-size:.9rem;color:var(--t2b);font-style:italic;border-left:2px solid var(--t4);padding-left:16px;margin:30px 0}
+.r{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.r.s{opacity:1;transform:none}
+footer{background:var(--ink);color:rgba(255,255,255,.7);padding:56px 0 44px;margin-top:80px}
+footer .wide{display:flex;justify-content:space-between;gap:36px;flex-wrap:wrap;align-items:flex-start}
+footer h4{color:#fff;margin:0 0 12px;font-size:1.02rem}
+footer p{color:rgba(255,255,255,.6);font-size:.9rem;max-width:440px;margin:0}
+footer a{color:var(--yel2);border-bottom:1px solid rgba(244,120,32,.4)}
+footer a:hover{color:#fff;background:none}
+.flinks{display:flex;flex-direction:column;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+@media (max-width:1180px){
+  .wrap,.wide,.nrow{padding-left:32px;padding-right:32px}
+}
+@media (max-width:860px){
+  body{font-size:17px}
+  .wrap,.wide,.nrow{padding-left:22px;padding-right:22px}
+  pre{font-size:.68rem;padding:15px 16px}
+  h2{margin-top:40px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r{opacity:1;transform:none}html{scroll-behavior:auto}}
+
+header.bloghero{padding:168px 0 54px;position:relative;overflow:hidden}
+.bloghero-bg{position:absolute;inset:0;background-image:radial-gradient(var(--line) 1.5px,transparent 1.5px);background-size:40px 40px;mask-image:radial-gradient(ellipse 70% 80% at 28% 40%,#000 20%,transparent 100%);pointer-events:none}
+.lede{font-size:clamp(1.08rem,1.7vw,1.3rem);line-height:1.6;color:var(--ink2);max-width:760px;font-weight:300}
+.postgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line2);border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);margin:0 0 70px}
+.pcard{background:#fff;padding:34px 36px;text-decoration:none;border:none;display:flex;flex-direction:column;transition:background .3s var(--ease)}
+.pcard:hover{background:var(--card)}
+.pcard.lead{grid-column:1 / -1;background:var(--card)}
+.pc-meta{display:flex;align-items:center;gap:14px;margin-bottom:14px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase}
+.pc-cat{color:#fff;background:var(--blue);padding:3px 9px}
+.pcard.lead .pc-cat{background:var(--yel-dk)}
+.pc-date{color:var(--t3)}
+.pc-read{color:var(--t3);margin-left:auto}
+.pc-title{font-size:clamp(1.12rem,1.7vw,1.35rem);font-weight:600;letter-spacing:-.024em;line-height:1.24;color:var(--ink);margin-bottom:11px}
+.pcard.lead .pc-title{font-size:clamp(1.5rem,2.8vw,2.1rem);max-width:800px}
+.pc-ex{font-size:.95rem;line-height:1.6;color:var(--t2);margin-bottom:18px;flex:1}
+.pcard.lead .pc-ex{font-size:1.06rem;max-width:760px}
+.pc-go{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-top:auto}
+.pc-go svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none;transition:transform .25s}
+.pcard:hover .pc-go svg{transform:translateX(4px)}
+@media (max-width:1100px){.postgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){.postgrid{grid-template-columns:1fr}.pcard{padding:26px 22px}header.bloghero{padding:150px 0 40px}}
+</style>
+</head>
+<body>
+<div id="pb"></div>
+<nav>
+  <div class="nrow">
+    <a href="../index.html" class="nlogo">Vikram <span>Rathour</span></a>
+    <a href="../index.html" class="nback">&larr; Back to main</a>
+  </div>
+</nav>
+
+<header class="bloghero">
+  <div class="bloghero-bg"></div>
+  <div class="wide">
+    <div class="kick r">Writing</div>
+    <h1 class="r">Worked out here first,<br>then <em>built</em>.</h1>
+    <p class="lede r">Essays on enterprise data, agentic AI, and the judgment layer that decides what a model's output should be trusted to do. Seven pieces, oldest going back to an Oracle optimizer question from 2013.</p>
+  </div>
+</header>
+<div class="wide">
+  <div class="postgrid">
+    <a class="pcard lead r" href="storage-has-an-owner-meaning-has-an-accident.html">
+      <div class="pc-meta"><span class="pc-cat">Governance</span><span class="pc-date">26 May 2026</span><span class="pc-read">12 min</span></div>
+      <div class="pc-title">Storage Has an Owner. Meaning Has an Accident.</div>
+      <div class="pc-ex">We assign storage ownership with precision and interpretation authority by accident. Four moves to control the handoffs where a wrong meaning feeds a decision that matters.</div>
+      <span class="pc-go">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="pcard r" href="human-in-the-loop-has-to-know-what-right-looks-like.html">
+      <div class="pc-meta"><span class="pc-cat">Agentic AI</span><span class="pc-date">17 March 2026</span><span class="pc-read">11 min</span></div>
+      <div class="pc-title">The Human in the Loop Has to Know What Right Looks Like</div>
+      <div class="pc-ex">Human in the loop without domain expertise is not a safety net. It is a spectator.</div>
+      <span class="pc-go">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="pcard r" href="architects-gambit-ai-powered-courage.html">
+      <div class="pc-meta"><span class="pc-cat">Architecture</span><span class="pc-date">17 June 2025</span><span class="pc-read">10 min</span></div>
+      <div class="pc-title">The Architect&#x27;s Gambit: AI-Powered Courage for a Future of Possibility</div>
+      <div class="pc-ex">Architecting for probability is essential. Architecting for possibility is where courage wins.</div>
+      <span class="pc-go">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="pcard r" href="umi-moment-for-india.html">
+      <div class="pc-meta"><span class="pc-cat">AI Strategy</span><span class="pc-date">26 February 2025</span><span class="pc-read">18 min</span></div>
+      <div class="pc-title">It Is Time for a UMI Moment for India</div>
+      <div class="pc-ex">19,500 dialects, $100M compute economics, and 0.1% of global training data. Why distillation is India&#x27;s viable path.</div>
+      <span class="pc-go">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="pcard r" href="deepseek-r1-hype-reality-future-ai-deployment.html">
+      <div class="pc-meta"><span class="pc-cat">AI Strategy</span><span class="pc-date">4 February 2025</span><span class="pc-read">12 min</span></div>
+      <div class="pc-title">DeepSeek R1: Hype, Reality, and the Future of AI Deployment</div>
+      <div class="pc-ex">Value delivery was never about compute size. What that means for enterprise AI strategy.</div>
+      <span class="pc-go">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="pcard r" href="agentic-ai-digital-twins-solopreneurs.html">
+      <div class="pc-meta"><span class="pc-cat">Thought Experiment</span><span class="pc-date">20 January 2025</span><span class="pc-read">7 min</span></div>
+      <div class="pc-title">Agentic AI: Monetizing Your Own Digital Twin</div>
+      <div class="pc-ex">A deliberately fictional piece. What if agentic AI let individuals monetize their own data instead of platforms doing it for them?</div>
+      <span class="pc-go">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="pcard r" href="indexes-and-is-null.html">
+      <div class="pc-meta"><span class="pc-cat">Oracle</span><span class="pc-date">25 April 2013</span><span class="pc-read">8 min</span></div>
+      <div class="pc-title">Indexes and IS NULL</div>
+      <div class="pc-ex">When the Oracle optimizer will and will not use an index for an IS NULL predicate, tested rather than assumed.</div>
+      <span class="pc-go">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="wide">
+    <div>
+      <h4>Vikram Rathour</h4>
+      <p>Twenty-six years in enterprise data and AI across banking, healthcare and manufacturing. These essays are where the thinking gets worked out before it becomes architecture.</p>
+    </div>
+    <div class="flinks">
+      <a href="../index.html">Main site</a>
+      <a href="index.html">All writing</a>
+      <a href="../blueprint.html">The Production Blueprint</a>
+      <a href="../judgment-room.html">The Judgment Room</a>
+      <a href="../wisdom-loop.html">Order from Noise</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var pb=document.getElementById('pb');
+  function prog(){var h=document.documentElement.scrollHeight-window.innerHeight;pb.style.width=(h>0?(window.scrollY/h)*100:0)+'%';}
+  window.addEventListener('scroll',prog,{passive:true});prog();
+  // build the contents rail from the article's own headings
+  var toc=document.getElementById('toc');
+  if(toc){
+    var hs=[].slice.call(document.querySelectorAll('.prose > h2'));
+    if(hs.length<3){ var rail=document.getElementById('rail'); if(rail) rail.style.display='none'; }
+    else{
+      hs.forEach(function(h,i){
+        if(!h.id) h.id='s'+i;
+        var a=document.createElement('a'); a.href='#'+h.id; a.textContent=h.textContent; toc.appendChild(a);
+      });
+      if('IntersectionObserver' in window){
+        var links=[].slice.call(toc.querySelectorAll('a'));
+        var so=new IntersectionObserver(function(es){
+          es.forEach(function(e){ if(e.isIntersecting){
+            links.forEach(function(l){ l.classList.toggle('on', l.getAttribute('href')==='#'+e.target.id); });
+          }});
+        },{rootMargin:'-100px 0px -72% 0px',threshold:0});
+        hs.forEach(function(h){ so.observe(h); });
+      }
+    }
+  }
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce&&'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('s');io.unobserve(e.target);}})},{threshold:.06,rootMargin:'0px 0px -5% 0px'});
+    document.querySelectorAll('.r').forEach(function(el){io.observe(el)});
+  } else { document.querySelectorAll('.r').forEach(function(el){el.classList.add('s')}); }
+})();
+</script>
+</body>
+</html>
