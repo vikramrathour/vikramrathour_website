@@ -5,29 +5,26 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The Multi-Agent Enterprise: Vikram Rathour</title>
 <meta name="description" content="Three tiers of the enterprise stack went agentic at the same time. What each can do, what happens when their agents meet, what it costs, and what a semantic core has to become.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 
 :root{
-  --paper:#F1F2EF;
-  --card:#FBFCFA;
-  --ink:#15181B;
-  --slate:#5C6670;
-  --mute:#7C858E;
-  --rule:#D2D6D1;
-  --rule-soft:#E3E6E1;
+  --paper:#D9DCE1;
+  --card:#F5F6F8;
+  --ink:#13182B;
+  --slate:#2A3147;
+  --mute:#565C71;
+  --rule:#C2C6CE;
+  --rule-soft:#D0D4DB;
 
-  --indigo:#33338C;      /* schema, declared */
-  --teal:#0E6A6A;        /* instances */
-  --green:#2E7D32;       /* projections, evidence */
-  --amber:#B4700A;       /* runtime, signal, contested */
-  --crimson:#9E2B2B;     /* failure, wrong numbers */
+  --indigo:#13477E;      /* schema, declared */
+  --teal:#1F6FD0;        /* instances */
+  --green:#2A3147;       /* projections, evidence */
+  --amber:#9A3D00;       /* runtime, signal, contested */
+  --crimson:#8C1D1D;     /* failure, wrong numbers */
 
-  --sans:"Space Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
-  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --serif:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
 
   --rail:78px;
   --measure:70ch;
@@ -645,7 +642,7 @@ footer .foot-inner{max-width:calc(var(--measure) + var(--gut) + var(--marg))}
 /* ═══ six purposes, three modes, enforcement force ═══════════ */
 .mode{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;padding:2px 6px;
   text-transform:uppercase;font-style:normal;display:inline-block}
-.mode-write{background:rgba(122,81,149,.16);color:#7A5195}
+.mode-write{background:rgba(122,81,149,.16);color:#3B86E8}
 .mode-read{background:rgba(92,102,112,.14);color:var(--slate)}
 .mode-act{background:rgba(180,112,10,.16);color:var(--amber)}
 .mode-key{font-family:var(--sans);font-size:11.5px;color:var(--slate);
@@ -662,21 +659,21 @@ footer .foot-inner{max-width:calc(var(--measure) + var(--gut) + var(--marg))}
 
 /* figure 5 additions */
 .p-mode{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;fill:var(--mute)}
-.p-mode-write{fill:#7A5195;font-weight:600}
+.p-mode-write{fill:#3B86E8;font-weight:600}
 .p-mode-act{fill:var(--amber);font-weight:600}
-.proj-write rect{stroke:#7A5195;stroke-width:1.6;fill:rgba(122,81,149,.05)}
+.proj-write rect{stroke:#3B86E8;stroke-width:1.6;fill:rgba(122,81,149,.05)}
 .proj-policy rect{stroke:var(--crimson);stroke-width:1.3}
 .proj-act rect{stroke:var(--amber);stroke-width:1.3}
-.inward-lbl{font-family:var(--mono);font-size:9.5px;fill:#7A5195}
+.inward-lbl{font-family:var(--mono);font-size:9.5px;fill:#3B86E8}
 
 /* figure F: modes */
 .mode-band{font-family:var(--mono);font-size:11px;letter-spacing:.18em;font-weight:600}
-.mb-write{fill:#7A5195}.mb-read{fill:var(--slate)}.mb-act{fill:var(--amber)}
-.gate rect{fill:rgba(122,81,149,.07);stroke:#7A5195;stroke-width:1.6}
+.mb-write{fill:#3B86E8}.mb-read{fill:var(--slate)}.mb-act{fill:var(--amber)}
+.gate rect{fill:rgba(122,81,149,.07);stroke:#3B86E8;stroke-width:1.6}
 .act-box rect{fill:rgba(180,112,10,.07);stroke:var(--amber);stroke-width:1.6}
 .gate-n{font-size:13px;font-weight:600;fill:var(--ink)}
 .gate-i{font-family:var(--mono);font-size:9px;fill:var(--slate)}
-.gate-x{font-family:var(--mono);font-size:9.5px;fill:#7A5195;letter-spacing:.1em;font-weight:600}
+.gate-x{font-family:var(--mono);font-size:9.5px;fill:#3B86E8;letter-spacing:.1em;font-weight:600}
 .gate-x-act{fill:var(--amber)}
 .rej{font-family:var(--mono);font-size:9px;fill:var(--crimson)}
 .src-in{font-family:var(--mono);font-size:9.5px;fill:var(--mute)}
@@ -1223,9 +1220,12 @@ main > .mnote{
 <meta name="twitter:title" content="The Multi-Agent Enterprise">
 <meta name="twitter:description" content="What happens when three tiers of the enterprise stack go agentic at once, and what the semantic core has to become as a result.">
 <link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/multi-agent-enterprise.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-<a href="index.html" style="position:fixed;top:16px;left:16px;z-index:999;font-family:'IBM Plex Mono',monospace,system-ui;font-size:11px;font-weight:600;letter-spacing:.04em;text-decoration:none;color:#25332E;display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid rgba(37,51,46,.15);padding:8px 14px;border-radius:6px;box-shadow:0 2px 8px rgba(37,51,46,.1)">&#8592; Vikram Rathour</a>
+<a href="index.html" style="position:fixed;top:14px;left:14px;z-index:999;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:#13477E;display:inline-flex;align-items:center;gap:7px;background:#F5F6F8;border:1px solid rgba(31,111,208,.22);padding:9px 15px;box-shadow:0 2px 8px rgba(19,24,43,.08)">&#8592; Vikram Rathour</a>
 
 <div id="prog"></div>
 <nav id="rail" aria-label="Section position">
@@ -3720,22 +3720,22 @@ main > .mnote{
 
   var PURPOSES = [
     { key: 'acq', name: 'Acquisition and contracts', mode: 'write', note: 'bad data lands, found downstream',
-      hex: '#7A5195',
+      hex: '#3B86E8',
       v: { lexical: 1, axioms: 2, contra: 0.4, enforce: 5, churn: 1.5, stable: 4, action: 1 } },
     { key: 'convbi', name: 'Conversational BI', mode: 'read', note: 'answering the wrong question',
-      hex: '#33338C',
+      hex: '#13477E',
       v: { lexical: 5, axioms: 1.5, contra: 1, enforce: 0.5, churn: 5, stable: 1.5, action: 0.5 } },
     { key: 'migration', name: 'Migration', mode: 'read', note: 'silent mapping error',
-      hex: '#0E6A6A',
+      hex: '#1F6FD0',
       v: { lexical: 2.5, axioms: 3.5, contra: 5, enforce: 2, churn: 1, stable: 3, action: 0.5 } },
     { key: 'product', name: 'Data products', mode: 'read', note: 'breaking a consumer',
-      hex: '#2E7D32',
+      hex: '#2A3147',
       v: { lexical: 2, axioms: 1, contra: 0.3, enforce: 3.5, churn: 0.5, stable: 5, action: 1 } },
     { key: 'policy', name: 'Policy and entitlement', mode: 'read', note: 'a disclosure incident',
-      hex: '#9E2B2B',
+      hex: '#8C1D1D',
       v: { lexical: 1.5, axioms: 3, contra: 0.5, enforce: 5, churn: 2, stable: 4.5, action: 2 } },
     { key: 'agent', name: 'Agents', mode: 'act', note: 'taking a wrong action',
-      hex: '#B4700A',
+      hex: '#9A3D00',
       v: { lexical: 3, axioms: 4, contra: 3.5, enforce: 3, churn: 2.5, stable: 3.5, action: 5 } }
   ];
 
