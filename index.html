@@ -313,23 +313,42 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content
 
 /* ═══════ S8 WRITING ═══════ */
 #s8{background:var(--paper);justify-content:center;overflow:hidden}
-.s8-wrap{width:100%;height:100%;display:flex;flex-direction:column;padding:clamp(1.5rem,3.5vw,4.5rem);padding-top:clamp(2rem,4.5vh,5rem)}
-.s8-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:.8rem;margin-bottom:clamp(1rem,2.4vh,1.7rem)}
-.s8h{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(1.7rem,2.8vw,2.4rem);color:var(--ink);letter-spacing:-.02em}
+.s8-wrap{width:100%;max-width:1220px;margin:0 auto;padding:clamp(1.5rem,3.5vw,4rem);padding-top:clamp(3rem,6vh,5rem)}
+.s8-head{margin-bottom:clamp(1.5rem,3.6vh,2.6rem)}
+.s8h{font-weight:300;font-size:clamp(1.7rem,2.9vw,2.5rem);color:var(--ink);letter-spacing:-.025em;line-height:1.12}
 .s8h em{font-style:italic;color:var(--blue)}
-.s8-sub{font-size:clamp(.78rem,1.05vw,.88rem);color:var(--t3);font-family:'IBM Plex Mono',monospace;letter-spacing:.04em}
-.feat{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:clamp(.8rem,1.2vw,1.1rem);flex:1;min-height:0}
-.fcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(1.1rem,2vw,1.8rem);display:flex;flex-direction:column;gap:clamp(.55rem,1vh,.85rem);text-decoration:none;position:relative;overflow:hidden;box-shadow:var(--shadow-sm);transition:border-color .35s}
-.fcard.lead{box-shadow:var(--shadow-md);border-color:var(--blue-bdr)}
-.fcard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--yel));transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.s8-all{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.11em;text-transform:uppercase;color:var(--blue);text-decoration:none;display:inline-flex;align-items:center;gap:9px;border-bottom:1px solid var(--blue-bdr);padding-bottom:3px}
+.s8-all:hover{color:var(--blue-dk);border-color:var(--blue)}
+.s8-all svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none;transition:transform .25s}
+.s8-all:hover svg{transform:translateX(4px)}
+.s8-body{display:grid;grid-template-columns:1.55fr 1fr;gap:clamp(1.6rem,3.4vw,3.4rem)}
+.wcol{display:flex;flex-direction:column}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.3rem,2.6vw,2.2rem) clamp(1.6rem,3vw,2.8rem);align-content:start}
+.s8-all{margin-top:clamp(1.4rem,3vh,2.2rem);align-self:flex-start}
+.witem{text-decoration:none;display:block;padding-top:14px;border-top:1px solid var(--line2);transition:border-color .3s}
+.witem:hover{border-color:var(--blue)}
+.wi-meta{font-family:'IBM Plex Mono',monospace;font-size:.57rem;letter-spacing:.13em;text-transform:uppercase;color:var(--t3);margin-bottom:8px;display:flex;gap:10px}
+.wi-meta .c{color:var(--blue)}
+.wi-title{font-size:clamp(.94rem,1.25vw,1.06rem);font-weight:600;color:var(--ink);letter-spacing:-.018em;line-height:1.26;margin-bottom:7px;transition:color .25s}
+.witem:hover .wi-title{color:var(--blue-dk)}
+.wi-ex{font-size:clamp(.76rem,.95vw,.85rem);line-height:1.56;color:var(--t2)}
+.wfeat{display:flex;flex-direction:column;gap:clamp(.9rem,1.8vh,1.3rem)}
+.fcard{background:var(--card);border:1px solid var(--line2);padding:clamp(1.1rem,2vw,1.5rem);text-decoration:none;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;box-shadow:var(--shadow-sm);flex:1;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.fcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.fcard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.fcard.lead::after{background:var(--yel)}
 .fcard:hover::after{transform:scaleX(1)}
-.fc-tag{font-family:'IBM Plex Mono',monospace;font-size:clamp(.52rem,.76vw,.6rem);letter-spacing:.08em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:8px}
-.fc-feat{background:var(--yel);color:var(--ink);padding:2px 8px;border-radius:4px;font-size:.5rem;letter-spacing:.06em;font-weight:600}
-.fc-title{font-family:'IBM Plex Sans',sans-serif;font-weight:400;font-size:clamp(.95rem,1.4vw,1.18rem);line-height:1.3;color:var(--ink)}
-.fcard.lead .fc-title{font-size:clamp(1.1rem,1.7vw,1.5rem)}
-.fc-ex{font-size:clamp(.72rem,.96vw,.82rem);line-height:1.6;color:var(--t2);flex:1}
-.fc-arrow{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-top:auto}
-.fc-arrow svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.6;fill:none;transition:transform .25s}
+.fc-ill{height:clamp(48px,7vh,70px);display:flex;align-items:center;justify-content:center;margin-bottom:2px}
+.fc-ill svg{height:100%;width:auto;stroke:var(--ink2);stroke-width:1.15;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fcard.lead .fc-ill svg{stroke:var(--yel-dk)}
+.fc-tag{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.13em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:9px}
+.fcard.lead .fc-tag{color:var(--yel-dk)}
+.fc-feat{background:var(--yel);color:#fff;padding:2px 8px;font-size:.52rem;letter-spacing:.09em}
+.fc-title{font-weight:600;font-size:clamp(.96rem,1.3vw,1.12rem);line-height:1.26;color:var(--ink);letter-spacing:-.018em}
+.fc-ex{font-size:clamp(.74rem,.93vw,.82rem);line-height:1.55;color:var(--t2);flex:1}
+.fc-arrow{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-top:auto}
+.fcard.lead .fc-arrow{color:var(--yel-dk)}
+.fc-arrow svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.7;fill:none;transition:transform .25s}
 .fcard:hover .fc-arrow svg{transform:translateX(4px)}
 
 /* ═══════ S9 CONTACT ═══════ */
@@ -760,30 +779,52 @@ a:focus-visible,button:focus-visible,.dot:focus-visible{outline:2px solid var(--
   <div class="s8-wrap">
     <div class="s8-head">
       <div>
-        <div class="eyebrow r">Selected writing</div>
-        <h2 class="s8h r d1">Perspective, ahead of consensus.</h2>
+        <div class="eyebrow r">Writing</div>
+        <h2 class="s8h r d1">Worked out here first,<br>then <em>built</em>.</h2>
       </div>
-      <span class="s8-sub r d2">rathourvikram.wordpress.com</span>
     </div>
-    <div class="feat tilt-scene">
-      <a href="https://rathourvikram.wordpress.com/2025/02/26/its-time-for-an-umi-unified-model-interface-moment-for-india-distilled-vertical-ai-models-for-indias-multilingual-landscape/" target="_blank" rel="noopener" class="fcard lead tilt r">
-        <div class="fc-tag"><span class="fc-feat">Featured</span> AI · India · Strategy</div>
-        <div class="fc-title">A UMI moment for India: distilled vertical AI for a multilingual nation</div>
-        <div class="fc-ex">Why India's 19,500 dialects, $100M compute economics, and 0.1% share of global training data make knowledge distillation and vertical specialisation the only viable path, with the evaluation metrics to prove it.</div>
-        <div class="fc-arrow">Read the essay <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
-      <a href="https://rathourvikram.wordpress.com/2025/06/17/the-architects-gambit-ai-powered-courage-for-a-future-of-possibility/" target="_blank" rel="noopener" class="fcard tilt r d1">
-        <div class="fc-tag">Agentic AI · Leadership</div>
-        <div class="fc-title">The Architect's Gambit</div>
-        <div class="fc-ex">Designing for what could genuinely happen, not just what's statistically likely, and why human courage, not AI, is the deciding variable.</div>
-        <div class="fc-arrow">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
-      <a href="https://rathourvikram.wordpress.com/2025/02/04/deepseek-r1-hype-reality-and-the-future-of-ai-deployment/" target="_blank" rel="noopener" class="fcard tilt r d2">
-        <div class="fc-tag">Enterprise AI · Open Source</div>
-        <div class="fc-title">DeepSeek R1: hype, reality, deployment</div>
-        <div class="fc-ex">Why value delivery was never about compute size, and what that means for enterprise AI strategy.</div>
-        <div class="fc-arrow">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+    <div class="s8-body">
+      <div class="wcol">
+      <div class="wgrid">
+        <a class="witem r d1" href="blog/storage-has-an-owner-meaning-has-an-accident.html">
+          <div class="wi-meta"><span class="c">Governance</span><span>May 2026</span></div>
+          <div class="wi-title">Storage Has an Owner. Meaning Has an Accident.</div>
+          <div class="wi-ex">We assign storage ownership with precision and interpretation authority by accident. Agents did not cause that, they made it urgent.</div>
+        </a>
+        <a class="witem r d2" href="blog/human-in-the-loop-has-to-know-what-right-looks-like.html">
+          <div class="wi-meta"><span class="c">Agentic AI</span><span>Mar 2026</span></div>
+          <div class="wi-title">The Human in the Loop Has to Know What Right Looks Like</div>
+          <div class="wi-ex">Human in the loop without domain expertise is not a safety net. It is a spectator. What a different expert-to-workflow ratio looks like.</div>
+        </a>
+        <a class="witem r d3" href="blog/deepseek-r1-hype-reality-future-ai-deployment.html">
+          <div class="wi-meta"><span class="c">AI Strategy</span><span>Feb 2025</span></div>
+          <div class="wi-title">DeepSeek R1: Hype, Reality, and Deployment</div>
+          <div class="wi-ex">Value delivery was never about compute size. Where open and proprietary models actually fit, seen through a legal lens.</div>
+        </a>
+        <a class="witem r d4" href="blog/indexes-and-is-null.html">
+          <div class="wi-meta"><span class="c">Oracle</span><span>Apr 2013</span></div>
+          <div class="wi-title">Indexes and IS NULL</div>
+          <div class="wi-ex">The oldest piece here. Execution plans and 10053 traces, because the answer depended on the data, not the documentation.</div>
+        </a>
+      </div>
+      <a href="blog/index.html" class="s8-all r d5">All seven essays <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="wfeat">
+        <a href="blog/umi-moment-for-india.html" class="fcard lead r d2">
+          <div class="fc-ill"><svg viewBox="0 0 120 70"><path d="M10 55 C22 20, 40 12, 56 30 S 88 52, 110 18"/><circle cx="24" cy="38" r="3.4"/><circle cx="46" cy="21" r="3.4"/><circle cx="70" cy="40" r="3.4"/><circle cx="96" cy="29" r="3.4"/><path d="M24 38 L46 21 L70 40 L96 29" stroke-dasharray="3 4"/><path d="M8 64 h104"/></svg></div>
+          <div class="fc-tag"><span class="fc-feat">Longest read</span> AI Strategy</div>
+          <div class="fc-title">It Is Time for a UMI Moment for India</div>
+          <div class="fc-ex">19,500 dialects, $100M compute economics and 0.1% of global training data. Why distillation and vertical specialisation are the viable path.</div>
+          <div class="fc-arrow">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <a href="blog/architects-gambit-ai-powered-courage.html" class="fcard r d3">
+          <div class="fc-ill"><svg viewBox="0 0 120 70"><circle cx="60" cy="34" r="22"/><path d="M60 12 a22 22 0 0 1 19 33"/><circle cx="60" cy="12" r="4"/><circle cx="82" cy="34" r="4"/><circle cx="60" cy="56" r="4"/><circle cx="38" cy="34" r="4"/><path d="M96 22 l8 8 -8 8"/><path d="M104 30 h-14" stroke-dasharray="3 3"/><path d="M16 22 l-8 8 8 8"/><path d="M8 30 h14" stroke-dasharray="3 3"/></svg></div>
+          <div class="fc-tag">Architecture</div>
+          <div class="fc-title">The Architect's Gambit</div>
+          <div class="fc-ex">Architecting for probability is essential. Architecting for possibility is where courage wins.</div>
+          <div class="fc-arrow">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -798,7 +839,7 @@ a:focus-visible,button:focus-visible,.dot:focus-visible{outline:2px solid var(--
     <div class="s9-row r d3">
       <a href="mailto:Rathour.vikram@gmail.com" class="cbtn pri"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 6l8 6 8-6"/></svg> Email</a>
       <a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener" class="cbtn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v6h-4v-6a2 2 0 00-4 0v6h-4v-10h4v2"/><circle cx="4" cy="4" r="2"/><path d="M2 9h4v11H2z"/></svg> LinkedIn</a>
-      <a href="https://rathourvikram.wordpress.com" target="_blank" rel="noopener" class="cbtn"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> Writing</a>
+      <a href="blog/index.html" class="cbtn"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> Writing</a>
       <a href="https://github.com/vikramrathour" target="_blank" rel="noopener" class="cbtn"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> GitHub</a>
     </div>
     <div class="s9-meta r d4">Pune, Maharashtra, India &nbsp;·&nbsp; <a href="mailto:Rathour.vikram@gmail.com">Rathour.vikram@gmail.com</a></div>
