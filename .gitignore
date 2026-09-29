@@ -15,3 +15,7 @@ desktop.ini
 # Node, if you ever add tooling
 node_modules/
 npm-debug.log*
+
+# Google Stitch design source (local reference only; contains CV and drafts, never deploy)
+stitch_consultant_interactive_storytelling_portfolio/
+stitch_consultant_interactive_storytelling_portfolio.zip

@@ -1,938 +1,783 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vikram Rathour: Sensibility for the Age of Intelligent Machines</title>
 <meta name="description" content="Vikram Rathour. Enterprise data and AI leader. 25 years architecting platforms for banking, healthcare and manufacturing. In an era of abundant intelligence, I bring the scarce resource: sensibility.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root{
-  --paper:#D9DCE1;
-  --paper2:#E4E7EB;
-  --paper3:#CDD1D7;
-  --card:#F5F6F8;
-  --ink:#13182B;
-  --ink2:#2A3147;
-  --t2:rgba(19,24,43,.62);
-  --t3:rgba(19,24,43,.40);
-  --t4:rgba(19,24,43,.20);
-  --line:rgba(19,24,43,.10);
-  --line2:rgba(19,24,43,.16);
-  --blue:#1F6FD0;
-  --blue2:#3B86E8;
-  --blue-dk:#13477E;
-  --blue-pale:rgba(31,111,208,.07);
-  --blue-bdr:rgba(31,111,208,.22);
-  --yel:#F47820;
-  --yel2:#FF8F3C;
-  --yel-dk:#9A3D00;
-  --yel-pale:rgba(244,120,32,.16);
-  --yel-bdr:rgba(244,120,32,.5);
-  --shadow-sm:0 2px 8px rgba(19,24,43,.06);
-  --shadow-md:0 8px 30px rgba(19,24,43,.10);
-  --shadow-lg:0 24px 60px rgba(19,24,43,.16);
-  --shadow-blue:0 18px 50px rgba(31,111,208,.22);
-  --ease:cubic-bezier(.16,1,.3,1);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-snap-type:y mandatory;scroll-behavior:smooth;height:100%;overflow-x:hidden}
-body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
-
-#pb{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--yel));z-index:1000;transition:width .4s var(--ease)}
-
-/* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content:space-between;align-items:center;padding:18px 56px;background:rgba(244,242,236,.82);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
-.nlogo{font-family:'IBM Plex Sans',sans-serif;font-size:1.05rem;font-weight:400;color:var(--ink);text-decoration:none}
-.nlogo span{color:var(--blue)}
-.nlinks{display:flex;gap:32px;list-style:none}
-.nlinks a{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);text-decoration:none;transition:color .25s}
-.nlinks a:hover{color:var(--blue)}
-.nav-cta{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--blue);text-decoration:none;padding:9px 18px;transition:all .25s}
-.nav-cta:hover{background:var(--blue-dk);transform:translateY(-1px)}
-
-/* dots */
-.dots{position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:800;display:flex;flex-direction:column;gap:13px}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--t4);cursor:pointer;transition:all .3s;position:relative}
-.dot.on{background:var(--blue);transform:scale(1.6)}
-.dot::after{content:attr(data-l);position:absolute;right:15px;top:50%;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:.57rem;letter-spacing:.08em;color:var(--t2);white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none}
-.dot:hover::after{opacity:1}
-
-.slide{width:100vw;height:100vh;height:100dvh;overflow:hidden;scroll-snap-align:start;position:relative;display:flex;flex-direction:column}
-
-.r{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
-.r.s{opacity:1;transform:none}
-.r.d1{transition-delay:.08s}.r.d2{transition-delay:.16s}.r.d3{transition-delay:.24s}.r.d4{transition-delay:.32s}.r.d5{transition-delay:.4s}.r.d6{transition-delay:.48s}
-
-.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:12px;margin-bottom:clamp(1rem,2.4vh,1.6rem)}
-.eyebrow::before{content:'';width:28px;height:2px;background:var(--blue)}
-
-.ico{width:24px;height:24px;stroke:var(--blue);stroke-width:1.5;fill:none;flex-shrink:0}
-.ico-sm{width:18px;height:18px;stroke:var(--blue);stroke-width:1.6;fill:none;flex-shrink:0}
-
-/* icon medallion: adds color + depth */
-.medallion{width:clamp(44px,5vw,56px);height:clamp(44px,5vw,56px);border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#D85A12,#F47820);border:1px solid var(--yel-bdr);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),var(--shadow-sm);flex-shrink:0}
-.medallion .ico{width:24px;height:24px;stroke:#fff;stroke-width:1.9}
-
-/* ═══════ S1 HERO ═══════ */
-#s1{background:var(--paper);justify-content:center;overflow:hidden}
-.h-bg{position:absolute;inset:0;overflow:hidden}
-.h-dots{position:absolute;inset:0;background-image:radial-gradient(var(--line) 1.5px,transparent 1.5px);background-size:38px 38px;mask-image:radial-gradient(ellipse 75% 75% at 60% 45%,#000 30%,transparent 100%)}
-.h-shape{position:absolute;border-radius:30px;will-change:transform}
-.h-shape.s-a{width:130px;height:130px;background:linear-gradient(145deg,var(--yel2),var(--yel));top:22%;right:13%;box-shadow:0 18px 50px rgba(244,120,32,.4);opacity:.95}
-.h-shape.s-b{width:80px;height:80px;border-radius:50%;background:linear-gradient(145deg,var(--blue2),var(--blue));top:55%;right:26%;box-shadow:var(--shadow-blue)}
-.h-shape.s-c{width:56px;height:56px;border-radius:14px;background:var(--card);border:1px solid var(--yel-bdr);box-shadow:var(--shadow-md);top:38%;right:7%}
-.h-wrap{position:relative;z-index:2;max-width:1180px;width:100%;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1.55fr 1fr;gap:56px;align-items:center}
-.h-status{display:inline-flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:clamp(1.4rem,3vh,2.2rem);animation:fadeup .9s var(--ease) both}
-.h-status .pip{width:7px;height:7px;border-radius:50%;background:var(--yel);box-shadow:0 0 0 0 rgba(244,120,32,.6);animation:pulse 2.4s ease-out infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(244,120,32,.6)}70%{box-shadow:0 0 0 9px rgba(244,120,32,0)}100%{box-shadow:0 0 0 0 rgba(244,120,32,0)}}
-.h-name{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(3.4rem,7.5vw,6.6rem);line-height:.94;letter-spacing:-.03em;color:var(--ink);margin-bottom:clamp(1rem,2.2vh,1.6rem)}
-.h-name .l{overflow:hidden;display:block}
-.h-name .w{display:inline-block;animation:wordup 1s var(--ease) both}
-.w.a1{animation-delay:.2s}.w.a2{animation-delay:.36s}
-.h-name em{font-style:italic;color:var(--blue)}
-@keyframes wordup{from{transform:translateY(110%)}to{transform:translateY(0)}}
-.h-role{font-size:clamp(.95rem,1.5vw,1.18rem);font-weight:400;color:var(--t2);line-height:1.55;margin-bottom:clamp(1.4rem,3vh,2.2rem);max-width:560px;animation:fadeup .9s .5s var(--ease) both}
-.h-role strong{color:var(--ink);font-weight:600;background:var(--yel-pale);padding:1px 6px;border-radius:3px}
-.h-ctas{display:flex;gap:14px;flex-wrap:wrap;animation:fadeup .9s .65s var(--ease) both}
-.btn{display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:14px 26px;transition:all .3s var(--ease);font-weight:500;border-radius:6px}
-.btn-pri{background:var(--blue);color:#fff;box-shadow:var(--shadow-blue)}
-.btn-pri:hover{background:var(--blue-dk);transform:translateY(-2px)}
-.btn-sec{border:1.5px solid var(--blue-bdr);color:var(--blue)}
-.btn-sec:hover{border-color:var(--blue);background:var(--blue-pale);transform:translateY(-2px)}
-.deeper{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:clamp(1rem,2.2vh,1.6rem);padding-top:clamp(.8rem,1.8vh,1.2rem);border-top:1px solid var(--line)}
-.deeper-lbl{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-right:4px}
-.deeper a{display:inline-flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:600;letter-spacing:.03em;text-decoration:none;color:#fff;background:var(--blue);border:1px solid var(--blue);padding:10px 18px;border-radius:6px;transition:all .25s var(--ease);box-shadow:0 2px 8px rgba(31,111,208,.25)}
-.deeper a:hover{background:var(--blue-dk);border-color:var(--blue-dk);transform:translateY(-2px);box-shadow:0 6px 16px rgba(31,111,208,.35)}
-.deeper a svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
-.s2-watch{margin-top:clamp(2rem,4.5vh,3.2rem);padding:clamp(1.6rem,3.2vh,2.4rem);background:var(--ink);border-radius:18px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-.s2-watch-text{text-align:left}
-.s2-watch-text h5{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--yel2);margin-bottom:8px}
-.s2-watch-text p{color:rgba(255,255,255,.72);font-size:clamp(.82rem,1.1vw,.94rem);line-height:1.6;max-width:480px}
-.s2-watch-btn{flex-shrink:0;display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:.74rem;font-weight:700;letter-spacing:.04em;text-decoration:none;color:var(--ink);background:var(--yel2);padding:14px 24px;border-radius:8px;transition:all .25s var(--ease);box-shadow:0 4px 14px rgba(255,143,60,.3)}
-.s2-watch-btn:hover{background:#fff;transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,143,60,.4)}
-.s2-watch-btn svg{width:14px;height:14px;stroke:currentColor;stroke-width:2.2;fill:none}
-.btn .ico-sm{stroke:currentColor;width:15px;height:15px}
-.h-panel{display:flex;flex-direction:column;gap:14px;animation:fadeup .9s .8s var(--ease) both}
-.h-stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:3px;border-left:3px solid var(--blue)}
-.h-stat:nth-child(2){border-left-color:var(--yel)}
-.h-stat .n{font-family:'IBM Plex Sans',sans-serif;font-size:clamp(1.7rem,2.4vw,2.2rem);font-weight:300;color:var(--blue);line-height:1}
-.h-stat:nth-child(2) .n{color:var(--ink)}
-.h-stat .lab{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);line-height:1.4}
-@keyframes fadeup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.h-scroll{position:absolute;bottom:30px;left:56px;display:flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);cursor:pointer;animation:fadeup 1s 1s var(--ease) both}
-.h-scroll svg{width:14px;height:14px;stroke:var(--blue);stroke-width:1.6;fill:none;animation:bob 2s ease-in-out infinite}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
-
-/* ═══════ S2 THESIS ═══════ */
-#s2{background:var(--paper3);justify-content:center;align-items:center;overflow:hidden}
-.s2-wrap{position:relative;z-index:2;max-width:1160px;padding:0 56px;text-align:center}
-.s2-eyebrow{justify-content:center}
-.s2-big{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(1.9rem,4.4vw,3.8rem);line-height:1.12;letter-spacing:-.02em;color:var(--ink);margin-bottom:clamp(1.2rem,2.6vh,2rem)}
-.s2-big em{font-style:italic;color:var(--blue)}
-.s2-big .yh{background:linear-gradient(transparent 62%,var(--yel-pale) 62%)}
-.s2-lead{font-size:clamp(.95rem,1.4vw,1.12rem);color:var(--t2);line-height:1.7;max-width:700px;margin:0 auto clamp(2rem,4vh,3rem)}
-.s2-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.pivots{display:grid;grid-template-columns:1fr 26px 1fr 26px 1fr;align-items:stretch;gap:0;margin-top:clamp(.5rem,1.5vh,1rem)}
-.pivot{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(1.2rem,2.4vh,1.8rem) clamp(1rem,1.8vw,1.5rem);text-align:left;box-shadow:var(--shadow-md);display:flex;flex-direction:column;gap:9px;position:relative;border-top:3px solid var(--blue);transition:all .3s var(--ease)}
-.pivot:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
-.pivot-num{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--t3)}
-.pivot-move{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:clamp(.72rem,1vw,.82rem);font-weight:500}
-.pivot-from{color:var(--t3);text-decoration:line-through;text-decoration-thickness:1px}
-.pivot-to{color:var(--blue);font-weight:700}
-.pivot-h{font-size:clamp(.88rem,1.2vw,1rem);font-weight:700;color:var(--ink);line-height:1.3}
-.pivot-p{font-size:clamp(.74rem,1vw,.84rem);color:var(--t2);line-height:1.6;flex:1}
-.pivot-tell{font-size:clamp(.7rem,.92vw,.78rem);color:var(--t2);line-height:1.5;padding-top:8px;border-top:1px dashed var(--line);font-style:italic}
-.pivot-arrow{display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:1.2rem;font-weight:700}
-@media(max-width:1000px){
-  .pivots{grid-template-columns:1fr;gap:12px}
-  .pivot-arrow{transform:rotate(90deg);padding:2px 0}
-}
-.s2-cell{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(1.4rem,2.6vh,2rem) clamp(1.1rem,2vw,1.6rem);text-align:left;box-shadow:var(--shadow-md);position:relative}
-.s2-cell .medallion{margin-bottom:16px}
-.s2-cell h4{font-size:clamp(.86rem,1.15vw,.98rem);font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.3}
-.s2-cell p{font-size:clamp(.74rem,1vw,.84rem);color:var(--t2);line-height:1.6}
-
-/* ═══════ S3 APPROACH ═══════ */
-#s3{background:var(--paper);display:grid;grid-template-columns:1.05fr 1fr}
-.s3l{display:flex;flex-direction:column;justify-content:center;padding:clamp(2.5rem,5.5vw,5.5rem);border-right:1px solid var(--line)}
-.s3h{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(2rem,3.8vw,3.3rem);line-height:1.08;letter-spacing:-.02em;color:var(--ink);margin-bottom:clamp(1.2rem,2.6vh,1.8rem)}
-.s3h em{font-style:italic;color:var(--blue)}
-.s3-quote{font-family:'IBM Plex Sans',sans-serif;font-style:italic;font-weight:300;font-size:clamp(1.05rem,1.6vw,1.32rem);color:var(--ink2);line-height:1.6;border-left:3px solid var(--yel);padding-left:clamp(1.1rem,2vw,1.6rem);margin-bottom:clamp(1.2rem,2.6vh,1.8rem)}
-.s3-body{font-size:clamp(.86rem,1.18vw,.98rem);line-height:1.8;color:var(--t2);max-width:480px}
-.s3r{display:flex;flex-direction:column;justify-content:center;padding:clamp(2.2rem,5vw,5rem);background:var(--paper3);gap:14px}
-.estep{display:flex;gap:16px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(1rem,2vh,1.4rem) clamp(1.1rem,2vw,1.4rem);box-shadow:var(--shadow-sm);transition:box-shadow .3s}
-.estep-num{font-family:'IBM Plex Sans',sans-serif;font-size:1.3rem;font-weight:300;color:var(--blue);flex-shrink:0;width:26px;line-height:1.1}
-.estep h4{font-size:clamp(.86rem,1.15vw,.96rem);font-weight:600;color:var(--ink);margin-bottom:5px}
-.estep p{font-size:clamp(.74rem,1vw,.84rem);color:var(--t2);line-height:1.55}
-
-/* ═══════ S4 IMPACT ═══════ */
-#s4{background:var(--blue-dk);justify-content:center;align-items:center}
-#s4 .eyebrow{color:var(--yel)}
-#s4 .eyebrow::before{background:var(--yel)}
-.s4-wrap{width:100%;max-width:1160px;padding:clamp(1.5rem,3.5vw,4rem)}
-.s4-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:clamp(1.6rem,4vh,3rem);flex-wrap:wrap;gap:1rem}
-.s4h{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(1.8rem,3.2vw,2.8rem);color:#fff;line-height:1.12;letter-spacing:-.02em}
-.s4h em{font-style:italic;color:var(--yel2)}
-.s4-note{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.04em;color:rgba(255,255,255,.6);max-width:320px;line-height:1.6;text-align:right}
-.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.mc{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:clamp(1.3rem,3vh,2rem) clamp(1.1rem,2vw,1.7rem);position:relative;backdrop-filter:blur(4px);box-shadow:0 12px 36px rgba(8,22,70,.3)}
-.mc .n{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(2.2rem,4.2vw,3.4rem);color:var(--yel2);line-height:1;letter-spacing:-.02em}
-.mc .lab{font-size:clamp(.82rem,1.1vw,.92rem);font-weight:600;color:#fff;margin-top:10px;margin-bottom:5px}
-.mc .sub{font-size:clamp(.72rem,.96vw,.8rem);color:rgba(255,255,255,.62);line-height:1.5}
-
-/* ═══════ S3B ENGAGEMENTS ═══════ */
-#s3b{background:var(--paper2);justify-content:center;align-items:center}
-.s3b-wrap{width:100%;max-width:1180px;padding:clamp(1.5rem,3.5vw,4rem)}
-.s3b-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:clamp(1.4rem,3.4vh,2.4rem);flex-wrap:wrap;gap:1rem}
-.s3bh{font-weight:300;font-size:clamp(1.8rem,3.2vw,2.8rem);line-height:1.12;letter-spacing:-.025em}
-.s3bh em{font-style:italic;color:var(--blue)}
-.s3b-note{font-size:clamp(.82rem,1.05vw,.94rem);color:var(--t2);max-width:330px;line-height:1.55}
-.egrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.eng{background:var(--card);border:1px solid var(--line2);border-top:3px solid var(--blue);padding:clamp(1.1rem,2.4vh,1.6rem) clamp(1rem,1.7vw,1.4rem);display:flex;flex-direction:column;box-shadow:var(--shadow-sm)}
-.eng:nth-child(2){border-top-color:var(--yel)}
-.eng:nth-child(3){border-top-color:var(--ink2)}
-.eng-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:11px}
-.eng-n{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.16em;color:var(--t3)}
-.eng-wks{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.06em;color:#fff;background:var(--blue);padding:3px 8px;white-space:nowrap}
-.eng:nth-child(2) .eng-wks{background:var(--yel-dk)}
-.eng:nth-child(3) .eng-wks{background:var(--ink2)}
-.eng-h{font-size:clamp(1rem,1.35vw,1.16rem);font-weight:600;letter-spacing:-.02em;line-height:1.25;margin-bottom:9px}
-.eng-for{font-size:clamp(.74rem,.95vw,.82rem);color:var(--blue-dk);line-height:1.5;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
-.eng-for b{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);display:block;margin-bottom:4px;font-weight:400}
-.eng-p{font-size:clamp(.76rem,.98vw,.85rem);color:var(--t2);line-height:1.56;margin-bottom:12px;flex:1}
-.eng-out{font-size:clamp(.74rem,.95vw,.82rem);color:var(--ink);line-height:1.5;background:var(--blue-pale);border-left:2px solid var(--blue);padding:9px 11px}
-.eng:nth-child(2) .eng-out{background:var(--yel-pale);border-left-color:var(--yel)}
-.eng:nth-child(3) .eng-out{background:rgba(19,24,43,.05);border-left-color:var(--ink2)}
-.eng-out b{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);display:block;margin-bottom:4px;font-weight:400}
-.bound{margin-top:clamp(.9rem,2.2vh,1.5rem);display:flex;align-items:flex-start;gap:12px;font-size:clamp(.76rem,.98vw,.86rem);color:var(--t2);line-height:1.55;border-top:1px solid var(--line2);padding-top:clamp(.8rem,1.8vh,1.2rem)}
-.bound-k{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--yel-dk);white-space:nowrap;padding-top:3px}
-
-/* ═══════ S5 WORK ═══════ */
-#s5{background:var(--paper);justify-content:center}
-.s5-wrap{width:100%;height:100%;display:flex;flex-direction:column;padding:clamp(1.4rem,3.4vw,4rem);padding-top:clamp(2rem,4.5vh,5rem)}
-.s5-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:clamp(1rem,2.4vh,1.6rem)}
-.s5h{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(1.7rem,3vw,2.5rem);color:var(--ink);letter-spacing:-.02em}
-.s5h em{font-style:italic;color:var(--blue)}
-.tabs{display:flex;border:1.5px solid var(--blue-bdr);border-radius:8px;overflow:hidden}
-.tb{font-family:'IBM Plex Mono',monospace;font-size:clamp(.58rem,.86vw,.66rem);letter-spacing:.08em;text-transform:uppercase;padding:11px 22px;border:none;border-right:1.5px solid var(--blue-bdr);background:transparent;color:var(--t3);cursor:pointer;transition:all .3s}
-.tb:last-child{border-right:none}
-.tb.on{background:var(--blue);color:#fff}
-.ccon{flex:1;overflow:hidden}
-.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.1vw,1rem);height:100%}
-.cc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(1.1rem,2vw,1.7rem);display:flex;flex-direction:column;gap:clamp(.55rem,1vh,.8rem);position:relative;overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow .35s,border-color .35s}
-.cc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--blue);transform:scaleY(0);transform-origin:top;transition:transform .4s var(--ease)}
-.cc:hover{border-color:var(--blue-bdr)}
-.cc:hover::before{transform:scaleY(1)}
-.cc-sec{font-family:'IBM Plex Mono',monospace;font-size:clamp(.54rem,.76vw,.6rem);letter-spacing:.1em;text-transform:uppercase;color:var(--blue);font-weight:500}
-.cc-pivot{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:clamp(.5rem,.68vw,.56rem);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--yel-pale);border:1px solid var(--yel-bdr);border-radius:20px;padding:2px 9px;margin-left:6px;vertical-align:middle}
-.cc-hi{font-size:clamp(.68rem,.92vw,.78rem);color:var(--t3);font-style:italic;border-bottom:1px dashed var(--line2);padding-bottom:.55rem}
-.cc-prob{font-size:clamp(.78rem,1.08vw,.9rem);font-weight:600;color:var(--ink);line-height:1.4}
-.cc-sol{font-size:clamp(.7rem,.94vw,.82rem);color:var(--t2);line-height:1.6;flex:1}
-.cc-out{display:flex;align-items:center;gap:11px;padding:.65rem .8rem;background:var(--yel-pale);border-radius:8px}
-.cc-out .n{font-family:'IBM Plex Sans',sans-serif;font-size:clamp(1.1rem,2vw,1.5rem);font-weight:400;color:var(--blue);line-height:1;flex-shrink:0}
-.cc-out .t{font-size:clamp(.66rem,.88vw,.74rem);color:var(--ink2);line-height:1.4}
-
-/* ═══════ S6 LEADERSHIP ═══════ */
-#s6{background:var(--paper3);display:grid;grid-template-columns:1fr 1fr}
-.s6l{display:flex;flex-direction:column;justify-content:center;padding:clamp(2.5rem,5.5vw,5.5rem);border-right:1px solid var(--line)}
-.s6h{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(1.9rem,3.6vw,3.2rem);line-height:1.08;color:var(--ink);letter-spacing:-.02em;margin-bottom:clamp(1.1rem,2.5vh,1.7rem)}
-.s6h em{font-style:italic;color:var(--blue)}
-.s6-body{font-size:clamp(.86rem,1.18vw,.98rem);line-height:1.8;color:var(--t2);margin-bottom:clamp(1.4rem,3vh,2rem);max-width:470px}
-.s6-roles{display:flex;flex-direction:column;gap:11px}
-.s6-role{display:flex;align-items:center;gap:13px}
-.s6-role .medallion{width:38px;height:38px;border-radius:10px}
-.s6-role .medallion .ico{width:18px;height:18px}
-.s6-role span{font-size:clamp(.78rem,1.05vw,.88rem);color:var(--t2)}
-.s6-role strong{color:var(--ink);font-weight:600}
-.s6r{display:flex;flex-direction:column;justify-content:center;padding:clamp(2.2rem,5vw,5rem);gap:14px}
-.pf{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(1.1rem,2.4vh,1.6rem) clamp(1.2rem,2vw,1.7rem);display:flex;align-items:baseline;gap:18px;box-shadow:var(--shadow-sm);border-top:3px solid var(--yel)}
-.pov{display:flex;flex-direction:column;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(1rem,2.2vh,1.4rem) clamp(1.2rem,2vw,1.6rem);box-shadow:var(--shadow-sm);border-left:3px solid var(--blue);text-decoration:none;transition:all .3s var(--ease)}
-.pov:hover{border-left-color:var(--yel);transform:translateX(4px);box-shadow:var(--shadow-md)}
-.pov-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.pov-tag{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
-.pov-count{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--t3)}
-.pov-title{font-size:clamp(.84rem,1.1vw,.94rem);font-weight:700;color:var(--ink);line-height:1.3}
-.pov-findings{display:flex;flex-direction:column;gap:6px;margin:2px 0}
-.pov-find{font-size:clamp(.68rem,.9vw,.76rem);color:var(--t2);line-height:1.5;padding-left:13px;position:relative}
-.pov-find::before{content:'';position:absolute;left:0;top:.5em;width:5px;height:5px;border-radius:50%;background:var(--blue)}
-.pov-arrow{font-family:'IBM Plex Mono',monospace;font-size:.64rem;color:var(--blue);margin-top:2px;display:inline-flex;align-items:center;gap:5px}
-.pov:hover .pov-arrow{color:var(--yel)}
-.pf:nth-child(even){border-top-color:var(--blue)}
-.pf .n{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(1.7rem,3vw,2.4rem);color:var(--blue);line-height:1;flex-shrink:0;width:clamp(80px,12vw,124px)}
-.pf .d{font-size:clamp(.76rem,1.02vw,.86rem);color:var(--t2);line-height:1.55}
-
-/* ═══════ S6B BUILDS ═══════ */
-#s6b{background:var(--paper);justify-content:center}
-.s6b-wrap{width:100%;height:100%;display:flex;flex-direction:column;padding:clamp(1.5rem,3.5vw,4.5rem);padding-top:clamp(2rem,4.5vh,5rem)}
-.s6b-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:.8rem;margin-bottom:clamp(1rem,2.4vh,1.8rem)}
-.s6bh{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(1.7rem,3vw,2.5rem);color:var(--ink);letter-spacing:-.02em}
-.s6bh em{font-style:italic;color:var(--blue)}
-.s6b-sub{font-family:'IBM Plex Mono',monospace;font-size:clamp(.62rem,.9vw,.72rem);letter-spacing:.04em;color:var(--t3);max-width:340px;line-height:1.6;text-align:right}
-.builds{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.8rem,1.2vw,1.1rem);flex:1;min-height:0}
-.bcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(1.2rem,2vw,1.8rem);display:flex;flex-direction:column;gap:clamp(.6rem,1.1vh,.9rem);text-decoration:none;position:relative;overflow:hidden;box-shadow:var(--shadow-md);transition:border-color .35s}
-.bcard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--yel));transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
-.bcard:hover{border-color:var(--blue-bdr)}
-.bcard:hover::after{transform:scaleX(1)}
-.bc-top{display:flex;align-items:center;justify-content:space-between}
-.bc-lang{display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.04em;color:var(--t3)}
-.bc-langdot{width:9px;height:9px;border-radius:50%}
-.bc-stars{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--t3);display:flex;align-items:center;gap:5px}
-.bc-stars svg{width:12px;height:12px;stroke:var(--t3);stroke-width:1.5;fill:none}
-.bc-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#D85A12,#F47820);border:1px solid var(--yel-bdr);box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
-.bc-icon svg{width:24px;height:24px;stroke:#fff;stroke-width:1.9;fill:none}
-.bc-name{font-family:'IBM Plex Mono',monospace;font-size:clamp(.92rem,1.3vw,1.1rem);font-weight:500;color:var(--ink)}
-.bc-name .slash{color:var(--t4)}
-.bc-tagline{font-family:'IBM Plex Sans',sans-serif;font-style:italic;font-size:clamp(.88rem,1.2vw,1.02rem);color:var(--blue);line-height:1.35}
-.bc-desc{font-size:clamp(.72rem,.96vw,.82rem);color:var(--t2);line-height:1.6;flex:1}
-.bc-foot{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-top:auto}
-.bc-foot svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.6;fill:none;transition:transform .25s}
-.bcard:hover .bc-foot svg{transform:translate(3px,-3px)}
-.s6b-note{font-family:'IBM Plex Mono',monospace;font-size:clamp(.58rem,.82vw,.66rem);color:var(--t3);letter-spacing:.04em;margin-top:clamp(.8rem,1.8vh,1.2rem);text-align:center}
-.s6b-note a{color:var(--blue);text-decoration:none}
-.s6b-note a:hover{text-decoration:underline}
-
-/* ═══════ S7 SIGNATURE ═══════ */
-#s7{background:var(--paper3);display:grid;grid-template-columns:1.15fr 1fr;overflow:hidden}
-.s7l{padding:clamp(2.5rem,5.5vw,5.5rem);display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--line);position:relative}
-.s7h{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(1.9rem,3.6vw,3.1rem);color:var(--ink);line-height:1.1;letter-spacing:-.02em;margin-bottom:clamp(1.1rem,2.5vh,1.7rem)}
-.s7h em{font-style:italic;color:var(--blue)}
-.s7-body{font-size:clamp(.84rem,1.15vw,.96rem);line-height:1.8;color:var(--t2);margin-bottom:clamp(.9rem,2vh,1.4rem)}
-.s7-body strong{color:var(--ink);font-weight:600}
-.s7-quote{font-family:'IBM Plex Sans',sans-serif;font-style:italic;font-weight:300;font-size:clamp(1rem,1.5vw,1.2rem);color:var(--ink2);border-left:3px solid var(--yel);padding-left:18px;margin-bottom:clamp(1.3rem,2.8vh,1.9rem);line-height:1.55}
-.s7-link{display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:#fff;background:var(--blue);padding:13px 24px;border-radius:6px;transition:all .3s;align-self:flex-start;box-shadow:var(--shadow-blue)}
-.s7-link:hover{background:var(--blue-dk);transform:translateY(-2px)}
-.s7-link .ico-sm{stroke:currentColor;width:15px;height:15px}
-.s7r{display:flex;flex-direction:column;justify-content:center;padding:clamp(2.2rem,5vw,4.5rem);gap:14px}
-.s7-stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(1.1rem,2.4vh,1.6rem) clamp(1.2rem,2vw,1.6rem);box-shadow:var(--shadow-sm);border-left:3px solid var(--blue)}
-.s7-stat:nth-child(2){border-left-color:var(--yel)}
-.s7-stat .n{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(1.6rem,2.8vw,2.3rem);color:var(--ink);line-height:1}
-.s7-stat .l{font-size:clamp(.74rem,1vw,.84rem);color:var(--t2);line-height:1.5;margin-top:6px}
-
-/* ═══════ S8 WRITING ═══════ */
-#s8{background:var(--paper);justify-content:center;overflow:hidden}
-.s8-wrap{width:100%;max-width:1220px;margin:0 auto;padding:clamp(1.5rem,3.5vw,4rem);padding-top:clamp(3rem,6vh,5rem)}
-.s8-head{margin-bottom:clamp(1.5rem,3.6vh,2.6rem)}
-.s8h{font-weight:300;font-size:clamp(1.7rem,2.9vw,2.5rem);color:var(--ink);letter-spacing:-.025em;line-height:1.12}
-.s8h em{font-style:italic;color:var(--blue)}
-.s8-all{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.11em;text-transform:uppercase;color:var(--blue);text-decoration:none;display:inline-flex;align-items:center;gap:9px;border-bottom:1px solid var(--blue-bdr);padding-bottom:3px}
-.s8-all:hover{color:var(--blue-dk);border-color:var(--blue)}
-.s8-all svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none;transition:transform .25s}
-.s8-all:hover svg{transform:translateX(4px)}
-.s8-body{display:grid;grid-template-columns:1.55fr 1fr;gap:clamp(1.6rem,3.4vw,3.4rem)}
-.wcol{display:flex;flex-direction:column}
-.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.3rem,2.6vw,2.2rem) clamp(1.6rem,3vw,2.8rem);align-content:start}
-.s8-all{margin-top:clamp(1.4rem,3vh,2.2rem);align-self:flex-start}
-.witem{text-decoration:none;display:block;padding-top:14px;border-top:1px solid var(--line2);transition:border-color .3s}
-.witem:hover{border-color:var(--blue)}
-.wi-meta{font-family:'IBM Plex Mono',monospace;font-size:.57rem;letter-spacing:.13em;text-transform:uppercase;color:var(--t3);margin-bottom:8px;display:flex;gap:10px}
-.wi-meta .c{color:var(--blue)}
-.wi-title{font-size:clamp(.94rem,1.25vw,1.06rem);font-weight:600;color:var(--ink);letter-spacing:-.018em;line-height:1.26;margin-bottom:7px;transition:color .25s}
-.witem:hover .wi-title{color:var(--blue-dk)}
-.wi-ex{font-size:clamp(.76rem,.95vw,.85rem);line-height:1.56;color:var(--t2)}
-.wfeat{display:flex;flex-direction:column;gap:clamp(.9rem,1.8vh,1.3rem)}
-.fcard{background:var(--card);border:1px solid var(--line2);padding:clamp(1.1rem,2vw,1.5rem);text-decoration:none;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;box-shadow:var(--shadow-sm);flex:1;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
-.fcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
-.fcard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
-.fcard.lead::after{background:var(--yel)}
-.fcard:hover::after{transform:scaleX(1)}
-.fc-ill{height:clamp(48px,7vh,70px);display:flex;align-items:center;justify-content:center;margin-bottom:2px}
-.fc-ill svg{height:100%;width:auto;stroke:var(--ink2);stroke-width:1.15;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.fcard.lead .fc-ill svg{stroke:var(--yel-dk)}
-.fc-tag{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.13em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:9px}
-.fcard.lead .fc-tag{color:var(--yel-dk)}
-.fc-feat{background:var(--yel);color:#fff;padding:2px 8px;font-size:.52rem;letter-spacing:.09em}
-.fc-title{font-weight:600;font-size:clamp(.96rem,1.3vw,1.12rem);line-height:1.26;color:var(--ink);letter-spacing:-.018em}
-.fc-ex{font-size:clamp(.74rem,.93vw,.82rem);line-height:1.55;color:var(--t2);flex:1}
-.fc-arrow{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-top:auto}
-.fcard.lead .fc-arrow{color:var(--yel-dk)}
-.fc-arrow svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.7;fill:none;transition:transform .25s}
-.fcard:hover .fc-arrow svg{transform:translateX(4px)}
-
-/* ═══════ S9 CONTACT ═══════ */
-#s9{background:var(--blue-dk);justify-content:center;align-items:center;overflow:hidden;position:relative}
-.s9-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.1) 1.5px,transparent 1.5px);background-size:40px 40px;mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 10%,transparent 75%)}
-.s9-wrap{position:relative;z-index:2;text-align:center;max-width:820px;padding:0 56px;width:100%}
-.s9-eyebrow{justify-content:center;color:var(--yel2)}
-.s9-eyebrow::before{background:var(--yel2)}
-.s9h{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(2.4rem,5.2vw,4.4rem);line-height:1.04;letter-spacing:-.03em;color:#fff;margin-bottom:clamp(1rem,2.2vh,1.5rem)}
-.s9h em{font-style:italic;color:var(--yel2)}
-.s9-lead{font-size:clamp(.9rem,1.3vw,1.05rem);color:rgba(255,255,255,.74);line-height:1.7;margin-bottom:clamp(2rem,4.5vh,3.2rem);max-width:560px;margin-left:auto;margin-right:auto}
-.s9-row{display:flex;gap:13px;justify-content:center;flex-wrap:wrap;margin-bottom:clamp(1.4rem,3vh,2.2rem)}
-.cbtn{display:inline-flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:clamp(.6rem,.84vw,.7rem);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:14px 24px;border:1.5px solid rgba(255,255,255,.25);color:#fff;border-radius:6px;transition:all .3s var(--ease)}
-.cbtn:hover{border-color:var(--yel2);color:var(--yel2);transform:translateY(-3px)}
-.cbtn.pri{background:var(--yel);border-color:var(--yel);color:#fff;font-weight:600}
-.cbtn.pri:hover{background:var(--yel2);border-color:var(--yel2);color:var(--blue-dk)}
-.cbtn svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.6;fill:none}
-.s9-meta{font-family:'IBM Plex Mono',monospace;font-size:clamp(.6rem,.86vw,.7rem);color:rgba(255,255,255,.5);letter-spacing:.05em}
-.s9-meta a{color:var(--yel2);text-decoration:none;font-weight:500}
-.s9-meta a:hover{color:var(--blue)}
-
-/* ───── 3D TILT / DEPTH ───── */
-.tilt-scene{perspective:1200px}
-.tilt{transform-style:preserve-3d;transition:transform .55s var(--ease),box-shadow .4s var(--ease);will-change:transform}
-.tilt.active{transition:transform .1s ease-out,box-shadow .2s ease}
-.tilt-layer{transition:transform .55s var(--ease)}
-.tilt.active .tilt-layer{transition:transform .1s ease-out}
-.tilt-glare{position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.55),transparent 50%);transition:opacity .4s var(--ease);z-index:4;mix-blend-mode:overlay}
-.tilt.active .tilt-glare{opacity:1}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.2s!important;scroll-behavior:auto!important}
-  .tilt,.tilt.active{transform:none!important}.tilt-layer{transform:none!important}.tilt-glare{display:none}
-  .h-shape{animation:none!important}
-}
-@media(max-width:1000px){
-  .tilt,.tilt.active{transform:none!important}.tilt-glare{display:none}
-}
-a:focus-visible,button:focus-visible,.dot:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
-.dot:focus-visible{border-radius:50%}
-
-@media(max-width:1000px){
-  nav{padding:14px 22px}.nlinks{display:none}
-  .h-wrap{grid-template-columns:1fr;gap:30px;padding:0 26px}
-  .h-panel{flex-direction:row;flex-wrap:wrap}
-  .h-stat{flex:1;min-width:140px}
-  .h-shape{display:none}.h-scroll{left:26px}
-  #s3,#s6,#s7{grid-template-columns:1fr}
-  .s3l,.s6l,.s7l{border-right:none;border-bottom:1px solid var(--line)}
-  .s3r,.s6r,.s7r{display:none}
-  .s2-grid{grid-template-columns:repeat(2,1fr)}
-  .mgrid{grid-template-columns:repeat(2,1fr)}
-  .cgrid,.builds,.feat{grid-template-columns:1fr}
-  .s6b-head{flex-direction:column;align-items:flex-start}.s6b-sub{text-align:left}
-  .dots{display:none}
-  /* engagements: horizontal swipe row, so all three stay reachable in a fixed-height slide */
-  .s3b-wrap{padding-left:0;padding-right:0;padding-top:52px}
-  .s3b-head,.bound{padding-left:26px;padding-right:26px}
-  .egrid{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 26px 6px}
-  .egrid::-webkit-scrollbar{display:none}
-  .eng{flex:0 0 78vw;max-width:340px;scroll-snap-align:center}
-  .eng-p{flex:none}
-  .s3b-note{max-width:none}
-  .bound{flex-direction:column;gap:6px}
-}
-@media(max-width:640px){
-  .s2-grid{grid-template-columns:1fr}
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Vikram Rathour">
 <meta property="og:title" content="Vikram Rathour: Enterprise Data and AI">
-<meta property="og:description" content="Twenty-six years architecting data and AI platforms for banking, healthcare and manufacturing. Three engagements, scoped and time-boxed, for the pivots most AI programmes stall at.">
+<meta property="og:description" content="Twenty-six years architecting data and AI platforms for banking, healthcare and manufacturing. Three ways to work together through the pivots where most AI programmes stall.">
 <meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Vikram Rathour: Enterprise Data and AI">
-<meta name="twitter:description" content="Twenty-six years architecting data and AI platforms for banking, healthcare and manufacturing. Three engagements, scoped and time-boxed, for the pivots most AI programmes stall at.">
+<meta name="twitter:description" content="Twenty-six years architecting data and AI platforms for banking, healthcare and manufacturing. Three ways to work together through the pivots where most AI programmes stall.">
 <link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/">
+<style>
+/* ═══════════ SPATIAL FIELD (home) ═══════════ */
+body{overflow-x:hidden}
+.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+.field{position:relative;overflow:hidden;padding-block:clamp(3rem,6vw,4.5rem) clamp(3.5rem,7vw,5.5rem);isolation:isolate}
+.field::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(to right,rgba(18,26,36,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(18,26,36,.035) 1px,transparent 1px);background-size:36px 36px;mask-image:radial-gradient(ellipse 80% 70% at 50% 35%,#000 30%,transparent 90%)}
+.orb{position:absolute;z-index:-1;border-radius:50%;pointer-events:none;filter:blur(120px);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.orb.o1{width:620px;height:620px;top:-220px;right:-140px;background:rgba(253,145,104,.30)}
+.orb.o2{width:560px;height:560px;top:30%;left:-260px;background:rgba(158,208,201,.32)}
+.orb.o3{width:480px;height:480px;bottom:-200px;right:22%;background:rgba(255,219,207,.55)}
+
+.field-head{text-align:center;max-width:860px;margin:0 auto clamp(2.75rem,5vw,4rem)}
+.field-badge{display:inline-flex;align-items:center;gap:.55rem;padding:.45rem 1rem;border-radius:999px;background:rgba(255,255,255,.75);border:1px solid rgba(194,99,62,.28);color:var(--terra-dk);font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;box-shadow:var(--shadow)}
+.field-badge .ico{width:15px;height:15px}
+.field-head h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.5rem);line-height:1.05;letter-spacing:-.025em;margin:1.4rem 0 1.25rem}
+.field-head h1 em{color:var(--terra-dk)}
+.field-head .lede{margin:0 auto;font-size:1.125rem;max-width:62ch}
+.field-head .lede strong{color:var(--ink);font-weight:600}
+.field-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem;margin-top:1.9rem}
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:0;margin:2.25rem auto 0;max-width:720px;background:rgba(255,255,255,.8);border:1px solid var(--hair);border-radius:14px;box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+.stat{flex:1 1 180px;padding:1.1rem 1.4rem;text-align:left}
+.stat + .stat{border-left:1px solid var(--hair)}
+.stat .n{display:block;font-family:var(--serif);font-size:1.9rem;font-weight:500;line-height:1.05}
+.stat:nth-child(2) .n{color:var(--terra-dk)}
+.stat .lab{display:block;margin-top:.3rem;font-size:.6875rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+@media (max-width:600px){.stat + .stat{border-left:0;border-top:1px solid var(--hair)}}
+
+/* realm grid */
+.realms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.25rem,2.6vw,2.25rem);perspective:1400px}
+@media (max-width:1023px){.realms{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:680px){.realms{grid-template-columns:1fr}}
+.slot{animation:bob 7s ease-in-out infinite;animation-delay:var(--d,0s)}
+.slot:hover{animation-play-state:paused}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+.realm{position:relative;display:flex;flex-direction:column;width:100%;height:100%;min-height:400px;text-align:left;font:inherit;color:inherit;cursor:pointer;padding:2rem 2rem 1.6rem;border-radius:18px;background:var(--vellum);border:1px solid var(--hair);box-shadow:0 18px 40px -18px rgba(18,26,36,.18),0 4px 12px -4px rgba(18,26,36,.05);overflow:hidden;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s cubic-bezier(.2,.8,.2,1),border-color .35s;will-change:transform}
+.realm:hover,.realm:focus-visible{border-color:var(--hair-hot);box-shadow:0 34px 64px -20px rgba(18,26,36,.28),0 0 0 1px rgba(194,99,62,.12),0 0 40px -8px rgba(194,99,62,.22)}
+.realm .blob{position:absolute;top:-70px;right:-70px;width:210px;height:210px;border-radius:50%;background:var(--terra-pale);opacity:.9;transition:transform .6s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.realm.sage .blob{background:var(--sage-pale)}
+.realm:hover .blob{transform:scale(1.25)}
+.realm .glare{position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.55),transparent 55%);transition:opacity .35s}
+.realm:hover .glare{opacity:1}
+.realm > *{position:relative}
+.realm-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.35rem;transform:translateZ(30px)}
+.realm .rtag{font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.4rem .7rem;border-radius:5px;background:var(--terra-pale);color:var(--terra-dk);border:1px solid rgba(194,99,62,.22)}
+.realm.sage .rtag{background:var(--sage-pale);color:var(--sage);border-color:rgba(43,92,87,.22)}
+.realm .ricon{color:var(--ink-3)}
+.realm .ricon .ico{width:22px;height:22px}
+.realm h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.55rem,2.3vw,1.85rem);line-height:1.18;letter-spacing:-.01em;margin:0 0 .75rem;transform:translateZ(40px)}
+.realm .q{font-family:var(--serif);font-style:italic;font-size:1.08rem;line-height:1.45;color:var(--terra-dk);margin:0 0 .9rem;transform:translateZ(28px)}
+.realm .b{font-size:.95rem;line-height:1.65;color:var(--ink-2);margin:0 0 1.5rem;transform:translateZ(18px)}
+.realm .rfoot{margin-top:auto;padding-top:1.1rem;border-top:1px solid var(--hair);display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.8125rem;color:var(--ink-2)}
+.realm .enter{display:inline-flex;align-items:center;gap:.35rem;font-weight:700;color:var(--terra-dk);opacity:.55;transform:translateX(-4px);transition:opacity .3s,transform .3s}
+.realm:hover .enter,.realm:focus-visible .enter{opacity:1;transform:none}
+.realm .enter .ico{width:15px;height:15px}
+.realm .key{font-family:var(--mono);font-size:.6875rem;padding:.1rem .4rem;border:1px solid var(--hair-2);border-radius:4px;color:var(--ink-3);margin-left:.4rem}
+
+.realm.dark{background:linear-gradient(165deg,#1B2533 0%,#121A24 55%,#0C121A 100%);color:var(--canvas);border-color:#121A24;box-shadow:0 30px 60px -18px rgba(18,26,36,.55),0 0 0 1px rgba(194,99,62,.18)}
+.realm.dark .blob{background:radial-gradient(circle,rgba(194,99,62,.4),transparent 70%);opacity:1}
+.realm.dark .rtag{background:rgba(194,99,62,.18);color:var(--terra-lt);border-color:rgba(232,161,132,.35)}
+.realm.dark .ricon{color:var(--terra-lt)}
+.realm.dark .q{color:var(--terra-lt)}
+.realm.dark .b{color:rgba(247,246,242,.74)}
+.realm.dark .rfoot{border-color:rgba(247,246,242,.14);color:rgba(247,246,242,.66)}
+.realm.dark .enter{color:var(--terra-lt)}
+.realm.dark .key{border-color:rgba(247,246,242,.22);color:rgba(247,246,242,.6)}
+.realm.dark .glare{background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(232,161,132,.18),transparent 55%)}
+
+.field-hint{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:clamp(2.5rem,5vw,3.5rem);font-size:.875rem;color:var(--ink-2);text-align:center}
+.field-hint::before,.field-hint::after{content:"";width:48px;height:1px;background:var(--hair-2)}
+@media (pointer:coarse){.field-hint .kb,.realm .key{display:none}}
+
+/* ═══════════ 3D ENGAGEMENT SPRINTS ═══════════ */
+.sprints{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.25rem,2.6vw,2rem);perspective:1400px;align-items:stretch}
+.sprint{display:flex;flex-direction:column;border-radius:18px;padding:2rem;background:var(--vellum);border:1px solid var(--hair);box-shadow:0 18px 40px -18px rgba(18,26,36,.18);transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .35s;position:relative;overflow:hidden}
+.sprint:hover{border-color:var(--hair-hot);box-shadow:0 34px 64px -20px rgba(18,26,36,.26)}
+.sprint .glare{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.5),transparent 55%);transition:opacity .35s}
+.sprint:hover .glare{opacity:1}
+.sprint > *{position:relative}
+.sprint-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem}
+.sprint .sn{font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .65rem;border-radius:5px;background:var(--recess);color:var(--ink-2)}
+.sprint .wk{font-family:var(--mono);font-size:.75rem;color:var(--sage);background:var(--sage-pale);padding:.3rem .65rem;border-radius:999px}
+.sprint h3{font-family:var(--serif);font-weight:500;font-size:1.5rem;line-height:1.22;margin:0 0 .9rem}
+.sprint .for{font-size:.875rem;color:var(--ink-2);margin:0 0 1rem;padding:.8rem .95rem;background:var(--canvas);border-radius:8px}
+.sprint .for b,.sprint .keep b{display:block;font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:.2rem}
+.sprint .p{font-size:.9375rem;line-height:1.65;color:var(--ink-2);margin:0 0 1.25rem;flex:1}
+.sprint .keep{padding-top:1rem;border-top:1px solid var(--hair);font-size:.875rem;color:var(--ink-2)}
+.sprint .keep b{color:var(--sage)}
+.sprint.dark{background:linear-gradient(165deg,#1B2533,#121A24 60%,#0C121A);color:var(--canvas);border-color:var(--ink);box-shadow:0 30px 60px -18px rgba(18,26,36,.5)}
+.sprint.dark .sn{background:rgba(194,99,62,.18);color:var(--terra-lt)}
+.sprint.dark .wk{background:rgba(158,208,201,.14);color:#9ED0C9}
+.sprint.dark .for{background:rgba(247,246,242,.06);color:rgba(247,246,242,.78)}
+.sprint.dark .for b,.sprint.dark .keep b{color:var(--canvas)}
+.sprint.dark .keep b{color:#9ED0C9}
+.sprint.dark .p,.sprint.dark .keep{color:rgba(247,246,242,.74)}
+.sprint.dark .keep{border-color:rgba(247,246,242,.14)}
+.sprint.dark .glare{background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(232,161,132,.16),transparent 55%)}
+@media (max-width:1023px){.sprints{grid-template-columns:1fr;max-width:640px;margin:0 auto}}
+.decline{margin:clamp(2.5rem,5vw,3.5rem) auto 0;max-width:900px;border-radius:18px;padding:1.75rem 2rem;background:var(--vellum);border:1px solid rgba(194,99,62,.3);box-shadow:var(--shadow);display:grid;grid-template-columns:auto 1fr;gap:1rem 1.25rem;align-items:start}
+.decline .ico{width:26px;height:26px;color:var(--terra)}
+.decline h3{margin:0 0 .35rem;font-family:var(--serif);font-weight:500;font-size:1.3rem}
+.decline p{margin:0;color:var(--ink-2);font-size:.9375rem}
+
+/* ═══════════ CONTACT ═══════════ */
+.contact{background:var(--ink);color:var(--canvas);position:relative;overflow:hidden;isolation:isolate}
+.contact .orb.o1{background:rgba(194,99,62,.28);top:-260px}
+.contact .orb.o2{background:rgba(43,92,87,.4);top:auto;bottom:-300px;left:-200px}
+.contact-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.contact .eyebrow{color:var(--terra-lt)}
+.contact h2 em{color:var(--terra-lt)}
+.contact .lede{color:rgba(247,246,242,.76);margin:1.25rem 0 2rem}
+.contact .ctas{display:flex;flex-wrap:wrap;gap:.75rem}
+.contact .meta{margin-top:1.75rem;font-size:.875rem;color:rgba(247,246,242,.62)}
+.contact .meta a{color:var(--canvas)}
+.idcard{border-radius:20px;padding:2rem;background:linear-gradient(165deg,rgba(247,246,242,.08),rgba(247,246,242,.02));border:1px solid rgba(247,246,242,.14);text-align:center;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.8,.2,1);position:relative;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
+.avatar{position:relative;width:132px;height:132px;margin:0 auto 1.25rem;border-radius:50%;overflow:hidden;background:#1B2533;box-shadow:0 0 0 3px rgba(232,161,132,.6),0 0 0 8px rgba(232,161,132,.12);transform:translateZ(40px)}
+.avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.avatar .fb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.avatar .fb img{position:static;width:64px;height:64px}
+.idcard h3{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:0;transform:translateZ(30px)}
+.idcard .role{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--terra-lt);margin:.35rem 0 1rem}
+.idcard .quote{font-family:var(--serif);font-style:italic;font-size:1.1rem;line-height:1.5;color:rgba(247,246,242,.82);margin:0 auto;max-width:34ch}
+.idcard .lines{margin-top:1.25rem;padding-top:1rem;border-top:1px solid rgba(247,246,242,.12);font-family:var(--mono);font-size:.78rem;color:rgba(247,246,242,.7);display:grid;gap:.35rem}
+.idcard .lines a{color:var(--canvas);text-decoration:none}
+@media (max-width:1023px){.contact-grid{grid-template-columns:1fr}.idcard{max-width:420px;margin:0 auto;width:100%}}
+
+/* ═══════════ JOURNEY READER ═══════════ */
+.journey{position:fixed;inset:0;z-index:500;overflow-y:auto;overscroll-behavior:contain;background:rgba(247,246,242,.95);backdrop-filter:blur(28px) saturate(170%);-webkit-backdrop-filter:blur(28px) saturate(170%);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s}
+.journey.open{opacity:1;visibility:visible;transition:opacity .35s ease}
+.jbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem var(--margin);padding-top:calc(.85rem + env(safe-area-inset-top,0px));background:rgba(247,246,242,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
+.jback{display:inline-flex;align-items:center;gap:.45rem;padding:.5rem .85rem;border-radius:8px;border:1px solid rgba(194,99,62,.35);background:var(--vellum);font:700 .75rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--terra-dk);cursor:pointer}
+.jback:hover{background:var(--terra-pale)}
+.jback .ico{width:15px;height:15px}
+.jcrumb{display:flex;align-items:center;gap:.6rem;font-size:.8125rem;min-width:0}
+.jcrumb b{font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--terra-dk)}
+.jcrumb span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.jleft{display:flex;align-items:center;gap:1rem;min-width:0}
+.jpills{display:flex;align-items:center;gap:.3rem;flex-shrink:0}
+.jpill{width:32px;height:32px;border-radius:8px;border:1px solid transparent;background:transparent;font:700 .8125rem/1 var(--sans);color:var(--ink-2);cursor:pointer;transition:background .2s,color .2s}
+.jpill:hover{background:var(--recess);color:var(--ink)}
+.jpill[aria-current="true"]{background:var(--ink);color:#fff;box-shadow:0 6px 16px -6px rgba(18,26,36,.5)}
+.jclose{width:36px;height:36px;border-radius:50%;border:0;background:transparent;color:var(--ink-2);cursor:pointer;margin-left:.35rem;display:inline-flex;align-items:center;justify-content:center}
+.jclose:hover{background:var(--recess);color:var(--ink)}
+@media (max-width:760px){.jcrumb{display:none}.jback span{display:none}.jpill{width:28px;height:28px}}
+.jbody{max-width:1180px;margin:0 auto;padding:clamp(2.5rem,6vw,4.5rem) var(--margin) 3rem}
+.chapter[hidden]{display:none}
+.chapter{animation:chIn .55s cubic-bezier(.16,1,.3,1) both}
+@keyframes chIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.ch-head{max-width:820px;margin-bottom:clamp(2rem,4vw,3rem)}
+.ch-head .eyebrow{margin-bottom:.6rem}
+.ch-head .lede{margin-top:1.1rem}
+.jnav{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:clamp(3rem,6vw,4.5rem);padding-top:1.5rem;border-top:1px solid var(--hair-2)}
+.jnav button{display:inline-flex;align-items:center;gap:.6rem;text-align:left;background:var(--vellum);border:1px solid var(--hair);border-radius:12px;padding:.9rem 1.2rem;cursor:pointer;font:inherit;color:var(--ink);transition:border-color .2s,transform .25s}
+.jnav button:hover{border-color:var(--hair-hot);transform:translateY(-2px)}
+.jnav small{display:block;font-size:.6875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.jnav strong{font-family:var(--serif);font-weight:500;font-size:1.05rem}
+.jnav .next{margin-left:auto;text-align:right}
+.jnav [hidden]{display:none}
+.jsub{margin-top:clamp(3rem,6vw,4.5rem)}
+
+/* chapter content blocks (reused from the previous home) */
+.pivot .move{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-family:var(--serif);font-size:1.5rem;line-height:1.2;margin-bottom:.5rem}
+.pivot .move .from{color:var(--ink-3)}
+.pivot .move .arr{color:var(--terra);font-family:var(--sans);font-size:1.1rem}
+.pivot .card-foot{font-family:var(--serif);font-style:italic;font-size:.975rem;color:var(--ink)}
+.watch{margin-top:var(--gutter);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.25rem 2rem;padding:1.6rem 2rem;border-radius:12px;background:var(--recess)}
+.watch h3{margin:0 0 .3rem}
+.watch p{margin:0;max-width:62ch;font-size:.9375rem;color:var(--ink-2)}
+.approach{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2.5rem,6vw,5rem);align-items:start}
+.approach .thesis{margin:1.5rem 0}
+.steps{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair-2)}
+.steps li{display:grid;grid-template-columns:4.5rem 1fr;gap:1rem;padding:1.5rem 0;border-bottom:1px solid var(--hair-2)}
+.steps .n{font-family:var(--serif);font-size:2.25rem;line-height:1;color:var(--terra)}
+.steps h3{margin:0 0 .35rem}
+.steps p{margin:0;color:var(--ink-2);font-size:.9375rem}
+@media (max-width:1023px){.approach{grid-template-columns:1fr}}
+.journey .card{border-radius:14px}
+.impact .n{font-family:var(--serif);font-weight:500;font-size:2.75rem;line-height:1;letter-spacing:-.02em;margin-bottom:.9rem}
+.impact:nth-child(3n+1) .n{color:var(--terra-dk)}
+.impact .lab{font-weight:600;font-size:1rem;margin:0 0 .5rem;color:var(--ink)}
+.case .cc-hi{font-family:var(--serif);font-weight:500;font-size:1.35rem;line-height:1.3;margin:0 0 .9rem}
+.case dl{margin:0 0 1.25rem;display:grid;gap:.75rem}
+.case dt{font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.case dd{margin:.15rem 0 0;font-size:.9rem;line-height:1.6;color:var(--ink-2)}
+.case .out{display:flex;align-items:center;gap:.9rem;font-size:.875rem;color:var(--ink)}
+.case .out .n{font-family:var(--serif);font-size:1.5rem;color:var(--terra-dk);min-width:2ch}
+.work-bar{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;margin-bottom:1.75rem}
+.deeper{margin-top:2.5rem;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center}
+.deeper .label{color:var(--ink-3)}
+.pov-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2.5rem,6vw,5rem);align-items:start}
+.roles{list-style:none;margin:2rem 0 0;padding:0;display:grid;gap:.9rem}
+.roles li{display:flex;gap:.85rem;align-items:flex-start;font-size:.9375rem;color:var(--ink-2)}
+.roles li strong{color:var(--ink);font-weight:600}
+.roles .ico{width:34px;height:34px;padding:8px;border-radius:50%;background:var(--sage-pale);color:var(--sage)}
+.pov-list{display:grid;gap:1rem}
+.blueprint{padding:2.25rem}
+@media (max-width:1023px){.pov-grid{grid-template-columns:1fr}}
+.writing{display:grid;grid-template-columns:7fr 5fr;gap:clamp(2.5rem,5vw,4rem);align-items:start}
+.wlist{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair-2)}
+.wlist a{display:grid;grid-template-columns:8.5rem 1fr;gap:.35rem 1.5rem;padding:1.4rem 0;border-bottom:1px solid var(--hair-2);text-decoration:none;color:inherit}
+.wlist .meta{font-size:.75rem;font-weight:600;letter-spacing:.04em;color:var(--ink-3);padding-top:.35rem;display:flex;flex-direction:column;gap:.25rem}
+.wlist .meta .c{color:var(--terra-dk);text-transform:uppercase;letter-spacing:.08em;font-size:.6875rem}
+.wlist .t{font-family:var(--serif);font-size:1.3rem;font-weight:500;line-height:1.3;transition:color .2s}
+.wlist .ex{grid-column:2;font-size:.9rem;color:var(--ink-2);line-height:1.6}
+.wlist a:hover .t{color:var(--terra-dk)}
+.wfeat{display:grid;gap:1rem}
+.wfeat .ill{height:70px;margin-bottom:1rem}
+.wfeat .ill svg{height:100%;width:auto;fill:none;stroke:var(--terra);stroke-width:1.4}
+.wfeat .card.dark .ill svg{stroke:var(--terra-lt)}
+@media (max-width:1023px){.writing{grid-template-columns:1fr}}
+@media (max-width:560px){.wlist a{grid-template-columns:1fr}.wlist .ex{grid-column:1}.wlist .meta{flex-direction:row;gap:.75rem;padding-top:0}}
+.build .repo{font-family:var(--mono);font-size:1.15rem;font-weight:600;color:var(--ink);margin:0 0 .35rem}
+.build .repo .slash{color:var(--terra)}
+.lang{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.75rem;color:var(--ink-2)}
+.lang i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.build .tagline{font-weight:600;font-size:.9375rem;color:var(--sage);margin:0 0 .75rem}
+.sig{display:grid;grid-template-columns:7fr 5fr;gap:clamp(2.5rem,6vw,5rem);align-items:center}
+.sig .thesis{margin:1.75rem 0}
+.sig-stats{display:grid;gap:1rem}
+.sig-stats .n{font-family:var(--serif);font-size:2rem;line-height:1;margin-bottom:.5rem;color:var(--terra-dk)}
+@media (max-width:1023px){.sig{grid-template-columns:1fr}}
+.no-scroll{overflow:hidden}
+@media (prefers-reduced-motion:reduce){.slot{animation:none}.orb{transition:none}}
+</style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<div id="pb"></div>
-
-<nav role="navigation" aria-label="Main navigation">
-  <a href="#s1" class="nlogo">Vikram <span>Rathour</span></a>
-  <ul class="nlinks">
-    <li><a href="#s3">Approach</a></li>
-    <li><a href="#s3b">Engagements</a></li>
-    <li><a href="#s4">Impact</a></li>
-    <li><a href="#s5">Work</a></li>
-    <li><a href="#s6">Point of View</a></li>
-    <li><a href="blueprint.html">Blueprint</a></li>
-    <li><a href="#s6b">Builds</a></li>
-    <li><a href="#s8">Writing</a></li>
-  </ul>
-  <a href="#s9" class="nav-cta">Get in touch</a>
-</nav>
-
-<div class="dots" id="dots" role="navigation" aria-label="Section navigation">
-  <div class="dot" data-i="0" data-l="Home" role="button" tabindex="0" aria-label="Go to Home"></div>
-  <div class="dot" data-i="1" data-l="Thesis" role="button" tabindex="0" aria-label="Go to Thesis"></div>
-  <div class="dot" data-i="2" data-l="Approach" role="button" tabindex="0" aria-label="Go to Approach"></div>
-  <div class="dot" data-i="3" data-l="Engagements" role="button" tabindex="0" aria-label="Go to Engagements"></div>
-  <div class="dot" data-i="4" data-l="Impact" role="button" tabindex="0" aria-label="Go to Impact"></div>
-  <div class="dot" data-i="5" data-l="Work" role="button" tabindex="0" aria-label="Go to Work"></div>
-  <div class="dot" data-i="6" data-l="Point of View" role="button" tabindex="0" aria-label="Go to Point of View"></div>
-  <div class="dot" data-i="7" data-l="Builds" role="button" tabindex="0" aria-label="Go to Builds"></div>
-  <div class="dot" data-i="8" data-l="Signature" role="button" tabindex="0" aria-label="Go to Signature"></div>
-  <div class="dot" data-i="9" data-l="Writing" role="button" tabindex="0" aria-label="Go to Writing"></div>
-  <div class="dot" data-i="10" data-l="Contact" role="button" tabindex="0" aria-label="Go to Contact"></div>
-</div>
-
-<!-- ═══ S1 HERO ═══ -->
-<section class="slide" id="s1" aria-label="Introduction">
-  <div class="h-bg">
-    <div class="h-dots"></div>
-    <div class="h-shape s-a" data-depth="2.2"></div>
-    <div class="h-shape s-b" data-depth="3.4"></div>
-    <div class="h-shape s-c" data-depth="1.4"></div>
+<header class="nav" role="banner">
+  <div class="nav-in">
+    <a href="#field" class="brand" aria-label="Vikram Rathour, home">
+      <img src="assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand-t"><span class="brand-n">Vikram Rathour</span><span class="brand-s">Enterprise Data &amp; AI</span></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="navlinks" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav-links" id="navlinks">
+      <li><a href="#s2">Thesis</a></li>
+      <li><a href="#s5">Work</a></li>
+      <li><a href="#s4">Impact</a></li>
+      <li><a href="#s6">Point of View</a></li>
+      <li><a href="#s6b">Builds</a></li>
+      <li><a href="#s3b">Working together</a></li>
+      <li><a href="blueprint.html">Blueprint</a></li>
+      <li><a href="blog/index.html">Writing</a></li>
+    </ul>
+    <a href="#s9" class="btn btn-pri nav-cta">Let's talk <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
   </div>
-  <div class="h-wrap" id="s1-content">
-    <div>
-      <div class="h-status"><span class="pip"></span>Fractional Data &amp; AI Leadership · Available now</div>
-      <h1 class="h-name">
-        <span class="l"><span class="w a1">Vikram</span></span>
-        <span class="l"><span class="w a2"><em>Rathour</em></span></span>
-      </h1>
-      <p class="h-role">I take enterprise AI programmes through the three pivots most of them stall at: <strong>pilot to production, initial to industrialised, managed to resilient</strong>. Twenty-five years in banking, healthcare and manufacturing. Available as a fractional or interim data and AI lead.</p>
-      <div class="h-ctas">
-        <a href="#s5" class="btn btn-pri">See what I've fixed <svg class="ico-sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+</header>
+
+<main id="main">
+
+<!-- ═══ SPATIAL FIELD ═══ -->
+<section class="field" id="field" aria-label="Introduction and chapters">
+  <span id="s1"></span>
+  <div class="orb o1" data-par="50"></div><div class="orb o2" data-par="-40"></div><div class="orb o3" data-par="30"></div>
+  <div class="wrap">
+    <div class="field-head">
+      <span class="field-badge"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/></svg>Fractional Data &amp; AI Leadership · Open to new conversations</span>
+      <h1>Vikram <em>Rathour</em></h1>
+      <p class="lede">I walk alongside enterprise teams through the three pivots where most AI programmes stall: <strong>pilot to production, initial to industrialised, managed to resilient</strong>. Twenty-five years in banking, healthcare and manufacturing. I can join as a fractional or interim data and AI lead.</p>
+      <div class="field-ctas">
+        <button class="btn btn-pri" data-open="2">See the stories behind the work <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         <a href="#s9" class="btn btn-sec">Start a conversation</a>
       </div>
+      <div class="stats">
+        <div class="stat"><span class="n">25 yrs</span><span class="lab">Banking, healthcare, manufacturing</span></div>
+        <div class="stat"><span class="n">$2B+</span><span class="lab">Platforms shaped &amp; delivered</span></div>
+        <div class="stat"><span class="n">0</span><span class="lab">Failed flagship platforms</span></div>
+      </div>
     </div>
-    <div class="h-panel tilt-scene">
-      <div class="h-stat tilt"><span class="n">25 yrs</span><span class="lab">Banking, healthcare, manufacturing</span></div>
-      <div class="h-stat tilt"><span class="n">$2B+</span><span class="lab">Platforms shaped &amp; delivered</span></div>
-      <div class="h-stat tilt"><span class="n">0</span><span class="lab">Failed flagship platforms</span></div>
+
+    <div class="realms">
+      <div class="slot" style="--d:0s">
+        <button class="realm tilt3d" data-open="1" aria-label="Open chapter 1: Three pivots">
+          <span class="blob"></span><span class="glare"></span>
+          <span class="realm-top"><span class="rtag">Realm 01 · The Thesis</span><span class="ricon"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span></span>
+          <h2>Three pivots</h2>
+          <span class="q">"Most programmes are wrestling with one of them."</span>
+          <span class="b">AI programmes rarely fail on technology. They stall at a transition nobody owns. Pilot to production, initial to industrialised, managed to resilient, and the stance behind how I take them through.</span>
+          <span class="rfoot"><span>Chapter I · Pivots &amp; approach</span><span class="enter">Enter <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="key">1</span></span></span>
+        </button>
+      </div>
+      <div class="slot" style="--d:-2.3s">
+        <button class="realm dark tilt3d" data-open="2" aria-label="Open chapter 2: Nine times through these pivots">
+          <span class="blob"></span><span class="glare"></span>
+          <span class="realm-top"><span class="rtag">Realm 02 · The Work</span><span class="ricon"><svg class="ico" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg></span></span>
+          <h2>Nine times through these pivots</h2>
+          <span class="q">"The data was fine. The accountability wasn't."</span>
+          <span class="b">A national tax platform nobody would use. A fraud system operations kept overriding. A Lakehouse stalled on politics, not technology. Nine stories from banking, AI systems and platforms.</span>
+          <span class="rfoot"><span>Chapter II · 9 stories</span><span class="enter">Enter <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="key">2</span></span></span>
+        </button>
+      </div>
+      <div class="slot" style="--d:-4.6s">
+        <button class="realm sage tilt3d" data-open="3" aria-label="Open chapter 3: What changed after I left the room">
+          <span class="blob"></span><span class="glare"></span>
+          <span class="realm-top"><span class="rtag">Realm 03 · Outcomes</span><span class="ricon"><svg class="ico" viewBox="0 0 24 24"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.4 7.2 16.9l.9-5.4-3.9-3.8 5.4-.8z"/></svg></span></span>
+          <h2>What changed after I left the room</h2>
+          <span class="q">"2&times; business-unit growth. Zero downtime across 50TB."</span>
+          <span class="b">Not lines of code or tables migrated. Decisions improved, capability built, and platforms that outlived the project that created them.</span>
+          <span class="rfoot"><span>Chapter III · 6 outcomes</span><span class="enter">Enter <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="key">3</span></span></span>
+        </button>
+      </div>
+      <div class="slot" style="--d:-1.2s">
+        <button class="realm tilt3d" data-open="4" aria-label="Open chapter 4: Point of view">
+          <span class="blob"></span><span class="glare"></span>
+          <span class="realm-top"><span class="rtag">Realm 04 · Point of View</span><span class="ricon"><svg class="ico" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span></span>
+          <h2>The homework before the advice</h2>
+          <span class="q">"The Production Blueprint, three papers, seven essays."</span>
+          <span class="b">Advice is only worth trusting when it is independent of the vendor in the room. Mine is grounded in primary research I publish openly.</span>
+          <span class="rfoot"><span>Chapter IV · Research &amp; writing</span><span class="enter">Enter <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="key">4</span></span></span>
+        </button>
+      </div>
+      <div class="slot" style="--d:-3.5s">
+        <button class="realm sage tilt3d" data-open="5" aria-label="Open chapter 5: Selected builds">
+          <span class="blob"></span><span class="glare"></span>
+          <span class="realm-top"><span class="rtag">Realm 05 · Builds</span><span class="ricon"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></svg></span></span>
+          <h2>I don't just architect it. I build it.</h2>
+          <span class="q">"sentinel_dq · OrionData_Webapp · CKDTracker"</span>
+          <span class="b">A leader who still ships understands what they ask of their teams. Working repositories, not slideware.</span>
+          <span class="rfoot"><span>Chapter V · Python / TypeScript</span><span class="enter">Enter <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="key">5</span></span></span>
+        </button>
+      </div>
+      <div class="slot" style="--d:-5.8s">
+        <button class="realm tilt3d" data-open="6" aria-label="Open chapter 6: CKDTracker">
+          <span class="blob"></span><span class="glare"></span>
+          <span class="realm-top"><span class="rtag">Realm 06 · Purpose</span><span class="ricon"><svg class="ico" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.5 3-5.5A4.5 4.5 0 0012 6 4.5 4.5 0 002 8.5c0 2 1.5 4 3 5.5l7 7z"/></svg></span></span>
+          <h2>CKDTracker: empathy, made executable</h2>
+          <span class="q">"I did not design for a persona. I designed for myself."</span>
+          <span class="b">As a transplant recipient, I built CKDTracker in 2024: an open-source kidney-health application for the 850 million people who share the condition. Not a product. A contribution.</span>
+          <span class="rfoot"><span>Chapter VI · Open source</span><span class="enter">Enter <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="key">6</span></span></span>
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="h-scroll" onclick="document.getElementById('s2').scrollIntoView()">
-    <svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg> Scroll
+    <p class="field-hint">Select any card to open its chapter<span class="kb">&nbsp;· or press 1 to 6 on your keyboard</span></p>
   </div>
 </section>
 
-<!-- ═══ S2 THESIS ═══ -->
-<section class="slide" id="s2" aria-label="Thesis">
-  <div class="s2-wrap">
-    <div class="eyebrow s2-eyebrow">What I'm brought in to do</div>
-    <h2 class="s2-big r d1">Three pivots.<br>Most programmes are stuck at <span class="yh"><em>one of them</em></span>.</h2>
-    <p class="s2-lead r d2">AI programmes rarely fail on technology. They stall at a transition nobody owns. These are the three I'm called in for. They run roughly in order, though most organisations are working on two at once, and the second is where the majority are sitting right now.</p>
-    <div class="pivots r d3">
-
-      <div class="pivot">
-        <div class="pivot-num">PIVOT 01</div>
-        <div class="pivot-move"><span class="pivot-from">Pilot</span> <span>→</span> <span class="pivot-to">Production</span></div>
-        <div class="pivot-h">Make it real, in front of customers</div>
-        <div class="pivot-p">The demo worked. Production requires answering what happens when the model is wrong in front of a customer, who approves that, and what the fallback is. Those are decisions, not engineering tasks, which is why they get deferred.</div>
-        <div class="pivot-tell">The tell: an eighteen-month-old pilot everyone still calls promising.</div>
-      </div>
-
-      <div class="pivot-arrow">→</div>
-
-      <div class="pivot">
-        <div class="pivot-num">PIVOT 02</div>
-        <div class="pivot-move"><span class="pivot-from">Initial</span> <span>→</span> <span class="pivot-to">Industrialised</span></div>
-        <div class="pivot-h">Make the second one cheaper than the first</div>
-        <div class="pivot-p">One use case in production is an achievement. Twenty is a capability. That needs shared foundations, governed data, and a delivery pattern others can follow, rather than a hero team rebuilding from scratch each time.</div>
-        <div class="pivot-tell">The tell: every new use case costs what the first one did.</div>
-      </div>
-
-      <div class="pivot-arrow">→</div>
-
-      <div class="pivot">
-        <div class="pivot-num">PIVOT 03</div>
-        <div class="pivot-move"><span class="pivot-from">Managed</span> <span>→</span> <span class="pivot-to">Resilient</span></div>
-        <div class="pivot-h">Make it survive without me, and without you</div>
-        <div class="pivot-p">Three shifts at once: it holds up when models drift or vendors change underneath it, it can be defended to a regulator with evidence rather than assurances, and your own team runs it confidently after I leave.</div>
-        <div class="pivot-tell">The tell: nobody can explain last Tuesday's decision.</div>
-      </div>
-
-    </div>
-    <div class="s2-watch r d6">
-      <div class="s2-watch-text">
-        <h5>See the argument, not just read it</h5>
-        <p>The idea above, rendered as something you can feel. Noise resolves into order only where attention lands. That is the whole thesis, happening under your cursor.</p>
-      </div>
-      <a href="wisdom-loop.html" class="s2-watch-btn">Experience it <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ S3 APPROACH ═══ -->
-<section class="slide" id="s3" aria-label="Approach">
-  <div class="s3l">
-    <div class="eyebrow r">How I work</div>
-    <h2 class="s3h r d1">Architecture is a <em>stance</em>,<br>not a diagram.</h2>
-    <blockquote class="s3-quote r d2">"Anyone can wire up an intelligent system now. The hard part is sensibility: knowing which problem deserves the intelligence, what the output means in context, and when to overrule a confident machine. That judgment is the architecture. The diagram is just its residue."</blockquote>
-    <p class="s3-body r d3">After twenty-five years across regulated industries, the pattern holds. The platforms that lasted were the ones where someone supplied judgment the models could not, the sensibility to frame the right question before engineering the right answer.</p>
-  </div>
-  <div class="s3r tilt-scene">
-    <div class="estep tilt r d1">
-      <span class="estep-num">01</span>
-      <div><h4>Frame the right problem first</h4><p>Sensibility starts before the model. The costliest mistakes are intelligent answers to the wrong question.</p></div>
-    </div>
-    <div class="estep tilt r d2">
-      <span class="estep-num">02</span>
-      <div><h4>Engineer context into the system</h4><p>Semantic layers, governance, lineage. The infrastructure that lets a model know what its output actually means.</p></div>
-    </div>
-    <div class="estep tilt r d3">
-      <span class="estep-num">03</span>
-      <div><h4>Then engineer for excellence</h4><p>Kafka, Lakehouse, RAG, agentic AI. The technology earns its place once the judgment layer is set.</p></div>
-    </div>
-    <div class="estep tilt r d4">
-      <span class="estep-num">04</span>
-      <div><h4>Keep a human in the override seat</h4><p>Design the system so judgment can intervene. Sensibility at machine speed still needs a person who can say "stop."</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ S3B ENGAGEMENTS ═══ -->
-<section class="slide" id="s3b" aria-label="Engagements">
-  <div class="s3b-wrap">
-    <div class="s3b-head">
+<!-- ═══ WORKING TOGETHER ═══ -->
+<section class="sec sec-alt" id="s3b" aria-label="Working together">
+  <div class="wrap">
+    <div class="sec-head">
       <div>
-        <div class="eyebrow r">How to work with me</div>
-        <h2 class="s3bh r d1">Three things you can<br><em>actually buy</em>.</h2>
+        <span class="eyebrow r">How we might work together</span>
+        <h2 class="h-xl r d1">Three ways we can <em>work together</em>.</h2>
       </div>
-      <p class="s3b-note r d2">Each one is scoped, time-boxed and ends in something your team keeps. None of them is an open-ended transformation programme.</p>
+      <p class="lede r d2">Each has a clear shape and an honest end point, and leaves behind something your team owns and understands. None of them is an open-ended transformation programme.</p>
     </div>
-    <div class="egrid tilt-scene">
-
-      <div class="eng tilt r d1">
-        <div class="eng-top"><span class="eng-n">01</span><span class="eng-wks">4 to 8 weeks</span></div>
-        <div class="eng-h">AI data readiness and semantic core</div>
-        <div class="eng-for"><b>For</b>A CDO or CIO with several AI pilots giving inconsistent answers to the same question.</div>
-        <p class="eng-p">I define the business meaning layer for the 30 to 50 numbers your business actually runs on: definition, source, owner, known traps. Aligned to industry standards where they apply, such as BIAN or FHIR. Then I prove it with a before-and-after accuracy test on your real questions, not a benchmark.</p>
-        <div class="eng-out"><b>You keep</b>A governed semantic model, a scored readiness map, and a 90-day remediation backlog.</div>
-      </div>
-
-      <div class="eng tilt r d2">
-        <div class="eng-top"><span class="eng-n">02</span><span class="eng-wks">3 to 6 weeks</span></div>
-        <div class="eng-h">Agent production readiness and reliability</div>
-        <div class="eng-for"><b>For</b>A CTO or AI platform owner whose agent works in the demo and fails in production.</div>
-        <p class="eng-p">I build a domain test set with your own experts, run each case repeatedly, and report how often the agent is right and how it fails. Then I review the design around it: fixed workflow or agent, retrieval permissions, document preparation, decision record retention, running cost.</p>
-        <div class="eng-out"><b>You keep</b>A reliability number the board can act on, and a design your team can build.</div>
-      </div>
-
-      <div class="eng tilt r d3">
-        <div class="eng-top"><span class="eng-n">03</span><span class="eng-wks">4 to 8 weeks</span></div>
-        <div class="eng-h">Data-to-decision architecture and operating model</div>
-        <div class="eng-for"><b>For</b>An architecture board with fragmented lakehouse, BI, AI and automation investments.</div>
-        <p class="eng-p">I set the target architecture from source systems through the semantic layer to analytics, agents and action, define the operating model for agentic AI, and structure the work as the three pivots: pilot to production, initial to industrialised, managed to resilient.</p>
-        <div class="eng-out"><b>You keep</b>A reference architecture, the standards that hold it together, and a handover plan so your team runs it without me.</div>
-      </div>
-
+    <div class="sprints">
+      <article class="sprint tilt3d r d1"><span class="glare"></span>
+        <div class="sprint-top"><span class="sn">01 · Foundations</span><span class="wk">4 to 8 weeks</span></div>
+        <h3>AI data readiness and semantic core</h3>
+        <p class="for"><b>When this helps</b>Several AI pilots are giving your leadership different answers to the same question.</p>
+        <p class="p">Together we write down the business meaning behind the 30 to 50 numbers your organisation actually runs on: what each one means, where it comes from, who looks after it, and the traps people have learned to step around. Aligned to industry standards where they help, such as BIAN or FHIR. Then we check it honestly, with a before-and-after accuracy test on your real questions, not a benchmark.</p>
+        <div class="keep"><b>What stays with your team</b>A governed semantic model, a scored readiness map, and a 90-day plan for what to improve next.</div>
+      </article>
+      <article class="sprint dark tilt3d r d2"><span class="glare"></span>
+        <div class="sprint-top"><span class="sn">02 · Reliability</span><span class="wk">3 to 6 weeks</span></div>
+        <h3>Agent production readiness and reliability</h3>
+        <p class="for"><b>When this helps</b>Your agent shines in the demo and falters in production.</p>
+        <p class="p">I sit with your own experts to turn their knowledge into a test set, run each case repeatedly, and share plainly how often the agent is right and how it fails. Then we look at the design around it together: fixed workflow or agent, retrieval permissions, document preparation, decision record retention, running cost.</p>
+        <div class="keep"><b>What stays with your team</b>A reliability number the board can trust, and a design your team feels ready to build.</div>
+      </article>
+      <article class="sprint tilt3d r d3"><span class="glare"></span>
+        <div class="sprint-top"><span class="sn">03 · Direction</span><span class="wk">4 to 8 weeks</span></div>
+        <h3>Data-to-decision architecture and operating model</h3>
+        <p class="for"><b>When this helps</b>Your lakehouse, BI, AI and automation investments grew up separately and no longer pull in the same direction.</p>
+        <p class="p">We shape the target architecture together, from source systems through the semantic layer to analytics, agents and action, agree how people and agentic AI will work alongside each other, and pace the journey as the three pivots: pilot to production, initial to industrialised, managed to resilient.</p>
+        <div class="keep"><b>What stays with your team</b>A reference architecture, the standards that hold it together, and a handover plan so your team runs it confidently on its own.</div>
+      </article>
     </div>
-    <div class="bound r d4">
-      <span class="bound-k">What I decline</span>
-      <span>I do not sell security testing of agent tools or MCP servers. When that is what you need, I say so and bring in a named specialist rather than stretching my own scope to cover it.</span>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ S4 IMPACT ═══ -->
-<section class="slide" id="s4" aria-label="Impact">
-  <div class="s4-wrap">
-    <div class="s4-head">
+    <div class="decline r d4">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M12 3v18M5 6h11l3 3-3 3H5z"/></svg>
       <div>
-        <div class="eyebrow r">Outcomes that matter at the top</div>
-        <h2 class="s4h r d1">What changed in the business,<br>after I <em>left the room</em>.</h2>
+        <h3>Where I will point you to someone better</h3>
+        <p>Security testing of agent tools and MCP servers deserves a dedicated specialist, and that is not me. If it is what you need, I will tell you honestly and introduce you to someone I trust, rather than stretching my own experience to cover it.</p>
       </div>
-      <p class="s4-note r d2">Not lines of code or tables migrated. Decisions improved, capability built, and platforms that outlived the project that created them.</p>
-    </div>
-    <div class="mgrid tilt-scene">
-      <div class="mc tilt r"><div class="n">2&times;</div><div class="lab">Business-unit growth</div><div class="sub">A stalled unit doubled in one fiscal year once the roadmap was rebuilt around value streams rather than systems</div></div>
-      <div class="mc tilt r d1"><div class="n">10%</div><div class="lab">YoY revenue growth, national programme</div><div class="sub">Public-sector platform where redesigning the human workflow, not the model, unlocked the result</div></div>
-      <div class="mc tilt r d2"><div class="n">Zero</div><div class="lab">Downtime across a 50TB migration</div><div class="sub">Phased delivery on a programme where an outage would have been a regulatory event</div></div>
-      <div class="mc tilt r d3"><div class="n">6&rarr;8 wks</div><div class="lab">Cut to self-serve</div><div class="sub">Twelve domains were waiting two months per data request. Federated ownership removed the queue entirely</div></div>
-      <div class="mc tilt r d4"><div class="n">40%&rarr;0</div><div class="lab">Manual overrides eliminated</div><div class="sub">A fraud platform operators were bypassing four times in ten. Rebuilt around their actual decision, not the model's confidence</div></div>
-      <div class="mc tilt r d5"><div class="n">25 yrs</div><div class="lab">No failed flagship platform</div><div class="sub">Across banking, healthcare and manufacturing. Sustained judgment, not one lucky bet</div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ S5 WORK ═══ -->
-<section class="slide" id="s5" aria-label="Work">
-  <div class="s5-wrap">
-    <div class="s5-head">
+<!-- ═══ CONTACT ═══ -->
+<section class="sec contact" id="s9" aria-label="Contact">
+  <span id="contact"></span>
+  <div class="orb o1" data-par="30"></div><div class="orb o2" data-par="-30"></div>
+  <div class="wrap contact-grid">
+    <div class="idcard tilt3d r">
+      <div class="avatar">
+        <div class="fb"><img src="assets/logo.svg" alt=""></div>
+        <img src="assets/portrait.jpg" alt="Portrait of Vikram Rathour" onerror="this.remove()">
+      </div>
+      <h3>Vikram Rathour</h3>
+      <p class="role">Enterprise Data &amp; AI</p>
+      <p class="quote">"Anyone can wire up an intelligent system now. The hard part is sensibility."</p>
+      <div class="lines"><a href="mailto:Rathour.vikram@gmail.com">Rathour.vikram@gmail.com</a><span>Pune, Maharashtra, India</span></div>
+    </div>
+    <div>
+      <span class="eyebrow r">Let's talk</span>
+      <h2 class="display r d1">Which pivot feels <em>hardest</em> right now?</h2>
+      <p class="lede r d2">I work with only two or three organisations at a time, usually two to three days a week, for six to twelve months. That is enough to stand beside your team through the difficult decisions and see them through, without adding a permanent role. Most conversations begin with a 45-minute call where I listen first, then tell you honestly whether I can help, or whether your team already has what it needs to close this on its own.</p>
+      <div class="ctas r d3">
+        <a href="mailto:Rathour.vikram@gmail.com" class="btn btn-light"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 6l8 6 8-6"/></svg> Email</a>
+        <a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener" class="btn btn-ghost-light"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v6h-4v-6a2 2 0 00-4 0v6h-4v-10h4v2"/><circle cx="4" cy="4" r="2"/><path d="M2 9h4v11H2z"/></svg> LinkedIn</a>
+        <a href="blog/index.html" class="btn btn-ghost-light"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> Writing</a>
+        <a href="https://github.com/vikramrathour" target="_blank" rel="noopener" class="btn btn-ghost-light"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#field" class="brand"><img src="assets/logo.svg" alt="" width="36" height="36"><span class="brand-n">Vikram Rathour</span></a>
+        <p>In an era of abundant intelligence, the scarce resource is sensibility.</p>
+      </div>
       <div>
-        <div class="eyebrow r">Selected engagements</div>
-        <h2 class="s5h r d1">Nine times through <em>these pivots</em>.</h2>
+        <h4>Chapters</h4>
+        <ul><li><a href="#s2">The Thesis</a></li><li><a href="#s5">The Work</a></li><li><a href="#s4">Outcomes</a></li><li><a href="#s6b">Builds</a></li></ul>
       </div>
-      <div class="tabs r d2">
-        <button class="tb on" data-tab="bfs">Banking</button>
-        <button class="tb" data-tab="ai">AI Systems</button>
-        <button class="tb" data-tab="plat">Platforms</button>
-      </div>
-    </div>
-    <div class="ccon">
-      <div class="cgrid tilt-scene" id="tab-bfs">
-        <div class="cc tilt"><span class="cc-sec">Regulatory · Major Bank</span><span class="cc-pivot">Pivot 03 · Resilient</span><div class="cc-hi">The data was fine. The accountability wasn't.</div><div class="cc-prob">Regulators asked questions the data couldn't answer. The cause: twelve teams, twelve versions of the truth, no shared ownership.</div><div class="cc-sol">Federated governance on Data Vault 2.0, led by a governance CoE that gave every team ownership rather than obligation. Trust first, platform second.</div><div class="cc-out"><span class="n">&check;</span><span class="t">Systemic risk transparency restored; teams aligned</span></div></div>
-        <div class="cc tilt"><span class="cc-sec">National Tax Authority</span><span class="cc-pivot">Pivot 01 · Production</span><div class="cc-hi">A capable platform nobody would use.</div><div class="cc-prob">Investigators ignored automated fraud scores. Nobody had explained the logic, so the spend sat idle as expensive shelfware.</div><div class="cc-sol">Redesigned the investigator workflow alongside the model. Co-designed the interface and built transparency into every score with the people using it.</div><div class="cc-out"><span class="n">10%</span><span class="t">YoY tax base growth · 50% faster resolution</span></div></div>
-        <div class="cc tilt"><span class="cc-sec">Real-Time Payments</span><span class="cc-pivot">Pivot 03 · Resilient</span><div class="cc-hi">The ops team was overriding the system.</div><div class="cc-prob">A Kafka fraud platform performed well technically, but operations overrode it routinely because the alerts made no sense to them.</div><div class="cc-sol">Rebuilt the alert logic with the fraud team: thresholds, explanations, exception flows co-designed, then re-engineered the platform around those decisions.</div><div class="cc-out"><span class="n">&darr;</span><span class="t">Override rate collapsed; capture rate up</span></div></div>
-      </div>
-      <div class="cgrid tilt-scene" id="tab-ai" style="display:none">
-        <div class="cc tilt"><span class="cc-sec">GenAI &amp; RAG · Lending</span><span class="cc-pivot">Pivot 01 · Production</span><div class="cc-hi">Analysts felt replaced, so they opted out.</div><div class="cc-prob">An AI-assisted KYC system was rejected by the lending team. Adoption near zero: the AI decided, the analysts watched.</div><div class="cc-sol">Reframed it as a copilot. Rebuilt the experience so analysts stayed the decision-makers with AI surfacing evidence. Workshops ran before code did.</div><div class="cc-out"><span class="n">&uarr;</span><span class="t">Adoption transformed; processing time down</span></div></div>
-        <div class="cc tilt"><span class="cc-sec">Predictive Analytics</span><span class="cc-pivot">Pivot 01 · Production</span><div class="cc-hi">A good model, ignored.</div><div class="cc-prob">A sound churn model output probability scores. Managers ignored it: a number between 0 and 1 told them nothing actionable.</div><div class="cc-sol">Replaced scores with plain-language narratives and ranked actions. Rebuilt around the only question that mattered: what do I do next?</div><div class="cc-out"><span class="n">&rarr;</span><span class="t">From ignored to cited in every review</span></div></div>
-        <div class="cc tilt"><span class="cc-sec">ORIAN.Data Platform</span><span class="cc-pivot">Pivot 02 · Industrialised</span><div class="cc-hi">Brilliant outputs, no judgment behind them.</div><div class="cc-prob">AI investments kept producing confident answers nobody could stand behind. Teams couldn't explain decisions, executives couldn't verify them.</div><div class="cc-sol">Architected ORIAN.Data so judgment is structural: a Semantic Core that gives outputs context and a Trust pillar that makes them explainable.</div><div class="cc-out"><span class="n">&starf;</span><span class="t">Deployed across regulated-industry clients</span></div></div>
-      </div>
-      <div class="cgrid tilt-scene" id="tab-plat" style="display:none">
-        <div class="cc tilt"><span class="cc-sec">Global Lakehouse · Azure</span><span class="cc-pivot">Pivot 02 · Industrialised</span><div class="cc-hi">The argument was political, not technical.</div><div class="cc-prob">A multi-million Lakehouse stalled at six months. Every division defined the same metric differently. Technology was waiting on alignment.</div><div class="cc-sol">Ran business-alignment workshops before architecture. Built a shared glossary every division signed off, then designed the platform around that language.</div><div class="cc-out"><span class="n">1</span><span class="t">One source of truth, agreed before built</span></div></div>
-        <div class="cc tilt"><span class="cc-sec">Data Mesh · Enterprise Bank</span><span class="cc-pivot">Pivot 02 · Industrialised</span><div class="cc-hi">The central team was a bottleneck, not a service.</div><div class="cc-prob">Thirty people served twelve domains. Requests took six to eight weeks. Domains felt powerless; the team felt unappreciated.</div><div class="cc-sol">Led the cultural shift first: domain leads designed their own data products in workshops. The central team became enablers; the mesh followed the culture.</div><div class="cc-out"><span class="n">&uarr;</span><span class="t">Domain autonomy; faster insight; valued team</span></div></div>
-        <div class="cc tilt"><span class="cc-sec">50TB Migration · Utility</span><span class="cc-pivot">Pivot 03 · Resilient</span><div class="cc-hi">The team feared being blamed.</div><div class="cc-prob">11,748 tables, 49.65 TB, 1,550 ETL objects. The plan was solid; the engineers were anxious because they couldn't see the whole picture.</div><div class="cc-sol">Built full sprint-by-sprint, risk-by-risk visibility. Every engineer could see what moved, when, and what rollback looked like. Transparency replaced fear.</div><div class="cc-out"><span class="n">50TB</span><span class="t">Phased delivery, on plan, confident team</span></div></div>
-      </div>
-    </div>
-    <div class="deeper r d3">
-      <span class="deeper-lbl">Go deeper</span>
-      <a href="judgment-room.html">Walk through five of these decisions yourself <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a href="architecture.svg">See the architecture behind the judgment layer <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ S6 LEADERSHIP ═══ -->
-<section class="slide" id="s6" aria-label="Point of view">
-  <div class="s6l">
-    <div class="eyebrow r">Point of view</div>
-    <h2 class="s6h r d1">I do the homework<br>before I give you <em>advice</em>.</h2>
-    <p class="s6-body r d2">A fractional lead is only worth having if their judgment is independent of the vendor in the room. Mine is grounded in primary research I publish openly, so you can check the reasoning rather than take the recommendation on trust.</p>
-    <a href="blueprint.html" class="s6-main r d2" style="display:block;background:var(--ink);color:#fff;text-decoration:none;padding:20px 22px;margin:0 0 22px;border-right:4px solid var(--yel);box-shadow:var(--shadow-md)">
-      <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--yel2);margin-bottom:8px">Start here</span>
-      <span style="display:block;font-size:1.12rem;font-weight:600;letter-spacing:-.02em;margin-bottom:7px">The Production Blueprint</span>
-      <span style="display:block;font-size:.88rem;line-height:1.5;color:rgba(255,255,255,.75)">Seven decisions between a pilot and a business result, with the evidence behind each one and the places it contradicts itself. The three papers below are the deep dives.</span>
-      <span style="display:inline-block;margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--yel)">Read the blueprint &rarr;</span>
-    </a>
-    <div class="s6-roles r d3">
-      <div class="s6-role"><div class="medallion"><svg class="ico" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg></div><span><strong>Mentor</strong>, IIT Madras Pravartak, national open-source data strategy</span></div>
-      <div class="s6-role"><div class="medallion"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a6 6 0 016-6h4a6 6 0 016 6v2"/></svg></div><span><strong>Founder</strong>, enterprise Architect Community of Practice</span></div>
-      <div class="s6-role"><div class="medallion"><svg class="ico" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z"/></svg></div><span><strong>Two-time hackathon winner</strong>, ING, data intelligence &amp; lineage</span></div>
-      <div class="s6-role"><div class="medallion"><svg class="ico" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div><span><strong>PG, AI for Leaders</strong>, UT Austin · Apache Kafka certified</span></div>
-    </div>
-  </div>
-  <div class="s6r tilt-scene">
-    <a href="multi-agent-enterprise.html" class="pov tilt r" target="_blank" rel="noopener">
-      <div class="pov-top"><span class="pov-tag">If you are deploying agents</span></div>
-      <div class="pov-title">The Multi-Agent Enterprise</div>
-      <div class="pov-findings">
-        <div class="pov-find">Published research shows agents negotiating against each other settle into collusion, even with every direct channel between them removed. If your agents transact, this is a governance question before it is a technical one.</div>
-      </div>
-      <div class="pov-arrow">Read the paper →</div>
-    </a>
-    <a href="model-architecture.html" class="pov tilt r d1" target="_blank" rel="noopener">
-      <div class="pov-top"><span class="pov-tag">If you are choosing models</span></div>
-      <div class="pov-title">Frontier &amp; Open-Weights Architecture</div>
-      <div class="pov-findings">
-        <div class="pov-find">Eighteen open and eight closed models compared on the same axis. Written so you can challenge a vendor's benchmark claim in a procurement meeting rather than accept it.</div>
-      </div>
-      <div class="pov-arrow">Read the paper →</div>
-    </a>
-    <a href="enterprise-model-stack.html" class="pov tilt r d2" target="_blank" rel="noopener">
-      <div class="pov-top"><span class="pov-tag">If you are building the platform</span></div>
-      <div class="pov-title">The Enterprise Model Stack</div>
-      <div class="pov-findings">
-        <div class="pov-find">How to build a system that survives the model underneath it being replaced every few months. The architecture question most AI business cases quietly skip.</div>
-      </div>
-      <div class="pov-arrow">Read the paper →</div>
-    </a>
-  </div>
-</section>
-
-<!-- ═══ S6B BUILDS ═══ -->
-<section class="slide" id="s6b" aria-label="Selected builds">
-  <div class="s6b-wrap">
-    <div class="s6b-head">
       <div>
-        <div class="eyebrow r">Selected builds</div>
-        <h2 class="s6bh r d1">I don't just architect it.<br>I <em>build</em> it.</h2>
+        <h4>Read</h4>
+        <ul><li><a href="blueprint.html">Production Blueprint</a></li><li><a href="blog/index.html">Writing</a></li><li><a href="judgment-room.html">The Judgment Room</a></li><li><a href="wisdom-loop.html">The Wisdom Loop</a></li></ul>
       </div>
-      <p class="s6b-sub r d2">A leader who still ships understands what they ask of their teams. Working repositories, not slideware.</p>
-    </div>
-    <div class="builds tilt-scene">
-      <a href="https://github.com/vikramrathour/sentinel_dq" target="_blank" rel="noopener" class="bcard tilt r d1">
-        <div class="bc-top"><span class="bc-lang"><span class="bc-langdot" style="background:#3572A5"></span>Python</span><span class="bc-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z"/></svg>Public</span></div>
-        <div class="bc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l9 4.5v11L12 22l-9-4.5v-11z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <div class="bc-name">sentinel<span class="slash">_</span>dq</div>
-        <div class="bc-tagline">Intelligent data quality for AI workloads</div>
-        <div class="bc-desc">Sensibility, made executable. Data quality is where most AI fails quietly: garbage in, confident garbage out. This enforces judgment at the data layer before a model ever sees it.</div>
-        <div class="bc-foot">View repository <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></div>
-      </a>
-      <a href="https://github.com/vikramrathour/OrionData_Webapp" target="_blank" rel="noopener" class="bcard tilt r d2">
-        <div class="bc-top"><span class="bc-lang"><span class="bc-langdot" style="background:#3178c6"></span>TypeScript</span><span class="bc-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z"/></svg>Public</span></div>
-        <div class="bc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-        <div class="bc-name">OrionData<span class="slash">_</span>Webapp</div>
-        <div class="bc-tagline">The ORIAN.Data platform, in the browser</div>
-        <div class="bc-desc">The working surface of the four-pillar platform (Foundation, Semantic Core, Intelligence, Trust) turned into something a user can touch, not just a reference architecture.</div>
-        <div class="bc-foot">View repository <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></div>
-      </a>
-      <a href="https://github.com/vikramrathour/CKDTracker" target="_blank" rel="noopener" class="bcard tilt r d3">
-        <div class="bc-top"><span class="bc-lang"><span class="bc-langdot" style="background:#f1e05a"></span>JavaScript</span><span class="bc-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z"/></svg>Public</span></div>
-        <div class="bc-icon"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.5 3-5.5A4.5 4.5 0 0012 6 4.5 4.5 0 002 8.5c0 2 1.5 4 3 5.5l7 7z"/></svg></div>
-        <div class="bc-name">CKDTracker</div>
-        <div class="bc-tagline">Open-source kidney-health tracking</div>
-        <div class="bc-desc">Built as a transplant recipient, for 850 million people who share the condition. The clearest proof that I design for the person at the end, not a persona on a slide.</div>
-        <div class="bc-foot">View repository <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></div>
-      </a>
-    </div>
-    <p class="s6b-note r d4">More at <a href="https://github.com/vikramrathour" target="_blank" rel="noopener">github.com/vikramrathour</a></p>
-  </div>
-</section>
-
-<!-- ═══ S7 SIGNATURE ═══ -->
-<section class="slide" id="s7" aria-label="Signature project">
-  <div class="s7l">
-    <div class="eyebrow r">Signature project · open source</div>
-    <h2 class="s7h r d1">CKDTracker: empathy,<br><em>made executable</em>.</h2>
-    <p class="s7-body r d2">As a transplant recipient, I built <strong>CKDTracker</strong> in 2024: an open-source kidney-health application in Next.js and TypeScript. Not a product. Not a venture. A contribution.</p>
-    <blockquote class="s7-quote r d3">It is the clearest proof of how I work. I did not design for a persona. I designed for myself and for the 850 million people who share this condition. The empathy was not a method. It was lived.</blockquote>
-    <a href="https://github.com/vikramrathour/CKDTracker" target="_blank" rel="noopener" class="s7-link r d4">View on GitHub <svg class="ico-sm" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
-  </div>
-  <div class="s7r tilt-scene">
-    <div class="s7-stat tilt r"><div class="n">~850M</div><div class="l">People worldwide living with chronic kidney disease, one in ten adults</div></div>
-    <div class="s7-stat tilt r d1"><div class="n">Open</div><div class="l">Source, permanently. No paywall for patients who are already paying enough</div></div>
-    <div class="s7-stat tilt r d2"><div class="n">Public</div><div class="l">Journey shared on LinkedIn and a podcast, because trust is built in the open</div></div>
-  </div>
-</section>
-
-<!-- ═══ S8 WRITING ═══ -->
-<section class="slide" id="s8" aria-label="Writing">
-  <div class="s8-wrap">
-    <div class="s8-head">
       <div>
-        <div class="eyebrow r">Writing</div>
-        <h2 class="s8h r d1">Worked out here first,<br>then <em>built</em>.</h2>
+        <h4>Elsewhere</h4>
+        <ul><li><a href="mailto:Rathour.vikram@gmail.com">Email</a></li><li><a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://github.com/vikramrathour" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://rathourvikram.wordpress.com" target="_blank" rel="noopener">WordPress</a></li></ul>
       </div>
     </div>
-    <div class="s8-body">
-      <div class="wcol">
-      <div class="wgrid">
-        <a class="witem r d1" href="blog/storage-has-an-owner-meaning-has-an-accident.html">
-          <div class="wi-meta"><span class="c">Governance</span><span>May 2026</span></div>
-          <div class="wi-title">Storage Has an Owner. Meaning Has an Accident.</div>
-          <div class="wi-ex">We assign storage ownership with precision and interpretation authority by accident. Agents did not cause that, they made it urgent.</div>
-        </a>
-        <a class="witem r d2" href="blog/human-in-the-loop-has-to-know-what-right-looks-like.html">
-          <div class="wi-meta"><span class="c">Agentic AI</span><span>Mar 2026</span></div>
-          <div class="wi-title">The Human in the Loop Has to Know What Right Looks Like</div>
-          <div class="wi-ex">Human in the loop without domain expertise is not a safety net. It is a spectator. What a different expert-to-workflow ratio looks like.</div>
-        </a>
-        <a class="witem r d3" href="blog/deepseek-r1-hype-reality-future-ai-deployment.html">
-          <div class="wi-meta"><span class="c">AI Strategy</span><span>Feb 2025</span></div>
-          <div class="wi-title">DeepSeek R1: Hype, Reality, and Deployment</div>
-          <div class="wi-ex">Value delivery was never about compute size. Where open and proprietary models actually fit, seen through a legal lens.</div>
-        </a>
-        <a class="witem r d4" href="blog/indexes-and-is-null.html">
-          <div class="wi-meta"><span class="c">Oracle</span><span>Apr 2013</span></div>
-          <div class="wi-title">Indexes and IS NULL</div>
-          <div class="wi-ex">The oldest piece here. Execution plans and 10053 traces, because the answer depended on the data, not the documentation.</div>
-        </a>
-      </div>
-      <a href="blog/index.html" class="s8-all r d5">All seven essays <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </div>
-      <div class="wfeat">
-        <a href="blog/umi-moment-for-india.html" class="fcard lead r d2">
-          <div class="fc-ill"><svg viewBox="0 0 120 70"><path d="M10 55 C22 20, 40 12, 56 30 S 88 52, 110 18"/><circle cx="24" cy="38" r="3.4"/><circle cx="46" cy="21" r="3.4"/><circle cx="70" cy="40" r="3.4"/><circle cx="96" cy="29" r="3.4"/><path d="M24 38 L46 21 L70 40 L96 29" stroke-dasharray="3 4"/><path d="M8 64 h104"/></svg></div>
-          <div class="fc-tag"><span class="fc-feat">Longest read</span> AI Strategy</div>
-          <div class="fc-title">It Is Time for a UMI Moment for India</div>
-          <div class="fc-ex">19,500 dialects, $100M compute economics and 0.1% of global training data. Why distillation and vertical specialisation are the viable path.</div>
-          <div class="fc-arrow">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-        </a>
-        <a href="blog/architects-gambit-ai-powered-courage.html" class="fcard r d3">
-          <div class="fc-ill"><svg viewBox="0 0 120 70"><circle cx="60" cy="34" r="22"/><path d="M60 12 a22 22 0 0 1 19 33"/><circle cx="60" cy="12" r="4"/><circle cx="82" cy="34" r="4"/><circle cx="60" cy="56" r="4"/><circle cx="38" cy="34" r="4"/><path d="M96 22 l8 8 -8 8"/><path d="M104 30 h-14" stroke-dasharray="3 3"/><path d="M16 22 l-8 8 8 8"/><path d="M8 30 h14" stroke-dasharray="3 3"/></svg></div>
-          <div class="fc-tag">Architecture</div>
-          <div class="fc-title">The Architect's Gambit</div>
-          <div class="fc-ex">Architecting for probability is essential. Architecting for possibility is where courage wins.</div>
-          <div class="fc-arrow">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-        </a>
-      </div>
+    <div class="foot-base"><span>&copy; 2026 Vikram Rathour</span><span>Enterprise Data &amp; AI · Pune, India</span></div>
+  </div>
+</footer>
+
+<!-- ═══════════ GUIDED JOURNEY READER ═══════════ -->
+<div class="journey" id="journey" role="dialog" aria-modal="true" aria-labelledby="jtitle" aria-hidden="true">
+  <div class="jbar">
+    <div class="jleft">
+      <button class="jback" data-close><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Back to the field</span></button>
+      <div class="jcrumb"><b id="jbadge">Chapter I</b><span id="jtitle">Three pivots</span></div>
+    </div>
+    <div class="jpills" role="tablist" aria-label="Chapters">
+      <button class="jpill" data-go="1" aria-label="Chapter 1">1</button>
+      <button class="jpill" data-go="2" aria-label="Chapter 2">2</button>
+      <button class="jpill" data-go="3" aria-label="Chapter 3">3</button>
+      <button class="jpill" data-go="4" aria-label="Chapter 4">4</button>
+      <button class="jpill" data-go="5" aria-label="Chapter 5">5</button>
+      <button class="jpill" data-go="6" aria-label="Chapter 6">6</button>
+      <button class="jclose" data-close aria-label="Close (Esc)"><svg class="ico" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
   </div>
-</section>
 
-<!-- ═══ S9 CONTACT ═══ -->
-<section class="slide" id="s9" aria-label="Contact">
-  <div class="s9-dots"></div>
-  <div class="s9-wrap">
-    <div class="eyebrow s9-eyebrow r">Let's talk</div>
-    <h2 class="s9h r d1">Which pivot are you <em>stuck at</em>?</h2>
-    <p class="s9-lead r d2">I take on two or three fractional engagements at a time, typically two to three days a week, for six to twelve months. Enough to own the decisions and see them through, without the cost of a permanent hire. Most start with a 45-minute call where I tell you honestly whether you need me, or whether it's a problem your team can close themselves.</p>
-    <div class="s9-row r d3">
-      <a href="mailto:Rathour.vikram@gmail.com" class="cbtn pri"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 6l8 6 8-6"/></svg> Email</a>
-      <a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener" class="cbtn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v6h-4v-6a2 2 0 00-4 0v6h-4v-10h4v2"/><circle cx="4" cy="4" r="2"/><path d="M2 9h4v11H2z"/></svg> LinkedIn</a>
-      <a href="blog/index.html" class="cbtn"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> Writing</a>
-      <a href="https://github.com/vikramrathour" target="_blank" rel="noopener" class="cbtn"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> GitHub</a>
-    </div>
-    <div class="s9-meta r d4">Pune, Maharashtra, India &nbsp;·&nbsp; <a href="mailto:Rathour.vikram@gmail.com">Rathour.vikram@gmail.com</a></div>
+  <div class="jbody">
+
+    <!-- CHAPTER I · THESIS + APPROACH -->
+    <article class="chapter" data-ch="1" data-title="Three pivots" hidden>
+      <div id="s2">
+        <div class="ch-head">
+          <span class="eyebrow">Chapter I · What I'm brought in to do</span>
+          <h2 class="h-xl">Three pivots. Most programmes are <em>wrestling with one of them</em>.</h2>
+          <p class="lede">AI programmes rarely fail on technology. They stall at a transition nobody owns. These are the three I'm called in for. They run roughly in order, though most organisations are working on two at once, and the second is where the majority are sitting right now.</p>
+        </div>
+        <div class="grid g3">
+          <article class="card pivot tilt3d">
+            <div class="card-mast"><span class="tag">Pivot 01</span></div>
+            <div class="move"><span class="from">Pilot</span><span class="arr">→</span><span>Production</span></div>
+            <div class="card-body"><h3 class="h-sm">Make it real, in front of customers</h3><p>The demo worked. Production requires answering what happens when the model is wrong in front of a customer, who approves that, and what the fallback is. Those are decisions, not engineering tasks, which is why they get deferred.</p></div>
+            <div class="card-foot">The tell: an eighteen-month-old pilot everyone still calls promising.</div>
+          </article>
+          <article class="card pivot tilt3d">
+            <div class="card-mast"><span class="tag">Pivot 02</span></div>
+            <div class="move"><span class="from">Initial</span><span class="arr">→</span><span>Industrialised</span></div>
+            <div class="card-body"><h3 class="h-sm">Make the second one cheaper than the first</h3><p>One use case in production is an achievement. Twenty is a capability. That needs shared foundations, governed data, and a delivery pattern others can follow, rather than a hero team rebuilding from scratch each time.</p></div>
+            <div class="card-foot">The tell: every new use case costs what the first one did.</div>
+          </article>
+          <article class="card pivot tilt3d">
+            <div class="card-mast"><span class="tag">Pivot 03</span></div>
+            <div class="move"><span class="from">Managed</span><span class="arr">→</span><span>Resilient</span></div>
+            <div class="card-body"><h3 class="h-sm">Make it survive without me, and without you</h3><p>Three shifts at once: it holds up when models drift or vendors change underneath it, it can be defended to a regulator with evidence rather than assurances, and your own team runs it confidently after I leave.</p></div>
+            <div class="card-foot">The tell: nobody can explain last Tuesday's decision.</div>
+          </article>
+        </div>
+        <div class="watch">
+          <div><h3 class="h-sm">See the argument, not just read it</h3><p>The idea above, rendered as something you can feel. Noise resolves into order only where attention lands. That is the whole thesis, happening under your cursor.</p></div>
+          <a href="wisdom-loop.html" class="btn btn-sec">Experience it <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="jsub approach" id="s3">
+        <div>
+          <span class="eyebrow">How I work</span>
+          <h2 class="h-xl">Architecture is a <em>stance</em>, not a diagram.</h2>
+          <blockquote class="thesis">"Anyone can wire up an intelligent system now. The hard part is sensibility: knowing which problem deserves the intelligence, what the output means in context, and when to overrule a confident machine. That judgment is the architecture. The diagram is just its residue."</blockquote>
+          <p class="small">After twenty-five years across regulated industries, the pattern holds. The platforms that lasted were the ones where someone supplied judgment the models could not, the sensibility to frame the right question before engineering the right answer.</p>
+        </div>
+        <ol class="steps">
+          <li><span class="n">01</span><div><h3 class="h-sm">Frame the right problem first</h3><p>Sensibility starts before the model. The costliest mistakes are intelligent answers to the wrong question.</p></div></li>
+          <li><span class="n">02</span><div><h3 class="h-sm">Engineer context into the system</h3><p>Semantic layers, governance, lineage. The infrastructure that lets a model know what its output actually means.</p></div></li>
+          <li><span class="n">03</span><div><h3 class="h-sm">Then engineer for excellence</h3><p>Kafka, Lakehouse, RAG, agentic AI. The technology earns its place once the judgment layer is set.</p></div></li>
+          <li><span class="n">04</span><div><h3 class="h-sm">Keep a human in the override seat</h3><p>Design the system so judgment can intervene. Sensibility at machine speed still needs a person who can say "stop."</p></div></li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- CHAPTER II · WORK -->
+    <article class="chapter" data-ch="2" data-title="Nine times through these pivots" hidden>
+      <div id="s5">
+        <div class="ch-head">
+          <span class="eyebrow">Chapter II · Selected stories</span>
+          <h2 class="h-xl">Nine times through <em>these pivots</em>.</h2>
+        </div>
+        <div class="work-bar">
+          <div class="chips" role="tablist" aria-label="Filter stories" data-tabs>
+            <button class="chip" role="tab" data-tab="bfs" aria-selected="true" aria-controls="tab-bfs">Banking</button>
+            <button class="chip" role="tab" data-tab="ai" aria-selected="false" aria-controls="tab-ai" tabindex="-1">AI Systems</button>
+            <button class="chip" role="tab" data-tab="plat" aria-selected="false" aria-controls="tab-plat" tabindex="-1">Platforms</button>
+          </div>
+        </div>
+        <div class="grid g3" id="tab-bfs" role="tabpanel">
+          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">Regulatory · Major Bank</span><span class="num">Pivot 03 · Resilient</span></div><h3 class="cc-hi">The data was fine. The accountability wasn't.</h3><dl><div><dt>What was happening</dt><dd>Regulators asked questions the data couldn't answer. The cause: twelve teams, twelve versions of the truth, no shared ownership.</dd></div><div><dt>How we worked through it</dt><dd>Federated governance on Data Vault 2.0, led by a governance CoE that gave every team ownership rather than obligation. Trust first, platform second.</dd></div></dl><div class="card-foot out"><span class="n">&check;</span><span>Systemic risk transparency restored; teams aligned</span></div></article>
+          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">National Tax Authority</span><span class="num">Pivot 01 · Production</span></div><h3 class="cc-hi">A capable platform nobody would use.</h3><dl><div><dt>What was happening</dt><dd>Investigators ignored automated fraud scores. Nobody had explained the logic, so the spend sat idle as expensive shelfware.</dd></div><div><dt>How we worked through it</dt><dd>Redesigned the investigator workflow alongside the model. Co-designed the interface and built transparency into every score with the people using it.</dd></div></dl><div class="card-foot out"><span class="n">10%</span><span>YoY tax base growth · 50% faster resolution</span></div></article>
+          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">Real-Time Payments</span><span class="num">Pivot 03 · Resilient</span></div><h3 class="cc-hi">The ops team was overriding the system.</h3><dl><div><dt>What was happening</dt><dd>A Kafka fraud platform performed well technically, but operations overrode it routinely because the alerts made no sense to them.</dd></div><div><dt>How we worked through it</dt><dd>Rebuilt the alert logic with the fraud team: thresholds, explanations, exception flows co-designed, then re-engineered the platform around those decisions.</dd></div></dl><div class="card-foot out"><span class="n">&darr;</span><span>Override rate collapsed; capture rate up</span></div></article>
+        </div>
+        <div class="grid g3" id="tab-ai" role="tabpanel" hidden>
+          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">GenAI &amp; RAG · Lending</span><span class="num">Pivot 01 · Production</span></div><h3 class="cc-hi">Analysts felt replaced, so they opted out.</h3><dl><div><dt>What was happening</dt><dd>An AI-assisted KYC system was rejected by the lending team. Adoption near zero: the AI decided, the analysts watched.</dd></div><div><dt>How we worked through it</dt><dd>Reframed it as a copilot. Rebuilt the experience so analysts stayed the decision-makers with AI surfacing evidence. Workshops ran before code did.</dd></div></dl><div class="card-foot out"><span class="n">&uarr;</span><span>Adoption transformed; processing time down</span></div></article>
+          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">Predictive Analytics</span><span class="num">Pivot 01 · Production</span></div><h3 class="cc-hi">A good model, ignored.</h3><dl><div><dt>What was happening</dt><dd>A sound churn model output probability scores. Managers ignored it: a number between 0 and 1 told them nothing actionable.</dd></div><div><dt>How we worked through it</dt><dd>Replaced scores with plain-language narratives and ranked actions. Rebuilt around the only question that mattered: what do I do next?</dd></div></dl><div class="card-foot out"><span class="n">&rarr;</span><span>From ignored to cited in every review</span></div></article>
+          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">ORIAN.Data Platform</span><span class="num">Pivot 02 · Industrialised</span></div><h3 class="cc-hi">Brilliant outputs, no judgment behind them.</h3><dl><div><dt>What was happening</dt><dd>AI investments kept producing confident answers nobody could stand behind. Teams couldn't explain decisions, executives couldn't verify them.</dd></div><div><dt>How we worked through it</dt><dd>Architected ORIAN.Data so judgment is structural: a Semantic Core that gives outputs context and a Trust pillar that makes them explainable.</dd></div></dl><div class="card-foot out"><span class="n">&starf;</span><span>Deployed across regulated-industry clients</span></div></article>
+        </div>
+        <div class="grid g3" id="tab-plat" role="tabpanel" hidden>
+          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">Global Lakehouse · Azure</span><span class="num">Pivot 02 · Industrialised</span></div><h3 class="cc-hi">The argument was political, not technical.</h3><dl><div><dt>What was happening</dt><dd>A multi-million Lakehouse stalled at six months. Every division defined the same metric differently. Technology was waiting on alignment.</dd></div><div><dt>How we worked through it</dt><dd>Ran business-alignment workshops before architecture. Built a shared glossary every division signed off, then designed the platform around that language.</dd></div></dl><div class="card-foot out"><span class="n">1</span><span>One source of truth, agreed before built</span></div></article>
+          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">Data Mesh · Enterprise Bank</span><span class="num">Pivot 02 · Industrialised</span></div><h3 class="cc-hi">The central team was a bottleneck, not a service.</h3><dl><div><dt>What was happening</dt><dd>Thirty people served twelve domains. Requests took six to eight weeks. Domains felt powerless; the team felt unappreciated.</dd></div><div><dt>How we worked through it</dt><dd>Led the cultural shift first: domain leads designed their own data products in workshops. The central team became enablers; the mesh followed the culture.</dd></div></dl><div class="card-foot out"><span class="n">&uarr;</span><span>Domain autonomy; faster insight; valued team</span></div></article>
+          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">50TB Migration · Utility</span><span class="num">Pivot 03 · Resilient</span></div><h3 class="cc-hi">The team feared being blamed.</h3><dl><div><dt>What was happening</dt><dd>11,748 tables, 49.65 TB, 1,550 ETL objects. The plan was solid; the engineers were anxious because they couldn't see the whole picture.</dd></div><div><dt>How we worked through it</dt><dd>Built full sprint-by-sprint, risk-by-risk visibility. Every engineer could see what moved, when, and what rollback looked like. Transparency replaced fear.</dd></div></dl><div class="card-foot out"><span class="n">50TB</span><span>Phased delivery, on plan, confident team</span></div></article>
+        </div>
+        <div class="deeper">
+          <span class="label">Go deeper</span>
+          <a class="tlink" href="judgment-room.html">Walk through five of these decisions yourself <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- CHAPTER III · IMPACT -->
+    <article class="chapter" data-ch="3" data-title="What changed after I left the room" hidden>
+      <div id="s4">
+        <div class="ch-head">
+          <span class="eyebrow">Chapter III · Outcomes that matter at the top</span>
+          <h2 class="h-xl">What changed in the business, after I <em>left the room</em>.</h2>
+          <p class="lede">Not lines of code or tables migrated. Decisions improved, capability built, and platforms that outlived the project that created them.</p>
+        </div>
+        <div class="grid g3">
+          <div class="card impact tilt3d"><div class="n">2&times;</div><p class="lab">Business-unit growth</p><p>A stalled unit doubled in one fiscal year once the roadmap was rebuilt around value streams rather than systems</p></div>
+          <div class="card impact tilt3d"><div class="n">10%</div><p class="lab">YoY revenue growth, national programme</p><p>Public-sector platform where redesigning the human workflow, not the model, unlocked the result</p></div>
+          <div class="card impact tilt3d"><div class="n">Zero</div><p class="lab">Downtime across a 50TB migration</p><p>Phased delivery on a programme where an outage would have been a regulatory event</p></div>
+          <div class="card impact tilt3d"><div class="n">6&rarr;8 wks</div><p class="lab">Cut to self-serve</p><p>Twelve domains were waiting two months per data request. Federated ownership removed the queue entirely</p></div>
+          <div class="card impact tilt3d"><div class="n">40%&rarr;0</div><p class="lab">Manual overrides eliminated</p><p>A fraud platform operators were bypassing four times in ten. Rebuilt around their actual decision, not the model's confidence</p></div>
+          <div class="card impact tilt3d"><div class="n">25 yrs</div><p class="lab">No failed flagship platform</p><p>Across banking, healthcare and manufacturing. Sustained judgment, not one lucky bet</p></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CHAPTER IV · POINT OF VIEW + WRITING -->
+    <article class="chapter" data-ch="4" data-title="The homework before the advice" hidden>
+      <div class="pov-grid" id="s6">
+        <div>
+          <span class="eyebrow">Chapter IV · Point of view</span>
+          <h2 class="h-xl">I do the homework before I give you <em>advice</em>.</h2>
+          <p class="lede" style="margin-top:1.25rem">Advice is only worth trusting when it is independent of the vendor in the room. Mine is grounded in primary research I publish openly, so you can check the reasoning rather than take the recommendation on trust.</p>
+          <ul class="roles">
+            <li><svg class="ico" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg><span><strong>Mentor</strong>, IIT Madras Pravartak, national open-source data strategy</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a6 6 0 016-6h4a6 6 0 016 6v2"/></svg><span><strong>Founder</strong>, enterprise Architect Community of Practice</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z"/></svg><span><strong>Two-time hackathon winner</strong>, ING, data intelligence &amp; lineage</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg><span><strong>PG, AI for Leaders</strong>, UT Austin · Apache Kafka certified</span></li>
+          </ul>
+        </div>
+        <div class="pov-list">
+          <a href="blueprint.html" class="card dark blueprint tilt3d">
+            <div class="card-mast"><span class="tag">Start here</span><span class="num" style="color:rgba(247,246,242,.6)">Consolidated report</span></div>
+            <h3 class="h-lg">The Production Blueprint</h3>
+            <div class="card-body" style="margin-top:.75rem"><p>Seven decisions between a pilot and a business result, with the evidence behind each one and the places it contradicts itself. The three papers below are the deep dives.</p></div>
+            <div class="card-foot"><span>Seven decisions</span><span class="tlink">Read the blueprint <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+          <a href="multi-agent-enterprise.html" class="card tilt3d" target="_blank" rel="noopener">
+            <div class="card-mast"><span class="tag sage">If you are deploying agents</span></div>
+            <h3 class="h-sm">The Multi-Agent Enterprise</h3>
+            <div class="card-body"><p>Published research shows agents negotiating against each other settle into collusion, even with every direct channel between them removed. If your agents transact, this is a governance question before it is a technical one.</p></div>
+            <div class="card-foot"><span>Technical paper</span><span class="tlink">Read the paper <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+          <a href="model-architecture.html" class="card tilt3d" target="_blank" rel="noopener">
+            <div class="card-mast"><span class="tag sage">If you are choosing models</span></div>
+            <h3 class="h-sm">Frontier &amp; Open-Weights Architecture</h3>
+            <div class="card-body"><p>Eighteen open and eight closed models compared on the same axis. Written so you can challenge a vendor's benchmark claim in a procurement meeting rather than accept it.</p></div>
+            <div class="card-foot"><span>Technical paper</span><span class="tlink">Read the paper <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+          <a href="enterprise-model-stack.html" class="card tilt3d" target="_blank" rel="noopener">
+            <div class="card-mast"><span class="tag sage">If you are building the platform</span></div>
+            <h3 class="h-sm">The Enterprise Model Stack</h3>
+            <div class="card-body"><p>How to build a system that survives the model underneath it being replaced every few months. The architecture question most AI business cases quietly skip.</p></div>
+            <div class="card-foot"><span>Technical paper</span><span class="tlink">Read the paper <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+        </div>
+      </div>
+      <div class="jsub" id="s8">
+        <div class="sec-head">
+          <div><span class="eyebrow">Writing</span><h2 class="h-xl">Worked out here first, then <em>built</em>.</h2></div>
+          <a href="blog/index.html" class="tlink">All seven essays <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="writing">
+          <ul class="wlist">
+            <li><a href="blog/storage-has-an-owner-meaning-has-an-accident.html"><span class="meta"><span class="c">Governance</span><span>May 2026</span></span><span class="t">Storage Has an Owner. Meaning Has an Accident.</span><span class="ex">We assign storage ownership with precision and interpretation authority by accident. Agents did not cause that, they made it urgent.</span></a></li>
+            <li><a href="blog/human-in-the-loop-has-to-know-what-right-looks-like.html"><span class="meta"><span class="c">Agentic AI</span><span>Mar 2026</span></span><span class="t">The Human in the Loop Has to Know What Right Looks Like</span><span class="ex">Human in the loop without domain expertise is not a safety net. It is a spectator. What a different expert-to-workflow ratio looks like.</span></a></li>
+            <li><a href="blog/deepseek-r1-hype-reality-future-ai-deployment.html"><span class="meta"><span class="c">AI Strategy</span><span>Feb 2025</span></span><span class="t">DeepSeek R1: Hype, Reality, and Deployment</span><span class="ex">Value delivery was never about compute size. Where open and proprietary models actually fit, seen through a legal lens.</span></a></li>
+            <li><a href="blog/indexes-and-is-null.html"><span class="meta"><span class="c">Oracle</span><span>Apr 2013</span></span><span class="t">Indexes and IS NULL</span><span class="ex">The oldest piece here. Execution plans and 10053 traces, because the answer depended on the data, not the documentation.</span></a></li>
+          </ul>
+          <div class="wfeat">
+            <a href="blog/umi-moment-for-india.html" class="card dark tilt3d">
+              <div class="ill"><svg viewBox="0 0 120 70"><path d="M10 55 C22 20, 40 12, 56 30 S 88 52, 110 18"/><circle cx="24" cy="38" r="3.4"/><circle cx="46" cy="21" r="3.4"/><circle cx="70" cy="40" r="3.4"/><circle cx="96" cy="29" r="3.4"/><path d="M24 38 L46 21 L70 40 L96 29" stroke-dasharray="3 4"/><path d="M8 64 h104"/></svg></div>
+              <div class="card-mast"><span class="tag">Longest read</span><span class="num" style="color:rgba(247,246,242,.6)">AI Strategy</span></div>
+              <h3 class="h-md">It Is Time for a UMI Moment for India</h3>
+              <div class="card-body"><p>19,500 dialects, $100M compute economics and 0.1% of global training data. Why distillation and vertical specialisation are the viable path.</p></div>
+              <div class="card-foot"><span>Feb 2025</span><span class="tlink">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+            </a>
+            <a href="blog/architects-gambit-ai-powered-courage.html" class="card tilt3d">
+              <div class="ill"><svg viewBox="0 0 120 70"><circle cx="60" cy="34" r="22"/><path d="M60 12 a22 22 0 0 1 19 33"/><circle cx="60" cy="12" r="4"/><circle cx="82" cy="34" r="4"/><circle cx="60" cy="56" r="4"/><circle cx="38" cy="34" r="4"/><path d="M96 22 l8 8 -8 8"/><path d="M104 30 h-14" stroke-dasharray="3 3"/><path d="M16 22 l-8 8 8 8"/><path d="M8 30 h14" stroke-dasharray="3 3"/></svg></div>
+              <div class="card-mast"><span class="tag">Architecture</span></div>
+              <h3 class="h-md">The Architect's Gambit</h3>
+              <div class="card-body"><p>Architecting for probability is essential. Architecting for possibility is where courage wins.</p></div>
+              <div class="card-foot"><span>Jun 2025</span><span class="tlink">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CHAPTER V · BUILDS -->
+    <article class="chapter" data-ch="5" data-title="I don't just architect it. I build it." hidden>
+      <div id="s6b">
+        <div class="ch-head">
+          <span class="eyebrow">Chapter V · Selected builds</span>
+          <h2 class="h-xl">I don't just architect it. I <em>build</em> it.</h2>
+          <p class="lede">A leader who still ships understands what they ask of their teams. Working repositories, not slideware.</p>
+        </div>
+        <div class="grid g3">
+          <a href="https://github.com/vikramrathour/sentinel_dq" target="_blank" rel="noopener" class="card recess build tilt3d">
+            <div class="card-mast"><span class="lang"><i style="background:#3572A5"></i>Python</span><span class="tag sage">Public</span></div>
+            <p class="repo">sentinel<span class="slash">_</span>dq</p>
+            <p class="tagline">Intelligent data quality for AI workloads</p>
+            <div class="card-body"><p>Sensibility, made executable. Data quality is where most AI fails quietly: garbage in, confident garbage out. This enforces judgment at the data layer before a model ever sees it.</p></div>
+            <div class="card-foot"><span class="mono">Open source</span><span class="tlink">View repository <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></div>
+          </a>
+          <a href="https://github.com/vikramrathour/OrionData_Webapp" target="_blank" rel="noopener" class="card recess build tilt3d">
+            <div class="card-mast"><span class="lang"><i style="background:#3178c6"></i>TypeScript</span><span class="tag sage">Public</span></div>
+            <p class="repo">OrionData<span class="slash">_</span>Webapp</p>
+            <p class="tagline">The ORIAN.Data platform, in the browser</p>
+            <div class="card-body"><p>The working surface of the four-pillar platform (Foundation, Semantic Core, Intelligence, Trust) turned into something a user can touch, not just a reference architecture.</p></div>
+            <div class="card-foot"><span class="mono">Open source</span><span class="tlink">View repository <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></div>
+          </a>
+          <a href="https://github.com/vikramrathour/CKDTracker" target="_blank" rel="noopener" class="card recess build tilt3d">
+            <div class="card-mast"><span class="lang"><i style="background:#c9a800"></i>JavaScript</span><span class="tag sage">Public</span></div>
+            <p class="repo">CKDTracker</p>
+            <p class="tagline">Open-source kidney-health tracking</p>
+            <div class="card-body"><p>Built as a transplant recipient, for 850 million people who share the condition. The clearest proof that I design for the person at the end, not a persona on a slide.</p></div>
+            <div class="card-foot"><span class="mono">Open source</span><span class="tlink">View repository <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></div>
+          </a>
+        </div>
+        <p class="small" style="margin-top:2rem">More at <a class="tlink" href="https://github.com/vikramrathour" target="_blank" rel="noopener">github.com/vikramrathour</a></p>
+      </div>
+    </article>
+
+    <!-- CHAPTER VI · SIGNATURE -->
+    <article class="chapter" data-ch="6" data-title="CKDTracker: empathy, made executable" hidden>
+      <div class="sig" id="s7">
+        <div>
+          <span class="eyebrow">Chapter VI · Signature project · open source</span>
+          <h2 class="h-xl">CKDTracker: empathy, <em>made executable</em>.</h2>
+          <p class="lede" style="margin-top:1.25rem">As a transplant recipient, I built <strong>CKDTracker</strong> in 2024: an open-source kidney-health application in Next.js and TypeScript. Not a product. Not a venture. A contribution.</p>
+          <blockquote class="thesis">It is the clearest proof of how I work. I did not design for a persona. I designed for myself and for the 850 million people who share this condition. The empathy was not a method. It was lived.</blockquote>
+          <a href="https://github.com/vikramrathour/CKDTracker" target="_blank" rel="noopener" class="btn btn-terra">View on GitHub <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+        </div>
+        <div class="sig-stats">
+          <div class="card tilt3d"><div class="n">~850M</div><p>People worldwide living with chronic kidney disease, one in ten adults</p></div>
+          <div class="card tilt3d"><div class="n">Open</div><p>Source, permanently. No paywall for patients who are already paying enough</p></div>
+          <div class="card tilt3d"><div class="n">Public</div><p>Journey shared on LinkedIn and a podcast, because trust is built in the open</p></div>
+        </div>
+      </div>
+    </article>
+
+    <nav class="jnav" aria-label="Chapter navigation">
+      <button class="prev" data-step="-1"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span><small>Previous chapter</small><strong id="jprev"></strong></span></button>
+      <button class="next" data-step="1"><span><small>Next chapter</small><strong id="jnext"></strong></span><svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </nav>
   </div>
-</section>
+</div>
 
+<script src="assets/site.js" defer></script>
 <script>
-const slides=[...document.querySelectorAll('.slide')];
-const dots=[...document.querySelectorAll('.dot')];
-const pb=document.getElementById('pb');
-const obs=new IntersectionObserver(es=>{
-  es.forEach(e=>{
-    if(e.isIntersecting&&e.intersectionRatio>.5){
-      const i=slides.indexOf(e.target);
-      dots.forEach((d,j)=>{d.classList.toggle('on',j===i);d.setAttribute('aria-current',j===i?'true':'false')});
-      pb.style.width=(i/(slides.length-1)*100)+'%';
-      e.target.querySelectorAll('.r').forEach(el=>el.classList.add('s'));
-    }
-  });
-},{threshold:.5});
-slides.forEach(s=>obs.observe(s));
-dots.forEach((d,i)=>{
-  d.addEventListener('click',()=>slides[i].scrollIntoView({behavior:'smooth'}));
-  d.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();slides[i].scrollIntoView({behavior:'smooth'})}});
-});
-document.querySelectorAll('.tb').forEach(b=>{
-  b.addEventListener('click',()=>{
-    document.querySelectorAll('.tb').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');
-    ['bfs','ai','plat'].forEach(t=>{const el=document.getElementById('tab-'+t);if(el)el.style.display=t===b.dataset.tab?'grid':'none'});
-  });
-});
-
-/* ───── SECTION-SPECIFIC 3D TILT ───── */
+/* Guided journey reader: realm cards (click or keys 1-6) open a chapter; Esc closes. */
 (function(){
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if(window.matchMedia('(pointer: coarse)').matches) return;
+  var J=document.getElementById('journey');
+  var chapters=[].slice.call(J.querySelectorAll('.chapter'));
+  var pills=[].slice.call(J.querySelectorAll('.jpill'));
+  var roman=['I','II','III','IV','V','VI'];
+  var current=0, opener=null;
+  /* old section anchors live inside chapters; map them so links like index.html#s5 still land */
+  var anchorMap={s2:1,s3:1,s5:2,s4:3,s6:4,s8:4,s6b:5,s7:6};
 
-  // each section gets a tilt "character": max-deg, lift px, glare on/off
-  function character(card){
-    const s = card.closest('section');
-    const id = s ? s.id : '';
-    switch(id){
-      case 's5':  return {max:9,  lift:14, glare:true};   // Work: investigative, inspect-in-hand
-      case 's6b': return {max:11, lift:18, glare:true};   // Builds: tactile, most physical
-      case 's4':  return {max:5,  lift:8,  glare:true};   // Impact: confident, grounded, minimal wobble
-      case 's2':  return {max:7,  lift:12, glare:false};  // Thesis: measured separation
-      case 's7':  return {max:4,  lift:7,  glare:false};  // Signature: gentle, human
-      case 's8':  return {max:5,  lift:9,  glare:false};  // Writing: editorial, paper-like
-      case 's3':  return {max:6,  lift:10, glare:false};  // Approach: deliberate
-      case 's3b': return {max:5,  lift:9,  glare:false};  // Engagements: businesslike, no showmanship
-      default:    return {max:6,  lift:9,  glare:true};   // hero stats etc.
-    }
+  function show(n,anchor){
+    n=Math.max(1,Math.min(chapters.length,n)); current=n;
+    chapters.forEach(function(c){c.hidden=+c.dataset.ch!==n});
+    pills.forEach(function(p){p.setAttribute('aria-current',+p.dataset.go===n?'true':'false')});
+    var ch=chapters[n-1];
+    document.getElementById('jbadge').textContent='Chapter '+roman[n-1];
+    document.getElementById('jtitle').textContent=ch.dataset.title;
+    var prev=J.querySelector('.jnav .prev'), next=J.querySelector('.jnav .next');
+    prev.hidden=n===1; next.hidden=n===chapters.length;
+    if(n>1) document.getElementById('jprev').textContent=chapters[n-2].dataset.title;
+    if(n<chapters.length) document.getElementById('jnext').textContent=chapters[n].dataset.title;
+    var t=anchor&&document.getElementById(anchor);
+    if(t&&t!==ch.firstElementChild){requestAnimationFrame(function(){J.scrollTop=t.getBoundingClientRect().top-J.getBoundingClientRect().top+J.scrollTop-80})}
+    else J.scrollTop=0;
   }
-
-  document.querySelectorAll('.tilt').forEach(card=>{
-    const cfg = character(card);
-    if(cfg.glare){
-      const g=document.createElement('div'); g.className='tilt-glare'; card.appendChild(g);
-      card._glare=g;
+  function open(n,anchor){
+    if(!J.classList.contains('open')){opener=document.activeElement;J.classList.add('open');J.setAttribute('aria-hidden','false');document.documentElement.classList.add('no-scroll');}
+    show(n,anchor);
+    J.querySelector('.jback').focus({preventScroll:true});
+  }
+  function close(){
+    if(!J.classList.contains('open')) return;
+    J.classList.remove('open');J.setAttribute('aria-hidden','true');document.documentElement.classList.remove('no-scroll');
+    if(location.hash&&anchorMap[location.hash.slice(1)]) history.replaceState(null,'',location.pathname+location.search);
+    if(opener&&opener.focus) opener.focus({preventScroll:true});
+  }
+  document.querySelectorAll('[data-open]').forEach(function(b){b.addEventListener('click',function(){open(+b.dataset.open)})});
+  J.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',close)});
+  pills.forEach(function(p){p.addEventListener('click',function(){show(+p.dataset.go)})});
+  J.querySelectorAll('[data-step]').forEach(function(b){b.addEventListener('click',function(){show(current+ +b.dataset.step)})});
+  document.addEventListener('keydown',function(e){
+    if(e.target.closest&&e.target.closest('input,textarea,select,[contenteditable]')) return;
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    if(e.key==='Escape') close();
+    else if(/^[1-6]$/.test(e.key)) open(+e.key);
+    else if(J.classList.contains('open')&&e.key==='ArrowRight'&&!e.target.closest('[role=tab]')) show(current+1);
+    else if(J.classList.contains('open')&&e.key==='ArrowLeft'&&!e.target.closest('[role=tab]')) show(current-1);
+    else if(e.key==='Tab'&&J.classList.contains('open')){
+      var f=[].slice.call(J.querySelectorAll('a[href],button:not([hidden])')).filter(function(el){return el.offsetParent!==null});
+      if(!f.length) return;
+      if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus()}
+      else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus()}
     }
-    let raf=null;
-    card.addEventListener('mousemove',e=>{
-      const r=card.getBoundingClientRect();
-      const px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
-      const rx=(py-.5)*-2*cfg.max, ry=(px-.5)*2*cfg.max;
-      if(raf)cancelAnimationFrame(raf);
-      raf=requestAnimationFrame(()=>{
-        card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) translateZ(${cfg.lift}px)`;
-        if(card._glare){card._glare.style.setProperty('--gx',(px*100)+'%');card._glare.style.setProperty('--gy',(py*100)+'%');}
-      });
-    });
-    card.addEventListener('mouseenter',()=>card.classList.add('active'));
-    card.addEventListener('mouseleave',()=>{card.classList.remove('active');card.style.transform='';});
   });
-
-  // hero floating shapes: parallax to cursor (calm, slow)
-  const shapes=[...document.querySelectorAll('.h-shape')];
-  if(shapes.length){
-    const hero=document.getElementById('s1');
-    hero.addEventListener('mousemove',e=>{
-      const cx=window.innerWidth/2, cy=window.innerHeight/2;
-      const dx=(e.clientX-cx)/cx, dy=(e.clientY-cy)/cy;
-      shapes.forEach(sh=>{
-        const d=parseFloat(sh.dataset.depth)||2;
-        sh.style.transform=`translate(${dx*d*-14}px,${dy*d*-14}px)`;
-      });
-    });
-    hero.addEventListener('mouseleave',()=>shapes.forEach(sh=>sh.style.transform=''));
-  }
+  /* hash routing: #s5 etc. open the matching chapter */
+  function route(){var id=location.hash.slice(1); if(anchorMap[id]) open(anchorMap[id],id); else if(id) close();}
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    var id=a.getAttribute('href').slice(1);
+    if(anchorMap[id]) a.addEventListener('click',function(e){e.preventDefault();history.pushState(null,'','#'+id);open(anchorMap[id],id)});
+  });
+  window.addEventListener('hashchange',route);
+  window.addEventListener('popstate',route);
+  if(location.hash) route();
 })();
-
-document.getElementById('s1').querySelectorAll('.r').forEach(el=>el.classList.add('s'));
 </script>
 </body>
 </html>
