@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,46 +7,47 @@
 <meta name="description" content="Five real enterprise dilemmas across data foundation, decision intelligence, AI-led data engineering, trust & compliance, and adoption. Make the call yourself, then see what actually happened.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 <style>
 :root{
-  --paper:#D9DCE1; --paper2:#CDD1D7; --card:#F5F6F8;
-  --ink:#13182B; --t2:rgba(19,24,43,.62); --t3:rgba(19,24,43,.38); --line:rgba(19,24,43,.14); --line2:rgba(19,24,43,.22);
-  --blue:#1F6FD0; --blue-dk:#13477E; --blue-pale:rgba(31,111,208,.08); --blue-bdr:rgba(31,111,208,.22);
-  --orange:#F47820; --orange-dk:#D85A12; --orange2:#FF8F3C; --orange-pale:rgba(244,120,32,.1); --orange-bdr:rgba(244,120,32,.5);
-  --shadow-sm:0 2px 8px rgba(19,24,43,.06); --shadow-md:0 10px 32px rgba(19,24,43,.1); --shadow-lg:0 24px 60px rgba(19,24,43,.16);
-  --ease:cubic-bezier(.16,1,.3,1);
+  --paper:#F7F6F2; --paper2:#EDEBE4; --card:#FFFFFF;
+  --t2:#4E5866; --t3:#6B7380; --line:rgba(18,26,36,.10); --line2:rgba(18,26,36,.16);
+  --blue:#2B5C57; --blue-dk:#1F4541; --blue-pale:#E1EEEC; --blue-bdr:rgba(43,92,87,.3);
+  --orange:#C2633E; --orange-dk:#9A4522; --orange2:#E8A184; --orange-pale:#FBE9E0; --orange-bdr:rgba(194,99,62,.45);
+  --shadow-sm:0 4px 12px -2px rgba(18,26,36,.04); --shadow-md:0 16px 36px -8px rgba(18,26,36,.06); --shadow-lg:0 22px 44px -10px rgba(18,26,36,.12);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;min-height:100vh;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;cursor:none}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
 
 /* cursor */
 #cur{position:fixed;width:10px;height:10px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s}
 #cring{position:fixed;width:38px;height:38px;border:1.5px solid var(--orange-bdr);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease)}
 #cur.h{width:22px;height:22px;background:var(--blue)}
 #cring.h{width:64px;height:64px}
-@media(pointer:coarse){body{cursor:auto}#cur,#cring{display:none}}
+#cur,#cring{display:none}
 
-.wrap{max-width:980px;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) clamp(1.2rem,4vw,2rem) 6rem;position:relative;z-index:2}
+.jr-wrap{max-width:980px;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) clamp(1.2rem,4vw,2rem) 6rem;position:relative;z-index:2}
 
 /* ambient bg texture matching main site */
 .bgtex{position:fixed;inset:0;z-index:0;background-image:radial-gradient(var(--line2) 1.4px,transparent 1.4px);background-size:38px 38px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 85%)}
 
-header{text-align:center;margin-bottom:clamp(2rem,5vh,3.2rem)}
-.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);display:inline-flex;align-items:center;gap:12px;margin-bottom:1.3rem}
+.jr-wrap header{text-align:center;margin-bottom:clamp(2rem,5vh,3.2rem)}
+.eyebrow{font-family:var(--sans);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);display:inline-flex;align-items:center;gap:12px;margin-bottom:1.3rem}
 .backbar{position:sticky;top:0;z-index:100;background:rgba(217,220,225,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:14px clamp(1.2rem,4vw,2rem);display:flex;align-items:center;gap:10px}
-.backbar a{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-decoration:none;color:var(--blue);display:inline-flex;align-items:center;gap:6px}
+.backbar a{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.04em;text-decoration:none;color:var(--blue);display:inline-flex;align-items:center;gap:6px}
 .backbar a:hover{text-decoration:underline}
 .backbar svg{width:14px;height:14px;stroke:currentColor;stroke-width:2.2;fill:none}
-.backbar span{color:var(--ink);opacity:.55;font-family:'IBM Plex Mono',monospace;font-size:.72rem}
+.backbar span{color:var(--ink);opacity:.55;font-family:var(--sans);font-size:.72rem}
 .eyebrow::before,.eyebrow::after{content:'';width:26px;height:1.5px;background:var(--blue)}
-h1{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(2.1rem,5vw,3.7rem);line-height:1.08;letter-spacing:-.025em;margin-bottom:1.1rem}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,5vw,3.7rem);line-height:1.08;letter-spacing:-.025em;margin-bottom:1.1rem}
 h1 em{font-style:italic;color:var(--orange)}
 .sub{font-size:clamp(.9rem,1.3vw,1.02rem);color:var(--t2);line-height:1.7;max-width:640px;margin:0 auto}
 
 /* practice-area legend */
 .legend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:1.6rem}
-.leg{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:20px;border:1.5px solid var(--line2);color:var(--t3);transition:all .3s}
+.leg{font-family:var(--sans);font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:20px;border:1.5px solid var(--line2);color:var(--t3);transition:all .3s}
 .leg.on{border-color:var(--orange);color:var(--orange-dk);background:var(--orange-pale)}
 .leg.done{border-color:var(--blue);color:var(--blue-dk);background:var(--blue-pale)}
 
@@ -57,26 +58,26 @@ h1 em{font-style:italic;color:var(--orange)}
 
 /* scenario card w/ 3D tilt */
 .tilt-scene{perspective:1300px}
-.scenario{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:clamp(1.6rem,4vw,3rem);margin-top:clamp(1.8rem,4vh,2.8rem);box-shadow:var(--shadow-lg);display:none;transform-style:preserve-3d;position:relative;overflow:hidden}
+.scenario{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:clamp(1.6rem,4vw,3rem);margin-top:clamp(1.8rem,4vh,2.8rem);box-shadow:var(--shadow-lg);display:none;transform-style:preserve-3d;position:relative;overflow:hidden}
 .scenario.active{display:block;animation:rise .6s var(--ease) both}
-.scenario::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--orange))}
+.scenario::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange)}
 @keyframes rise{from{opacity:0;transform:translateY(18px) rotateX(0deg)}to{opacity:1;transform:none}}
 .tglare{position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.6),transparent 55%);transition:opacity .4s var(--ease);z-index:3}
 .scenario.tactive .tglare{opacity:1}
 
 .tag-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:1rem}
-.tag{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
-.pillar{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--orange);padding:4px 11px;border-radius:20px;font-weight:600}
+.tag{font-family:var(--sans);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.pillar{font-family:var(--sans);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--orange);padding:4px 11px;border-radius:20px;font-weight:600}
 
 .setup{font-size:clamp(.95rem,1.35vw,1.08rem);line-height:1.8;color:var(--ink);margin-bottom:clamp(1.4rem,3vh,2rem)}
 .setup strong{font-weight:700}
 
-.prompt{font-family:'IBM Plex Sans',sans-serif;font-style:italic;font-size:clamp(1.05rem,1.6vw,1.3rem);color:var(--blue-dk);margin-bottom:1.3rem}
+.prompt{font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,1.6vw,1.3rem);color:var(--blue-dk);margin-bottom:1.3rem}
 
 .options{display:flex;flex-direction:column;gap:11px;margin-bottom:.5rem}
 .opt{display:flex;align-items:flex-start;gap:14px;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:1rem 1.2rem;cursor:pointer;transition:all .25s var(--ease);font-family:inherit;font-size:.9rem;color:var(--ink);line-height:1.55}
 .opt:hover{border-color:var(--blue);background:var(--blue-pale);transform:translateX(4px)}
-.opt .letter{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:.78rem;color:var(--blue);border:1.5px solid var(--blue);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.opt .letter{font-family:var(--sans);font-weight:600;font-size:.78rem;color:var(--blue);border:1.5px solid var(--blue);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .opt.picked{border-color:var(--orange);background:var(--orange-pale);transform:none}
 .opt.picked .letter{border-color:var(--orange);color:var(--orange-dk);background:#fff}
 .opt:disabled{cursor:default}
@@ -88,23 +89,23 @@ h1 em{font-style:italic;color:var(--orange)}
 .reveal-cell{border-radius:12px;padding:1.1rem 1.2rem}
 .reveal-cell.usual{background:rgba(19,24,43,.04);border:1px solid var(--line)}
 .reveal-cell.mine{background:var(--orange-pale);border:1px solid var(--orange-bdr)}
-.reveal-cell .lbl{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:.5rem;display:block}
+.reveal-cell .lbl{font-family:var(--sans);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:.5rem;display:block}
 .reveal-cell.mine .lbl{color:var(--orange-dk)}
 .reveal-cell p{font-size:.84rem;line-height:1.6;color:var(--ink)}
-.outcome{display:flex;align-items:flex-start;gap:12px;background:var(--blue-dk);color:#fff;border-radius:12px;padding:1.1rem 1.3rem}
-.outcome .n{font-family:'IBM Plex Sans',sans-serif;font-size:1.5rem;font-weight:300;color:var(--orange2);flex-shrink:0;line-height:1}
+.outcome{display:flex;align-items:flex-start;gap:12px;background:var(--ink);color:#fff;border-radius:12px;padding:1.1rem 1.3rem}
+.outcome .n{font-family:var(--serif);font-size:1.6rem;font-weight:400;color:var(--orange2);flex-shrink:0;line-height:1}
 .outcome p{font-size:.84rem;line-height:1.6;color:rgba(255,255,255,.86)}
 .next{margin-top:1.5rem;display:flex;justify-content:flex-end}
-.next button{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;background:var(--blue);color:#fff;border:none;padding:12px 26px;border-radius:8px;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px}
+.next button{font-family:var(--sans);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;background:var(--blue);color:#fff;border:none;padding:12px 26px;border-radius:8px;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px}
 .next button:hover{background:var(--blue-dk);transform:translateY(-2px)}
 
 .closer{text-align:center;margin-top:clamp(2.5rem,6vh,3.5rem);padding-top:clamp(2rem,5vh,3rem);border-top:1px solid var(--line);display:none}
 .closer.show{display:block;animation:rise .6s var(--ease) both}
-.closer h2{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:clamp(1.6rem,3.4vw,2.4rem);margin-bottom:1rem;letter-spacing:-.02em}
+.closer h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,3.4vw,2.4rem);margin-bottom:1rem;letter-spacing:-.02em}
 .closer h2 em{font-style:italic;color:var(--orange)}
 .closer p{font-size:.92rem;color:var(--t2);line-height:1.75;max-width:600px;margin:0 auto 1.8rem}
 .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.lk{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:12px 22px;border-radius:7px;border:1.5px solid var(--blue);color:var(--blue-dk);transition:all .3s var(--ease)}
+.lk{font-family:var(--sans);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:12px 22px;border-radius:7px;border:1.5px solid var(--blue);color:var(--blue-dk);transition:all .3s var(--ease)}
 .lk:hover{background:var(--blue-pale);transform:translateY(-2px)}
 .lk.pri{background:var(--blue);color:#fff}
 .lk.pri:hover{background:var(--blue-dk)}
@@ -112,6 +113,8 @@ h1 em{font-style:italic;color:var(--orange)}
 a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important}}
 @media(max-width:640px){.reveal-row{grid-template-columns:1fr}.legend{gap:6px}.leg{font-size:.54rem;padding:5px 9px}}
+.scenario .tag{background:none;padding:0;border-radius:0}
+.bgtex{display:none}
 </style>
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Vikram Rathour">
@@ -124,11 +127,28 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-off
 <link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/judgment-room.html">
 </head>
 <body>
-<div class="backbar"><a href="index.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Vikram Rathour</a><span>/ The Judgment Room</span></div>
+<header class="nav" role="banner">
+  <div class="nav-in">
+    <a href="index.html" class="brand" aria-label="Vikram Rathour, home">
+      <img src="assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand-t"><span class="brand-n">Vikram Rathour</span><span class="brand-s">Enterprise Data &amp; AI</span></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="navlinks" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav-links" id="navlinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#s3b">Working together</a></li>
+      <li><a href="index.html#s5">Work</a></li>
+      <li><a href="blueprint.html">Blueprint</a></li>
+      <li><a href="judgment-room.html" class="on" aria-current="page">Judgment Room</a></li>
+      <li><a href="blog/index.html">Writing</a></li>
+    </ul>
+    <a href="index.html#contact" class="btn btn-pri nav-cta">Let's talk <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+  </div>
+</header>
 <div id="cur"></div><div id="cring"></div>
 <div class="bgtex"></div>
 
-<div class="wrap">
+<main class="jr-wrap" id="main">
   <header>
     <div class="eyebrow">The Judgment Room</div>
     <h1>Five real dilemmas.<br>Make the call <em>yourself.</em></h1>
@@ -244,8 +264,31 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-off
       <a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener" class="lk">LinkedIn</a>
     </div>
   </div>
-</div>
+</main>
 
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="brand"><img src="assets/logo.svg" alt="" width="36" height="36"><span class="brand-n">Vikram Rathour</span></a>
+        <p>In an era of abundant intelligence, the scarce resource is sensibility.</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul><li><a href="index.html#s3">Approach</a></li><li><a href="index.html#s3b">Working together</a></li><li><a href="index.html#s5">Work</a></li><li><a href="index.html#s6b">Builds</a></li></ul>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul><li><a href="blueprint.html">Production Blueprint</a></li><li><a href="blog/index.html">Writing</a></li><li><a href="judgment-room.html">The Judgment Room</a></li><li><a href="wisdom-loop.html">The Wisdom Loop</a></li></ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul><li><a href="mailto:Rathour.vikram@gmail.com">Email</a></li><li><a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://github.com/vikramrathour" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://rathourvikram.wordpress.com" target="_blank" rel="noopener">WordPress</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-base"><span>&copy; 2026 Vikram Rathour</span><span>Enterprise Data &amp; AI · Pune, India</span></div>
+  </div>
+</footer>
 <script>
 /* cursor */
 const cur=document.getElementById('cur'),cr=document.getElementById('cring');
@@ -336,5 +379,6 @@ document.querySelectorAll('.next-btn').forEach(btn=>{
   });
 })();
 </script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

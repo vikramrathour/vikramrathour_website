@@ -10,6 +10,11 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[headers]]
-  for = "/architecture.svg"
+  for = "/assets/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/architecture.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"

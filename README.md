@@ -2,9 +2,27 @@
 
 Personal site for Vikram Rathour. Enterprise data and AI architecture.
 
-Static HTML. No build step, no framework, no package manager. Every page is a
-single self-contained file. The only external request is the Google Fonts
-stylesheet for IBM Plex Sans and IBM Plex Mono.
+Static HTML. No build step, no framework, no package manager. The only external
+request is the Google Fonts stylesheet for Newsreader and Plus Jakarta Sans.
+
+## Design system
+
+The look is "Executive Editorial": warm stone paper (`#F7F6F2`), slate ink
+(`#121A24`), a terracotta accent (`#C2633E`, darkened to `#9A4522` for small
+text) and a sage secondary (`#2B5C57`). Newsreader carries headlines, quotes
+and essay body text; Plus Jakarta Sans carries everything else.
+
+| File | What it holds |
+|------|---------------|
+| `assets/site.css` | Tokens, type scale, nav, footer, buttons, cards, chips, reveal animation. Every page except the three papers loads it. |
+| `assets/article.css` | Long-form reading styles for the blog index and the essays. |
+| `assets/site.js` | Mobile menu, scroll reveal, active nav link, the Work section filter chips. |
+| `assets/logo.svg` | The monogram. Nav mark and favicon. |
+| `assets/portrait.jpg` | **Not included. Add your photo here.** The home page hero shows it automatically; until it exists, a monogram card is shown instead. A portrait crop around 4:5, at least 900px wide, works best. |
+
+The header and footer are plain HTML repeated in each page, so a nav change
+means editing each file. The three technical papers keep their own design and
+only carry a small "Back to site" pill.
 
 ## Contents
 
@@ -14,7 +32,7 @@ stylesheet for IBM Plex Sans and IBM Plex Mono.
 | `blueprint.html` | The consolidated report. Seven decisions between a pilot and a business result, phased pre-pilot, pilot-to-production and in-production. Every statistic carries a source and a date. Links out to the three papers as deep dives. |
 | `judgment-room.html` | Interactive. Five anonymised enterprise dilemmas. The visitor picks, then sees what actually happened. |
 | `wisdom-loop.html` | Interactive. The architecture as a six-stage cycle: Data, Information, Knowledge, Wisdom, Inference, Decision, looping back. |
-| `architecture.svg` | Standalone printable diagram of the same architecture. Drop into a deck as is. |
+| `architecture.jpg` | The reference architecture diagram. Shown at the top of `blueprint.html` under "Reference architecture"; selecting it opens the full-size image. |
 | `enterprise-model-stack.html` | Technical paper. How a model is built and how a system stays loosely coupled to one that changes underneath it. |
 | `model-architecture.html` | Technical paper. Eighteen open models and eight closed, compared on the same axis, with a monthly cost model. |
 | `multi-agent-enterprise.html` | Technical paper. What happens when three tiers of the enterprise stack go agentic at once. |
@@ -88,7 +106,8 @@ records Vercel shows you at your registrar.
 
 - The Point of View section leads with `blueprint.html`, the three papers below
   it as deep dives, tagged by buyer decision.
-- The Work section links into `judgment-room.html` and `architecture.svg`.
+- The Work chapter links into `judgment-room.html`.
+- `blueprint.html` opens with the reference architecture (`architecture.jpg`).
 - The Thesis section links into `wisdom-loop.html`.
 - Blueprint sits in the top navigation.
 
@@ -128,10 +147,13 @@ Two things to know:
   already deferred once, in July 2026. Every figure carries a source and a date
   in the page, so replace the figure and the date together.
 - Accessibility: all text meets WCAG AA contrast. The site respects
-  `prefers-reduced-motion`, which disables reveal animations, tilt and smooth
-  scrolling. Interactive elements are keyboard reachable.
-- The Engagements section uses a horizontal swipe row on phones, because the
-  slides are a fixed one screen tall and three stacked cards would clip.
+  `prefers-reduced-motion`, which disables reveal animations and smooth
+  scrolling. Interactive elements are keyboard reachable, including the Work
+  filter chips (arrow keys move between them).
+- The Engagements section uses a horizontal swipe row on phones so the three
+  offers sit side by side rather than as one very long stack.
+- Files in `assets/` are cached for a day. After changing `site.css`, visitors
+  may see the old styles for up to 24 hours unless they hard refresh.
 - En dashes appear in numeric ranges inside the technical papers, such as
   `4–8×` and `$5–6M`. That is correct typography for a range and is deliberate.
   There are no em dashes anywhere in the site.

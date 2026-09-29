@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,40 +7,38 @@
 <meta name="description" content="Data becomes information, knowledge, and wisdom, then returns as new data. An interactive visualization of the judgment loop behind every decision, by Vikram Rathour.">
 <style>
 :root{
-  --mist:#D9DCE1;
-  --card:#F5F6F8;
-  --ink:#13182B;
-  --t2:rgba(19,24,43,.62);
-  --t3:rgba(19,24,43,.4);
-  --t2solid:#4A5069;
-  --line:rgba(19,24,43,.1);
-  --n1:#C9DAF0;
-  --n2:#9CBEEA;
-  --n3:#5D96DE;
-  --n4:#13477E;
-  --n5:#1F6FD0;
-  --n6:#3B86E8;
-  --ring:rgba(31,111,208,.28);
-  --ease:cubic-bezier(.16,1,.3,1);
+  --mist:#F7F6F2;
+  --card:#FFFFFF;
+  --t2:#4E5866;
+  --t3:#6B7380;
+  --t2solid:#4E5866;
+  --line:rgba(18,26,36,.1);
+  --n1:#BCD9D4;
+  --n2:#9ED0C9;
+  --n3:#5C8D87;
+  --n4:#121A24;
+  --n5:#C2633E;
+  --n6:#E8A184;
+  --ring:rgba(194,99,62,.35);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--mist);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+body{background:var(--mist);color:var(--ink);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
 
-.backlink{position:fixed;top:14px;left:14px;z-index:50;font-family:'IBM Plex Mono',monospace;font-size:.66rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:#13477E;display:inline-flex;align-items:center;gap:7px;background:#F5F6F8;border:1px solid rgba(31,111,208,.22);padding:9px 15px;box-shadow:0 2px 8px rgba(19,24,43,.08);transition:all .2s}
+.backlink{position:fixed;top:14px;left:14px;z-index:50;font-family:var(--sans);font-size:.66rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:#13477E;display:inline-flex;align-items:center;gap:7px;background:#F5F6F8;border:1px solid rgba(31,111,208,.22);padding:9px 15px;box-shadow:0 2px 8px rgba(19,24,43,.08);transition:all .2s}
 .backlink:hover{border-color:#1F6FD0;background:#E4E7EB}
 .backlink svg{width:13px;height:13px;stroke:currentColor;stroke-width:2;fill:none}
 
-.wrap{max-width:1000px;margin:0 auto;padding:clamp(5.5rem,10vh,7rem) clamp(1.2rem,4vw,2rem) 4rem;text-align:center}
+.wl-wrap{max-width:1000px;margin:0 auto;padding:clamp(3rem,7vh,5rem) clamp(1.2rem,4vw,2rem) 4rem;text-align:center}
 
-.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--n5);display:inline-flex;align-items:center;gap:12px;margin-bottom:1.4rem}
+.eyebrow{font-family:var(--sans);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--n5);display:inline-flex;align-items:center;gap:12px;margin-bottom:1.4rem}
 .eyebrow::before,.eyebrow::after{content:'';width:26px;height:1.5px;background:var(--n5)}
 
-h1{font-size:clamp(2rem,4.6vw,3.3rem);font-weight:300;line-height:1.12;letter-spacing:-.025em;margin-bottom:1.1rem}
-h1 em{font-style:italic;color:var(--n4);font-weight:400}
+h1{font-family:var(--serif);font-size:clamp(2.2rem,4.8vw,3.5rem);font-weight:400;line-height:1.12;letter-spacing:-.025em;margin-bottom:1.1rem}
+h1 em{font-style:italic;color:var(--terra-dk);font-weight:400}
 
 .sub{font-size:clamp(.9rem,1.25vw,1.02rem);color:var(--t2);line-height:1.75;max-width:620px;margin:0 auto clamp(1.6rem,3vh,2.2rem)}
 
-.legend{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin-bottom:clamp(1.8rem,3.8vh,2.8rem);font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.03em;color:var(--t2)}
+.legend{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin-bottom:clamp(1.8rem,3.8vh,2.8rem);font-family:var(--sans);font-size:.68rem;letter-spacing:.03em;color:var(--t2)}
 .legend span{display:inline-flex;align-items:center;gap:8px}
 .legend .sw{width:13px;height:13px;border-radius:4px;display:inline-block}
 .legend .sw.store{background:var(--n2)}
@@ -54,8 +52,8 @@ h1 em{font-style:italic;color:var(--n4);font-weight:400}
 
 .node{transition:transform .4s var(--ease)}
 .node-circle{filter:drop-shadow(0 3px 10px rgba(19,24,43,.12))}
-.node-label{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;fill:var(--ink)}
-.node-desc{font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;fill:var(--t2solid)}
+.node-label{font-family:var(--sans);font-size:14px;font-weight:600;fill:var(--ink)}
+.node-desc{font-family:var(--sans);font-size:12.5px;fill:var(--t2solid)}
 
 @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 .n0{animation:breathe 7s ease-in-out infinite}
@@ -75,25 +73,25 @@ h1 em{font-style:italic;color:var(--n4);font-weight:400}
 
 .core-circle{fill:var(--card);stroke:var(--n5);stroke-width:1.5}
 .core-divider{stroke:var(--n5);stroke-width:1}
-.core-label{font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;letter-spacing:.02em}
-.core-sub{font-family:'IBM Plex Sans',sans-serif;font-size:11px;fill:var(--t2solid)}
+.core-label{font-family:var(--sans);font-size:15px;font-weight:700;letter-spacing:.02em}
+.core-sub{font-family:var(--sans);font-size:11px;fill:var(--t2solid)}
 
-.carry{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;letter-spacing:.04em;fill:var(--n4);text-anchor:middle}
+.carry{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.04em;fill:var(--n4);text-anchor:middle}
 .carry-bg{fill:#fff;stroke:var(--n2);stroke-width:1}
 .flow-label{transition:opacity .5s ease}
 
-.center-label{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;fill:var(--t2solid)}
+.center-label{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;fill:var(--t2solid)}
 
 .gate{fill:var(--mist);stroke:var(--n4);stroke-width:2}
-.gate-tag{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;fill:var(--n4)}
+.gate-tag{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.1em;fill:var(--n4)}
 
 .closer{margin-top:clamp(2.5rem,5.5vh,3.8rem);max-width:520px;margin-left:auto;margin-right:auto}
-.closer p{font-size:.94rem;color:var(--t2);line-height:1.75;font-style:italic}
+.closer p{font-family:var(--serif);font-size:1.15rem;color:var(--t2);line-height:1.75;font-style:italic}
 
 .footer{margin-top:clamp(2.5rem,5.5vh,3.8rem);padding-top:clamp(1.4rem,3vh,2rem);border-top:1px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:10px}
-.footer a{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;color:var(--n4);text-decoration:none;background:var(--n1);padding:11px 22px;border-radius:7px;transition:all .3s var(--ease)}
+.footer a{font-family:var(--sans);font-size:.72rem;font-weight:600;color:var(--n4);text-decoration:none;background:var(--n1);padding:11px 22px;border-radius:7px;transition:all .3s var(--ease)}
 .footer a:hover{background:var(--n2)}
-.footer span{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--t3);letter-spacing:.04em}
+.footer span{font-family:var(--sans);font-size:.62rem;color:var(--t3);letter-spacing:.04em}
 
 @media(prefers-reduced-motion:reduce){
   .n0,.n1,.n2,.n3,.n4,.n5,.mover-orbit{animation:none!important}
@@ -115,13 +113,32 @@ h1 em{font-style:italic;color:var(--n4);font-weight:400}
 <link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/wisdom-loop.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
-<a href="index.html" class="backlink"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Vikram Rathour</a>
+<header class="nav" role="banner">
+  <div class="nav-in">
+    <a href="index.html" class="brand" aria-label="Vikram Rathour, home">
+      <img src="assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand-t"><span class="brand-n">Vikram Rathour</span><span class="brand-s">Enterprise Data &amp; AI</span></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="navlinks" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav-links" id="navlinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#s3b">Working together</a></li>
+      <li><a href="index.html#s5">Work</a></li>
+      <li><a href="blueprint.html">Blueprint</a></li>
+      <li><a href="judgment-room.html">Judgment Room</a></li>
+      <li><a href="blog/index.html">Writing</a></li>
+    </ul>
+    <a href="index.html#contact" class="btn btn-pri nav-cta">Let's talk <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+  </div>
+</header>
 
-<div class="wrap">
+<main class="wl-wrap" id="main">
   <div class="eyebrow">An interactive idea</div>
   <h1>Data becomes wisdom.<br>Wisdom returns as <em>data</em>.</h1>
   <p class="sub">Six quiet stages turn raw signal into a decision, and every decision becomes the next signal. This is not a separate metaphor. It is the architecture I build, drawn as the cycle it actually runs.</p>
@@ -216,8 +233,31 @@ h1 em{font-style:italic;color:var(--n4);font-weight:400}
     <a href="index.html">Back to the full site</a>
     <span>Vikram Rathour &nbsp;·&nbsp; Enterprise Data &amp; AI Leadership</span>
   </div>
-</div>
+</main>
 
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="brand"><img src="assets/logo.svg" alt="" width="36" height="36"><span class="brand-n">Vikram Rathour</span></a>
+        <p>In an era of abundant intelligence, the scarce resource is sensibility.</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul><li><a href="index.html#s3">Approach</a></li><li><a href="index.html#s3b">Working together</a></li><li><a href="index.html#s5">Work</a></li><li><a href="index.html#s6b">Builds</a></li></ul>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul><li><a href="blueprint.html">Production Blueprint</a></li><li><a href="blog/index.html">Writing</a></li><li><a href="judgment-room.html">The Judgment Room</a></li><li><a href="wisdom-loop.html">The Wisdom Loop</a></li></ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul><li><a href="mailto:Rathour.vikram@gmail.com">Email</a></li><li><a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://github.com/vikramrathour" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://rathourvikram.wordpress.com" target="_blank" rel="noopener">WordPress</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-base"><span>&copy; 2026 Vikram Rathour</span><span>Enterprise Data &amp; AI · Pune, India</span></div>
+  </div>
+</footer>
 <script>
 // what each leg of the loop carries, in order: Data -> Info -> Knowledge -> Wisdom -> Inference -> Decision -> (back to Data)
 var segments = [
@@ -259,5 +299,6 @@ if (!reduceMotion) {
   setInterval(advance, 6000); // 36s full loop / 6 segments
 }
 </script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>
