@@ -30,7 +30,7 @@ only carry a small "Back to site" pill.
 | File | What it is |
 |------|------------|
 | `index.html` | The main site. Hero, thesis, approach, **engagements**, impact, work, point of view, builds, signature project, writing, contact. The only page meant to be shared as the primary link. |
-| `details.html` | The detail behind the home page's eight book pages, in the same order: pivots and approach, nine engagements, six outcomes, research and writing, builds and CKDTracker, the three ways of working together. Every book page links to its section here, and each section links back. |
+| `details.html` | The full 3D experience behind the home page's book: floating realm cards that tilt toward the cursor, parallax orbs, and the guided chapter reader (pivots, nine engagements, six outcomes, point of view, builds, CKDTracker), then working together and contact. Each book page's "Read the detail" link opens the matching chapter (`#thesis`, `#work`, `#impact`, `#point-of-view`, `#builds`) or section (`#working-together`, `#contact`). |
 | `blueprint.html` | The consolidated report. Seven decisions between a pilot and a business result, phased pre-pilot, pilot-to-production and in-production. Every statistic carries a source and a date. Links out to the three papers as deep dives. |
 | `judgment-room.html` | Interactive. Five anonymised enterprise dilemmas. The visitor picks, then sees what actually happened. |
 | `wisdom-loop.html` | Interactive. The architecture as a six-stage cycle: Data, Information, Knowledge, Wisdom, Inference, Decision, looping back. |
