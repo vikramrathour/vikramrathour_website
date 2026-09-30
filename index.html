@@ -6,7 +6,8 @@
 <title>Vikram Rathour: Getting enterprise AI out of the pilot stage</title>
 <meta name="description" content="Vikram Rathour. Enterprise data and AI leader. 25 years architecting platforms for banking, healthcare and manufacturing. I help organisations take AI from a promising pilot to something the business relies on every day.">
 <script>document.documentElement.classList.add('js-book')</script>
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,6 +17,7 @@
 <meta property="og:title" content="Vikram Rathour: Enterprise Data and AI">
 <meta property="og:description" content="Twenty-six years architecting data and AI platforms for banking, healthcare and manufacturing. I help organisations take AI from a promising pilot to something the business relies on every day.">
 <meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/">
+<meta property="og:image" content="https://REPLACE-WITH-YOUR-DOMAIN/assets/portrait.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Vikram Rathour: Enterprise Data and AI">
 <meta name="twitter:description" content="Twenty-six years architecting data and AI platforms for banking, healthcare and manufacturing. I help organisations take AI from a promising pilot to something the business relies on every day.">
@@ -80,8 +82,9 @@
 .talk .links{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:clamp(2rem,6vh,3rem)}
 .talk .me{display:flex;align-items:center;gap:1rem;margin-top:clamp(2rem,6vh,3rem)}
 .talk .avatar{position:relative;width:64px;height:64px;border-radius:50%;overflow:hidden;background:var(--ink);flex-shrink:0}
-.talk .avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
-.talk .avatar img.fb{inset:16px;width:32px;height:32px}
+.talk .avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.talk .avatar img:not(.fb){inset:auto;position:absolute;left:50%;top:-4%;width:156%;max-width:none;height:auto;transform:translateX(-50%)}
+.talk .avatar img.fb{inset:auto;top:18px;left:14px;width:36px;height:28px;object-fit:contain}
 .talk .me p{margin:0;font-size:.875rem;color:var(--ink-2);line-height:1.5}
 .talk .me b{display:block;color:var(--ink);font-weight:600}
 .colophon{margin-top:clamp(2rem,6vh,3rem);font-size:.75rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:.35rem 1.25rem}
@@ -108,6 +111,18 @@
 .cover .starts .begin{margin-top:0}
 .cover .skim{font-size:.875rem;color:var(--ink-3);text-decoration:underline;text-decoration-color:var(--hair-2);text-underline-offset:4px}
 .cover .skim:hover{color:var(--terra-dk);text-decoration-color:var(--terra)}
+/* cover portrait: an arched frame, like a frontispiece; the photo tilts, the outline behind it stays */
+.portrait{position:relative;margin:0;width:clamp(128px,34vw,150px);aspect-ratio:3/3.9;margin-bottom:clamp(1.5rem,4vh,2.25rem)}
+.portrait::before{content:"";position:absolute;inset:0;transform:translate(10px,10px);border:1.5px solid var(--terra);border-radius:999px 999px 14px 14px;opacity:.55}
+.portrait .frame{position:absolute;inset:0;border-radius:999px 999px 14px 14px;overflow:hidden;background:var(--recess);box-shadow:0 24px 44px -22px rgba(18,26,36,.4);transition:transform .45s var(--ease)}
+.portrait img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+@media (min-width:861px){
+  .cover .leaf{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:clamp(3rem,6vw,6rem);align-content:center;align-items:center}
+  .cover .leaf > *{grid-column:1}
+  .cover .leaf > .portrait{grid-column:2;grid-row:1 / span 4;width:clamp(260px,27vw,380px);margin:0 12px 12px 0}
+  .portrait::before{transform:translate(16px,16px);border-radius:999px 999px 20px 20px}
+  .portrait .frame{border-radius:999px 999px 20px 20px}
+}
 .leaf > .more{justify-self:start}
 @media (max-width:600px){
   .say{margin-top:.75rem}
@@ -176,7 +191,7 @@
 <header class="nav" role="banner">
   <div class="nav-in">
     <a href="#s1" class="brand" aria-label="Vikram Rathour, cover page">
-      <img src="assets/logo.svg" alt="" width="36" height="36">
+      <img src="assets/logo-mark.png" alt="" width="47" height="36">
       <span class="brand-t"><span class="brand-n">Vikram Rathour</span><span class="brand-s">Enterprise Data &amp; AI</span></span>
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="navlinks" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -199,7 +214,8 @@
   <!-- 1 · COVER -->
   <section class="page cover" id="s1" data-title="Cover" aria-label="Page 1 of 8: Cover">
     <div class="leaf">
-      <span class="avail"><i></i>Part-time Data &amp; AI Leadership · Available for new work</span>
+      <figure class="portrait"><div class="frame tilt3d"><img src="assets/portrait.jpg" alt="Portrait of Vikram Rathour" width="1086" height="1448" fetchpriority="high"></div></figure>
+      <span class="avail"><i></i>Data &amp; AI Consulting · Fractional CTO · Advisory</span>
       <h1>Vikram <em>Rathour</em></h1>
       <p class="say">I help large organisations take AI from a promising pilot to something the business relies on every day.</p>
       <div class="starts"><button class="begin" data-go="2">Turn the page <span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><a class="skim" href="details.html">or read everything in detail</a></div>
@@ -310,7 +326,7 @@
         <a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener" class="btn btn-sec">LinkedIn</a>
       </div>
       <div class="me">
-        <div class="avatar"><img class="fb" src="assets/logo.svg" alt=""><img src="assets/portrait.jpg" alt="Portrait of Vikram Rathour" onerror="this.remove()"></div>
+        <div class="avatar"><img class="fb" src="assets/logo-mark-light.png" alt=""><img src="assets/portrait.jpg" alt="Portrait of Vikram Rathour" onerror="this.remove()"></div>
         <p><b>Vikram Rathour</b>Rathour.vikram@gmail.com · Pune, India</p>
       </div>
       <p class="colophon"><span>&copy; 2026 Vikram Rathour</span><a href="https://github.com/vikramrathour" target="_blank" rel="noopener">GitHub</a><a href="https://rathourvikram.wordpress.com" target="_blank" rel="noopener">WordPress</a></p>

@@ -46,7 +46,7 @@ header.posthead h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.25
 .pmeta .cat{font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .6rem;border-radius:var(--r);background:var(--terra-pale);color:var(--terra-dk)}
 .pmeta .dt::after{content:"·";margin-left:.9rem;color:var(--ink-3)}
 .byline{display:flex;align-items:center;gap:.75rem;padding:2rem 0 2.25rem;font-size:.875rem;color:var(--ink-2)}
-.byline .av{width:38px;height:38px;border-radius:8px;background:var(--ink) url(logo.svg) center/cover;color:transparent;font-size:0;flex-shrink:0}
+.byline .av{width:38px;height:38px;border-radius:8px;background:var(--ink) url(logo-mark-light.png) center/72% auto no-repeat;color:transparent;font-size:0;flex-shrink:0}
 .byline b{color:var(--ink);font-weight:600}
 
 /* ── essay layout ── */
