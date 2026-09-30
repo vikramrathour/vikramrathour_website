@@ -28,7 +28,8 @@
 
   /* active section highlight for in-page nav links */
   var links=[].slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
-  if(links.length&&'IntersectionObserver' in window){
+  /* the home page book sets its own active link, so skip scroll-based highlighting there */
+  if(links.length&&'IntersectionObserver' in window&&!document.querySelector('[data-book]')){
     var map={};
     links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
     var so=new IntersectionObserver(function(es){
