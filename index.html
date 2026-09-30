@@ -104,6 +104,20 @@
 @keyframes drift{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(-1.5deg)}}
 @media (prefers-reduced-motion:reduce){.js-book .page.on .art{animation:none}}
 
+.cover .starts{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 2rem;margin-top:clamp(2.25rem,7vh,3.5rem)}
+.cover .starts .begin{margin-top:0}
+.cover .skim{font-size:.875rem;color:var(--ink-3);text-decoration:underline;text-decoration-color:var(--hair-2);text-underline-offset:4px}
+.cover .skim:hover{color:var(--terra-dk);text-decoration-color:var(--terra)}
+.leaf > .more{justify-self:start}
+@media (max-width:600px){
+  .say{margin-top:.75rem}
+  .items{margin-top:1.4rem}
+  .items li{padding:.7rem 0}
+  .items .s{font-size:.875rem}
+  .nums{margin-top:1.5rem}
+  .more{margin-top:1.1rem}
+  .folio{margin-bottom:1.25rem}
+}
 .turns{display:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -188,7 +202,7 @@
       <span class="avail"><i></i>Fractional Data &amp; AI Leadership · Open to new conversations</span>
       <h1>Vikram <em>Rathour</em></h1>
       <p class="say">I walk alongside enterprise teams through the three pivots where most AI programmes stall.</p>
-      <button class="begin" data-go="2">Turn the page <span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+      <div class="starts"><button class="begin" data-go="2">Turn the page <span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><a class="skim" href="details.html">or read everything in detail</a></div>
     </div>
   </section>
 
@@ -204,6 +218,7 @@
         <li><span class="t"><span class="from">Initial</span><span class="arrow">→</span>Industrialised</span><span class="m">Make the second one cheaper</span></li>
         <li><span class="t"><span class="from">Managed</span><span class="arrow">→</span>Resilient</span><span class="m">Make it survive without me</span></li>
       </ul>
+      <a class="more" href="details.html#thesis">Read the detail: the pivots and how I work <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </section>
 
@@ -218,7 +233,7 @@
         <li><span class="t">A capable platform nobody would use.</span><span class="m">National tax authority</span></li>
         <li><span class="t">The argument was political, not technical.</span><span class="m">Global lakehouse</span></li>
       </ul>
-      <a class="more" href="judgment-room.html">Walk through five of these decisions yourself <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="more" href="details.html#work">Read the detail: all nine stories <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </section>
 
@@ -233,6 +248,7 @@
         <div><b>Zero</b><span>Downtime across a 50TB migration</span></div>
         <div><b>40%&rarr;0</b><span>Manual overrides on a fraud platform</span></div>
       </div>
+      <a class="more" href="details.html#impact">Read the detail: six outcomes <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </section>
 
@@ -247,6 +263,7 @@
         <li><a href="multi-agent-enterprise.html" target="_blank" rel="noopener"><span class="t">Three technical papers</span></a><span class="m">Agents · models · the stack</span></li>
         <li><a href="blog/index.html"><span class="t">Seven essays</span></a><span class="m">Writing</span></li>
       </ul>
+      <a class="more" href="details.html#point-of-view">Read the detail: research and writing <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </section>
 
@@ -261,6 +278,7 @@
         <li><a href="https://github.com/vikramrathour/OrionData_Webapp" target="_blank" rel="noopener"><span class="t">OrionData_Webapp</span></a><span class="m">ORIAN.Data in the browser</span></li>
         <li><a href="https://github.com/vikramrathour/CKDTracker" target="_blank" rel="noopener"><span class="t">CKDTracker</span></a><span class="m">Built as a transplant recipient</span></li>
       </ul>
+      <a class="more" href="details.html#builds">Read the detail: builds and CKDTracker <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </section>
 
@@ -275,6 +293,7 @@
         <li><span class="t">Reliability</span><span class="m">3 to 6 weeks</span><span class="s">When your agent shines in the demo and falters in production.</span></li>
         <li><span class="t">Direction</span><span class="m">4 to 8 weeks</span><span class="s">When your data, BI, AI and automation investments no longer pull in the same direction.</span></li>
       </ul>
+      <a class="more" href="details.html#working-together">Read the detail: what each involves <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </section>
 
@@ -295,6 +314,7 @@
         <p><b>Vikram Rathour</b>Rathour.vikram@gmail.com · Pune, India</p>
       </div>
       <p class="colophon"><span>&copy; 2026 Vikram Rathour</span><a href="https://github.com/vikramrathour" target="_blank" rel="noopener">GitHub</a><a href="https://rathourvikram.wordpress.com" target="_blank" rel="noopener">WordPress</a></p>
+      <a class="more" href="details.html#contact">Read everything in detail <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </section>
 
