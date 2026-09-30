@@ -2,9 +2,10 @@
 <html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Vikram Rathour: Sensibility for the Age of Intelligent Machines</title>
 <meta name="description" content="Vikram Rathour. Enterprise data and AI leader. 25 years architecting platforms for banking, healthcare and manufacturing. In an era of abundant intelligence, I bring the scarce resource: sensibility.">
+<script>document.documentElement.classList.add('js-book')</script>
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,229 +21,122 @@
 <meta name="twitter:description" content="Twenty-six years architecting data and AI platforms for banking, healthcare and manufacturing. Three ways to work together through the pivots where most AI programmes stall.">
 <link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/">
 <style>
-/* ═══════════ SPATIAL FIELD (home) ═══════════ */
-body{overflow-x:hidden}
-.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+/* ═══════════ THE BOOK ═══════════
+   Without JS: pages stack and scroll like a normal document.
+   With JS (.js-book): one full-screen page at a time, turned like a leaf. */
 
-.field{position:relative;overflow:hidden;padding-block:clamp(3rem,6vw,4.5rem) clamp(3.5rem,7vw,5.5rem);isolation:isolate}
-.field::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(to right,rgba(18,26,36,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(18,26,36,.035) 1px,transparent 1px);background-size:36px 36px;mask-image:radial-gradient(ellipse 80% 70% at 50% 35%,#000 30%,transparent 90%)}
-.orb{position:absolute;z-index:-1;border-radius:50%;pointer-events:none;filter:blur(120px);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
-.orb.o1{width:620px;height:620px;top:-220px;right:-140px;background:rgba(253,145,104,.30)}
-.orb.o2{width:560px;height:560px;top:30%;left:-260px;background:rgba(158,208,201,.32)}
-.orb.o3{width:480px;height:480px;bottom:-200px;right:22%;background:rgba(255,219,207,.55)}
+.page{position:relative;background:var(--canvas);padding:clamp(2.5rem,6vh,4.5rem) var(--margin) clamp(5rem,11vh,6.5rem);min-height:calc(100vh - 69px)}
+.page + .page{border-top:1px solid var(--hair)}
+.leaf{max-width:980px;margin:0 auto;width:100%}
+.page h1[tabindex="-1"]:focus,.page h2[tabindex="-1"]:focus{outline:none}
 
-.field-head{text-align:center;max-width:860px;margin:0 auto clamp(2.75rem,5vw,4rem)}
-.field-badge{display:inline-flex;align-items:center;gap:.55rem;padding:.45rem 1rem;border-radius:999px;background:rgba(255,255,255,.75);border:1px solid rgba(194,99,62,.28);color:var(--terra-dk);font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;box-shadow:var(--shadow)}
-.field-badge .ico{width:15px;height:15px}
-.field-head h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.5rem);line-height:1.05;letter-spacing:-.025em;margin:1.4rem 0 1.25rem}
-.field-head h1 em{color:var(--terra-dk)}
-.field-head .lede{margin:0 auto;font-size:1.125rem;max-width:62ch}
-.field-head .lede strong{color:var(--ink);font-weight:600}
-.field-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem;margin-top:1.9rem}
-.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:0;margin:2.25rem auto 0;max-width:720px;background:rgba(255,255,255,.8);border:1px solid var(--hair);border-radius:14px;box-shadow:var(--shadow);backdrop-filter:blur(8px)}
-.stat{flex:1 1 180px;padding:1.1rem 1.4rem;text-align:left}
-.stat + .stat{border-left:1px solid var(--hair)}
-.stat .n{display:block;font-family:var(--serif);font-size:1.9rem;font-weight:500;line-height:1.05}
-.stat:nth-child(2) .n{color:var(--terra-dk)}
-.stat .lab{display:block;margin-top:.3rem;font-size:.6875rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
-@media (max-width:600px){.stat + .stat{border-left:0;border-top:1px solid var(--hair)}}
+/* folio: small running head on every page */
+.folio{display:flex;align-items:baseline;gap:.9rem;margin-bottom:clamp(1.75rem,5vh,3rem);font-size:.6875rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.folio b{font-family:var(--serif);font-size:1rem;font-weight:500;letter-spacing:0;color:var(--terra)}
+.folio::after{content:"";flex:1;height:1px;background:var(--hair-2);transform:translateY(-3px)}
 
-/* realm grid */
-.realms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.25rem,2.6vw,2.25rem);perspective:1400px}
-@media (max-width:1023px){.realms{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:680px){.realms{grid-template-columns:1fr}}
-.slot{animation:bob 7s ease-in-out infinite;animation-delay:var(--d,0s)}
-.slot:hover{animation-play-state:paused}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.page h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.3rem,5.4vw,4.25rem);line-height:1.06;letter-spacing:-.022em;margin:0;max-width:17ch}
+.page h2 em{color:var(--terra-dk)}
+.say{font-family:var(--serif);font-style:italic;font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.5;color:var(--ink-2);margin:1.1rem 0 0;max-width:40ch}
 
-.realm{position:relative;display:flex;flex-direction:column;width:100%;height:100%;min-height:400px;text-align:left;font:inherit;color:inherit;cursor:pointer;padding:2rem 2rem 1.6rem;border-radius:18px;background:var(--vellum);border:1px solid var(--hair);box-shadow:0 18px 40px -18px rgba(18,26,36,.18),0 4px 12px -4px rgba(18,26,36,.05);overflow:hidden;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s cubic-bezier(.2,.8,.2,1),border-color .35s;will-change:transform}
-.realm:hover,.realm:focus-visible{border-color:var(--hair-hot);box-shadow:0 34px 64px -20px rgba(18,26,36,.28),0 0 0 1px rgba(194,99,62,.12),0 0 40px -8px rgba(194,99,62,.22)}
-.realm .blob{position:absolute;top:-70px;right:-70px;width:210px;height:210px;border-radius:50%;background:var(--terra-pale);opacity:.9;transition:transform .6s cubic-bezier(.2,.8,.2,1);pointer-events:none}
-.realm.sage .blob{background:var(--sage-pale)}
-.realm:hover .blob{transform:scale(1.25)}
-.realm .glare{position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.55),transparent 55%);transition:opacity .35s}
-.realm:hover .glare{opacity:1}
-.realm > *{position:relative}
-.realm-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.35rem;transform:translateZ(30px)}
-.realm .rtag{font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.4rem .7rem;border-radius:5px;background:var(--terra-pale);color:var(--terra-dk);border:1px solid rgba(194,99,62,.22)}
-.realm.sage .rtag{background:var(--sage-pale);color:var(--sage);border-color:rgba(43,92,87,.22)}
-.realm .ricon{color:var(--ink-3)}
-.realm .ricon .ico{width:22px;height:22px}
-.realm h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.55rem,2.3vw,1.85rem);line-height:1.18;letter-spacing:-.01em;margin:0 0 .75rem;transform:translateZ(40px)}
-.realm .q{font-family:var(--serif);font-style:italic;font-size:1.08rem;line-height:1.45;color:var(--terra-dk);margin:0 0 .9rem;transform:translateZ(28px)}
-.realm .b{font-size:.95rem;line-height:1.65;color:var(--ink-2);margin:0 0 1.5rem;transform:translateZ(18px)}
-.realm .rfoot{margin-top:auto;padding-top:1.1rem;border-top:1px solid var(--hair);display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.8125rem;color:var(--ink-2)}
-.realm .enter{display:inline-flex;align-items:center;gap:.35rem;font-weight:700;color:var(--terra-dk);opacity:.55;transform:translateX(-4px);transition:opacity .3s,transform .3s}
-.realm:hover .enter,.realm:focus-visible .enter{opacity:1;transform:none}
-.realm .enter .ico{width:15px;height:15px}
-.realm .key{font-family:var(--mono);font-size:.6875rem;padding:.1rem .4rem;border:1px solid var(--hair-2);border-radius:4px;color:var(--ink-3);margin-left:.4rem}
+/* three items: quiet ruled list */
+.items{list-style:none;margin:clamp(2rem,6vh,3.25rem) 0 0;padding:0;border-top:1px solid var(--hair-2);max-width:820px}
+.items li{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:.35rem 2rem;padding:clamp(.9rem,2.4vh,1.25rem) 0;border-bottom:1px solid var(--hair-2)}
+.items .t{font-family:var(--serif);font-size:clamp(1.2rem,2.2vw,1.6rem);line-height:1.3;color:var(--ink)}
+.items .m{font-size:.8125rem;color:var(--ink-3);text-align:right;white-space:nowrap}
+.items .s{grid-column:1/-1;font-size:.9375rem;color:var(--ink-2);line-height:1.55}
+.items a{color:inherit;text-decoration:none}
+.items a .t{background:linear-gradient(var(--terra),var(--terra)) 0 100%/0 1px no-repeat;transition:background-size .35s var(--ease),color .2s}
+.items a:hover .t{color:var(--terra-dk);background-size:100% 1px}
+.arrow{color:var(--terra);font-family:var(--sans);font-size:.85em;margin:0 .35em}
+.from{color:var(--ink-3)}
+@media (max-width:600px){.items li{grid-template-columns:1fr}.items .m{text-align:left;white-space:normal}}
 
-.realm.dark{background:linear-gradient(165deg,#1B2533 0%,#121A24 55%,#0C121A 100%);color:var(--canvas);border-color:#121A24;box-shadow:0 30px 60px -18px rgba(18,26,36,.55),0 0 0 1px rgba(194,99,62,.18)}
-.realm.dark .blob{background:radial-gradient(circle,rgba(194,99,62,.4),transparent 70%);opacity:1}
-.realm.dark .rtag{background:rgba(194,99,62,.18);color:var(--terra-lt);border-color:rgba(232,161,132,.35)}
-.realm.dark .ricon{color:var(--terra-lt)}
-.realm.dark .q{color:var(--terra-lt)}
-.realm.dark .b{color:rgba(247,246,242,.74)}
-.realm.dark .rfoot{border-color:rgba(247,246,242,.14);color:rgba(247,246,242,.66)}
-.realm.dark .enter{color:var(--terra-lt)}
-.realm.dark .key{border-color:rgba(247,246,242,.22);color:rgba(247,246,242,.6)}
-.realm.dark .glare{background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(232,161,132,.18),transparent 55%)}
+.more{display:inline-flex;align-items:center;gap:.45rem;margin-top:clamp(1.5rem,4vh,2.25rem);font-size:.9375rem;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--terra);padding-bottom:2px}
+.more:hover{color:var(--terra-dk)}
+.more svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-.field-hint{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:clamp(2.5rem,5vw,3.5rem);font-size:.875rem;color:var(--ink-2);text-align:center}
-.field-hint::before,.field-hint::after{content:"";width:48px;height:1px;background:var(--hair-2)}
-@media (pointer:coarse){.field-hint .kb,.realm .key{display:none}}
+/* cover */
+.cover .leaf{display:flex;flex-direction:column;justify-content:center;min-height:calc(100vh - 69px - 11rem)}
+.cover .avail{display:inline-flex;align-items:center;gap:.55rem;font-size:.75rem;font-weight:600;letter-spacing:.04em;color:var(--ink-2)}
+.cover .avail i{width:7px;height:7px;border-radius:50%;background:var(--terra)}
+.cover h1{font-family:var(--serif);font-weight:400;font-size:clamp(3.2rem,9vw,7rem);line-height:.98;letter-spacing:-.03em;margin:clamp(1.25rem,4vh,2rem) 0 0}
+.cover h1 em{color:var(--terra-dk)}
+.cover .say{max-width:34ch}
+.cover .begin{margin-top:clamp(2.25rem,7vh,3.5rem);align-self:flex-start;display:inline-flex;align-items:center;gap:.7rem;font:600 .875rem/1 var(--sans);color:var(--ink-2);background:none;border:0;padding:0;cursor:pointer}
+.cover .begin span{display:inline-flex;width:40px;height:40px;border-radius:50%;border:1px solid var(--hair-2);align-items:center;justify-content:center;transition:border-color .3s,transform .3s var(--ease)}
+.cover .begin:hover span{border-color:var(--terra);transform:translateX(4px)}
+.cover .begin svg{width:16px;height:16px;fill:none;stroke:var(--terra);stroke-width:2}
 
-/* ═══════════ 3D ENGAGEMENT SPRINTS ═══════════ */
-.sprints{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.25rem,2.6vw,2rem);perspective:1400px;align-items:stretch}
-.sprint{display:flex;flex-direction:column;border-radius:18px;padding:2rem;background:var(--vellum);border:1px solid var(--hair);box-shadow:0 18px 40px -18px rgba(18,26,36,.18);transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .35s;position:relative;overflow:hidden}
-.sprint:hover{border-color:var(--hair-hot);box-shadow:0 34px 64px -20px rgba(18,26,36,.26)}
-.sprint .glare{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.5),transparent 55%);transition:opacity .35s}
-.sprint:hover .glare{opacity:1}
-.sprint > *{position:relative}
-.sprint-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem}
-.sprint .sn{font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .65rem;border-radius:5px;background:var(--recess);color:var(--ink-2)}
-.sprint .wk{font-family:var(--mono);font-size:.75rem;color:var(--sage);background:var(--sage-pale);padding:.3rem .65rem;border-radius:999px}
-.sprint h3{font-family:var(--serif);font-weight:500;font-size:1.5rem;line-height:1.22;margin:0 0 .9rem}
-.sprint .for{font-size:.875rem;color:var(--ink-2);margin:0 0 1rem;padding:.8rem .95rem;background:var(--canvas);border-radius:8px}
-.sprint .for b,.sprint .keep b{display:block;font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:.2rem}
-.sprint .p{font-size:.9375rem;line-height:1.65;color:var(--ink-2);margin:0 0 1.25rem;flex:1}
-.sprint .keep{padding-top:1rem;border-top:1px solid var(--hair);font-size:.875rem;color:var(--ink-2)}
-.sprint .keep b{color:var(--sage)}
-.sprint.dark{background:linear-gradient(165deg,#1B2533,#121A24 60%,#0C121A);color:var(--canvas);border-color:var(--ink);box-shadow:0 30px 60px -18px rgba(18,26,36,.5)}
-.sprint.dark .sn{background:rgba(194,99,62,.18);color:var(--terra-lt)}
-.sprint.dark .wk{background:rgba(158,208,201,.14);color:#9ED0C9}
-.sprint.dark .for{background:rgba(247,246,242,.06);color:rgba(247,246,242,.78)}
-.sprint.dark .for b,.sprint.dark .keep b{color:var(--canvas)}
-.sprint.dark .keep b{color:#9ED0C9}
-.sprint.dark .p,.sprint.dark .keep{color:rgba(247,246,242,.74)}
-.sprint.dark .keep{border-color:rgba(247,246,242,.14)}
-.sprint.dark .glare{background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(232,161,132,.16),transparent 55%)}
-@media (max-width:1023px){.sprints{grid-template-columns:1fr;max-width:640px;margin:0 auto}}
-.decline{margin:clamp(2.5rem,5vw,3.5rem) auto 0;max-width:900px;border-radius:18px;padding:1.75rem 2rem;background:var(--vellum);border:1px solid rgba(194,99,62,.3);box-shadow:var(--shadow);display:grid;grid-template-columns:auto 1fr;gap:1rem 1.25rem;align-items:start}
-.decline .ico{width:26px;height:26px;color:var(--terra)}
-.decline h3{margin:0 0 .35rem;font-family:var(--serif);font-weight:500;font-size:1.3rem}
-.decline p{margin:0;color:var(--ink-2);font-size:.9375rem}
+/* impact numbers */
+.nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1rem,3vw,2.5rem);margin-top:clamp(2.25rem,7vh,3.75rem);max-width:900px}
+.nums div{border-top:1px solid var(--hair-2);padding-top:1rem}
+.nums b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.5rem);line-height:1;letter-spacing:-.02em;color:var(--ink)}
+.nums div:first-child b{color:var(--terra-dk)}
+.nums span{display:block;margin-top:.7rem;font-size:.9375rem;line-height:1.45;color:var(--ink-2);max-width:22ch}
+@media (max-width:600px){.nums{grid-template-columns:1fr;gap:1.25rem}.nums b{font-size:2.6rem}}
 
-/* ═══════════ CONTACT ═══════════ */
-.contact{background:var(--ink);color:var(--canvas);position:relative;overflow:hidden;isolation:isolate}
-.contact .orb.o1{background:rgba(194,99,62,.28);top:-260px}
-.contact .orb.o2{background:rgba(43,92,87,.4);top:auto;bottom:-300px;left:-200px}
-.contact-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
-.contact .eyebrow{color:var(--terra-lt)}
-.contact h2 em{color:var(--terra-lt)}
-.contact .lede{color:rgba(247,246,242,.76);margin:1.25rem 0 2rem}
-.contact .ctas{display:flex;flex-wrap:wrap;gap:.75rem}
-.contact .meta{margin-top:1.75rem;font-size:.875rem;color:rgba(247,246,242,.62)}
-.contact .meta a{color:var(--canvas)}
-.idcard{border-radius:20px;padding:2rem;background:linear-gradient(165deg,rgba(247,246,242,.08),rgba(247,246,242,.02));border:1px solid rgba(247,246,242,.14);text-align:center;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.8,.2,1);position:relative;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
-.avatar{position:relative;width:132px;height:132px;margin:0 auto 1.25rem;border-radius:50%;overflow:hidden;background:#1B2533;box-shadow:0 0 0 3px rgba(232,161,132,.6),0 0 0 8px rgba(232,161,132,.12);transform:translateZ(40px)}
-.avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
-.avatar .fb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-.avatar .fb img{position:static;width:64px;height:64px}
-.idcard h3{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:0;transform:translateZ(30px)}
-.idcard .role{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--terra-lt);margin:.35rem 0 1rem}
-.idcard .quote{font-family:var(--serif);font-style:italic;font-size:1.1rem;line-height:1.5;color:rgba(247,246,242,.82);margin:0 auto;max-width:34ch}
-.idcard .lines{margin-top:1.25rem;padding-top:1rem;border-top:1px solid rgba(247,246,242,.12);font-family:var(--mono);font-size:.78rem;color:rgba(247,246,242,.7);display:grid;gap:.35rem}
-.idcard .lines a{color:var(--canvas);text-decoration:none}
-@media (max-width:1023px){.contact-grid{grid-template-columns:1fr}.idcard{max-width:420px;margin:0 auto;width:100%}}
+/* last page */
+.talk .links{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:clamp(2rem,6vh,3rem)}
+.talk .me{display:flex;align-items:center;gap:1rem;margin-top:clamp(2rem,6vh,3rem)}
+.talk .avatar{position:relative;width:64px;height:64px;border-radius:50%;overflow:hidden;background:var(--ink);flex-shrink:0}
+.talk .avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.talk .avatar img.fb{inset:16px;width:32px;height:32px}
+.talk .me p{margin:0;font-size:.875rem;color:var(--ink-2);line-height:1.5}
+.talk .me b{display:block;color:var(--ink);font-weight:600}
+.colophon{margin-top:clamp(2rem,6vh,3rem);font-size:.75rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:.35rem 1.25rem}
+.colophon a{color:inherit}
 
-/* ═══════════ JOURNEY READER ═══════════ */
-.journey{position:fixed;inset:0;z-index:500;overflow-y:auto;overscroll-behavior:contain;background:rgba(247,246,242,.95);backdrop-filter:blur(28px) saturate(170%);-webkit-backdrop-filter:blur(28px) saturate(170%);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s}
-.journey.open{opacity:1;visibility:visible;transition:opacity .35s ease}
-.jbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem var(--margin);padding-top:calc(.85rem + env(safe-area-inset-top,0px));background:rgba(247,246,242,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
-.jback{display:inline-flex;align-items:center;gap:.45rem;padding:.5rem .85rem;border-radius:8px;border:1px solid rgba(194,99,62,.35);background:var(--vellum);font:700 .75rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--terra-dk);cursor:pointer}
-.jback:hover{background:var(--terra-pale)}
-.jback .ico{width:15px;height:15px}
-.jcrumb{display:flex;align-items:center;gap:.6rem;font-size:.8125rem;min-width:0}
-.jcrumb b{font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--terra-dk)}
-.jcrumb span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
-.jleft{display:flex;align-items:center;gap:1rem;min-width:0}
-.jpills{display:flex;align-items:center;gap:.3rem;flex-shrink:0}
-.jpill{width:32px;height:32px;border-radius:8px;border:1px solid transparent;background:transparent;font:700 .8125rem/1 var(--sans);color:var(--ink-2);cursor:pointer;transition:background .2s,color .2s}
-.jpill:hover{background:var(--recess);color:var(--ink)}
-.jpill[aria-current="true"]{background:var(--ink);color:#fff;box-shadow:0 6px 16px -6px rgba(18,26,36,.5)}
-.jclose{width:36px;height:36px;border-radius:50%;border:0;background:transparent;color:var(--ink-2);cursor:pointer;margin-left:.35rem;display:inline-flex;align-items:center;justify-content:center}
-.jclose:hover{background:var(--recess);color:var(--ink)}
-@media (max-width:760px){.jcrumb{display:none}.jback span{display:none}.jpill{width:28px;height:28px}}
-.jbody{max-width:1180px;margin:0 auto;padding:clamp(2.5rem,6vw,4.5rem) var(--margin) 3rem}
-.chapter[hidden]{display:none}
-.chapter{animation:chIn .55s cubic-bezier(.16,1,.3,1) both}
-@keyframes chIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-.ch-head{max-width:820px;margin-bottom:clamp(2rem,4vw,3rem)}
-.ch-head .eyebrow{margin-bottom:.6rem}
-.ch-head .lede{margin-top:1.1rem}
-.jnav{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:clamp(3rem,6vw,4.5rem);padding-top:1.5rem;border-top:1px solid var(--hair-2)}
-.jnav button{display:inline-flex;align-items:center;gap:.6rem;text-align:left;background:var(--vellum);border:1px solid var(--hair);border-radius:12px;padding:.9rem 1.2rem;cursor:pointer;font:inherit;color:var(--ink);transition:border-color .2s,transform .25s}
-.jnav button:hover{border-color:var(--hair-hot);transform:translateY(-2px)}
-.jnav small{display:block;font-size:.6875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
-.jnav strong{font-family:var(--serif);font-weight:500;font-size:1.05rem}
-.jnav .next{margin-left:auto;text-align:right}
-.jnav [hidden]{display:none}
-.jsub{margin-top:clamp(3rem,6vw,4.5rem)}
+.turns{display:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* chapter content blocks (reused from the previous home) */
-.pivot .move{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-family:var(--serif);font-size:1.5rem;line-height:1.2;margin-bottom:.5rem}
-.pivot .move .from{color:var(--ink-3)}
-.pivot .move .arr{color:var(--terra);font-family:var(--sans);font-size:1.1rem}
-.pivot .card-foot{font-family:var(--serif);font-style:italic;font-size:.975rem;color:var(--ink)}
-.watch{margin-top:var(--gutter);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.25rem 2rem;padding:1.6rem 2rem;border-radius:12px;background:var(--recess)}
-.watch h3{margin:0 0 .3rem}
-.watch p{margin:0;max-width:62ch;font-size:.9375rem;color:var(--ink-2)}
-.approach{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2.5rem,6vw,5rem);align-items:start}
-.approach .thesis{margin:1.5rem 0}
-.steps{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair-2)}
-.steps li{display:grid;grid-template-columns:4.5rem 1fr;gap:1rem;padding:1.5rem 0;border-bottom:1px solid var(--hair-2)}
-.steps .n{font-family:var(--serif);font-size:2.25rem;line-height:1;color:var(--terra)}
-.steps h3{margin:0 0 .35rem}
-.steps p{margin:0;color:var(--ink-2);font-size:.9375rem}
-@media (max-width:1023px){.approach{grid-template-columns:1fr}}
-.journey .card{border-radius:14px}
-.impact .n{font-family:var(--serif);font-weight:500;font-size:2.75rem;line-height:1;letter-spacing:-.02em;margin-bottom:.9rem}
-.impact:nth-child(3n+1) .n{color:var(--terra-dk)}
-.impact .lab{font-weight:600;font-size:1rem;margin:0 0 .5rem;color:var(--ink)}
-.case .cc-hi{font-family:var(--serif);font-weight:500;font-size:1.35rem;line-height:1.3;margin:0 0 .9rem}
-.case dl{margin:0 0 1.25rem;display:grid;gap:.75rem}
-.case dt{font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
-.case dd{margin:.15rem 0 0;font-size:.9rem;line-height:1.6;color:var(--ink-2)}
-.case .out{display:flex;align-items:center;gap:.9rem;font-size:.875rem;color:var(--ink)}
-.case .out .n{font-family:var(--serif);font-size:1.5rem;color:var(--terra-dk);min-width:2ch}
-.work-bar{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;margin-bottom:1.75rem}
-.deeper{margin-top:2.5rem;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center}
-.deeper .label{color:var(--ink-3)}
-.pov-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2.5rem,6vw,5rem);align-items:start}
-.roles{list-style:none;margin:2rem 0 0;padding:0;display:grid;gap:.9rem}
-.roles li{display:flex;gap:.85rem;align-items:flex-start;font-size:.9375rem;color:var(--ink-2)}
-.roles li strong{color:var(--ink);font-weight:600}
-.roles .ico{width:34px;height:34px;padding:8px;border-radius:50%;background:var(--sage-pale);color:var(--sage)}
-.pov-list{display:grid;gap:1rem}
-.blueprint{padding:2.25rem}
-@media (max-width:1023px){.pov-grid{grid-template-columns:1fr}}
-.writing{display:grid;grid-template-columns:7fr 5fr;gap:clamp(2.5rem,5vw,4rem);align-items:start}
-.wlist{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair-2)}
-.wlist a{display:grid;grid-template-columns:8.5rem 1fr;gap:.35rem 1.5rem;padding:1.4rem 0;border-bottom:1px solid var(--hair-2);text-decoration:none;color:inherit}
-.wlist .meta{font-size:.75rem;font-weight:600;letter-spacing:.04em;color:var(--ink-3);padding-top:.35rem;display:flex;flex-direction:column;gap:.25rem}
-.wlist .meta .c{color:var(--terra-dk);text-transform:uppercase;letter-spacing:.08em;font-size:.6875rem}
-.wlist .t{font-family:var(--serif);font-size:1.3rem;font-weight:500;line-height:1.3;transition:color .2s}
-.wlist .ex{grid-column:2;font-size:.9rem;color:var(--ink-2);line-height:1.6}
-.wlist a:hover .t{color:var(--terra-dk)}
-.wfeat{display:grid;gap:1rem}
-.wfeat .ill{height:70px;margin-bottom:1rem}
-.wfeat .ill svg{height:100%;width:auto;fill:none;stroke:var(--terra);stroke-width:1.4}
-.wfeat .card.dark .ill svg{stroke:var(--terra-lt)}
-@media (max-width:1023px){.writing{grid-template-columns:1fr}}
-@media (max-width:560px){.wlist a{grid-template-columns:1fr}.wlist .ex{grid-column:1}.wlist .meta{flex-direction:row;gap:.75rem;padding-top:0}}
-.build .repo{font-family:var(--mono);font-size:1.15rem;font-weight:600;color:var(--ink);margin:0 0 .35rem}
-.build .repo .slash{color:var(--terra)}
-.lang{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.75rem;color:var(--ink-2)}
-.lang i{width:9px;height:9px;border-radius:50%;display:inline-block}
-.build .tagline{font-weight:600;font-size:.9375rem;color:var(--sage);margin:0 0 .75rem}
-.sig{display:grid;grid-template-columns:7fr 5fr;gap:clamp(2.5rem,6vw,5rem);align-items:center}
-.sig .thesis{margin:1.75rem 0}
-.sig-stats{display:grid;gap:1rem}
-.sig-stats .n{font-family:var(--serif);font-size:2rem;line-height:1;margin-bottom:.5rem;color:var(--terra-dk)}
-@media (max-width:1023px){.sig{grid-template-columns:1fr}}
-.no-scroll{overflow:hidden}
-@media (prefers-reduced-motion:reduce){.slot{animation:none}.orb{transition:none}}
+/* ═══════════ BOOK MODE ═══════════ */
+.js-book,.js-book body{height:100%;overflow:hidden;overscroll-behavior:none}
+.js-book body{display:flex;flex-direction:column;height:100dvh;overscroll-behavior:none}
+.js-book .book{touch-action:pan-y}
+.js-book .nav{flex:none;position:relative}
+.js-book .book{position:relative;flex:1;min-height:0;perspective:2400px;perspective-origin:0 50%;overflow:hidden;background:var(--recess)}
+.js-book .page{position:absolute;inset:0;min-height:0;border:0;overflow-y:auto;overscroll-behavior:contain;visibility:hidden;transform-origin:0 50%;backface-visibility:hidden;box-shadow:inset -1px 0 0 var(--hair)}
+.js-book .page{display:flex;flex-direction:column}
+.js-book .leaf{margin:auto}
+.js-book .cover .leaf{min-height:0}
+.js-book .page.on{visibility:visible;z-index:3}
+.js-book .page.under{visibility:visible;z-index:2}
+.js-book .page.lift{visibility:visible;z-index:4;will-change:transform}
+/* shading: the turning leaf darkens as it swings away; the page underneath brightens as it is uncovered */
+.js-book .page::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;background:linear-gradient(90deg,rgba(18,26,36,.03),rgba(18,26,36,.24))}
+.js-book .page.under::after{background:linear-gradient(90deg,rgba(18,26,36,.2),rgba(18,26,36,.05))}
+
+.js-book .turns{position:absolute;z-index:10;right:var(--margin);bottom:calc(clamp(1.1rem,3vh,1.75rem) + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:.9rem}
+.turns button{width:44px;height:44px;border-radius:50%;border:1px solid var(--hair-2);background:rgba(247,246,242,.92);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:border-color .25s,opacity .25s,transform .25s var(--ease)}
+.turns button:hover:not(:disabled){border-color:var(--terra);transform:translateY(-1px)}
+.turns button:disabled{opacity:.3;cursor:default}
+.turns svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.turns .count{font-family:var(--serif);font-size:1rem;color:var(--ink-2);min-width:4.5ch;text-align:center;font-variant-numeric:tabular-nums}
+.turns .count b{color:var(--ink);font-weight:500}
+
+@keyframes leafOut{from{transform:rotateY(0)}to{transform:rotateY(-104deg)}}
+@keyframes leafIn{from{transform:rotateY(-104deg)}to{transform:rotateY(0)}}
+@keyframes shadeUp{from{opacity:0}to{opacity:1}}
+@keyframes shadeDown{from{opacity:1}to{opacity:0}}
+.js-book .page.out{animation:leafOut .72s cubic-bezier(.55,.06,.3,1) both}
+.js-book .page.in{animation:leafIn .72s cubic-bezier(.4,.1,.35,1) both}
+.js-book .page.out::after{animation:shadeUp .72s ease-in both}
+.js-book .page.in::after{animation:shadeDown .72s ease-out both}
+.js-book .page.revealing::after{animation:shadeDown .72s ease-out both}
+.js-book .page.covering::after{animation:shadeUp .72s ease-in both}
+
+@media (prefers-reduced-motion:reduce){
+  @keyframes fadeOut{from{opacity:1}to{opacity:0}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .js-book .page.out{animation:fadeOut .25s ease both}
+  .js-book .page.in{animation:fadeIn .25s ease both}
+  .js-book .page::after{display:none}
+}
+@media (max-width:600px){
+  .js-book .page{padding-bottom:6.5rem}
+  .js-book .turns{left:var(--margin);justify-content:space-between}
+}
 </style>
 </head>
 <body>
@@ -250,7 +144,7 @@ body{overflow-x:hidden}
 
 <header class="nav" role="banner">
   <div class="nav-in">
-    <a href="#field" class="brand" aria-label="Vikram Rathour, home">
+    <a href="#s1" class="brand" aria-label="Vikram Rathour, cover page">
       <img src="assets/logo.svg" alt="" width="36" height="36">
       <span class="brand-t"><span class="brand-n">Vikram Rathour</span><span class="brand-s">Enterprise Data &amp; AI</span></span>
     </a>
@@ -269,514 +163,230 @@ body{overflow-x:hidden}
   </div>
 </header>
 
-<main id="main">
+<main id="main" class="book" data-book aria-roledescription="book" aria-label="Vikram Rathour, in eight pages">
 
-<!-- ═══ SPATIAL FIELD ═══ -->
-<section class="field" id="field" aria-label="Introduction and chapters">
-  <span id="s1"></span>
-  <div class="orb o1" data-par="50"></div><div class="orb o2" data-par="-40"></div><div class="orb o3" data-par="30"></div>
-  <div class="wrap">
-    <div class="field-head">
-      <span class="field-badge"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/></svg>Fractional Data &amp; AI Leadership · Open to new conversations</span>
+  <!-- 1 · COVER -->
+  <section class="page cover" id="s1" data-title="Cover" aria-label="Page 1 of 8: Cover">
+    <div class="leaf">
+      <span class="avail"><i></i>Fractional Data &amp; AI Leadership · Open to new conversations</span>
       <h1>Vikram <em>Rathour</em></h1>
-      <p class="lede">I walk alongside enterprise teams through the three pivots where most AI programmes stall: <strong>pilot to production, initial to industrialised, managed to resilient</strong>. Twenty-five years in banking, healthcare and manufacturing. I can join as a fractional or interim data and AI lead.</p>
-      <div class="field-ctas">
-        <button class="btn btn-pri" data-open="2">See the stories behind the work <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <a href="#s9" class="btn btn-sec">Start a conversation</a>
-      </div>
-      <div class="stats">
-        <div class="stat"><span class="n">25 yrs</span><span class="lab">Banking, healthcare, manufacturing</span></div>
-        <div class="stat"><span class="n">$2B+</span><span class="lab">Platforms shaped &amp; delivered</span></div>
-        <div class="stat"><span class="n">0</span><span class="lab">Failed flagship platforms</span></div>
-      </div>
+      <p class="say">I walk alongside enterprise teams through the three pivots where most AI programmes stall.</p>
+      <button class="begin" data-go="2">Turn the page <span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
     </div>
+  </section>
 
-    <div class="realms">
-      <div class="slot" style="--d:0s">
-        <button class="realm tilt3d" data-open="1" aria-label="Open chapter 1: Three pivots">
-          <span class="blob"></span><span class="glare"></span>
-          <span class="realm-top"><span class="rtag">Realm 01 · The Thesis</span><span class="ricon"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span></span>
-          <h2>Three pivots</h2>
-          <span class="q">"Most programmes are wrestling with one of them."</span>
-          <span class="b">AI programmes rarely fail on technology. They stall at a transition nobody owns. Pilot to production, initial to industrialised, managed to resilient, and the stance behind how I take them through.</span>
-          <span class="rfoot"><span>Chapter I · Pivots &amp; approach</span><span class="enter">Enter <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="key">1</span></span></span>
-        </button>
-      </div>
-      <div class="slot" style="--d:-2.3s">
-        <button class="realm dark tilt3d" data-open="2" aria-label="Open chapter 2: Nine times through these pivots">
-          <span class="blob"></span><span class="glare"></span>
-          <span class="realm-top"><span class="rtag">Realm 02 · The Work</span><span class="ricon"><svg class="ico" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg></span></span>
-          <h2>Nine times through these pivots</h2>
-          <span class="q">"The data was fine. The accountability wasn't."</span>
-          <span class="b">A national tax platform nobody would use. A fraud system operations kept overriding. A Lakehouse stalled on politics, not technology. Nine stories from banking, AI systems and platforms.</span>
-          <span class="rfoot"><span>Chapter II · 9 stories</span><span class="enter">Enter <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="key">2</span></span></span>
-        </button>
-      </div>
-      <div class="slot" style="--d:-4.6s">
-        <button class="realm sage tilt3d" data-open="3" aria-label="Open chapter 3: What changed after I left the room">
-          <span class="blob"></span><span class="glare"></span>
-          <span class="realm-top"><span class="rtag">Realm 03 · Outcomes</span><span class="ricon"><svg class="ico" viewBox="0 0 24 24"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.4 7.2 16.9l.9-5.4-3.9-3.8 5.4-.8z"/></svg></span></span>
-          <h2>What changed after I left the room</h2>
-          <span class="q">"2&times; business-unit growth. Zero downtime across 50TB."</span>
-          <span class="b">Not lines of code or tables migrated. Decisions improved, capability built, and platforms that outlived the project that created them.</span>
-          <span class="rfoot"><span>Chapter III · 6 outcomes</span><span class="enter">Enter <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="key">3</span></span></span>
-        </button>
-      </div>
-      <div class="slot" style="--d:-1.2s">
-        <button class="realm tilt3d" data-open="4" aria-label="Open chapter 4: Point of view">
-          <span class="blob"></span><span class="glare"></span>
-          <span class="realm-top"><span class="rtag">Realm 04 · Point of View</span><span class="ricon"><svg class="ico" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span></span>
-          <h2>The homework before the advice</h2>
-          <span class="q">"The Production Blueprint, three papers, seven essays."</span>
-          <span class="b">Advice is only worth trusting when it is independent of the vendor in the room. Mine is grounded in primary research I publish openly.</span>
-          <span class="rfoot"><span>Chapter IV · Research &amp; writing</span><span class="enter">Enter <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="key">4</span></span></span>
-        </button>
-      </div>
-      <div class="slot" style="--d:-3.5s">
-        <button class="realm sage tilt3d" data-open="5" aria-label="Open chapter 5: Selected builds">
-          <span class="blob"></span><span class="glare"></span>
-          <span class="realm-top"><span class="rtag">Realm 05 · Builds</span><span class="ricon"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></svg></span></span>
-          <h2>I don't just architect it. I build it.</h2>
-          <span class="q">"sentinel_dq · OrionData_Webapp · CKDTracker"</span>
-          <span class="b">A leader who still ships understands what they ask of their teams. Working repositories, not slideware.</span>
-          <span class="rfoot"><span>Chapter V · Python / TypeScript</span><span class="enter">Enter <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="key">5</span></span></span>
-        </button>
-      </div>
-      <div class="slot" style="--d:-5.8s">
-        <button class="realm tilt3d" data-open="6" aria-label="Open chapter 6: CKDTracker">
-          <span class="blob"></span><span class="glare"></span>
-          <span class="realm-top"><span class="rtag">Realm 06 · Purpose</span><span class="ricon"><svg class="ico" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.5 3-5.5A4.5 4.5 0 0012 6 4.5 4.5 0 002 8.5c0 2 1.5 4 3 5.5l7 7z"/></svg></span></span>
-          <h2>CKDTracker: empathy, made executable</h2>
-          <span class="q">"I did not design for a persona. I designed for myself."</span>
-          <span class="b">As a transplant recipient, I built CKDTracker in 2024: an open-source kidney-health application for the 850 million people who share the condition. Not a product. A contribution.</span>
-          <span class="rfoot"><span>Chapter VI · Open source</span><span class="enter">Enter <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="key">6</span></span></span>
-        </button>
-      </div>
+  <!-- 2 · THESIS -->
+  <section class="page" id="s2" data-title="Thesis" aria-label="Page 2 of 8: Thesis">
+    <div class="leaf">
+      <div class="folio"><b>02</b>Thesis</div>
+      <h2>Three pivots.</h2>
+      <p class="say">Most programmes are wrestling with one of them.</p>
+      <ul class="items">
+        <li><span class="t"><span class="from">Pilot</span><span class="arrow">→</span>Production</span><span class="m">Make it real</span></li>
+        <li><span class="t"><span class="from">Initial</span><span class="arrow">→</span>Industrialised</span><span class="m">Make the second one cheaper</span></li>
+        <li><span class="t"><span class="from">Managed</span><span class="arrow">→</span>Resilient</span><span class="m">Make it survive without me</span></li>
+      </ul>
     </div>
-    <p class="field-hint">Select any card to open its chapter<span class="kb">&nbsp;· or press 1 to 6 on your keyboard</span></p>
-  </div>
-</section>
+  </section>
 
-<!-- ═══ WORKING TOGETHER ═══ -->
-<section class="sec sec-alt" id="s3b" aria-label="Working together">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <span class="eyebrow r">How we might work together</span>
-        <h2 class="h-xl r d1">Three ways we can <em>work together</em>.</h2>
-      </div>
-      <p class="lede r d2">Each has a clear shape and an honest end point, and leaves behind something your team owns and understands. None of them is an open-ended transformation programme.</p>
+  <!-- 3 · WORK -->
+  <section class="page" id="s5" data-title="Work" aria-label="Page 3 of 8: Work">
+    <div class="leaf">
+      <div class="folio"><b>03</b>Work</div>
+      <h2>Nine times through <em>these pivots</em>.</h2>
+      <ul class="items">
+        <li><span class="t">The data was fine. The accountability wasn't.</span><span class="m">Major bank</span></li>
+        <li><span class="t">A capable platform nobody would use.</span><span class="m">National tax authority</span></li>
+        <li><span class="t">The argument was political, not technical.</span><span class="m">Global lakehouse</span></li>
+      </ul>
+      <a class="more" href="judgment-room.html">Walk through five of these decisions yourself <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
-    <div class="sprints">
-      <article class="sprint tilt3d r d1"><span class="glare"></span>
-        <div class="sprint-top"><span class="sn">01 · Foundations</span><span class="wk">4 to 8 weeks</span></div>
-        <h3>AI data readiness and semantic core</h3>
-        <p class="for"><b>When this helps</b>Several AI pilots are giving your leadership different answers to the same question.</p>
-        <p class="p">Together we write down the business meaning behind the 30 to 50 numbers your organisation actually runs on: what each one means, where it comes from, who looks after it, and the traps people have learned to step around. Aligned to industry standards where they help, such as BIAN or FHIR. Then we check it honestly, with a before-and-after accuracy test on your real questions, not a benchmark.</p>
-        <div class="keep"><b>What stays with your team</b>A governed semantic model, a scored readiness map, and a 90-day plan for what to improve next.</div>
-      </article>
-      <article class="sprint dark tilt3d r d2"><span class="glare"></span>
-        <div class="sprint-top"><span class="sn">02 · Reliability</span><span class="wk">3 to 6 weeks</span></div>
-        <h3>Agent production readiness and reliability</h3>
-        <p class="for"><b>When this helps</b>Your agent shines in the demo and falters in production.</p>
-        <p class="p">I sit with your own experts to turn their knowledge into a test set, run each case repeatedly, and share plainly how often the agent is right and how it fails. Then we look at the design around it together: fixed workflow or agent, retrieval permissions, document preparation, decision record retention, running cost.</p>
-        <div class="keep"><b>What stays with your team</b>A reliability number the board can trust, and a design your team feels ready to build.</div>
-      </article>
-      <article class="sprint tilt3d r d3"><span class="glare"></span>
-        <div class="sprint-top"><span class="sn">03 · Direction</span><span class="wk">4 to 8 weeks</span></div>
-        <h3>Data-to-decision architecture and operating model</h3>
-        <p class="for"><b>When this helps</b>Your lakehouse, BI, AI and automation investments grew up separately and no longer pull in the same direction.</p>
-        <p class="p">We shape the target architecture together, from source systems through the semantic layer to analytics, agents and action, agree how people and agentic AI will work alongside each other, and pace the journey as the three pivots: pilot to production, initial to industrialised, managed to resilient.</p>
-        <div class="keep"><b>What stays with your team</b>A reference architecture, the standards that hold it together, and a handover plan so your team runs it confidently on its own.</div>
-      </article>
-    </div>
-    <div class="decline r d4">
-      <svg class="ico" viewBox="0 0 24 24"><path d="M12 3v18M5 6h11l3 3-3 3H5z"/></svg>
-      <div>
-        <h3>Where I will point you to someone better</h3>
-        <p>Security testing of agent tools and MCP servers deserves a dedicated specialist, and that is not me. If it is what you need, I will tell you honestly and introduce you to someone I trust, rather than stretching my own experience to cover it.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══ CONTACT ═══ -->
-<section class="sec contact" id="s9" aria-label="Contact">
-  <span id="contact"></span>
-  <div class="orb o1" data-par="30"></div><div class="orb o2" data-par="-30"></div>
-  <div class="wrap contact-grid">
-    <div class="idcard tilt3d r">
-      <div class="avatar">
-        <div class="fb"><img src="assets/logo.svg" alt=""></div>
-        <img src="assets/portrait.jpg" alt="Portrait of Vikram Rathour" onerror="this.remove()">
-      </div>
-      <h3>Vikram Rathour</h3>
-      <p class="role">Enterprise Data &amp; AI</p>
-      <p class="quote">"Anyone can wire up an intelligent system now. The hard part is sensibility."</p>
-      <div class="lines"><a href="mailto:Rathour.vikram@gmail.com">Rathour.vikram@gmail.com</a><span>Pune, Maharashtra, India</span></div>
-    </div>
-    <div>
-      <span class="eyebrow r">Let's talk</span>
-      <h2 class="display r d1">Which pivot feels <em>hardest</em> right now?</h2>
-      <p class="lede r d2">I work with only two or three organisations at a time, usually two to three days a week, for six to twelve months. That is enough to stand beside your team through the difficult decisions and see them through, without adding a permanent role. Most conversations begin with a 45-minute call where I listen first, then tell you honestly whether I can help, or whether your team already has what it needs to close this on its own.</p>
-      <div class="ctas r d3">
-        <a href="mailto:Rathour.vikram@gmail.com" class="btn btn-light"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 6l8 6 8-6"/></svg> Email</a>
-        <a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener" class="btn btn-ghost-light"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v6h-4v-6a2 2 0 00-4 0v6h-4v-10h4v2"/><circle cx="4" cy="4" r="2"/><path d="M2 9h4v11H2z"/></svg> LinkedIn</a>
-        <a href="blog/index.html" class="btn btn-ghost-light"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> Writing</a>
-        <a href="https://github.com/vikramrathour" target="_blank" rel="noopener" class="btn btn-ghost-light"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> GitHub</a>
+  <!-- 4 · IMPACT -->
+  <section class="page" id="s4" data-title="Impact" aria-label="Page 4 of 8: Impact">
+    <div class="leaf">
+      <div class="folio"><b>04</b>Impact</div>
+      <h2>What changed after I <em>left the room</em>.</h2>
+      <div class="nums">
+        <div><b>2&times;</b><span>Business-unit growth in one fiscal year</span></div>
+        <div><b>Zero</b><span>Downtime across a 50TB migration</span></div>
+        <div><b>40%&rarr;0</b><span>Manual overrides on a fraud platform</span></div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- 5 · POINT OF VIEW -->
+  <section class="page" id="s6" data-title="Point of View" aria-label="Page 5 of 8: Point of View">
+    <div class="leaf">
+      <div class="folio"><b>05</b>Point of View</div>
+      <h2>I do the homework before I give you <em>advice</em>.</h2>
+      <ul class="items">
+        <li><a href="blueprint.html"><span class="t">The Production Blueprint</span></a><span class="m">Seven decisions</span></li>
+        <li><a href="multi-agent-enterprise.html" target="_blank" rel="noopener"><span class="t">Three technical papers</span></a><span class="m">Agents · models · the stack</span></li>
+        <li><a href="blog/index.html"><span class="t">Seven essays</span></a><span class="m">Writing</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 · BUILDS -->
+  <section class="page" id="s6b" data-title="Builds" aria-label="Page 6 of 8: Builds">
+    <div class="leaf">
+      <div class="folio"><b>06</b>Builds</div>
+      <h2>I don't just architect it. I <em>build</em> it.</h2>
+      <ul class="items">
+        <li><a href="https://github.com/vikramrathour/sentinel_dq" target="_blank" rel="noopener"><span class="t">sentinel_dq</span></a><span class="m">Data quality for AI</span></li>
+        <li><a href="https://github.com/vikramrathour/OrionData_Webapp" target="_blank" rel="noopener"><span class="t">OrionData_Webapp</span></a><span class="m">ORIAN.Data in the browser</span></li>
+        <li><a href="https://github.com/vikramrathour/CKDTracker" target="_blank" rel="noopener"><span class="t">CKDTracker</span></a><span class="m">Built as a transplant recipient</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 · WORKING TOGETHER -->
+  <section class="page" id="s3b" data-title="Working together" aria-label="Page 7 of 8: Working together">
+    <div class="leaf">
+      <div class="folio"><b>07</b>Working together</div>
+      <h2>Three ways we can <em>work together</em>.</h2>
+      <ul class="items">
+        <li><span class="t">Foundations</span><span class="m">4 to 8 weeks</span><span class="s">When several AI pilots give your leadership different answers to the same question.</span></li>
+        <li><span class="t">Reliability</span><span class="m">3 to 6 weeks</span><span class="s">When your agent shines in the demo and falters in production.</span></li>
+        <li><span class="t">Direction</span><span class="m">4 to 8 weeks</span><span class="s">When your data, BI, AI and automation investments no longer pull in the same direction.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 · LET'S TALK -->
+  <section class="page talk" id="s9" data-title="Let's talk" aria-label="Page 8 of 8: Let's talk">
+    <span id="contact"></span>
+    <div class="leaf">
+      <div class="folio"><b>08</b>Let's talk</div>
+      <h2>Which pivot feels <em>hardest</em> right now?</h2>
+      <p class="say">Most conversations begin with a 45-minute call where I listen first, then tell you honestly whether I can help.</p>
+      <div class="links">
+        <a href="mailto:Rathour.vikram@gmail.com" class="btn btn-pri">Email me</a>
+        <a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener" class="btn btn-sec">LinkedIn</a>
+      </div>
+      <div class="me">
+        <div class="avatar"><img class="fb" src="assets/logo.svg" alt=""><img src="assets/portrait.jpg" alt="Portrait of Vikram Rathour" onerror="this.remove()"></div>
+        <p><b>Vikram Rathour</b>Rathour.vikram@gmail.com · Pune, India</p>
+      </div>
+      <p class="colophon"><span>&copy; 2026 Vikram Rathour</span><a href="https://github.com/vikramrathour" target="_blank" rel="noopener">GitHub</a><a href="https://rathourvikram.wordpress.com" target="_blank" rel="noopener">WordPress</a></p>
+    </div>
+  </section>
+
+  <nav class="turns" aria-label="Turn pages">
+    <button class="prev" aria-label="Previous page"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <span class="count" aria-hidden="true"><b>01</b> / 08</span>
+    <button class="next" aria-label="Next page"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </nav>
+  <p class="sr" aria-live="polite" id="announce"></p>
 </main>
-
-<footer class="foot">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a href="#field" class="brand"><img src="assets/logo.svg" alt="" width="36" height="36"><span class="brand-n">Vikram Rathour</span></a>
-        <p>In an era of abundant intelligence, the scarce resource is sensibility.</p>
-      </div>
-      <div>
-        <h4>Chapters</h4>
-        <ul><li><a href="#s2">The Thesis</a></li><li><a href="#s5">The Work</a></li><li><a href="#s4">Outcomes</a></li><li><a href="#s6b">Builds</a></li></ul>
-      </div>
-      <div>
-        <h4>Read</h4>
-        <ul><li><a href="blueprint.html">Production Blueprint</a></li><li><a href="blog/index.html">Writing</a></li><li><a href="judgment-room.html">The Judgment Room</a></li><li><a href="wisdom-loop.html">The Wisdom Loop</a></li></ul>
-      </div>
-      <div>
-        <h4>Elsewhere</h4>
-        <ul><li><a href="mailto:Rathour.vikram@gmail.com">Email</a></li><li><a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://github.com/vikramrathour" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://rathourvikram.wordpress.com" target="_blank" rel="noopener">WordPress</a></li></ul>
-      </div>
-    </div>
-    <div class="foot-base"><span>&copy; 2026 Vikram Rathour</span><span>Enterprise Data &amp; AI · Pune, India</span></div>
-  </div>
-</footer>
-
-<!-- ═══════════ GUIDED JOURNEY READER ═══════════ -->
-<div class="journey" id="journey" role="dialog" aria-modal="true" aria-labelledby="jtitle" aria-hidden="true">
-  <div class="jbar">
-    <div class="jleft">
-      <button class="jback" data-close><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Back to the field</span></button>
-      <div class="jcrumb"><b id="jbadge">Chapter I</b><span id="jtitle">Three pivots</span></div>
-    </div>
-    <div class="jpills" role="tablist" aria-label="Chapters">
-      <button class="jpill" data-go="1" aria-label="Chapter 1">1</button>
-      <button class="jpill" data-go="2" aria-label="Chapter 2">2</button>
-      <button class="jpill" data-go="3" aria-label="Chapter 3">3</button>
-      <button class="jpill" data-go="4" aria-label="Chapter 4">4</button>
-      <button class="jpill" data-go="5" aria-label="Chapter 5">5</button>
-      <button class="jpill" data-go="6" aria-label="Chapter 6">6</button>
-      <button class="jclose" data-close aria-label="Close (Esc)"><svg class="ico" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    </div>
-  </div>
-
-  <div class="jbody">
-
-    <!-- CHAPTER I · THESIS + APPROACH -->
-    <article class="chapter" data-ch="1" data-title="Three pivots" hidden>
-      <div id="s2">
-        <div class="ch-head">
-          <span class="eyebrow">Chapter I · What I'm brought in to do</span>
-          <h2 class="h-xl">Three pivots. Most programmes are <em>wrestling with one of them</em>.</h2>
-          <p class="lede">AI programmes rarely fail on technology. They stall at a transition nobody owns. These are the three I'm called in for. They run roughly in order, though most organisations are working on two at once, and the second is where the majority are sitting right now.</p>
-        </div>
-        <div class="grid g3">
-          <article class="card pivot tilt3d">
-            <div class="card-mast"><span class="tag">Pivot 01</span></div>
-            <div class="move"><span class="from">Pilot</span><span class="arr">→</span><span>Production</span></div>
-            <div class="card-body"><h3 class="h-sm">Make it real, in front of customers</h3><p>The demo worked. Production requires answering what happens when the model is wrong in front of a customer, who approves that, and what the fallback is. Those are decisions, not engineering tasks, which is why they get deferred.</p></div>
-            <div class="card-foot">The tell: an eighteen-month-old pilot everyone still calls promising.</div>
-          </article>
-          <article class="card pivot tilt3d">
-            <div class="card-mast"><span class="tag">Pivot 02</span></div>
-            <div class="move"><span class="from">Initial</span><span class="arr">→</span><span>Industrialised</span></div>
-            <div class="card-body"><h3 class="h-sm">Make the second one cheaper than the first</h3><p>One use case in production is an achievement. Twenty is a capability. That needs shared foundations, governed data, and a delivery pattern others can follow, rather than a hero team rebuilding from scratch each time.</p></div>
-            <div class="card-foot">The tell: every new use case costs what the first one did.</div>
-          </article>
-          <article class="card pivot tilt3d">
-            <div class="card-mast"><span class="tag">Pivot 03</span></div>
-            <div class="move"><span class="from">Managed</span><span class="arr">→</span><span>Resilient</span></div>
-            <div class="card-body"><h3 class="h-sm">Make it survive without me, and without you</h3><p>Three shifts at once: it holds up when models drift or vendors change underneath it, it can be defended to a regulator with evidence rather than assurances, and your own team runs it confidently after I leave.</p></div>
-            <div class="card-foot">The tell: nobody can explain last Tuesday's decision.</div>
-          </article>
-        </div>
-        <div class="watch">
-          <div><h3 class="h-sm">See the argument, not just read it</h3><p>The idea above, rendered as something you can feel. Noise resolves into order only where attention lands. That is the whole thesis, happening under your cursor.</p></div>
-          <a href="wisdom-loop.html" class="btn btn-sec">Experience it <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-      </div>
-      <div class="jsub approach" id="s3">
-        <div>
-          <span class="eyebrow">How I work</span>
-          <h2 class="h-xl">Architecture is a <em>stance</em>, not a diagram.</h2>
-          <blockquote class="thesis">"Anyone can wire up an intelligent system now. The hard part is sensibility: knowing which problem deserves the intelligence, what the output means in context, and when to overrule a confident machine. That judgment is the architecture. The diagram is just its residue."</blockquote>
-          <p class="small">After twenty-five years across regulated industries, the pattern holds. The platforms that lasted were the ones where someone supplied judgment the models could not, the sensibility to frame the right question before engineering the right answer.</p>
-        </div>
-        <ol class="steps">
-          <li><span class="n">01</span><div><h3 class="h-sm">Frame the right problem first</h3><p>Sensibility starts before the model. The costliest mistakes are intelligent answers to the wrong question.</p></div></li>
-          <li><span class="n">02</span><div><h3 class="h-sm">Engineer context into the system</h3><p>Semantic layers, governance, lineage. The infrastructure that lets a model know what its output actually means.</p></div></li>
-          <li><span class="n">03</span><div><h3 class="h-sm">Then engineer for excellence</h3><p>Kafka, Lakehouse, RAG, agentic AI. The technology earns its place once the judgment layer is set.</p></div></li>
-          <li><span class="n">04</span><div><h3 class="h-sm">Keep a human in the override seat</h3><p>Design the system so judgment can intervene. Sensibility at machine speed still needs a person who can say "stop."</p></div></li>
-        </ol>
-      </div>
-    </article>
-
-    <!-- CHAPTER II · WORK -->
-    <article class="chapter" data-ch="2" data-title="Nine times through these pivots" hidden>
-      <div id="s5">
-        <div class="ch-head">
-          <span class="eyebrow">Chapter II · Selected stories</span>
-          <h2 class="h-xl">Nine times through <em>these pivots</em>.</h2>
-        </div>
-        <div class="work-bar">
-          <div class="chips" role="tablist" aria-label="Filter stories" data-tabs>
-            <button class="chip" role="tab" data-tab="bfs" aria-selected="true" aria-controls="tab-bfs">Banking</button>
-            <button class="chip" role="tab" data-tab="ai" aria-selected="false" aria-controls="tab-ai" tabindex="-1">AI Systems</button>
-            <button class="chip" role="tab" data-tab="plat" aria-selected="false" aria-controls="tab-plat" tabindex="-1">Platforms</button>
-          </div>
-        </div>
-        <div class="grid g3" id="tab-bfs" role="tabpanel">
-          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">Regulatory · Major Bank</span><span class="num">Pivot 03 · Resilient</span></div><h3 class="cc-hi">The data was fine. The accountability wasn't.</h3><dl><div><dt>What was happening</dt><dd>Regulators asked questions the data couldn't answer. The cause: twelve teams, twelve versions of the truth, no shared ownership.</dd></div><div><dt>How we worked through it</dt><dd>Federated governance on Data Vault 2.0, led by a governance CoE that gave every team ownership rather than obligation. Trust first, platform second.</dd></div></dl><div class="card-foot out"><span class="n">&check;</span><span>Systemic risk transparency restored; teams aligned</span></div></article>
-          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">National Tax Authority</span><span class="num">Pivot 01 · Production</span></div><h3 class="cc-hi">A capable platform nobody would use.</h3><dl><div><dt>What was happening</dt><dd>Investigators ignored automated fraud scores. Nobody had explained the logic, so the spend sat idle as expensive shelfware.</dd></div><div><dt>How we worked through it</dt><dd>Redesigned the investigator workflow alongside the model. Co-designed the interface and built transparency into every score with the people using it.</dd></div></dl><div class="card-foot out"><span class="n">10%</span><span>YoY tax base growth · 50% faster resolution</span></div></article>
-          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">Real-Time Payments</span><span class="num">Pivot 03 · Resilient</span></div><h3 class="cc-hi">The ops team was overriding the system.</h3><dl><div><dt>What was happening</dt><dd>A Kafka fraud platform performed well technically, but operations overrode it routinely because the alerts made no sense to them.</dd></div><div><dt>How we worked through it</dt><dd>Rebuilt the alert logic with the fraud team: thresholds, explanations, exception flows co-designed, then re-engineered the platform around those decisions.</dd></div></dl><div class="card-foot out"><span class="n">&darr;</span><span>Override rate collapsed; capture rate up</span></div></article>
-        </div>
-        <div class="grid g3" id="tab-ai" role="tabpanel" hidden>
-          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">GenAI &amp; RAG · Lending</span><span class="num">Pivot 01 · Production</span></div><h3 class="cc-hi">Analysts felt replaced, so they opted out.</h3><dl><div><dt>What was happening</dt><dd>An AI-assisted KYC system was rejected by the lending team. Adoption near zero: the AI decided, the analysts watched.</dd></div><div><dt>How we worked through it</dt><dd>Reframed it as a copilot. Rebuilt the experience so analysts stayed the decision-makers with AI surfacing evidence. Workshops ran before code did.</dd></div></dl><div class="card-foot out"><span class="n">&uarr;</span><span>Adoption transformed; processing time down</span></div></article>
-          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">Predictive Analytics</span><span class="num">Pivot 01 · Production</span></div><h3 class="cc-hi">A good model, ignored.</h3><dl><div><dt>What was happening</dt><dd>A sound churn model output probability scores. Managers ignored it: a number between 0 and 1 told them nothing actionable.</dd></div><div><dt>How we worked through it</dt><dd>Replaced scores with plain-language narratives and ranked actions. Rebuilt around the only question that mattered: what do I do next?</dd></div></dl><div class="card-foot out"><span class="n">&rarr;</span><span>From ignored to cited in every review</span></div></article>
-          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">ORIAN.Data Platform</span><span class="num">Pivot 02 · Industrialised</span></div><h3 class="cc-hi">Brilliant outputs, no judgment behind them.</h3><dl><div><dt>What was happening</dt><dd>AI investments kept producing confident answers nobody could stand behind. Teams couldn't explain decisions, executives couldn't verify them.</dd></div><div><dt>How we worked through it</dt><dd>Architected ORIAN.Data so judgment is structural: a Semantic Core that gives outputs context and a Trust pillar that makes them explainable.</dd></div></dl><div class="card-foot out"><span class="n">&starf;</span><span>Deployed across regulated-industry clients</span></div></article>
-        </div>
-        <div class="grid g3" id="tab-plat" role="tabpanel" hidden>
-          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">Global Lakehouse · Azure</span><span class="num">Pivot 02 · Industrialised</span></div><h3 class="cc-hi">The argument was political, not technical.</h3><dl><div><dt>What was happening</dt><dd>A multi-million Lakehouse stalled at six months. Every division defined the same metric differently. Technology was waiting on alignment.</dd></div><div><dt>How we worked through it</dt><dd>Ran business-alignment workshops before architecture. Built a shared glossary every division signed off, then designed the platform around that language.</dd></div></dl><div class="card-foot out"><span class="n">1</span><span>One source of truth, agreed before built</span></div></article>
-          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">Data Mesh · Enterprise Bank</span><span class="num">Pivot 02 · Industrialised</span></div><h3 class="cc-hi">The central team was a bottleneck, not a service.</h3><dl><div><dt>What was happening</dt><dd>Thirty people served twelve domains. Requests took six to eight weeks. Domains felt powerless; the team felt unappreciated.</dd></div><div><dt>How we worked through it</dt><dd>Led the cultural shift first: domain leads designed their own data products in workshops. The central team became enablers; the mesh followed the culture.</dd></div></dl><div class="card-foot out"><span class="n">&uarr;</span><span>Domain autonomy; faster insight; valued team</span></div></article>
-          <article class="card case tilt3d"><div class="card-mast"><span class="tag ink">50TB Migration · Utility</span><span class="num">Pivot 03 · Resilient</span></div><h3 class="cc-hi">The team feared being blamed.</h3><dl><div><dt>What was happening</dt><dd>11,748 tables, 49.65 TB, 1,550 ETL objects. The plan was solid; the engineers were anxious because they couldn't see the whole picture.</dd></div><div><dt>How we worked through it</dt><dd>Built full sprint-by-sprint, risk-by-risk visibility. Every engineer could see what moved, when, and what rollback looked like. Transparency replaced fear.</dd></div></dl><div class="card-foot out"><span class="n">50TB</span><span>Phased delivery, on plan, confident team</span></div></article>
-        </div>
-        <div class="deeper">
-          <span class="label">Go deeper</span>
-          <a class="tlink" href="judgment-room.html">Walk through five of these decisions yourself <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-      </div>
-    </article>
-
-    <!-- CHAPTER III · IMPACT -->
-    <article class="chapter" data-ch="3" data-title="What changed after I left the room" hidden>
-      <div id="s4">
-        <div class="ch-head">
-          <span class="eyebrow">Chapter III · Outcomes that matter at the top</span>
-          <h2 class="h-xl">What changed in the business, after I <em>left the room</em>.</h2>
-          <p class="lede">Not lines of code or tables migrated. Decisions improved, capability built, and platforms that outlived the project that created them.</p>
-        </div>
-        <div class="grid g3">
-          <div class="card impact tilt3d"><div class="n">2&times;</div><p class="lab">Business-unit growth</p><p>A stalled unit doubled in one fiscal year once the roadmap was rebuilt around value streams rather than systems</p></div>
-          <div class="card impact tilt3d"><div class="n">10%</div><p class="lab">YoY revenue growth, national programme</p><p>Public-sector platform where redesigning the human workflow, not the model, unlocked the result</p></div>
-          <div class="card impact tilt3d"><div class="n">Zero</div><p class="lab">Downtime across a 50TB migration</p><p>Phased delivery on a programme where an outage would have been a regulatory event</p></div>
-          <div class="card impact tilt3d"><div class="n">6&rarr;8 wks</div><p class="lab">Cut to self-serve</p><p>Twelve domains were waiting two months per data request. Federated ownership removed the queue entirely</p></div>
-          <div class="card impact tilt3d"><div class="n">40%&rarr;0</div><p class="lab">Manual overrides eliminated</p><p>A fraud platform operators were bypassing four times in ten. Rebuilt around their actual decision, not the model's confidence</p></div>
-          <div class="card impact tilt3d"><div class="n">25 yrs</div><p class="lab">No failed flagship platform</p><p>Across banking, healthcare and manufacturing. Sustained judgment, not one lucky bet</p></div>
-        </div>
-      </div>
-    </article>
-
-    <!-- CHAPTER IV · POINT OF VIEW + WRITING -->
-    <article class="chapter" data-ch="4" data-title="The homework before the advice" hidden>
-      <div class="pov-grid" id="s6">
-        <div>
-          <span class="eyebrow">Chapter IV · Point of view</span>
-          <h2 class="h-xl">I do the homework before I give you <em>advice</em>.</h2>
-          <p class="lede" style="margin-top:1.25rem">Advice is only worth trusting when it is independent of the vendor in the room. Mine is grounded in primary research I publish openly, so you can check the reasoning rather than take the recommendation on trust.</p>
-          <ul class="roles">
-            <li><svg class="ico" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg><span><strong>Mentor</strong>, IIT Madras Pravartak, national open-source data strategy</span></li>
-            <li><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a6 6 0 016-6h4a6 6 0 016 6v2"/></svg><span><strong>Founder</strong>, enterprise Architect Community of Practice</span></li>
-            <li><svg class="ico" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z"/></svg><span><strong>Two-time hackathon winner</strong>, ING, data intelligence &amp; lineage</span></li>
-            <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg><span><strong>PG, AI for Leaders</strong>, UT Austin · Apache Kafka certified</span></li>
-          </ul>
-        </div>
-        <div class="pov-list">
-          <a href="blueprint.html" class="card dark blueprint tilt3d">
-            <div class="card-mast"><span class="tag">Start here</span><span class="num" style="color:rgba(247,246,242,.6)">Consolidated report</span></div>
-            <h3 class="h-lg">The Production Blueprint</h3>
-            <div class="card-body" style="margin-top:.75rem"><p>Seven decisions between a pilot and a business result, with the evidence behind each one and the places it contradicts itself. The three papers below are the deep dives.</p></div>
-            <div class="card-foot"><span>Seven decisions</span><span class="tlink">Read the blueprint <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-          </a>
-          <a href="multi-agent-enterprise.html" class="card tilt3d" target="_blank" rel="noopener">
-            <div class="card-mast"><span class="tag sage">If you are deploying agents</span></div>
-            <h3 class="h-sm">The Multi-Agent Enterprise</h3>
-            <div class="card-body"><p>Published research shows agents negotiating against each other settle into collusion, even with every direct channel between them removed. If your agents transact, this is a governance question before it is a technical one.</p></div>
-            <div class="card-foot"><span>Technical paper</span><span class="tlink">Read the paper <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-          </a>
-          <a href="model-architecture.html" class="card tilt3d" target="_blank" rel="noopener">
-            <div class="card-mast"><span class="tag sage">If you are choosing models</span></div>
-            <h3 class="h-sm">Frontier &amp; Open-Weights Architecture</h3>
-            <div class="card-body"><p>Eighteen open and eight closed models compared on the same axis. Written so you can challenge a vendor's benchmark claim in a procurement meeting rather than accept it.</p></div>
-            <div class="card-foot"><span>Technical paper</span><span class="tlink">Read the paper <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-          </a>
-          <a href="enterprise-model-stack.html" class="card tilt3d" target="_blank" rel="noopener">
-            <div class="card-mast"><span class="tag sage">If you are building the platform</span></div>
-            <h3 class="h-sm">The Enterprise Model Stack</h3>
-            <div class="card-body"><p>How to build a system that survives the model underneath it being replaced every few months. The architecture question most AI business cases quietly skip.</p></div>
-            <div class="card-foot"><span>Technical paper</span><span class="tlink">Read the paper <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-          </a>
-        </div>
-      </div>
-      <div class="jsub" id="s8">
-        <div class="sec-head">
-          <div><span class="eyebrow">Writing</span><h2 class="h-xl">Worked out here first, then <em>built</em>.</h2></div>
-          <a href="blog/index.html" class="tlink">All seven essays <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-        <div class="writing">
-          <ul class="wlist">
-            <li><a href="blog/storage-has-an-owner-meaning-has-an-accident.html"><span class="meta"><span class="c">Governance</span><span>May 2026</span></span><span class="t">Storage Has an Owner. Meaning Has an Accident.</span><span class="ex">We assign storage ownership with precision and interpretation authority by accident. Agents did not cause that, they made it urgent.</span></a></li>
-            <li><a href="blog/human-in-the-loop-has-to-know-what-right-looks-like.html"><span class="meta"><span class="c">Agentic AI</span><span>Mar 2026</span></span><span class="t">The Human in the Loop Has to Know What Right Looks Like</span><span class="ex">Human in the loop without domain expertise is not a safety net. It is a spectator. What a different expert-to-workflow ratio looks like.</span></a></li>
-            <li><a href="blog/deepseek-r1-hype-reality-future-ai-deployment.html"><span class="meta"><span class="c">AI Strategy</span><span>Feb 2025</span></span><span class="t">DeepSeek R1: Hype, Reality, and Deployment</span><span class="ex">Value delivery was never about compute size. Where open and proprietary models actually fit, seen through a legal lens.</span></a></li>
-            <li><a href="blog/indexes-and-is-null.html"><span class="meta"><span class="c">Oracle</span><span>Apr 2013</span></span><span class="t">Indexes and IS NULL</span><span class="ex">The oldest piece here. Execution plans and 10053 traces, because the answer depended on the data, not the documentation.</span></a></li>
-          </ul>
-          <div class="wfeat">
-            <a href="blog/umi-moment-for-india.html" class="card dark tilt3d">
-              <div class="ill"><svg viewBox="0 0 120 70"><path d="M10 55 C22 20, 40 12, 56 30 S 88 52, 110 18"/><circle cx="24" cy="38" r="3.4"/><circle cx="46" cy="21" r="3.4"/><circle cx="70" cy="40" r="3.4"/><circle cx="96" cy="29" r="3.4"/><path d="M24 38 L46 21 L70 40 L96 29" stroke-dasharray="3 4"/><path d="M8 64 h104"/></svg></div>
-              <div class="card-mast"><span class="tag">Longest read</span><span class="num" style="color:rgba(247,246,242,.6)">AI Strategy</span></div>
-              <h3 class="h-md">It Is Time for a UMI Moment for India</h3>
-              <div class="card-body"><p>19,500 dialects, $100M compute economics and 0.1% of global training data. Why distillation and vertical specialisation are the viable path.</p></div>
-              <div class="card-foot"><span>Feb 2025</span><span class="tlink">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-            </a>
-            <a href="blog/architects-gambit-ai-powered-courage.html" class="card tilt3d">
-              <div class="ill"><svg viewBox="0 0 120 70"><circle cx="60" cy="34" r="22"/><path d="M60 12 a22 22 0 0 1 19 33"/><circle cx="60" cy="12" r="4"/><circle cx="82" cy="34" r="4"/><circle cx="60" cy="56" r="4"/><circle cx="38" cy="34" r="4"/><path d="M96 22 l8 8 -8 8"/><path d="M104 30 h-14" stroke-dasharray="3 3"/><path d="M16 22 l-8 8 8 8"/><path d="M8 30 h14" stroke-dasharray="3 3"/></svg></div>
-              <div class="card-mast"><span class="tag">Architecture</span></div>
-              <h3 class="h-md">The Architect's Gambit</h3>
-              <div class="card-body"><p>Architecting for probability is essential. Architecting for possibility is where courage wins.</p></div>
-              <div class="card-foot"><span>Jun 2025</span><span class="tlink">Read <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- CHAPTER V · BUILDS -->
-    <article class="chapter" data-ch="5" data-title="I don't just architect it. I build it." hidden>
-      <div id="s6b">
-        <div class="ch-head">
-          <span class="eyebrow">Chapter V · Selected builds</span>
-          <h2 class="h-xl">I don't just architect it. I <em>build</em> it.</h2>
-          <p class="lede">A leader who still ships understands what they ask of their teams. Working repositories, not slideware.</p>
-        </div>
-        <div class="grid g3">
-          <a href="https://github.com/vikramrathour/sentinel_dq" target="_blank" rel="noopener" class="card recess build tilt3d">
-            <div class="card-mast"><span class="lang"><i style="background:#3572A5"></i>Python</span><span class="tag sage">Public</span></div>
-            <p class="repo">sentinel<span class="slash">_</span>dq</p>
-            <p class="tagline">Intelligent data quality for AI workloads</p>
-            <div class="card-body"><p>Sensibility, made executable. Data quality is where most AI fails quietly: garbage in, confident garbage out. This enforces judgment at the data layer before a model ever sees it.</p></div>
-            <div class="card-foot"><span class="mono">Open source</span><span class="tlink">View repository <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></div>
-          </a>
-          <a href="https://github.com/vikramrathour/OrionData_Webapp" target="_blank" rel="noopener" class="card recess build tilt3d">
-            <div class="card-mast"><span class="lang"><i style="background:#3178c6"></i>TypeScript</span><span class="tag sage">Public</span></div>
-            <p class="repo">OrionData<span class="slash">_</span>Webapp</p>
-            <p class="tagline">The ORIAN.Data platform, in the browser</p>
-            <div class="card-body"><p>The working surface of the four-pillar platform (Foundation, Semantic Core, Intelligence, Trust) turned into something a user can touch, not just a reference architecture.</p></div>
-            <div class="card-foot"><span class="mono">Open source</span><span class="tlink">View repository <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></div>
-          </a>
-          <a href="https://github.com/vikramrathour/CKDTracker" target="_blank" rel="noopener" class="card recess build tilt3d">
-            <div class="card-mast"><span class="lang"><i style="background:#c9a800"></i>JavaScript</span><span class="tag sage">Public</span></div>
-            <p class="repo">CKDTracker</p>
-            <p class="tagline">Open-source kidney-health tracking</p>
-            <div class="card-body"><p>Built as a transplant recipient, for 850 million people who share the condition. The clearest proof that I design for the person at the end, not a persona on a slide.</p></div>
-            <div class="card-foot"><span class="mono">Open source</span><span class="tlink">View repository <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></div>
-          </a>
-        </div>
-        <p class="small" style="margin-top:2rem">More at <a class="tlink" href="https://github.com/vikramrathour" target="_blank" rel="noopener">github.com/vikramrathour</a></p>
-      </div>
-    </article>
-
-    <!-- CHAPTER VI · SIGNATURE -->
-    <article class="chapter" data-ch="6" data-title="CKDTracker: empathy, made executable" hidden>
-      <div class="sig" id="s7">
-        <div>
-          <span class="eyebrow">Chapter VI · Signature project · open source</span>
-          <h2 class="h-xl">CKDTracker: empathy, <em>made executable</em>.</h2>
-          <p class="lede" style="margin-top:1.25rem">As a transplant recipient, I built <strong>CKDTracker</strong> in 2024: an open-source kidney-health application in Next.js and TypeScript. Not a product. Not a venture. A contribution.</p>
-          <blockquote class="thesis">It is the clearest proof of how I work. I did not design for a persona. I designed for myself and for the 850 million people who share this condition. The empathy was not a method. It was lived.</blockquote>
-          <a href="https://github.com/vikramrathour/CKDTracker" target="_blank" rel="noopener" class="btn btn-terra">View on GitHub <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
-        </div>
-        <div class="sig-stats">
-          <div class="card tilt3d"><div class="n">~850M</div><p>People worldwide living with chronic kidney disease, one in ten adults</p></div>
-          <div class="card tilt3d"><div class="n">Open</div><p>Source, permanently. No paywall for patients who are already paying enough</p></div>
-          <div class="card tilt3d"><div class="n">Public</div><p>Journey shared on LinkedIn and a podcast, because trust is built in the open</p></div>
-        </div>
-      </div>
-    </article>
-
-    <nav class="jnav" aria-label="Chapter navigation">
-      <button class="prev" data-step="-1"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span><small>Previous chapter</small><strong id="jprev"></strong></span></button>
-      <button class="next" data-step="1"><span><small>Next chapter</small><strong id="jnext"></strong></span><svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-    </nav>
-  </div>
-</div>
 
 <script src="assets/site.js" defer></script>
 <script>
-/* Guided journey reader: realm cards (click or keys 1-6) open a chapter; Esc closes. */
+/* Page-turning book. One leaf at a time: forward swings the current page away
+   around its left edge; backward swings the previous page back in over it. */
 (function(){
-  var J=document.getElementById('journey');
-  var chapters=[].slice.call(J.querySelectorAll('.chapter'));
-  var pills=[].slice.call(J.querySelectorAll('.jpill'));
-  var roman=['I','II','III','IV','V','VI'];
-  var current=0, opener=null;
-  /* old section anchors live inside chapters; map them so links like index.html#s5 still land */
-  var anchorMap={s2:1,s3:1,s5:2,s4:3,s6:4,s8:4,s6b:5,s7:6};
+  var book=document.querySelector('[data-book]'); if(!book) return;
+  var pages=[].slice.call(book.querySelectorAll('.page'));
+  var N=pages.length, cur=0, busy=false, timer=0;
+  var calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var TURN=calm?250:720;
+  var count=book.querySelector('.count b'), prevB=book.querySelector('.prev'), nextB=book.querySelector('.next');
+  var announce=document.getElementById('announce');
+  var navLinks=[].slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
+  /* legacy anchors land on the page that now carries that content */
+  var alias={s3:'s2',s8:'s6',s7:'s6b',contact:'s9'};
+  function indexOf(id){id=alias[id]||id;for(var i=0;i<N;i++){if(pages[i].id===id)return i}return -1}
 
-  function show(n,anchor){
-    n=Math.max(1,Math.min(chapters.length,n)); current=n;
-    chapters.forEach(function(c){c.hidden=+c.dataset.ch!==n});
-    pills.forEach(function(p){p.setAttribute('aria-current',+p.dataset.go===n?'true':'false')});
-    var ch=chapters[n-1];
-    document.getElementById('jbadge').textContent='Chapter '+roman[n-1];
-    document.getElementById('jtitle').textContent=ch.dataset.title;
-    var prev=J.querySelector('.jnav .prev'), next=J.querySelector('.jnav .next');
-    prev.hidden=n===1; next.hidden=n===chapters.length;
-    if(n>1) document.getElementById('jprev').textContent=chapters[n-2].dataset.title;
-    if(n<chapters.length) document.getElementById('jnext').textContent=chapters[n].dataset.title;
-    var t=anchor&&document.getElementById(anchor);
-    if(t&&t!==ch.firstElementChild){requestAnimationFrame(function(){J.scrollTop=t.getBoundingClientRect().top-J.getBoundingClientRect().top+J.scrollTop-80})}
-    else J.scrollTop=0;
+  function paint(){
+    pages.forEach(function(p,i){
+      var on=i===cur;
+      p.classList.toggle('on',on);
+      if(on){p.removeAttribute('inert');p.removeAttribute('aria-hidden')}
+      else{p.setAttribute('inert','');p.setAttribute('aria-hidden','true')}
+    });
+    count.textContent=(cur<9?'0':'')+(cur+1);
+    prevB.disabled=cur===0; nextB.disabled=cur===N-1;
+    navLinks.forEach(function(a){
+      var on=indexOf(a.getAttribute('href').slice(1))===cur;
+      a.classList.toggle('on',on);
+      if(on)a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+    });
+    var id=pages[cur].id, want=cur===0?'':'#'+id;
+    if(location.hash!==want) history.replaceState(null,'',location.pathname+location.search+want);
   }
-  function open(n,anchor){
-    if(!J.classList.contains('open')){opener=document.activeElement;J.classList.add('open');J.setAttribute('aria-hidden','false');document.documentElement.classList.add('no-scroll');}
-    show(n,anchor);
-    J.querySelector('.jback').focus({preventScroll:true});
+  function settle(){pages.forEach(function(p){p.classList.remove('out','in','under','lift','revealing','covering')});busy=false}
+
+  function go(to,keepFocus){
+    if(to<0||to>=N||to===cur) return;
+    if(busy){clearTimeout(timer);settle()}
+    var from=pages[cur], dest=pages[to], fwd=to>cur;
+    busy=true; cur=to; dest.scrollTop=0;
+    if(fwd){from.classList.add('lift','out');dest.classList.add('under','revealing')}
+    else{from.classList.add('under','covering');dest.classList.add('lift','in')}
+    paint();
+    timer=setTimeout(settle,TURN+40);
+    announce.textContent='Page '+(to+1)+' of '+N+': '+dest.dataset.title;
+    if(!keepFocus){var h=dest.querySelector('h1,h2');if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true})}}
   }
-  function close(){
-    if(!J.classList.contains('open')) return;
-    J.classList.remove('open');J.setAttribute('aria-hidden','true');document.documentElement.classList.remove('no-scroll');
-    if(location.hash&&anchorMap[location.hash.slice(1)]) history.replaceState(null,'',location.pathname+location.search);
-    if(opener&&opener.focus) opener.focus({preventScroll:true});
-  }
-  document.querySelectorAll('[data-open]').forEach(function(b){b.addEventListener('click',function(){open(+b.dataset.open)})});
-  J.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',close)});
-  pills.forEach(function(p){p.addEventListener('click',function(){show(+p.dataset.go)})});
-  J.querySelectorAll('[data-step]').forEach(function(b){b.addEventListener('click',function(){show(current+ +b.dataset.step)})});
-  document.addEventListener('keydown',function(e){
-    if(e.target.closest&&e.target.closest('input,textarea,select,[contenteditable]')) return;
-    if(e.metaKey||e.ctrlKey||e.altKey) return;
-    if(e.key==='Escape') close();
-    else if(/^[1-6]$/.test(e.key)) open(+e.key);
-    else if(J.classList.contains('open')&&e.key==='ArrowRight'&&!e.target.closest('[role=tab]')) show(current+1);
-    else if(J.classList.contains('open')&&e.key==='ArrowLeft'&&!e.target.closest('[role=tab]')) show(current-1);
-    else if(e.key==='Tab'&&J.classList.contains('open')){
-      var f=[].slice.call(J.querySelectorAll('a[href],button:not([hidden])')).filter(function(el){return el.offsetParent!==null});
-      if(!f.length) return;
-      if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus()}
-      else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus()}
-    }
-  });
-  /* hash routing: #s5 etc. open the matching chapter */
-  function route(){var id=location.hash.slice(1); if(anchorMap[id]) open(anchorMap[id],id); else if(id) close();}
+  function next(){go(cur+1)} function prev(){go(cur-1)}
+
+  nextB.addEventListener('click',function(){go(cur+1,true)});
+  prevB.addEventListener('click',function(){go(cur-1,true)});
+  book.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(+b.dataset.go-1)})});
+
+  /* menu, brand and any in-page link turn to their page instead of scrolling */
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
-    var id=a.getAttribute('href').slice(1);
-    if(anchorMap[id]) a.addEventListener('click',function(e){e.preventDefault();history.pushState(null,'','#'+id);open(anchorMap[id],id)});
+    var i=indexOf(a.getAttribute('href').slice(1));
+    if(i<0) return;
+    a.addEventListener('click',function(e){e.preventDefault();go(i)});
   });
-  window.addEventListener('hashchange',route);
-  window.addEventListener('popstate',route);
-  if(location.hash) route();
+  window.addEventListener('hashchange',function(){var i=indexOf(location.hash.slice(1));if(i<0)return;if(i===cur)paint();else go(i)});
+
+  /* a page that overflows (small screens) scrolls internally before turning */
+  function canScroll(dir){var p=pages[cur];return dir>0?p.scrollTop+p.clientHeight<p.scrollHeight-2:p.scrollTop>2}
+
+  /* keyboard */
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    var t=e.target; if(t.closest&&t.closest('input,textarea,select,[contenteditable]')) return;
+    var k=e.key;
+    if(k==='ArrowRight'||k==='PageDown'||(k===' '&&!t.closest('a,button'))){e.preventDefault();next()}
+    else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();prev()}
+    else if(k==='ArrowDown'&&!canScroll(1)){e.preventDefault();next()}
+    else if(k==='ArrowUp'&&!canScroll(-1)){e.preventDefault();prev()}
+    else if(k==='Home'){e.preventDefault();go(0)}
+    else if(k==='End'){e.preventDefault();go(N-1)}
+  });
+
+  /* wheel and trackpad: one turn per gesture; the inertia tail after a turn is ignored */
+  var acc=0,lastWheel=0,spent=false;
+  book.addEventListener('wheel',function(e){
+    var now=Date.now(), vertical=Math.abs(e.deltaY)>=Math.abs(e.deltaX), d=vertical?e.deltaY:e.deltaX;
+    if(now-lastWheel>260){spent=false;acc=0}
+    lastWheel=now;
+    if(vertical&&canScroll(d>0?1:-1)) return;
+    e.preventDefault();
+    if(spent) return;
+    acc+=d;
+    if(Math.abs(acc)>=40){spent=true;acc=0;d>0?next():prev()}
+  },{passive:false});
+
+  /* touch: horizontal swipe turns; vertical swipe turns only when the page cannot scroll */
+  var sx=0,sy=0,st=0;
+  book.addEventListener('touchstart',function(e){var t=e.touches[0];sx=t.clientX;sy=t.clientY;st=Date.now()},{passive:true});
+  /* keep sideways swipes for page turns, so the browser's swipe-back gesture does not leave the site */
+  book.addEventListener('touchmove',function(e){var t=e.touches[0];if(Math.abs(t.clientX-sx)>Math.abs(t.clientY-sy))e.preventDefault()},{passive:false});
+  book.addEventListener('touchend',function(e){
+    var t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;
+    if(Date.now()-st>800) return;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.3){dx<0?next():prev()}
+    else if(Math.abs(dy)>70&&Math.abs(dy)>Math.abs(dx)*1.3&&!canScroll(dy<0?1:-1)){dy<0?next():prev()}
+  },{passive:true});
+
+  var start=indexOf(location.hash.slice(1)); cur=start>0?start:0;
+  paint();
 })();
 </script>
 </body>
