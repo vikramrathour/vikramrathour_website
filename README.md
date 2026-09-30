@@ -18,6 +18,7 @@ and essay body text; Plus Jakarta Sans carries everything else.
 | `assets/article.css` | Long-form reading styles for the blog index and the essays. |
 | `assets/site.js` | Mobile menu, scroll reveal, active nav link, the Work section filter chips. |
 | `assets/logo.svg` | The monogram. Nav mark and favicon. |
+| `assets/icons/` | One 3D clay object per home page (3dicons, CC0, no attribution required; see `LICENSE.txt` there). To swap one, replace the PNG with a transparent 400px or larger render of the same name. |
 | `assets/portrait.jpg` | **Not included. Add your photo here.** The home page hero shows it automatically; until it exists, a monogram card is shown instead. A portrait crop around 4:5, at least 900px wide, works best. |
 
 The header and footer are plain HTML repeated in each page, so a nav change

@@ -1,0 +1,4 @@
+Icons in this folder are from 3dicons (https://3dicons.co) by Vijay Verma,
+clay style, dynamic angle. Released under CC0 1.0 (public domain):
+free for personal and commercial use, no attribution required.
+Source: https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/clay/<name>-dynamic-clay.png
