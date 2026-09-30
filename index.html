@@ -87,6 +87,23 @@
 .colophon{margin-top:clamp(2rem,6vh,3rem);font-size:.75rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:.35rem 1.25rem}
 .colophon a{color:inherit}
 
+/* one 3D object per page (3dicons, clay, CC0): sits in the empty right column */
+.art{display:block;width:clamp(170px,21vw,290px);height:auto;filter:sepia(.14) saturate(1.15) drop-shadow(0 26px 30px rgba(18,26,36,.10));pointer-events:none;user-select:none}
+@media (min-width:861px){
+  .leaf{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:clamp(2rem,5vw,5rem);align-items:center}
+  .leaf > *{grid-column:1}
+  .leaf > .art{grid-column:2;grid-row:1 / span 8;align-self:center}
+  .page .leaf{max-width:1180px}
+}
+@media (max-width:860px){
+  .leaf{position:relative}
+  .art{position:absolute;top:-1.1rem;right:0;width:76px}
+  .folio{padding-right:88px}
+}
+.js-book .page.on .art{animation:drift 7s ease-in-out infinite}
+@keyframes drift{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(-1.5deg)}}
+@media (prefers-reduced-motion:reduce){.js-book .page.on .art{animation:none}}
+
 .turns{display:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -178,6 +195,7 @@
   <!-- 2 · THESIS -->
   <section class="page" id="s2" data-title="Thesis" aria-label="Page 2 of 8: Thesis">
     <div class="leaf">
+      <img class="art" src="assets/icons/chess.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
       <div class="folio"><b>02</b>Thesis</div>
       <h2>Three pivots.</h2>
       <p class="say">Most programmes are wrestling with one of them.</p>
@@ -192,6 +210,7 @@
   <!-- 3 · WORK -->
   <section class="page" id="s5" data-title="Work" aria-label="Page 3 of 8: Work">
     <div class="leaf">
+      <img class="art" src="assets/icons/folder.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
       <div class="folio"><b>03</b>Work</div>
       <h2>Nine times through <em>these pivots</em>.</h2>
       <ul class="items">
@@ -206,6 +225,7 @@
   <!-- 4 · IMPACT -->
   <section class="page" id="s4" data-title="Impact" aria-label="Page 4 of 8: Impact">
     <div class="leaf">
+      <img class="art" src="assets/icons/chart.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
       <div class="folio"><b>04</b>Impact</div>
       <h2>What changed after I <em>left the room</em>.</h2>
       <div class="nums">
@@ -219,6 +239,7 @@
   <!-- 5 · POINT OF VIEW -->
   <section class="page" id="s6" data-title="Point of View" aria-label="Page 5 of 8: Point of View">
     <div class="leaf">
+      <img class="art" src="assets/icons/zoom.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
       <div class="folio"><b>05</b>Point of View</div>
       <h2>I do the homework before I give you <em>advice</em>.</h2>
       <ul class="items">
@@ -232,6 +253,7 @@
   <!-- 6 · BUILDS -->
   <section class="page" id="s6b" data-title="Builds" aria-label="Page 6 of 8: Builds">
     <div class="leaf">
+      <img class="art" src="assets/icons/tool.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
       <div class="folio"><b>06</b>Builds</div>
       <h2>I don't just architect it. I <em>build</em> it.</h2>
       <ul class="items">
@@ -245,6 +267,7 @@
   <!-- 7 · WORKING TOGETHER -->
   <section class="page" id="s3b" data-title="Working together" aria-label="Page 7 of 8: Working together">
     <div class="leaf">
+      <img class="art" src="assets/icons/puzzle.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
       <div class="folio"><b>07</b>Working together</div>
       <h2>Three ways we can <em>work together</em>.</h2>
       <ul class="items">
@@ -259,6 +282,7 @@
   <section class="page talk" id="s9" data-title="Let's talk" aria-label="Page 8 of 8: Let's talk">
     <span id="contact"></span>
     <div class="leaf">
+      <img class="art" src="assets/icons/tea-cup.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
       <div class="folio"><b>08</b>Let's talk</div>
       <h2>Which pivot feels <em>hardest</em> right now?</h2>
       <p class="say">Most conversations begin with a 45-minute call where I listen first, then tell you honestly whether I can help.</p>
