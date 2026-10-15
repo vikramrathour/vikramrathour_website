@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vikram Rathour: Forward-deployed AI, strategy to production</title>
+<meta name="description" content="Vikram Rathour. A forward-deployed data and AI consultant who owns the work from strategy to production, then runs the loop that keeps it right on live traffic.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+/* ═══════════ FORWARD-DEPLOYED LOOP (prototype) ═══════════ */
+body{overflow-x:hidden}
+.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* hero */
+.hero{position:relative;overflow:hidden;isolation:isolate;padding-block:clamp(3.5rem,7vw,6rem) clamp(3rem,6vw,4.5rem)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(to right,rgba(18,26,36,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(18,26,36,.035) 1px,transparent 1px);background-size:36px 36px;mask-image:radial-gradient(ellipse 75% 70% at 50% 30%,#000 30%,transparent 90%);-webkit-mask-image:radial-gradient(ellipse 75% 70% at 50% 30%,#000 30%,transparent 90%)}
+.hero-in{max-width:900px}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.5rem,6vw,4.4rem);line-height:1.06;letter-spacing:-.025em;margin:1.2rem 0 1.4rem}
+.hero h1 em{color:var(--terra-dk)}
+.hero .body-xl{max-width:58ch;margin:0}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+
+/* the handoff gap */
+.handoffs{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:1rem;align-items:stretch}
+.handoff{background:var(--vellum);border:1px solid var(--hair);border-radius:14px;padding:1.6rem 1.6rem 1.4rem;box-shadow:var(--shadow)}
+.handoff h3{margin:.55rem 0 .5rem}
+.handoff p{margin:0;font-size:.9375rem;color:var(--ink-2)}
+.leak{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;color:var(--terra);font-size:.625rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;min-width:64px}
+.leak svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:900px){
+  .handoffs{grid-template-columns:1fr}
+  .leak{flex-direction:row;min-width:0;padding:.1rem 0}
+  .leak svg{transform:rotate(90deg)}
+}
+.gapstat{margin-top:clamp(2.5rem,5vw,3.5rem);display:grid;grid-template-columns:auto 1fr;gap:clamp(1.5rem,4vw,3rem);align-items:center}
+.gapnums{display:flex;gap:1.5rem}
+.gapnums .n{display:block;font-family:var(--serif);font-size:clamp(2.4rem,5vw,3.4rem);font-weight:500;line-height:1}
+.gapnums .n.hot{color:var(--terra-dk)}
+.gapnums .lab{display:block;margin-top:.4rem;font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);max-width:14ch}
+@media (max-width:767px){.gapstat{grid-template-columns:1fr}}
+
+/* the loop */
+.loop{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(2rem,5vw,4.5rem);align-items:center}
+@media (max-width:960px){.loop{grid-template-columns:1fr}}
+.ring{position:relative;width:min(540px,100%,74vh);aspect-ratio:1;margin:0 auto}
+.ring svg.track{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ring .base{fill:none;stroke:var(--hair-2);stroke-width:1.5}
+.ring .arc{fill:none;stroke:var(--terra);stroke-width:3;stroke-linecap:round;transform:rotate(-90deg);transform-origin:200px 200px;transition:stroke-dashoffset .9s var(--ease)}
+.ring .chev{fill:none;stroke:var(--ink-3);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ring .runner{transform-origin:200px 200px;animation:orbit 14s linear infinite}
+.ring .runner circle{fill:var(--terra)}
+.ring .runner .halo{fill:rgba(194,99,62,.18)}
+@keyframes orbit{to{transform:rotate(360deg)}}
+.ring:hover .runner,.ring:focus-within .runner{animation-play-state:paused}
+
+.core{position:absolute;inset:27%;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 50% 40%,#fff,var(--canvas) 70%);box-shadow:inset 0 0 0 1px var(--hair)}
+.core strong{font-family:var(--serif);font-weight:500;font-size:clamp(1.15rem,2.6vw,1.6rem);line-height:1.15}
+.core strong em{color:var(--terra-dk)}
+.core small{display:block;margin-top:.5rem;font-size:.625rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+
+.node{position:absolute;left:calc(50% + 37.5% * var(--x));top:calc(50% + 37.5% * var(--y));transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:.3rem;background:none;border:0;padding:0;font:inherit;color:var(--ink-2);cursor:pointer;border-radius:12px}
+.node .disc{width:clamp(56px,13vw,78px);aspect-ratio:1;border-radius:50%;background:var(--vellum);border:1px solid var(--hair-2);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;transition:transform .35s var(--ease),border-color .25s,box-shadow .35s var(--ease),background .25s}
+.node img{width:62%;height:auto;display:block}
+.node .nm{font-size:.6875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(247,246,242,.9);padding:.1rem .4rem;border-radius:4px}
+.node:hover .disc{transform:translateY(-2px);border-color:var(--hair-hot)}
+.node[aria-selected="true"]{color:var(--terra-dk)}
+.node[aria-selected="true"] .disc{background:var(--terra-pale);border-color:var(--terra);box-shadow:0 0 0 6px rgba(194,99,62,.12),var(--shadow-lift);transform:scale(1.08)}
+.node.seen:not([aria-selected="true"]) .disc{border-color:rgba(194,99,62,.45)}
+
+.stage-wrap{min-height:420px}
+.stage .snum{font-family:var(--mono);font-size:.75rem;color:var(--terra-dk);letter-spacing:.04em}
+.stage h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,3vw,2.2rem);line-height:1.15;letter-spacing:-.015em;margin:.5rem 0 .8rem}
+.stage h3 em{color:var(--terra-dk)}
+.stage .say{font-family:var(--serif);font-style:italic;font-size:1.15rem;line-height:1.5;color:var(--ink-2);margin:0 0 1.4rem}
+.stage dl{margin:0;display:grid;gap:0;border-top:1px solid var(--hair)}
+.stage dl > div{display:grid;grid-template-columns:9.5rem 1fr;gap:1rem;padding:.95rem 0;border-bottom:1px solid var(--hair)}
+.stage dt{font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding-top:.2rem}
+.stage dd{margin:0;font-size:.9375rem;line-height:1.6;color:var(--ink)}
+.stage .ev dd{color:var(--ink-2)}
+.stage .ev strong{font-family:var(--serif);font-weight:500;font-size:1.35rem;color:var(--sage);margin-right:.35rem}
+@media (max-width:520px){.stage dl > div{grid-template-columns:1fr;gap:.25rem}}
+.js .stage{animation:stageIn .55s var(--ease)}
+@keyframes stageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.stage-ctl{display:flex;align-items:center;gap:.75rem;margin-top:1.5rem}
+.stage-ctl button{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--hair-2);background:var(--vellum);color:var(--ink);cursor:pointer;transition:border-color .2s,transform .2s var(--ease)}
+.stage-ctl button:hover{border-color:var(--terra);transform:translateY(-1px)}
+.stage-ctl svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.stage-ctl .count{font-family:var(--mono);font-size:.8125rem;color:var(--ink-2)}
+.stage-ctl .auto{margin-left:auto;font-size:.75rem;color:var(--ink-3)}
+
+/* without JS the stages read as a list */
+.no-js .ring,.no-js .stage-ctl{display:none}
+.no-js .loop{grid-template-columns:1fr}
+.no-js .stage-wrap{display:grid;gap:2.5rem;min-height:0}
+
+/* embedded */
+.embed{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(2rem,5vw,4.5rem);align-items:start}
+@media (max-width:960px){.embed{grid-template-columns:1fr}}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.fact{background:var(--vellum);padding:1.4rem 1.5rem}
+.fact .n{display:block;font-family:var(--serif);font-size:1.9rem;font-weight:500;line-height:1.05}
+.fact .lab{display:block;margin-top:.35rem;font-size:.8125rem;color:var(--ink-2)}
+.fact.hot .n{color:var(--terra-dk)}
+.nots{list-style:none;margin:1.75rem 0 0;padding:0;display:grid;gap:.6rem}
+.nots li{display:flex;gap:.7rem;align-items:baseline;font-size:.9375rem;color:var(--ink-2)}
+.nots li::before{content:"";flex-shrink:0;width:14px;height:1.5px;background:var(--ink-3);transform:translateY(-4px)}
+.nots li.yes{color:var(--ink);font-weight:600}
+.nots li.yes::before{background:var(--terra);height:2px}
+
+/* builds */
+.card .repo{font-family:var(--mono);font-size:.95rem;color:var(--ink);margin:0 0 .5rem}
+
+/* boundary */
+.decline{margin:clamp(2.5rem,5vw,3.5rem) auto 0;max-width:900px;border-radius:18px;padding:1.75rem 2rem;background:var(--vellum);border:1px solid rgba(194,99,62,.3);box-shadow:var(--shadow);display:grid;grid-template-columns:auto 1fr;gap:1rem 1.25rem;align-items:start}
+.decline .ico{width:26px;height:26px;color:var(--terra)}
+.decline h3{margin:0 0 .35rem;font-family:var(--serif);font-weight:500;font-size:1.3rem}
+.decline p{margin:0;color:var(--ink-2);font-size:.9375rem}
+
+/* contact (from details.html) */
+.contact{background:var(--ink);color:var(--canvas);position:relative;overflow:hidden;isolation:isolate}
+.contact-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+@media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
+.contact .eyebrow{color:var(--terra-lt)}
+.contact h2 em{color:var(--terra-lt)}
+.contact .lede{color:rgba(247,246,242,.76);margin:1.25rem 0 2rem}
+.contact .ctas{display:flex;flex-wrap:wrap;gap:.75rem}
+.idcard{border-radius:20px;padding:2rem;background:linear-gradient(165deg,rgba(247,246,242,.08),rgba(247,246,242,.02));border:1px solid rgba(247,246,242,.14);text-align:center;position:relative;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
+.avatar{position:relative;width:132px;height:132px;margin:0 auto 1.25rem;border-radius:50%;overflow:hidden;background:#1B2533;box-shadow:0 0 0 3px rgba(232,161,132,.6),0 0 0 8px rgba(232,161,132,.12)}
+.avatar > img{position:absolute;left:50%;top:-4%;width:156%;max-width:none;height:auto;transform:translateX(-50%)}
+.avatar .fb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.avatar .fb img{position:static;width:70px;height:auto;transform:none}
+.idcard h3{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:0}
+.idcard .role{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--terra-lt);margin:.35rem 0 1rem}
+.idcard .quote{font-family:var(--serif);font-style:italic;font-size:1.1rem;line-height:1.5;color:rgba(247,246,242,.82);margin:0 auto;max-width:34ch}
+.idcard .lines{margin-top:1.25rem;padding-top:1rem;border-top:1px solid rgba(247,246,242,.12);font-family:var(--mono);font-size:.78rem;color:rgba(247,246,242,.7);display:grid;gap:.35rem}
+.idcard .lines a{color:var(--canvas);text-decoration:none}
+
+@media (prefers-reduced-motion:reduce){
+  .ring .runner{display:none}
+  .ring .arc,.node .disc{transition:none}
+  .js .stage{animation:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" role="banner">
+  <div class="nav-in">
+    <a href="index.html" class="brand" aria-label="Vikram Rathour, home">
+      <img src="assets/logo-mark.png" alt="" width="47" height="36">
+      <span class="brand-t"><span class="brand-n">Vikram Rathour</span><span class="brand-s">Enterprise Data &amp; AI</span></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="navlinks" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav-links" id="navlinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#gap">The gap</a></li>
+      <li><a href="#loop">The loop</a></li>
+      <li><a href="#embedded">How I'm embedded</a></li>
+      <li><a href="#builds">Builds</a></li>
+      <li><a href="blueprint.html">Blueprint</a></li>
+      <li><a href="blog/index.html">Writing</a></li>
+    </ul>
+    <a href="#s9" class="btn btn-pri nav-cta">Let's talk <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" aria-labelledby="h-hero">
+  <div class="wrap">
+    <div class="hero-in">
+      <span class="pill r"><span class="dot"></span> Forward-deployed · Data &amp; AI</span>
+      <h1 id="h-hero" class="r d1">Strategy to production, and the loop that <em>keeps it right</em>.</h1>
+      <p class="body-xl r d2">I join your team the way the AI labs' forward-deployed engineers do. I own the work from the first decision to a system your people rely on. After launch, I keep it improving until your team can run that loop without me.</p>
+      <div class="hero-ctas r d3">
+        <a href="#loop" class="btn btn-pri">See the loop <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+        <a href="#s9" class="btn btn-sec">Let's talk</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THE GAP ═══ -->
+<section class="sec sec-alt" id="gap" aria-labelledby="h-gap">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow r">The gap</span>
+        <h2 id="h-gap" class="h-xl r d1">Most AI work passes through three hands. Value <em>leaks</em> at every handoff.</h2>
+      </div>
+      <p class="lede r d2">AI projects rarely fail because of the technology. They stall when nobody owns the next step.</p>
+    </div>
+
+    <div class="handoffs">
+      <article class="handoff r">
+        <span class="tag ink">01 · Strategy</span>
+        <h3 class="h-sm">The strategy deck</h3>
+        <p>It gets approved in a boardroom. Nobody who wrote it is in the room when the real trade-offs turn up.</p>
+      </article>
+      <div class="leak r d1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14M13 6l6 6-6 6"/></svg>handoff</div>
+      <article class="handoff r d1">
+        <span class="tag ink">02 · Build</span>
+        <h3 class="h-sm">The build team</h3>
+        <p>It builds to the demo. The hard question, what happens when the AI is wrong in front of a customer, gets put off.</p>
+      </article>
+      <div class="leak r d2" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14M13 6l6 6-6 6"/></svg>handoff</div>
+      <article class="handoff r d2">
+        <span class="tag ink">03 · Run</span>
+        <h3 class="h-sm">The run team</h3>
+        <p>It inherits a system it didn't design. Tracing is in place. Nobody is checking whether the answers are still right.</p>
+      </article>
+    </div>
+
+    <div class="gapstat">
+      <div class="gapnums r">
+        <div><span class="n">89%</span><span class="lab">of teams have observability</span></div>
+        <div><span class="n hot">37.3%</span><span class="lab">evaluate quality online</span></div>
+      </div>
+      <blockquote class="thesis r d1">Tracing is a solved problem. Measuring whether the thing is still right, in production, on live traffic, is not.
+        <cite>LangChain production survey, as analysed in <a href="blueprint.html" class="tlink">The Production Blueprint</a></cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THE LOOP ═══ -->
+<section class="sec" id="loop" aria-labelledby="h-loop">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow r">The loop</span>
+        <h2 id="h-loop" class="h-xl r d1">One owner for the <em>whole loop</em>.</h2>
+      </div>
+      <p class="lede r d2">Six stages, one person accountable for all of them. The last stage feeds the first, so the system gets better after launch instead of slowly going stale. Select a stage to see what I own and what your team keeps.</p>
+    </div>
+
+    <div class="loop">
+      <div class="ring r" data-ring>
+        <svg class="track" viewBox="0 0 400 400" aria-hidden="true">
+          <circle class="base" cx="200" cy="200" r="150"/>
+          <circle class="arc" cx="200" cy="200" r="150" data-arc/>
+          <g><path class="chev" d="M197 45l6 5-6 5" transform="rotate(30 200 200)"/></g>
+          <g><path class="chev" d="M197 45l6 5-6 5" transform="rotate(90 200 200)"/></g>
+          <g><path class="chev" d="M197 45l6 5-6 5" transform="rotate(150 200 200)"/></g>
+          <g><path class="chev" d="M197 45l6 5-6 5" transform="rotate(210 200 200)"/></g>
+          <g><path class="chev" d="M197 45l6 5-6 5" transform="rotate(270 200 200)"/></g>
+          <g><path class="chev" d="M197 45l6 5-6 5" transform="rotate(330 200 200)"/></g>
+          <g class="runner"><circle class="halo" cx="200" cy="50" r="9"/><circle cx="200" cy="50" r="4"/></g>
+        </svg>
+        <div class="core"><strong>One owner.<br><em>Whole loop.</em></strong><small>Strategy → production → better</small></div>
+        <div role="tablist" aria-label="Stages of the loop">
+          <button class="node" role="tab" id="t1" aria-controls="p1" style="--x:0;--y:-1"><span class="disc"><img src="assets/icons/chess.png" alt=""></span><span class="nm">Frame</span></button>
+          <button class="node" role="tab" id="t2" aria-controls="p2" style="--x:.866;--y:-.5"><span class="disc"><img src="assets/icons/puzzle.png" alt=""></span><span class="nm">Prove</span></button>
+          <button class="node" role="tab" id="t3" aria-controls="p3" style="--x:.866;--y:.5"><span class="disc"><img src="assets/icons/tool.png" alt=""></span><span class="nm">Ship</span></button>
+          <button class="node" role="tab" id="t4" aria-controls="p4" style="--x:0;--y:1"><span class="disc"><img src="assets/icons/chart.png" alt=""></span><span class="nm">Run</span></button>
+          <button class="node" role="tab" id="t5" aria-controls="p5" style="--x:-.866;--y:.5"><span class="disc"><img src="assets/icons/zoom.png" alt=""></span><span class="nm">Learn</span></button>
+          <button class="node" role="tab" id="t6" aria-controls="p6" style="--x:-.866;--y:-.5"><span class="disc"><img src="assets/icons/folder.png" alt=""></span><span class="nm">Improve</span></button>
+        </div>
+      </div>
+
+      <div>
+        <div class="stage-wrap">
+          <article class="stage" role="tabpanel" id="p1" aria-labelledby="t1">
+            <span class="snum">01 / 06 · Strategy</span>
+            <h3><em>Frame</em> the decision worth automating.</h3>
+            <p class="say">The most expensive mistake is a clever answer to the wrong question.</p>
+            <dl>
+              <div><dt>What I own</dt><dd>Picking the one decision where AI earns its keep, the business number it should move, and who signs off when it gets that decision wrong.</dd></div>
+              <div><dt>Your team keeps</dt><dd>A one-page value thesis that leadership has agreed to, with a clear measure of success.</dd></div>
+              <div class="ev"><dt>Evidence</dt><dd><strong>2×</strong>A stalled business unit doubled in one year once the plan was rebuilt around what customers pay for, rather than around IT systems.</dd></div>
+            </dl>
+          </article>
+          <article class="stage" role="tabpanel" id="p2" aria-labelledby="t2">
+            <span class="snum">02 / 06 · Prototype</span>
+            <h3><em>Prove</em> it with your own experts.</h3>
+            <p class="say">A demo shows that something can work. A test set shows how often it does.</p>
+            <dl>
+              <div><dt>What I own</dt><dd>Building the first working version. I sit with your experts to turn what they know into a test set, run each case repeatedly, and report plainly how often it is right and how it fails.</dd></div>
+              <div><dt>Your team keeps</dt><dd>An evaluation set it owns, and an honest answer on whether this should be an agent, a fixed workflow or not built at all.</dd></div>
+              <div class="ev"><dt>Evidence</dt><dd><strong>10%</strong>yearly revenue growth on a national programme, where changing how people worked, not the AI model, delivered the result.</dd></div>
+            </dl>
+          </article>
+          <article class="stage" role="tabpanel" id="p3" aria-labelledby="t3">
+            <span class="snum">03 / 06 · Production</span>
+            <h3><em>Ship</em> it to the people who rely on it.</h3>
+            <p class="say">This is the step where most pilots stall. Here it is the point.</p>
+            <dl>
+              <div><dt>What I own</dt><dd>Architecture, data checks, what the system is allowed to read, the records it keeps, what it costs to run, and a phased rollout with a plan for when things go wrong.</dd></div>
+              <div><dt>Your team keeps</dt><dd>A system in daily use, with the reasoning behind every design choice written down.</dd></div>
+              <div class="ev"><dt>Evidence</dt><dd><strong>Zero</strong>downtime across a 50TB migration, delivered in phases on a programme where an outage would have been a regulatory event.</dd></div>
+            </dl>
+          </article>
+          <article class="stage" role="tabpanel" id="p4" aria-labelledby="t4">
+            <span class="snum">04 / 06 · Operate</span>
+            <h3><em>Run</em> it with a person who can say "stop".</h3>
+            <p class="say">AI working at machine speed still needs someone who can overrule it.</p>
+            <dl>
+              <div><dt>What I own</dt><dd>Monitoring, clear data ownership, a record of where every number comes from, and a quick, well-known way for a person to step in.</dd></div>
+              <div><dt>Your team keeps</dt><dd>A runbook, an override path, and the confidence to explain why the system made last Tuesday's decision.</dd></div>
+              <div class="ev"><dt>Evidence</dt><dd><strong>8 wks → 0</strong>Twelve business areas were waiting up to two months for each data request. Letting each one own its data removed the queue entirely.</dd></div>
+            </dl>
+          </article>
+          <article class="stage" role="tabpanel" id="p5" aria-labelledby="t5">
+            <span class="snum">05 / 06 · Evaluate live</span>
+            <h3><em>Learn</em> from real use, not from the demo.</h3>
+            <p class="say">Every override, correction and complaint is a signal. Most systems throw them away.</p>
+            <dl>
+              <div><dt>What I own</dt><dd>Measuring quality on live traffic, logging every decision and every human correction, and feeding them back into the test set.</dd></div>
+              <div><dt>Your team keeps</dt><dd>A live view of how often the system is right this week, not just at launch.</dd></div>
+              <div class="ev"><dt>Evidence</dt><dd><strong>40% → 0</strong>Staff were overriding a fraud system four times in ten. It was rebuilt around the decision they actually make, not the model's score.</dd></div>
+            </dl>
+          </article>
+          <article class="stage" role="tabpanel" id="p6" aria-labelledby="t6">
+            <span class="snum">06 / 06 · Compound</span>
+            <h3><em>Improve</em> it, then hand over the loop.</h3>
+            <p class="say">Each cycle starts from better evidence than the last. That is what keeps it improving.</p>
+            <dl>
+              <div><dt>What I own</dt><dd>Adjusting the instructions, the data and which model handles what, so the system keeps working when the AI model or vendor underneath it changes. Then I take the next decision back to Frame.</dd></div>
+              <div><dt>Your team keeps</dt><dd>A loop it runs confidently on its own after I leave, with evidence for a regulator rather than promises.</dd></div>
+              <div class="ev"><dt>Evidence</dt><dd><strong>25 yrs</strong>without a failed flagship platform, across banking, healthcare and manufacturing.</dd></div>
+            </dl>
+          </article>
+        </div>
+        <div class="stage-ctl">
+          <button type="button" data-prev aria-label="Previous stage"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button type="button" data-next aria-label="Next stage"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+          <span class="count" data-count>01 / 06</span>
+          <span class="auto" data-auto>Playing · select a stage to explore</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EMBEDDED ═══ -->
+<section class="sec sec-alt" id="embedded" aria-labelledby="h-emb">
+  <div class="wrap embed">
+    <div>
+      <span class="eyebrow r">How I'm embedded</span>
+      <h2 id="h-emb" class="h-xl r d1">Forward-deployed, <em>independently</em>.</h2>
+      <p class="lede r d2">The AI labs now place forward-deployed engineers inside their customers' teams, because a strong model on its own rarely reaches production. I work the same way, but I'm independent of any vendor. I'm one senior person who sits with your experts, makes the calls a model can't, writes the code where it matters, and stays until your team runs the loop itself.</p>
+      <ul class="nots r d3">
+        <li>Not a strategy deck handed over and left behind</li>
+        <li>Not a build shop billing by the hour</li>
+        <li>Not another permanent role on your org chart</li>
+        <li class="yes">One owner from the first decision to the loop your team keeps</li>
+      </ul>
+    </div>
+    <div class="facts r d2">
+      <div class="fact"><span class="n">2–3</span><span class="lab">organisations at a time</span></div>
+      <div class="fact"><span class="n">2–3 days</span><span class="lab">a week, alongside your team</span></div>
+      <div class="fact"><span class="n">6–12 months</span><span class="lab">through the difficult decisions</span></div>
+      <div class="fact hot"><span class="n">Then you</span><span class="lab">run the loop without me</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BUILDS ═══ -->
+<section class="sec" id="builds" aria-labelledby="h-builds">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow r">Built, not just advised</span>
+        <h2 id="h-builds" class="h-xl r d1">I don't just architect it. I <em>build</em> it.</h2>
+      </div>
+      <p class="lede r d2">A forward-deployed role only works if the person can ship. These are mine, and the code is public.</p>
+    </div>
+    <div class="grid g3">
+      <a class="card r" href="https://github.com/vikramrathour/sentinel_dq" target="_blank" rel="noopener">
+        <div class="card-mast"><span class="tag sage">Python</span><span class="num">Ship · Run</span></div>
+        <p class="repo">sentinel_dq</p>
+        <div class="card-body"><p>Checks data before AI uses it. Data-quality controls for AI workloads.</p></div>
+        <div class="card-foot"><span>Public repository</span><span class="tlink">View <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="card r d1" href="https://github.com/vikramrathour/OrionData_Webapp" target="_blank" rel="noopener">
+        <div class="card-mast"><span class="tag sage">TypeScript</span><span class="num">Frame · Ship</span></div>
+        <p class="repo">OrionData_Webapp</p>
+        <div class="card-body"><p>My data platform, Firm X Data, as a working web app.</p></div>
+        <div class="card-foot"><span>Public repository</span><span class="tlink">View <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="card r d2" href="https://github.com/vikramrathour/CKDTracker" target="_blank" rel="noopener">
+        <div class="card-mast"><span class="tag sage">JavaScript</span><span class="num">Prove · Learn</span></div>
+        <p class="repo">CKDTracker</p>
+        <div class="card-body"><p>A kidney-health app I built as a transplant recipient. I designed it for myself, not for a persona on a slide.</p></div>
+        <div class="card-foot"><span>Open source</span><span class="tlink">View <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+    </div>
+
+    <div class="decline r">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M12 3v18M5 6h11l3 3-3 3H5z"/></svg>
+      <div>
+        <h3>Where I will point you to someone better</h3>
+        <p>Security testing of AI agents and the tools they connect to deserves a dedicated specialist, and that is not me. If it is what you need, I will tell you honestly and introduce you to someone I trust, rather than stretching my own experience to cover it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section class="sec contact" id="s9" aria-labelledby="h-talk">
+  <div class="wrap contact-grid">
+    <div class="idcard r">
+      <div class="avatar">
+        <div class="fb"><img src="assets/logo-mark-light.png" alt=""></div>
+        <img src="assets/portrait.jpg?v=2" alt="Portrait of Vikram Rathour" onerror="this.remove()">
+      </div>
+      <h3>Vikram Rathour</h3>
+      <p class="role">Forward-deployed · Data &amp; AI</p>
+      <p class="quote">"Anyone can wire up an intelligent system now. The hard part is sensibility."</p>
+      <div class="lines"><a href="mailto:Rathour.vikram@gmail.com">Rathour.vikram@gmail.com</a><span>Pune, Maharashtra, India</span></div>
+    </div>
+    <div>
+      <span class="eyebrow r">Let's talk</span>
+      <h2 id="h-talk" class="display r d1">Which stage of the loop is your AI <em>stuck</em> at?</h2>
+      <p class="lede r d2">Most conversations begin with a 45-minute call. I listen first, then tell you honestly whether I can help, or whether your team already has what it needs to close this on its own.</p>
+      <div class="ctas r d3">
+        <a href="mailto:Rathour.vikram@gmail.com" class="btn btn-light"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 6l8 6 8-6"/></svg> Email</a>
+        <a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener" class="btn btn-ghost-light"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v6h-4v-6a2 2 0 00-4 0v6h-4v-10h4v2"/><circle cx="4" cy="4" r="2"/><path d="M2 9h4v11H2z"/></svg> LinkedIn</a>
+        <a href="https://github.com/vikramrathour" target="_blank" rel="noopener" class="btn btn-ghost-light"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="brand"><img src="assets/logo-mark-light.png" alt="" width="47" height="36"><span class="brand-n">Vikram Rathour</span></a>
+        <p>Strategy to production, and the loop that keeps it right.</p>
+      </div>
+      <div>
+        <h4>This page</h4>
+        <ul><li><a href="#gap">The gap</a></li><li><a href="#loop">The loop</a></li><li><a href="#embedded">How I'm embedded</a></li><li><a href="#builds">Builds</a></li></ul>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul><li><a href="blueprint.html">Production Blueprint</a></li><li><a href="blog/index.html">Writing</a></li><li><a href="judgment-room.html">The Judgment Room</a></li><li><a href="wisdom-loop.html">The Wisdom Loop</a></li></ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul><li><a href="mailto:Rathour.vikram@gmail.com">Email</a></li><li><a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://github.com/vikramrathour" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://rathourvikram.wordpress.com" target="_blank" rel="noopener">WordPress</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-base"><span>&copy; 2026 Vikram Rathour</span><span>Enterprise Data &amp; AI · Pune, India</span></div>
+  </div>
+</footer>
+
+<script src="assets/site.js" defer></script>
+<script>
+/* The loop: six stages as tabs around a ring. Click, arrow keys or prev/next select a stage;
+   it auto-advances while in view until the visitor takes over. */
+(function(){
+  document.documentElement.classList.add('js');
+  var tabs=[].slice.call(document.querySelectorAll('[data-ring] [role="tab"]'));
+  var panels=tabs.map(function(t){return document.getElementById(t.getAttribute('aria-controls'))});
+  var arc=document.querySelector('[data-arc]');
+  var count=document.querySelector('[data-count]');
+  var autoLabel=document.querySelector('[data-auto]');
+  var loopEl=document.getElementById('loop');
+  var N=tabs.length, cur=0, C=2*Math.PI*150;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var auto=!reduce, paused=false, inView=false, timer=null;
+
+  arc.style.strokeDasharray=C;
+  function pad(n){return (n<10?'0':'')+n}
+
+  function select(i,focus){
+    cur=(i+N)%N;
+    tabs.forEach(function(t,k){
+      var on=k===cur;
+      t.setAttribute('aria-selected',on?'true':'false');
+      t.tabIndex=on?0:-1;
+      if(k<=cur)t.classList.add('seen');else t.classList.remove('seen');
+      panels[k].hidden=!on;
+    });
+    arc.style.strokeDashoffset=C*(1-cur/N);
+    count.textContent=pad(cur+1)+' / '+pad(N);
+    if(focus)tabs[cur].focus();
+  }
+  function takeOver(){
+    if(!auto)return;
+    auto=false;stop();
+    autoLabel.textContent='';
+  }
+  function tick(){select(cur+1)}
+  function start(){if(auto&&inView&&!paused&&!timer)timer=setInterval(tick,6000)}
+  function stop(){clearInterval(timer);timer=null}
+
+  tabs.forEach(function(t,k){
+    t.addEventListener('click',function(){takeOver();select(k)});
+    t.addEventListener('keydown',function(e){
+      var d={ArrowRight:1,ArrowDown:1,ArrowLeft:-1,ArrowUp:-1}[e.key];
+      if(d){e.preventDefault();takeOver();select(cur+d,true)}
+      else if(e.key==='Home'){e.preventDefault();takeOver();select(0,true)}
+      else if(e.key==='End'){e.preventDefault();takeOver();select(N-1,true)}
+    });
+  });
+  document.querySelector('[data-prev]').addEventListener('click',function(){takeOver();select(cur-1)});
+  document.querySelector('[data-next]').addEventListener('click',function(){takeOver();select(cur+1)});
+
+  /* pause while the visitor is reading or pointing at the loop */
+  var box=loopEl.querySelector('.loop');
+  box.addEventListener('pointerenter',function(){paused=true;stop()});
+  box.addEventListener('pointerleave',function(){paused=false;start()});
+  box.addEventListener('focusin',function(){paused=true;stop()});
+  box.addEventListener('focusout',function(){paused=false;start()});
+
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      inView=es[0].isIntersecting;
+      if(inView)start();else stop();
+    },{threshold:.35}).observe(box);
+  }
+  if(!auto)autoLabel.textContent='';
+  select(0);
+})();
+</script>
+</body>
+</html>
