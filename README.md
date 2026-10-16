@@ -146,9 +146,19 @@ or using the arrow keys on it, takes over without turning the page.
 **Editing the book.** Every page is a `<section class="page">` inside
 `<main class="book">`. To add or remove a page, also update the `aria-label`
 "Page n of 9" on each section and the `/ 09` in the page counter. Keep each
-page short: every page has been checked to fit without scrolling on laptop
-screens from 1280×720 up, and a tighter layout applies to screens 960px tall
-or less. On phones a long page scrolls a little before the next turn.
+page short: every page has been checked to fit without scrolling on screens
+from 1280×720 to 4K. On phones a long page scrolls a little before the next
+turn.
+
+**Scaling to the screen.** The book scales with the display instead of
+sitting in a fixed-width column. The base text size is 16px at 1440×900 and
+grows with whichever of the screen's width or height runs out first, so a
+1920×1080 or 2560×1440 screen shows the same layout, larger, filling the width
+and still fitting top to bottom. Widths in the book's styles are in `rem` so
+they scale with it; use `rem` rather than `px` for new sizes. Very wide
+screens (21:9) keep some margin at the sides so lines stay readable. This
+scaling applies to the home page only; the other pages keep their fixed
+width.
 
 ## How the pages link together
 

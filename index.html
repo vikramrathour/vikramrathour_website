@@ -247,8 +247,8 @@
 @media (max-width:640px){.state dl{grid-template-columns:1fr;gap:.55rem}.detail{min-height:0}}
 .no-js .detail{display:grid;gap:1.25rem}
 @media (prefers-reduced-motion:reduce){.js-book .plot .step,.js-book .lines{transform:none;opacity:1;transition:none}}
-/* short laptop screens: tighten so each page fits without scrolling */
-@media (min-width:861px) and (max-height:960px){
+/* desktop: tight enough that each page fits without scrolling (everything scales with the screen, so one size fits all widescreens) */
+@media (min-width:861px){
   .page{padding-top:1.75rem;padding-bottom:4.5rem}
   .folio{margin-bottom:1.1rem}
   .page h2{font-size:clamp(2.1rem,4.2vw,3.1rem)}
@@ -259,6 +259,30 @@
   .nums{margin-top:1.6rem}
   .more{margin-top:1.1rem}
   .talk .links,.talk .me,.colophon{margin-top:1.25rem}
+}
+/* ── scale with the screen ──
+   The base size grows with the viewport, limited by whichever of width or
+   height runs out first (1440x900 = 16px), so pages fill large and wide screens
+   and still fit top to bottom. Widths below are in rem so they scale with it. */
+html{font-size:max(16px,min(100vw / 90,100vh / 56.25))}
+body{font-size:1.0625rem}
+:root{--max:92rem}
+.nav-in{max-width:calc(var(--max) + 2 * var(--margin))}
+.brand img{height:2.25rem}
+.leaf{max-width:61.25rem}
+.items{max-width:51.25rem}
+.story .items{max-width:53.75rem}
+.nums{max-width:56.25rem}
+.plot{height:clamp(9.4rem,26vh,15rem)}
+.turns button{width:2.75rem;height:2.75rem}
+.cover .begin span{width:2.5rem;height:2.5rem}
+.talk .avatar{width:4rem;height:4rem}
+@media (min-width:861px){
+  .page .leaf{max-width:92rem}
+  .art{width:clamp(10.6rem,21vw,18.1rem)}
+  .cover .leaf > .portrait{width:clamp(16.25rem,27vw,23.75rem)}
+  .leaf > .fdchart{width:clamp(26.25rem,42vw,36.25rem)}
+  .portrait::before{transform:translate(1rem,1rem)}
 }
 </style>
 </head>
