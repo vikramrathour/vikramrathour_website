@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Vikram Rathour: Getting enterprise AI out of the pilot stage</title>
-<meta name="description" content="Vikram Rathour. Enterprise data and AI leader. 25 years architecting platforms for banking, healthcare and manufacturing. I help organisations take AI from a promising pilot to something the business relies on every day.">
+<title>Vikram Rathour: Forward-deployed AI consultant</title>
+<meta name="description" content="Vikram Rathour, forward-deployed AI consultant. I work inside your team, find the problem that is really holding your AI back, and stay until it works in production. 25 years in banking, healthcare and manufacturing.">
 <script>document.documentElement.classList.add('js-book')</script>
 <link rel="icon" href="assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -14,13 +14,13 @@
 <link rel="stylesheet" href="assets/site.css">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Vikram Rathour">
-<meta property="og:title" content="Vikram Rathour: Enterprise Data and AI">
-<meta property="og:description" content="Twenty-six years architecting data and AI platforms for banking, healthcare and manufacturing. I help organisations take AI from a promising pilot to something the business relies on every day.">
+<meta property="og:title" content="Vikram Rathour: Forward-deployed AI consultant">
+<meta property="og:description" content="Vikram Rathour, forward-deployed AI consultant. I work inside your team, find the problem that is really holding your AI back, and stay until it works in production. 25 years in banking, healthcare and manufacturing.">
 <meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/">
 <meta property="og:image" content="https://REPLACE-WITH-YOUR-DOMAIN/assets/portrait.jpg?v=2">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Vikram Rathour: Enterprise Data and AI">
-<meta name="twitter:description" content="Twenty-six years architecting data and AI platforms for banking, healthcare and manufacturing. I help organisations take AI from a promising pilot to something the business relies on every day.">
+<meta name="twitter:title" content="Vikram Rathour: Forward-deployed AI consultant">
+<meta name="twitter:description" content="Vikram Rathour, forward-deployed AI consultant. I work inside your team, find the problem that is really holding your AI back, and stay until it works in production. 25 years in banking, healthcare and manufacturing.">
 <link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/">
 <style>
 /* ═══════════ THE BOOK ═══════════
@@ -183,11 +183,25 @@
   .js-book .page{padding-bottom:6.5rem}
   .js-book .turns{left:var(--margin);justify-content:space-between}
 }
-/* nine nav links: keep them on one line before the menu collapses */
-@media (min-width:1081px) and (max-width:1320px){
-  .nav-in{gap:1rem}
-  .nav-links{gap:.85rem}
-  .nav-links a{white-space:nowrap;font-size:.78rem}
+/* story pages: the brief, the real problem, what changed */
+.story h2{font-size:clamp(2.1rem,4.4vw,3.4rem);max-width:19ch}
+.story .items{max-width:860px}
+.story .items .t{font-size:clamp(1.15rem,1.9vw,1.45rem)}
+.story .items .m{color:var(--terra-dk);font-weight:600}
+.story .items .s b{color:var(--ink);font-weight:600}
+.cover .proof{margin:1rem 0 0;font-size:.875rem;color:var(--ink-3);max-width:44ch}
+/* short laptop screens: tighten so each page fits without scrolling */
+@media (min-width:861px) and (max-height:880px){
+  .page{padding-top:1.75rem;padding-bottom:4.5rem}
+  .folio{margin-bottom:1.1rem}
+  .page h2{font-size:clamp(2.1rem,4.2vw,3.1rem)}
+  .story h2{font-size:clamp(1.9rem,3.4vw,2.5rem);max-width:24ch}
+  .say{margin-top:.6rem;font-size:1.15rem}
+  .items{margin-top:1.4rem}
+  .items li{padding:.6rem 0}
+  .nums{margin-top:1.6rem}
+  .more{margin-top:1.1rem}
+  .talk .links,.talk .me,.colophon{margin-top:1.25rem}
 }
 </style>
 </head>
@@ -202,13 +216,11 @@
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="navlinks" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     <ul class="nav-links" id="navlinks">
-      <li><a href="#s2">The problem</a></li>
+      <li><a href="#s2">What I bring</a></li>
       <li><a href="#s5">Work</a></li>
       <li><a href="#s4">Impact</a></li>
-      <li><a href="#s6">Point of View</a></li>
       <li><a href="#s6b">Builds</a></li>
-      <li><a href="#s3b">Working together</a></li>
-      <li><a href="forward-deployed.html">Forward deployed</a></li>
+      <li><a href="#s3b">Why me</a></li>
       <li><a href="blueprint.html">Blueprint</a></li>
       <li><a href="blog/index.html">Writing</a></li>
     </ul>
@@ -222,71 +234,70 @@
   <section class="page cover" id="s1" data-title="Cover" aria-label="Page 1 of 8: Cover">
     <div class="leaf">
       <figure class="portrait"><div class="frame tilt3d"><img src="assets/portrait.jpg?v=2" alt="Portrait of Vikram Rathour" width="1086" height="1448" fetchpriority="high"></div></figure>
-      <span class="avail"><i></i>Data &amp; AI Consulting · Fractional CTO · Advisory</span>
+      <span class="avail"><i></i>Forward-deployed AI consultant · Data &amp; AI</span>
       <h1>Vikram <em>Rathour</em></h1>
-      <p class="say">I help large organisations take AI from a promising pilot to something the business relies on every day.</p>
-      <div class="starts"><button class="begin" data-go="2">Turn the page <span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><a class="skim" href="details.html">or read everything in detail</a></div>
+      <p class="say">I work inside your team, find the problem that is really holding your AI back, and stay until it works in production.</p>
+      <p class="proof">25 years in banking, healthcare and manufacturing. No failed flagship platform.</p>
+      <div class="starts"><button class="begin" data-go="2">See how I work <span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><a class="skim" href="details.html">or read everything in detail</a></div>
     </div>
   </section>
 
-  <!-- 2 · THESIS -->
-  <section class="page" id="s2" data-title="The problem" aria-label="Page 2 of 8: The problem">
+  <!-- 2 · WHAT I BRING -->
+  <section class="page" id="s2" data-title="What I bring" aria-label="Page 2 of 8: What I bring">
     <div class="leaf">
       <img class="art" src="assets/icons/chess.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
-      <div class="folio"><b>02</b>The problem</div>
-      <h2>Where AI projects <em>get stuck</em>.</h2>
-      <p class="say">Most organisations are stuck at one of these three stages.</p>
+      <div class="folio"><b>02</b>What I bring</div>
+      <h2>I find the real problem, then I <em>fix it in production</em>.</h2>
       <ul class="items">
-        <li><span class="t"><span class="from">Pilot</span><span class="arrow">→</span>Daily use</span><span class="m">Get it working for real users</span></li>
-        <li><span class="t"><span class="from">One project</span><span class="arrow">→</span>Many</span><span class="m">Make the next one faster and cheaper</span></li>
-        <li><span class="t"><span class="from">Fragile</span><span class="arrow">→</span>Dependable</span><span class="m">Make it run well without me</span></li>
+        <li><span class="t">I work where the work happens</span><span class="m">Embedded in your team</span><span class="s">With the investigators, analysts and engineers who will use the system, not only the people who sponsor it.</span></li>
+        <li><span class="t">I find the problem behind the brief</span><span class="m">Before any code</span><span class="s">In my projects, the problem I was brought in for was rarely the one holding things back.</span></li>
+        <li><span class="t">I build it, and I stay</span><span class="m">Through to production</span><span class="s">Architecture, data and working code alongside your engineers, until it runs without me.</span></li>
       </ul>
-      <a class="more" href="details.html#thesis">Read the detail: the three stages and how I work <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </section>
 
-  <!-- 3 · WORK -->
-  <section class="page" id="s5" data-title="Work" aria-label="Page 3 of 8: Work">
-    <div class="leaf">
-      <img class="art" src="assets/icons/folder.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
-      <div class="folio"><b>03</b>Work</div>
-      <h2>Nine projects I helped <em>get unstuck</em>.</h2>
-      <ul class="items">
-        <li><span class="t">No one owned the data, so the regulator's questions went unanswered.</span><span class="m">Major bank</span></li>
-        <li><span class="t">Investigators didn't trust the fraud scores, so they ignored them.</span><span class="m">National tax authority</span></li>
-        <li><span class="t">A data platform stalled because every division defined the same numbers differently.</span><span class="m">Global data platform</span></li>
-      </ul>
-      <a class="more" href="details.html#work">Read the detail: all nine stories <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
-  </section>
-
-  <!-- 4 · IMPACT -->
-  <section class="page" id="s4" data-title="Impact" aria-label="Page 4 of 8: Impact">
-    <div class="leaf">
-      <img class="art" src="assets/icons/chart.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
-      <div class="folio"><b>04</b>Impact</div>
-      <h2>Results that lasted <em>after I left</em>.</h2>
-      <div class="nums">
-        <div><b>2&times;</b><span>Business-unit growth in one fiscal year</span></div>
-        <div><b>Zero</b><span>Downtime across a 50TB migration</span></div>
-        <div><b>40%&rarr;0</b><span>Manual overrides on a fraud platform</span></div>
-      </div>
-      <a class="more" href="details.html#impact">Read the detail: six outcomes <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
-  </section>
-
-  <!-- 5 · POINT OF VIEW -->
-  <section class="page" id="s6" data-title="Point of View" aria-label="Page 5 of 8: Point of View">
+  <!-- 3 · WORK: AI SYSTEMS -->
+  <section class="page story" id="s5" data-title="Work: AI systems" aria-label="Page 3 of 8: Work, AI systems">
     <div class="leaf">
       <img class="art" src="assets/icons/zoom.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
-      <div class="folio"><b>05</b>Point of View</div>
-      <h2>My advice is backed by research <em>you can read</em>.</h2>
+      <div class="folio"><b>03</b>Work · AI systems</div>
+      <h2>The brief said one thing. <em>The real problem</em> was another.</h2>
       <ul class="items">
-        <li><a href="blueprint.html"><span class="t">The Production Blueprint</span></a><span class="m">Seven decisions from pilot to business result</span></li>
-        <li><a href="multi-agent-enterprise.html" target="_blank" rel="noopener"><span class="t">Three technical papers</span></a><span class="m">AI agents, choosing models, platform design</span></li>
-        <li><a href="blog/index.html"><span class="t">Seven essays</span></a><span class="m">Writing</span></li>
+        <li><span class="t">A tax authority's fraud scores sat unused.</span><span class="m">Cases closed 50% faster</span><span class="s"><b>The real problem:</b> investigators couldn't see why a case scored high. I redesigned their workflow and the interface with them, so every score explains itself.</span></li>
+        <li><span class="t">Lending analysts refused an AI tool for identity checks.</span><span class="m">Now widely used</span><span class="s"><b>The real problem:</b> the AI made the decision and the analysts just watched. Workshops with them came before any code. We rebuilt it so analysts decide and the AI brings the evidence.</span></li>
+        <li><span class="t">Staff overrode a real-time fraud system four times in ten.</span><span class="m">Overrides 40% → 0</span><span class="s"><b>The real problem:</b> the alerts made no sense to them. I rebuilt the alert logic with the fraud team, then re-engineered the platform around their decisions.</span></li>
       </ul>
-      <a class="more" href="details.html#point-of-view">Read the detail: research and writing <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </section>
+
+  <!-- 4 · WORK: DATA PLATFORMS -->
+  <section class="page story" id="s5b" data-title="Work: data platforms" aria-label="Page 4 of 8: Work, data platforms">
+    <div class="leaf">
+      <img class="art" src="assets/icons/folder.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
+      <div class="folio"><b>04</b>Work · Data platforms</div>
+      <h2>The same habit, <em>under the AI</em>.</h2>
+      <ul class="items">
+        <li><span class="t">A multi-million data platform stalled after six months.</span><span class="m">One agreed source of truth</span><span class="s"><b>The real problem:</b> every division defined the same numbers differently. I ran alignment workshops before any architecture, got a shared glossary signed off, then designed the platform around it.</span></li>
+        <li><span class="t">At a bank, every data request took six to eight weeks.</span><span class="m">8 weeks → self-serve</span><span class="s"><b>The real problem:</b> one central team was gatekeeper for twelve business areas. Each area designed its own data, the central team became helpers, and the data mesh followed.</span></li>
+        <li><span class="t">A 50TB migration team was afraid of being blamed.</span><span class="m">Zero downtime</span><span class="s"><b>The real problem:</b> nobody could see the whole plan. I made every step and risk visible, including how to undo it.</span></li>
+      </ul>
+      <a class="more" href="details.html#work">All nine stories, in detail <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </section>
+
+  <!-- 5 · IMPACT -->
+  <section class="page" id="s4" data-title="Impact" aria-label="Page 5 of 8: Impact">
+    <div class="leaf">
+      <img class="art" src="assets/icons/chart.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
+      <div class="folio"><b>05</b>Impact</div>
+      <h2>Results that lasted <em>after I left</em>.</h2>
+      <p class="say">I measure the work by what's still running after I hand over.</p>
+      <div class="nums">
+        <div><b>2&times;</b><span>Business-unit growth in one year</span></div>
+        <div><b>10%</b><span>Yearly growth in a national tax base</span></div>
+        <div><b>Zero</b><span>Downtime across a 50TB migration</span></div>
+      </div>
+      <a class="more" href="details.html#impact">Read the detail: six outcomes <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </section>
 
@@ -296,6 +307,7 @@
       <img class="art" src="assets/icons/tool.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
       <div class="folio"><b>06</b>Builds</div>
       <h2>I don't just architect it. I <em>build</em> it.</h2>
+      <p class="say">Forward-deployed means hands on the keyboard. These are mine.</p>
       <ul class="items">
         <li><a href="https://github.com/vikramrathour/sentinel_dq" target="_blank" rel="noopener"><span class="t">sentinel_dq</span></a><span class="m">Checks data before AI uses it</span></li>
         <li><a href="https://github.com/vikramrathour/OrionData_Webapp" target="_blank" rel="noopener"><span class="t">OrionData_Webapp</span></a><span class="m">My data platform, as a working web app</span></li>
@@ -305,18 +317,18 @@
     </div>
   </section>
 
-  <!-- 7 · WORKING TOGETHER -->
-  <section class="page" id="s3b" data-title="Working together" aria-label="Page 7 of 8: Working together">
+  <!-- 7 · WHY ME -->
+  <section class="page" id="s3b" data-title="Why work with me" aria-label="Page 7 of 8: Why work with me">
     <div class="leaf">
       <img class="art" src="assets/icons/puzzle.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
-      <div class="folio"><b>07</b>Working together</div>
-      <h2>Three ways we can <em>work together</em>.</h2>
+      <div class="folio"><b>07</b>Why me</div>
+      <h2>Why work <em>with me</em>.</h2>
       <ul class="items">
-        <li><span class="t">Foundations</span><span class="m">4 to 8 weeks</span><span class="s">When several AI pilots give your leadership different answers to the same question.</span></li>
-        <li><span class="t">Reliability</span><span class="m">3 to 6 weeks</span><span class="s">When your AI agent works in the demo but fails with real users.</span></li>
-        <li><span class="t">Direction</span><span class="m">4 to 8 weeks</span><span class="s">When your data, reporting, AI and automation projects are heading in different directions.</span></li>
+        <li><span class="t">You get me, in the room</span><span class="m">2–3 clients at a time</span><span class="s">Two or three days a week for six to twelve months, alongside your team. Not a team you've never met.</span></li>
+        <li><a href="blueprint.html"><span class="t">No vendor to sell</span></a><span class="m">Research you can read</span><span class="s">My advice comes from research I publish openly, like The Production Blueprint, so you can check the reasoning.</span></li>
+        <li><span class="t">Honest about fit</span><span class="m">First call: 45 minutes</span><span class="s">If your team already has what it needs, I'll tell you. AI security testing isn't my field, and I'll introduce you to someone better.</span></li>
       </ul>
-      <a class="more" href="details.html#working-together">Read the detail: what each involves <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="more" href="details.html#working-together">Three ways to start: Foundations, Reliability, Direction <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </section>
 
@@ -326,7 +338,7 @@
     <div class="leaf">
       <img class="art" src="assets/icons/tea-cup.png" alt="" aria-hidden="true" width="400" height="400" loading="lazy" decoding="async">
       <div class="folio"><b>08</b>Let's talk</div>
-      <h2>Where is your AI work <em>stuck</em>?</h2>
+      <h2>Tell me where your AI is <em>stuck</em>.</h2>
       <p class="say">Most conversations begin with a 45-minute call where I listen first, then tell you honestly whether I can help.</p>
       <div class="links">
         <a href="mailto:Rathour.vikram@gmail.com" class="btn btn-pri">Email me</a>
@@ -363,7 +375,7 @@
   var announce=document.getElementById('announce');
   var navLinks=[].slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
   /* legacy anchors land on the page that now carries that content */
-  var alias={s3:'s2',s8:'s6',s7:'s6b',contact:'s9'};
+  var alias={s3:'s2',s6:'s3b',s8:'s3b',s7:'s6b',contact:'s9'};
   function indexOf(id){id=alias[id]||id;for(var i=0;i<N;i++){if(pages[i].id===id)return i}return -1}
 
   function paint(){
