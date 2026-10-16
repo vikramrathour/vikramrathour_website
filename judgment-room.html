@@ -10,7 +10,7 @@
 <link rel="icon" href="assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v=20261016">
 <style>
 :root{
   --paper:#F7F6F2; --paper2:#EDEBE4; --card:#FFFFFF;
@@ -29,7 +29,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height
 #cring.h{width:64px;height:64px}
 #cur,#cring{display:none}
 
-.jr-wrap{max-width:980px;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) clamp(1.2rem,4vw,2rem) 6rem;position:relative;z-index:2}
+.jr-wrap{max-width:61.25rem;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) clamp(1.2rem,4vw,2rem) 6rem;position:relative;z-index:2}
 
 /* ambient bg texture matching main site */
 .bgtex{position:fixed;inset:0;z-index:0;background-image:radial-gradient(var(--line2) 1.4px,transparent 1.4px);background-size:38px 38px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 85%)}
@@ -44,7 +44,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height
 .eyebrow::before,.eyebrow::after{content:'';width:26px;height:1.5px;background:var(--blue)}
 h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,5vw,3.7rem);line-height:1.08;letter-spacing:-.025em;margin-bottom:1.1rem}
 h1 em{font-style:italic;color:var(--orange)}
-.sub{font-size:clamp(.9rem,1.3vw,1.02rem);color:var(--t2);line-height:1.7;max-width:640px;margin:0 auto}
+.sub{font-size:clamp(.9rem,1.3vw,1.02rem);color:var(--t2);line-height:1.7;max-width:40rem;margin:0 auto}
 
 /* practice-area legend */
 .legend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:1.6rem}
@@ -104,7 +104,7 @@ h1 em{font-style:italic;color:var(--orange)}
 .closer.show{display:block;animation:rise .6s var(--ease) both}
 .closer h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,3.4vw,2.4rem);margin-bottom:1rem;letter-spacing:-.02em}
 .closer h2 em{font-style:italic;color:var(--orange)}
-.closer p{font-size:.92rem;color:var(--t2);line-height:1.75;max-width:600px;margin:0 auto 1.8rem}
+.closer p{font-size:.92rem;color:var(--t2);line-height:1.75;max-width:37.5rem;margin:0 auto 1.8rem}
 .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .lk{font-family:var(--sans);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:12px 22px;border-radius:7px;border:1.5px solid var(--blue);color:var(--blue-dk);transition:all .3s var(--ease)}
 .lk:hover{background:var(--blue-pale);transform:translateY(-2px)}
@@ -132,18 +132,18 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-off
   <div class="nav-in">
     <a href="index.html" class="brand" aria-label="Vikram Rathour, home">
       <img src="assets/logo-mark.png" alt="" width="47" height="36">
-      <span class="brand-t"><span class="brand-n">Vikram Rathour</span><span class="brand-s">Enterprise Data &amp; AI</span></span>
+      <span class="brand-t"><span class="brand-n">Vikram Rathour</span><span class="brand-s">Forward-deployed AI consultant</span></span>
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="navlinks" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     <ul class="nav-links" id="navlinks">
       <li><a href="index.html">Home</a></li>
-      <li><a href="index.html#s3b">Working together</a></li>
+      <li><a href="index.html#grow">How I run it</a></li>
       <li><a href="index.html#s5">Work</a></li>
       <li><a href="blueprint.html">Blueprint</a></li>
       <li><a href="judgment-room.html" class="on" aria-current="page">Judgment Room</a></li>
       <li><a href="blog/index.html">Writing</a></li>
     </ul>
-    <a href="index.html#contact" class="btn btn-pri nav-cta">Let's talk <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+    <a href="index.html#s9" class="btn btn-pri nav-cta">Let's talk <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
   </div>
 </header>
 <div id="cur"></div><div id="cring"></div>
@@ -276,7 +276,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-off
       </div>
       <div>
         <h4>Site</h4>
-        <ul><li><a href="details.html#s3">Approach</a></li><li><a href="index.html#s3b">Working together</a></li><li><a href="index.html#s5">Work</a></li><li><a href="index.html#s6b">Builds</a></li></ul>
+        <ul><li><a href="index.html#grow">How I run it</a></li><li><a href="index.html#s5">Work</a></li><li><a href="index.html#s6b">Builds</a></li><li><a href="index.html#s3b">Why work with me</a></li></ul>
       </div>
       <div>
         <h4>Read</h4>
@@ -287,7 +287,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-off
         <ul><li><a href="mailto:Rathour.vikram@gmail.com">Email</a></li><li><a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://github.com/vikramrathour" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://rathourvikram.wordpress.com" target="_blank" rel="noopener">WordPress</a></li></ul>
       </div>
     </div>
-    <div class="foot-base"><span>&copy; 2026 Vikram Rathour</span><span>Enterprise Data &amp; AI · Pune, India</span></div>
+    <div class="foot-base"><span>&copy; 2026 Vikram Rathour</span><span>Forward-deployed AI consultant · Pune, India</span></div>
   </div>
 </footer>
 <script>
@@ -380,6 +380,6 @@ document.querySelectorAll('.next-btn').forEach(btn=>{
   });
 })();
 </script>
-<script src="assets/site.js" defer></script>
+<script src="assets/site.js?v=20261016" defer></script>
 </body>
 </html>

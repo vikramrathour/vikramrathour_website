@@ -15,12 +15,16 @@
     });
   }
 
-  /* scroll reveal: .r gets .s once visible */
-  var rs=document.querySelectorAll('.r');
+  /* scroll reveal: .r gets .s once visible. Anything already on the first
+     screen shows at once; the rest starts revealing just before it scrolls in,
+     so no content waits for the visitor to scroll. */
+  var rs=[].slice.call(document.querySelectorAll('.r'));
+  var fold=window.innerHeight*1.05;
+  rs=rs.filter(function(el){if(el.getBoundingClientRect().top<fold){el.classList.add('s');return false}return true});
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){
       es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('s');io.unobserve(e.target)}});
-    },{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    },{rootMargin:'0px 0px 15% 0px',threshold:0});
     rs.forEach(function(el){io.observe(el)});
   }else{
     rs.forEach(function(el){el.classList.add('s')});

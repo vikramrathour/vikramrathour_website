@@ -26,7 +26,7 @@
 .prose blockquote p:last-child{margin-bottom:0}
 .prose figure{margin:2.4rem 0}
 .prose figure img{width:100%;height:auto;display:block;border:1px solid var(--hair);border-radius:var(--r-card);background:var(--vellum)}
-.prose figure.narrow img{max-width:900px;margin:0 auto}
+.prose figure.narrow img{max-width:56.25rem;margin:0 auto}
 .prose figcaption{font-family:var(--sans);font-size:.8125rem;line-height:1.5;color:var(--ink-2);margin-top:.7rem}
 .prose img{height:auto}
 .prose pre{background:var(--ink);color:#E4E2DA;padding:1.4rem 1.6rem;overflow-x:auto;margin:2rem 0;border-radius:var(--r-card);font-size:.8rem;line-height:1.65}
@@ -51,8 +51,8 @@ header.posthead h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.25
 
 /* ── essay layout ── */
 .article{padding-block:3rem 1rem}
-.artgrid{display:grid;grid-template-columns:220px minmax(0,var(--read));justify-content:start;gap:clamp(2.5rem,5vw,5rem);align-items:start}
-.rail{position:sticky;top:96px;max-height:calc(100vh - 130px);overflow-y:auto;scrollbar-width:thin}
+.artgrid{display:grid;grid-template-columns:13.75rem minmax(0,var(--read));justify-content:start;gap:clamp(2.5rem,5vw,5rem);align-items:start}
+.rail{position:sticky;top:96px;max-height:calc(100vh - 8.125rem);overflow-y:auto;scrollbar-width:thin}
 .rail-h{font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--terra-dk);padding-bottom:.75rem;border-bottom:1px solid var(--hair-2);margin-bottom:.75rem}
 .rail a{display:block;font-size:.8125rem;line-height:1.45;color:var(--ink-2);text-decoration:none;padding:.45rem 0 .45rem .8rem;border-left:2px solid var(--hair-2);transition:color .2s,border-color .2s}
 .rail a:hover{color:var(--ink);border-left-color:var(--hair-hot)}
@@ -62,8 +62,11 @@ header.posthead h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.25
 .pn-all{font-size:.875rem;font-weight:600;color:var(--ink)!important}
 .pn-all:hover{color:var(--terra-dk)!important}
 .pn-orig{font-size:.8125rem;color:var(--ink-2)!important}
+/* the text always sits in the reading column, even when a short essay hides its contents rail */
+.artgrid > .prose{grid-column:2}
 @media (max-width:1100px){
   .artgrid{grid-template-columns:minmax(0,1fr);gap:0}
+  .artgrid > .prose{grid-column:1}
   .rail{display:none}
   .prose{max-width:var(--read);margin-inline:auto}
 }
@@ -77,7 +80,7 @@ header.posthead h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.25
 header.bloghero{position:relative;overflow:hidden;padding-block:clamp(3.5rem,8vw,6rem) clamp(2.5rem,5vw,3.5rem)}
 header.bloghero h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.35rem,5vw,3.5rem);line-height:1.1;letter-spacing:-.02em;margin:0 0 1.25rem}
 header.bloghero h1 em{color:var(--terra-dk)}
-.bloghero-bg{position:absolute;width:560px;height:560px;top:-220px;right:-100px;border-radius:50%;background:rgba(253,145,104,.2);filter:blur(110px);pointer-events:none}
+.bloghero-bg{position:absolute;width:35rem;height:35rem;top:-13.75rem;right:-6.25rem;border-radius:50%;background:rgba(253,145,104,.2);filter:blur(110px);pointer-events:none}
 .kick{font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--terra-dk);margin-bottom:.75rem}
 .postgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gutter);margin-bottom:clamp(4rem,8vw,6rem)}
 .pcard{background:var(--vellum);border:1px solid var(--hair);border-radius:var(--r-card);padding:2rem;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:border-color .25s,box-shadow .3s var(--ease),transform .3s var(--ease)}

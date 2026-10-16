@@ -16,7 +16,7 @@ and essay body text; Plus Jakarta Sans carries everything else.
 
 | File | What it holds |
 |------|---------------|
-| `assets/site.css` | Tokens, type scale, nav, footer, buttons, cards, chips, reveal animation. Every page except the three papers loads it. |
+| `assets/site.css` | Tokens, type scale, nav, footer, buttons, cards, chips, reveal animation, and the rule that scales every page with the screen. Every page except the three papers loads it. |
 | `assets/article.css` | Long-form reading styles for the blog index and the essays. |
 | `assets/site.js` | Mobile menu, scroll reveal, active nav link, the 3D card tilt on the details page, filter chips. The book and the growth chart have their own script inside `index.html`. |
 | `assets/brand/vr-logo.png` | The full VR logo (monogram, name, "Ideas · Insights · Experience · Impact"). Master file; the files below are cut from it. |
@@ -156,15 +156,25 @@ grows with whichever of the screen's width or height runs out first, so a
 1920×1080 or 2560×1440 screen shows the same layout, larger, filling the width
 and still fitting top to bottom. Widths in the book's styles are in `rem` so
 they scale with it; use `rem` rather than `px` for new sizes. Very wide
-screens (21:9) keep some margin at the sides so lines stay readable. This
-scaling applies to the home page only; the other pages keep their fixed
-width.
+screens (21:9) keep some margin at the sides so lines stay readable.
+
+The same idea applies to every other page that loads `assets/site.css`
+(details, Blueprint, Judgment Room, Wisdom Loop, Writing and the essays): the
+rule at the top of `site.css` grows the base size with the screen, so they
+fill a large display instead of sitting in a narrow column. The book uses a
+slightly different rule inside `index.html` because each of its pages must
+also fit top to bottom. The three technical papers keep their own fixed-width
+design: they are built in pixels and their interactive modules position
+things in pixels, so scaling them safely would mean reworking each paper.
 
 ## How the pages link together
 
 `index.html` is the entry point:
 
-- Blueprint and Writing sit in the top navigation.
+- Every page shares one menu: Home, How I run it, Work, Blueprint, Judgment
+  Room, Writing, and a Let's talk button. The book's own menu swaps Home for
+  its chapters. The cover also lists the Blueprint, the Judgment Room and
+  Writing under "Read", so they are visible from the first screen.
 - Each book page's "Read the detail" link opens the matching part of
   `details.html`.
 - The "No vendor to sell" line on the Why me page links to `blueprint.html`.
@@ -214,8 +224,14 @@ Two things to know:
   between them).
 - The stories on the book's Work pages are condensed from the nine case
   stories on `details.html`. If a fact changes, change it in both places.
-- Files in `assets/` are cached for a day. After changing `site.css`, visitors
-  may see the old styles for up to 24 hours unless they hard refresh.
+- Files in `assets/` are cached for a day, so every page links `site.css`,
+  `site.js` and `article.css` with a version, such as `site.css?v=20261016`.
+  After changing one of those files, change the version on every page (search
+  for `?v=`) so visitors get the new file straight away instead of up to a day
+  later.
+- Content marked `.r` fades in as it scrolls into view. Anything already on the
+  first screen shows at once, and the rest starts just before it arrives, so
+  nothing waits on the visitor to scroll. Without JavaScript everything shows.
 - En dashes appear in numeric ranges inside the technical papers, such as
   `4–8×` and `$5–6M`. That is correct typography for a range and is deliberate.
   There are no em dashes anywhere in the site.

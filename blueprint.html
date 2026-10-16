@@ -10,7 +10,7 @@
 <link rel="icon" href="assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v=20261016">
 <style>
 /* ── blueprint: chapter pills (second row of the sticky nav) ── */
 html{scroll-padding-top:130px}
@@ -21,12 +21,12 @@ html{scroll-padding-top:130px}
 .npills a.on{color:#fff;background:var(--ink)}
 
 /* ── layout ── */
-.chap .wrap,.hero .wrap{max-width:calc(880px + 2 * var(--margin))}
+.chap .wrap,.hero .wrap{max-width:calc(55rem + 2 * var(--margin))}
 .wide{max-width:var(--max);margin:0 auto;padding-inline:var(--margin)}
 
 /* ── hero ── */
 header.hero{position:relative;overflow:hidden;padding-block:clamp(3.5rem,8vw,6.5rem) clamp(3rem,6vw,4.5rem);background:linear-gradient(180deg,var(--vellum),var(--canvas))}
-.hero-bg{position:absolute;width:600px;height:600px;top:-240px;right:-120px;border-radius:50%;background:rgba(253,145,104,.2);filter:blur(120px);pointer-events:none}
+.hero-bg{position:absolute;width:37.5rem;height:37.5rem;top:-15rem;right:-7.5rem;border-radius:50%;background:rgba(253,145,104,.2);filter:blur(120px);pointer-events:none}
 .hero-inner{position:relative}
 .kick{font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--terra-dk);margin-bottom:1rem}
 .hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.5rem,5.6vw,4rem);line-height:1.06;letter-spacing:-.02em;margin:0 0 1.5rem}
@@ -62,7 +62,7 @@ section.chap{padding-block:clamp(4rem,8vw,5.5rem) 2rem;border-top:1px solid var(
 .chap-q{font-family:var(--serif);font-style:italic;font-size:1.3rem;line-height:1.5;color:var(--ink);border-left:2px solid var(--terra);padding-left:1.25rem;margin:0 0 2rem}
 
 /* ── stat strip ── */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.75rem;margin:2rem 0 2.25rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.625rem,1fr));gap:.75rem;margin:2rem 0 2.25rem}
 .st{background:var(--vellum);border:1px solid var(--hair);border-radius:var(--r-card);padding:1.25rem}
 .st-v{font-family:var(--serif);font-size:2rem;font-weight:500;color:var(--ink);line-height:1;margin-bottom:.6rem}
 .st-v.b{color:var(--sage)}
@@ -85,7 +85,7 @@ section.chap{padding-block:clamp(4rem,8vw,5.5rem) 2rem;border-top:1px solid var(
 
 /* ── tables ── */
 .tw{overflow-x:auto;margin:1.75rem 0;border:1px solid var(--hair);border-radius:var(--r-card);background:var(--vellum)}
-.tw table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:600px}
+.tw table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:37.5rem}
 .tw th{text-align:left;font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--recess);padding:.8rem 1rem;vertical-align:bottom}
 .tw td{padding:.8rem 1rem;border-top:1px solid var(--hair);color:var(--ink-2);vertical-align:top;line-height:1.55}
 .tw td:first-child{font-weight:600;color:var(--ink)}
@@ -184,18 +184,18 @@ section.chap{padding-block:clamp(4rem,8vw,5.5rem) 2rem;border-top:1px solid var(
   <div class="nav-in">
     <a href="index.html" class="brand" aria-label="Vikram Rathour, home">
       <img src="assets/logo-mark.png" alt="" width="47" height="36">
-      <span class="brand-t"><span class="brand-n">Vikram Rathour</span><span class="brand-s">Enterprise Data &amp; AI</span></span>
+      <span class="brand-t"><span class="brand-n">Vikram Rathour</span><span class="brand-s">Forward-deployed AI consultant</span></span>
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="navlinks" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     <ul class="nav-links" id="navlinks">
       <li><a href="index.html">Home</a></li>
-      <li><a href="index.html#s3b">Working together</a></li>
+      <li><a href="index.html#grow">How I run it</a></li>
       <li><a href="index.html#s5">Work</a></li>
       <li><a href="blueprint.html" class="on" aria-current="page">Blueprint</a></li>
       <li><a href="judgment-room.html">Judgment Room</a></li>
       <li><a href="blog/index.html">Writing</a></li>
     </ul>
-    <a href="index.html#contact" class="btn btn-pri nav-cta">Let's talk <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+    <a href="index.html#s9" class="btn btn-pri nav-cta">Let's talk <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
   </div>
   <div class="npills" id="pills">
     <a href="#reference">Reference architecture</a>
@@ -1181,7 +1181,7 @@ section.chap{padding-block:clamp(4rem,8vw,5.5rem) 2rem;border-top:1px solid var(
       </div>
       <div>
         <h4>Site</h4>
-        <ul><li><a href="details.html#s3">Approach</a></li><li><a href="index.html#s3b">Working together</a></li><li><a href="index.html#s5">Work</a></li><li><a href="index.html#s6b">Builds</a></li></ul>
+        <ul><li><a href="index.html#grow">How I run it</a></li><li><a href="index.html#s5">Work</a></li><li><a href="index.html#s6b">Builds</a></li><li><a href="index.html#s3b">Why work with me</a></li></ul>
       </div>
       <div>
         <h4>Read</h4>
@@ -1192,7 +1192,7 @@ section.chap{padding-block:clamp(4rem,8vw,5.5rem) 2rem;border-top:1px solid var(
         <ul><li><a href="mailto:Rathour.vikram@gmail.com">Email</a></li><li><a href="https://www.linkedin.com/in/vikramrathour/" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://github.com/vikramrathour" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://rathourvikram.wordpress.com" target="_blank" rel="noopener">WordPress</a></li></ul>
       </div>
     </div>
-    <div class="foot-base"><span>&copy; 2026 Vikram Rathour</span><span>Enterprise Data &amp; AI · Pune, India</span></div>
+    <div class="foot-base"><span>&copy; 2026 Vikram Rathour</span><span>Forward-deployed AI consultant · Pune, India</span></div>
   </div>
 </footer>
 
@@ -1248,6 +1248,6 @@ section.chap{padding-block:clamp(4rem,8vw,5.5rem) 2rem;border-top:1px solid var(
   }
 })();
 </script>
-<script src="assets/site.js" defer></script>
+<script src="assets/site.js?v=20261016" defer></script>
 </body>
 </html>
