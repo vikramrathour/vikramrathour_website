@@ -1,6 +1,8 @@
 # vikramrathour.com
 
-Personal site for Vikram Rathour. Enterprise data and AI architecture.
+Personal site for Vikram Rathour, forward-deployed AI consultant: embedded in a
+client's team from strategy through production, then growing the solution with
+richer context and evals after go-live.
 
 Static HTML. No build step, no framework, no package manager. The only external
 request is the Google Fonts stylesheet for Newsreader and Plus Jakarta Sans.
@@ -16,7 +18,7 @@ and essay body text; Plus Jakarta Sans carries everything else.
 |------|---------------|
 | `assets/site.css` | Tokens, type scale, nav, footer, buttons, cards, chips, reveal animation. Every page except the three papers loads it. |
 | `assets/article.css` | Long-form reading styles for the blog index and the essays. |
-| `assets/site.js` | Mobile menu, scroll reveal, active nav link, the Work section filter chips. |
+| `assets/site.js` | Mobile menu, scroll reveal, active nav link, the 3D card tilt on the details page, filter chips. The book and the growth chart have their own script inside `index.html`. |
 | `assets/brand/vr-logo.png` | The full VR logo (monogram, name, "Ideas · Insights · Experience · Impact"). Master file; the files below are cut from it. |
 | `assets/logo-mark.png` | The VR monogram on a transparent background. Header on every page, and the "Back to site" pill on the papers. |
 | `assets/logo-mark-light.png` | The same monogram in cream, for dark backgrounds: footer, essay bylines, portrait fallback. |
@@ -32,8 +34,8 @@ only carry a small "Back to site" pill.
 
 | File | What it is |
 |------|------------|
-| `index.html` | The main site. Hero, thesis, approach, **engagements**, impact, work, point of view, builds, signature project, writing, contact. The only page meant to be shared as the primary link. |
-| `details.html` | The full 3D experience behind the home page's book: floating realm cards that tilt toward the cursor, parallax orbs, and the guided chapter reader (pivots, nine engagements, six outcomes, point of view, builds, CKDTracker), then working together and contact. Each book page's "Read the detail" link opens the matching chapter (`#thesis`, `#work`, `#impact`, `#point-of-view`, `#builds`) or section (`#working-together`, `#contact`). |
+| `index.html` | The home page: a nine-page book you turn like a leaf (see **The home page book** below). The only page meant to be shared as the primary link. |
+| `details.html` | The full 3D experience behind the home page's book: floating realm cards that tilt toward the cursor, parallax orbs, and the guided chapter reader (pivots, nine engagements, six outcomes, point of view, builds, CKDTracker), then working together and contact. Its hero and contact card use the same forward-deployed wording as the book. The book's "Read the detail" links open the matching chapter (`#work`, `#impact`, `#builds`) or section (`#working-together`, `#contact`); `#thesis` and `#point-of-view` also still work. |
 | `blueprint.html` | The consolidated report. Seven decisions between a pilot and a business result, phased pre-pilot, pilot-to-production and in-production. Every statistic carries a source and a date. Links out to the three papers as deep dives. |
 | `judgment-room.html` | Interactive. Five anonymised enterprise dilemmas. The visitor picks, then sees what actually happened. |
 | `wisdom-loop.html` | Interactive. The architecture as a six-stage cycle: Data, Information, Knowledge, Wisdom, Inference, Decision, looping back. |
@@ -105,16 +107,60 @@ To attach your domain: **Settings**, then **Domains**, add the bare domain and
 the `www` version, redirect `www` to the bare domain, and add the two DNS
 records Vercel shows you at your registrar.
 
+## The home page book
+
+`index.html` shows one full-screen page at a time. A turn swings the page
+around its left edge. Visitors turn pages with the arrow and Page keys, the
+mouse wheel (one turn per gesture), a sideways swipe, the arrow buttons at the
+bottom right, or the menu. Without JavaScript the pages stack as an ordinary
+scrolling page, and with reduced motion a turn is a short fade.
+
+The positioning runs through every page: the header under the name reads
+"Forward-deployed AI consultant", and each page's top line ends with "Forward
+deployed".
+
+| # | Anchor | Page | What it carries |
+|---|--------|------|-----------------|
+| 1 | `#s1` | Cover | Portrait, name, the role line, one sentence on how I work |
+| 2 | `#s2` | What I bring | Strategy, production, maturity: what I do in an engagement |
+| 3 | `#grow` | How I run it | "Production-ready at launch. Better every month after." The growth chart |
+| 4 | `#s5` | Work: AI systems | Three stories: the brief, who I was deployed with, the real problem, the result |
+| 5 | `#s5b` | Work: data platforms | Three more stories in the same shape |
+| 6 | `#s4` | Impact | Three results that lasted after I left |
+| 7 | `#s6b` | Builds | The three public repositories |
+| 8 | `#s3b` | Why me | Availability, independence from vendors, honesty about fit |
+| 9 | `#s9` | Let's talk | Email, LinkedIn, the 45-minute first call |
+
+The address follows the page, so `index.html#grow` opens straight on the chart.
+Older links still land on the page that now holds that content: `#s3` goes to
+page 2, `#s6` and `#s8` to page 8, `#s7` to page 7, `#contact` to page 9. That
+mapping is the `alias` line in the book script.
+
+**The growth chart** (page 3) is an illustration, labelled as one, of how a
+live solution earns more responsibility over its first year: Suggests, Drafts,
+Decides, Acts, against a dashed "Shipped and left" line. Each step lists the
+context it has, the evals that prove it and what it's trusted to do. When the
+page opens the steps rise and the story plays through once. Clicking a step,
+or using the arrow keys on it, takes over without turning the page.
+
+**Editing the book.** Every page is a `<section class="page">` inside
+`<main class="book">`. To add or remove a page, also update the `aria-label`
+"Page n of 9" on each section and the `/ 09` in the page counter. Keep each
+page short: every page has been checked to fit without scrolling on laptop
+screens from 1280×720 up, and a tighter layout applies to screens 960px tall
+or less. On phones a long page scrolls a little before the next turn.
+
 ## How the pages link together
 
-`index.html` is the entry point, with four internal routes:
+`index.html` is the entry point:
 
-- The Point of View section leads with `blueprint.html`, the three papers below
-  it as deep dives, tagged by buyer decision.
-- The Work chapter links into `judgment-room.html`.
+- Blueprint and Writing sit in the top navigation.
+- Each book page's "Read the detail" link opens the matching part of
+  `details.html`.
+- The "No vendor to sell" line on the Why me page links to `blueprint.html`.
+- `details.html` links into `judgment-room.html` from the stories chapter and
+  into `wisdom-loop.html` from the thesis chapter.
 - `blueprint.html` opens with the reference architecture (`architecture.jpg`).
-- The Thesis section links into `wisdom-loop.html`.
-- Blueprint sits in the top navigation.
 
 `blueprint.html` links out to all five other pages from whichever section is
 relevant, so a reader who wants depth on data readiness lands on the wisdom
@@ -152,11 +198,12 @@ Two things to know:
   already deferred once, in July 2026. Every figure carries a source and a date
   in the page, so replace the figure and the date together.
 - Accessibility: all text meets WCAG AA contrast. The site respects
-  `prefers-reduced-motion`, which disables reveal animations and smooth
-  scrolling. Interactive elements are keyboard reachable, including the Work
-  filter chips (arrow keys move between them).
-- The Engagements section uses a horizontal swipe row on phones so the three
-  offers sit side by side rather than as one very long stack.
+  `prefers-reduced-motion`, which disables reveal animations, turns page turns
+  into a short fade and shows the growth chart already complete. Interactive
+  elements are keyboard reachable, including the chart steps (arrow keys move
+  between them).
+- The stories on the book's Work pages are condensed from the nine case
+  stories on `details.html`. If a fact changes, change it in both places.
 - Files in `assets/` are cached for a day. After changing `site.css`, visitors
   may see the old styles for up to 24 hours unless they hard refresh.
 - En dashes appear in numeric ranges inside the technical papers, such as
